@@ -1,10 +1,8 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Button } from 'react-native';
 import {
   createStackNavigator,
-  createBottomTabNavigator,
-  createAppContainer,
-  createSwitchNavigator
+  createDrawerNavigator
 } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -19,11 +17,9 @@ import MigrationTypeScreen from '../screens/MigrationTypeScreen';
 import GeneralInformationsScreen from '../screens/GenralInformationsScreen';
 import PolicyViewScreen from '../screens/PolicyViewcreen';
 import ForumDetailScreen from '../screens/ForumDetailScreen';
-import EntryScreen from '../screens/EntryScreen';
 
-export const defaultColors = {
-    /* The header config from HomeScreen is now here */
-    defaultNavigationOptions: {
+export const defaultColors =  {
+        defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: '#279b23',
       },
@@ -31,8 +27,11 @@ export const defaultColors = {
       headerTitleStyle: {
         fontWeight: 'bold',
       },
+      
     },
   }
+
+  
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   'NewsDetail': NewsDetailScreen
@@ -50,7 +49,7 @@ HomeStack.navigationOptions = {
           : 'md-home'
       }
     />
-  ),
+  )
 };
 
 const GroupForum = createStackNavigator({
@@ -81,7 +80,7 @@ const SettingsStack = createStackNavigator({
 },
 defaultColors);
 
-SettingsStack.navigationOptions = {
+SettingsStack.navigationOptions =  ({navigation}) => ({
   tabBarLabel: 'Information',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -92,13 +91,24 @@ SettingsStack.navigationOptions = {
             'md-information-circle'
           }
     />
-  ),
-};
+  )
+});
 
 
-export default createBottomTabNavigator({
-  App: HomeStack,
+const MainTabNavigator = createDrawerNavigator({
+  News: HomeStack,
   Forum: GroupForum,
   Help: SettingsStack,
+
+  
 }
-);
+, {navigationOptions: ({navigation}) => {
+ 
+}
+});
+
+MainTabNavigator.navigationOptions = ({navigation}) => ({
+  
+})
+
+export default MainTabNavigator;

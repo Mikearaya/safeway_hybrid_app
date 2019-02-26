@@ -2,14 +2,12 @@ import React from 'react';
 import {
   StyleSheet,
   FlatList,
-  View,
-  Image
+  Image, 
+  Button
 } from 'react-native';
-import { WebBrowser } from 'expo';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
-
-import { MonoText } from '../components/StyledText';
+import { Container,  Card, CardItem,  Text, Left, Body } from 'native-base';
 import localeStore from '../locale/localization';
+
 
 
 
@@ -44,7 +42,7 @@ const newsArray = [{
   }, {
     title: 'Title6',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions`,
-    image: '../assets/images/image-not-found.jpg',
+    image: './../assets/images/image-not-found.jpg',
     key: '6'
   },
 ];
@@ -52,15 +50,20 @@ const newsArray = [{
 export default class HomeScreen extends React.Component {
  static navigationOptions = ({navigation}) => {
         return {
-            title: localeStore.HomeScreen.title,
-        };
+            title: localeStore.NewsScreen.title,
+    headerLeft: (
+        <Button
+          onPress={() => navigation.toggleDrawer()}
+          title="+1"
+          color="#fff"
+        />
+      ),
+        }
     };
 
   render() {
     return (
       <Container  style={styles.container}>
- 
-          
           <FlatList
           data={newsArray}
 
@@ -76,29 +79,18 @@ export default class HomeScreen extends React.Component {
             </CardItem>
             <CardItem button onPress={() => this.props.navigation.navigate('NewsDetail')}>
               <Body>
-                <Image  source={require('../assets/images/image-not-found.jpg')} style={{height: 200, width: null, flex: 1}}/>
+                <Image  resizeMode="stretch" source={require('./../assets/images/notfound.png')} style={{height: 200, width: 320}}/>
                 <Text>
                   {item.data}
                 </Text>
               </Body>
             </CardItem>
           </Card>
-              }
-/>
-
+              }/>
       </Container>
     );
   }
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
-    );
-  };
 }
 
 const styles = StyleSheet.create({

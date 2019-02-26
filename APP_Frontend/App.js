@@ -36,7 +36,6 @@ this._checkLocale();
       await AsyncStorage.getItem('userToken').then(locale => {
           
           localeStore.setLocale(locale);
-          alert(localeStore.HomeScreen.title);
       });
 
     }
