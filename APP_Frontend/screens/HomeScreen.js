@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { Container,  Card, CardItem,  Text, Left, Body } from 'native-base';
 import localeStore from '../locale/localization';
+import NavigationButton from '../components/NavigationButton';
 
 
 
@@ -51,13 +52,9 @@ export default class HomeScreen extends React.Component {
  static navigationOptions = ({navigation}) => {
         return {
             title: localeStore.NewsScreen.title,
-    headerLeft: (
-        <Button
-          onPress={() => navigation.toggleDrawer()}
-          title="+1"
-          color="#fff"
-        />
-      ),
+     headerLeft: (
+             <NavigationButton sideBar={navigation}/>
+                ),
         }
     };
 

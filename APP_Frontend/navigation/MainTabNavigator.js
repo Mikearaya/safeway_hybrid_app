@@ -38,7 +38,8 @@ const HomeStack = createStackNavigator({
 },
   defaultColors);
 
-HomeStack.navigationOptions = {
+HomeStack.navigationOptions = ({navigation}) => {
+  return {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -49,7 +50,15 @@ HomeStack.navigationOptions = {
           : 'md-home'
       }
     />
-  )
+  ),
+    headerRight: (
+        <Button
+          onPress={() => navigation.toggleDrawer()}
+          title="+1"
+          color="#fff"
+        />
+      )
+      }
 };
 
 const GroupForum = createStackNavigator({
@@ -60,7 +69,8 @@ const GroupForum = createStackNavigator({
   defaultColors
 );
 
-GroupForum.navigationOptions = {
+GroupForum.navigationOptions = ({navigation}) => {
+  return {
   tabBarLabel: 'Forums',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -68,6 +78,14 @@ GroupForum.navigationOptions = {
       name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'}
     />
   ),
+    headerLeft: (
+        <Button
+          onPress={() => navigation.toggleDrawer()}
+          title="+1"
+          color="#fff"
+        />
+      )
+      }
 };
 
 const SettingsStack = createStackNavigator({
@@ -80,7 +98,8 @@ const SettingsStack = createStackNavigator({
 },
 defaultColors);
 
-SettingsStack.navigationOptions =  ({navigation}) => ({
+SettingsStack.navigationOptions =  ({navigation}) => {
+  return {
   tabBarLabel: 'Information',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -91,8 +110,17 @@ SettingsStack.navigationOptions =  ({navigation}) => ({
             'md-information-circle'
           }
     />
-  )
-});
+  ),
+    headerLeft: (
+        <Button
+          onPress={() => navigation.toggleDrawer()}
+          title="+1"
+          color="#fff"
+        />
+      )
+      }
+
+};
 
 
 const MainTabNavigator = createDrawerNavigator({

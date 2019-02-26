@@ -2,11 +2,14 @@ import React, {Component} from 'react';
 import {
   FlatList,
   StyleSheet,
-  Image
+  Image,
+
 } from 'react-native';
 
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem,Button, Thumbnail, Text, Icon, Left, Body, Right } from 'native-base';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
+import localeStore from '../locale/localization';
+import NavigationButton from '../components/NavigationButton';
 
 
 const styles = StyleSheet.create({
@@ -60,10 +63,13 @@ const newsArray = [{
 ];
 
 export default class ForumsScreen extends Component {
-static navigationOptions = ({navigation}) => {
+ static navigationOptions = ({navigation}) => {
         return {
-            title: navigation.getParam( 'title', 'Forum'),
-        };
+            title: localeStore.ForumScreen.title,
+    headerLeft: (
+       <NavigationButton sideBar={navigation}/>
+      ),
+        }
     };
 
   render() {

@@ -1,5 +1,9 @@
 import React from 'react';
-import { Container, Header, Content, Card, CardItem, Text, Icon, Right } from 'native-base';
+import { Container, Header, Content, Card, CardItem, Text, Icon, Right, Button } from 'native-base';
+import FontAwesome, {
+  Icons
+} from 'react-native-fontawesome';
+import NavigationButton from '../components/NavigationButton';
 
    const informationCatagories = [
     {
@@ -34,6 +38,9 @@ export default class SettingsScreen extends React.Component {
  static navigationOptions = ({navigation}) => {
         return {
             title: navigation.getParam( 'title', 'Help'),
+                headerLeft: (
+             <NavigationButton sideBar={navigation}/>
+                )
         };
     };
     
