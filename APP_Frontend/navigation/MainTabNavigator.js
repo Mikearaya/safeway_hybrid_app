@@ -1,9 +1,8 @@
-import React from 'react';
-import { Platform, Button, SafeAreaView, ScrollView, Dimensions } from 'react-native';
+
+import {  Dimensions } from 'react-native';
 import {
   createStackNavigator,
   createDrawerNavigator,
-  DrawerItems
 } from 'react-navigation';
 import HomeScreen from '../screens/HomeScreen';
 import ForumsScreen from '../screens/ForumsScreen';
@@ -16,8 +15,6 @@ import MigrationTypeScreen from '../screens/MigrationTypeScreen';
 import GeneralInformationsScreen from '../screens/GenralInformationsScreen';
 import PolicyViewScreen from '../screens/PolicyViewcreen';
 import ForumDetailScreen from '../screens/ForumDetailScreen';
-import { View, Image, } from 'react-native';
-import { Icon } from 'native-base';
 import SideBar from '../screens/SideBar';
 
 export const defaultColors =  {

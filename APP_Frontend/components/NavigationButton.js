@@ -12,7 +12,7 @@ export default class NavigationButton extends Component {
             title="mike"
             color="#fff"
         >
-            <FontAwesome>{Icons.calendar }</FontAwesome>
+            <FontAwesome>{Icons.newspaper }</FontAwesome>
             <Text>Menu</Text>
         </Button>
         )
