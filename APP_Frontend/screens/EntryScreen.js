@@ -28,7 +28,7 @@ export default class EntryScreen extends Component {
     {
       radioItem.map((data, key) => {
           return (
-                    <ListItem key={key}     onPress={()=> this.setState({radioValue:data.value})}>
+                    <ListItem key={key}   onPress={()=> this.setState({radioValue:data.value})}>
 
                       <Left>
                           <Text>{data.label}</Text>

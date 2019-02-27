@@ -1,11 +1,10 @@
 import React from 'react';
-import { Platform, Button } from 'react-native';
+import { Platform, Button, SafeAreaView, ScrollView, Dimensions } from 'react-native';
 import {
   createStackNavigator,
-  createDrawerNavigator
+  createDrawerNavigator,
+  DrawerItems
 } from 'react-navigation';
-
-import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import ForumsScreen from '../screens/ForumsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -17,6 +16,9 @@ import MigrationTypeScreen from '../screens/MigrationTypeScreen';
 import GeneralInformationsScreen from '../screens/GenralInformationsScreen';
 import PolicyViewScreen from '../screens/PolicyViewcreen';
 import ForumDetailScreen from '../screens/ForumDetailScreen';
+import { View, Image, } from 'react-native';
+import { Icon } from 'native-base';
+import SideBar from '../screens/SideBar';
 
 export const defaultColors =  {
         defaultNavigationOptions: {
@@ -26,40 +28,18 @@ export const defaultColors =  {
       headerTintColor: '#fff',
       headerTitleStyle: {
         fontWeight: 'bold',
-      },
-      
+      },     
     },
   }
 
-  
+const {width} = Dimensions.get('window');
+
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   'NewsDetail': NewsDetailScreen
 },
-  defaultColors);
+defaultColors);
 
-HomeStack.navigationOptions = ({navigation}) => {
-  return {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-home`
-          : 'md-home'
-      }
-    />
-  ),
-    headerRight: (
-        <Button
-          onPress={() => navigation.toggleDrawer()}
-          title="+1"
-          color="#fff"
-        />
-      )
-      }
-};
 
 const GroupForum = createStackNavigator({
   Forum: ForumsScreen,
@@ -69,24 +49,6 @@ const GroupForum = createStackNavigator({
   defaultColors
 );
 
-GroupForum.navigationOptions = ({navigation}) => {
-  return {
-  tabBarLabel: 'Forums',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-chatbubbles' : 'md-chatboxes'}
-    />
-  ),
-    headerLeft: (
-        <Button
-          onPress={() => navigation.toggleDrawer()}
-          title="+1"
-          color="#fff"
-        />
-      )
-      }
-};
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
@@ -94,34 +56,10 @@ const SettingsStack = createStackNavigator({
   StakeHolders: StakeHoldersScreen,
   MigrationTypes: MigrationTypeScreen,
   GeneralInfo: GeneralInformationsScreen,
-  Policies: PolicyViewScreen
+  Policies: PolicyViewScreen,
 },
-defaultColors);
-
-SettingsStack.navigationOptions =  ({navigation}) => {
-  return {
-  tabBarLabel: 'Information',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name = {
-            Platform.OS === 'ios' ?
-            `ios-information-circle${focused ? '' : '-outline'}` :
-            'md-information-circle'
-          }
-    />
-  ),
-    headerLeft: (
-        <Button
-          onPress={() => navigation.toggleDrawer()}
-          title="+1"
-          color="#fff"
-        />
-      )
-      }
-
-};
-
+defaultColors
+);
 
 const MainTabNavigator = createDrawerNavigator({
   News: HomeStack,
@@ -130,9 +68,12 @@ const MainTabNavigator = createDrawerNavigator({
 
   
 }
-, {navigationOptions: ({navigation}) => {
- 
-}
+,{
+ contentComponent: SideBar,
+ drawerWidth: width - 100,
+ contentOptions: {
+   activeTintColor: 'orange'
+ }
 });
 
 MainTabNavigator.navigationOptions = ({navigation}) => ({

@@ -23,7 +23,12 @@ const localizationString = {
             title: 'Haasawa'
         },
         Language: 'lugga',
-        Select_language: 'Lugaa filadhu'
+        Select_language: 'Lugaa filadhu',
+        SideBar: {
+            News: 'Oduu',
+            Forum: 'Haasawa',
+            Help: 'Odeeffannoo qarqaaran'
+        }
     },
     amharic: {
         NewsScreen: {
@@ -42,7 +47,12 @@ const localizationString = {
             title: 'Forums (Amharic)'
         },
         Language: 'Language',
-        Select_language: 'Select language (Amharic)'
+        Select_language: 'Select language (Amharic)',
+        SideBar: {
+            News: 'News',
+            Forum: 'Forums',
+            Help: 'Helpful information'
+        }
     },
     english: {
         NewsScreen: {
@@ -61,7 +71,12 @@ const localizationString = {
             title: 'Forums'
         },
         Language: 'Language',
-        Select_language: 'Select language'
+        Select_language: 'Select language',
+        SideBar: { 
+            News: 'News',
+            Forum: 'Forums',
+            Help: 'Helpful information'
+        }
     },
     tigrigna: {
         NewsScreen: {
@@ -80,7 +95,12 @@ const localizationString = {
             title: 'Forums (tigigna)'
         },
         Language: 'Language',
-        Select_language: 'Select language (tigigna)'
+        Select_language: 'Select language (tigigna)',
+        SideBar: {
+            News: 'Oduu',
+            Forum: 'Haasawa',
+            Help: 'Helpful information'
+        }
 
     }
 }

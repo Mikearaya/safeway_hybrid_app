@@ -5,7 +5,7 @@ import {
   Image, 
   Button
 } from 'react-native';
-import { Container,  Card, CardItem,  Text, Left, Body } from 'native-base';
+import { Container,  Card, CardItem,  Text, Left, Body, Icon } from 'native-base';
 import localeStore from '../locale/localization';
 import NavigationButton from '../components/NavigationButton';
 
@@ -55,9 +55,18 @@ export default class HomeScreen extends React.Component {
      headerLeft: (
              <NavigationButton sideBar={navigation}/>
                 ),
+        drawerIcon: ({tintColor}) => (
+          <Image 
+          source={require('./../assets/images/image-not-found.jpg')}
+          style={{fontSize: 24, 
+          color: tintColor,
+           height: 100, 
+           width:100}} />
+        )
+
         }
     };
-
+ 
   render() {
     return (
       <Container  style={styles.container}>
