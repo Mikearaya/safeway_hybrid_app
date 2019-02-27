@@ -13,6 +13,7 @@ const localizationString = {
         NewsDetailScreen: {
             title: 'Bal\'ina Oduu'
         },
+        
         GeneralInfoScreen: {
             title: 'Qarqaarsa'
         },
@@ -20,6 +21,9 @@ const localizationString = {
         Settings: '',
         Spelling: 'Afaan oromoo',
         ForumScreen: {
+            title: 'Haasawa'
+        },
+        ForumDetail: {
             title: 'Haasawa'
         },
         Language: 'lugga',
@@ -46,6 +50,9 @@ const localizationString = {
         ForumScreen: {
             title: 'Forums (Amharic)'
         },
+        ForumDetail: {
+            title: 'Wiyiyit'
+        },
         Language: 'Language',
         Select_language: 'Select language (Amharic)',
         SideBar: {
@@ -70,6 +77,9 @@ const localizationString = {
         ForumScreen: {
             title: 'Forums'
         },
+        ForumDetail: {
+            title: 'Forum detail'
+        },
         Language: 'Language',
         Select_language: 'Select language',
         SideBar: { 
@@ -93,6 +103,9 @@ const localizationString = {
         Spelling: 'Tigrigna (tigigna)',
         ForumScreen: {
             title: 'Forums (tigigna)'
+        },
+        ForumDetail: {
+            title: 'forum detail (tigrigna)'
         },
         Language: 'Language',
         Select_language: 'Select language (tigigna)',
