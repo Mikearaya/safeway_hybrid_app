@@ -1,108 +1,90 @@
-import React, {Component} from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Image,
+import React, { Component } from 'react'
+import { FlatList, StyleSheet, Image } from 'react-native'
 
-} from 'react-native';
-
-import { Container, Header, Content, Card, CardItem,Button, Thumbnail, Text, Icon, Left, Body, Right } from 'native-base';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
-import localeStore from '../locale/localization';
-import NavigationButton from '../components/NavigationButton';
-
+import { Container } from 'native-base'
+import localeStore from '../locale/localization'
+import NavigationButton from '../components/NavigationButton'
+import ForumCard from '../components/ForumCard'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   boldFont: {
     fontWeight: 'bold'
   },
-  commentContainer:{
-  color: '#87838B',
-  paddingBottom: 0, 
-  paddingTop: 0
+  commentContainer: {
+    color: '#87838B',
+    paddingBottom: 0,
+    paddingTop: 0
   }
-});
+})
 
-const newsArray = [{
+const newsArray = [
+  {
     title: 'Title1',
-    data: `Thumbnail component works very similar to Image. 
-`,
-    key: '1'
+    data: `Thumbnail component works very similar to Image. `,
+    postedOn: '13-04-1990',
+    key: '1',
+    commentCount: '345'
   },
   {
     title: 'Title2',
-    data: `Thumbnail component works very similar to Image. 
-`,
-    key: '2'
+    data: `Thumbnail component works very similar to Image. `,
+    postedOn: '13-04-1990',
+    key: '2',
+    commentCount: '1234'
   },
   {
     title: 'Title3',
-    data: `Thumbnail component works very similar to Image. 
-`,
-    key: '3'
+    data: `Thumbnail component works very similar to Image. `,
+    postedOn: '13-04-1990',
+    key: '3',
+    commentCount: '3454'
   },
   {
     title: 'Title4',
-    data: `Thumbnail component works very similar to Image. 
-`,
-    key: '4'
-  }, {
+    data: `Thumbnail component works very similar to Image. `,
+    postedOn: '13-04-1990',
+    key: '4',
+    commentCount: '14'
+  },
+  {
     title: 'Title5',
     data: `Thumbnail component works very similar to Image.`,
-    key: '5'
-  }, {
+    postedOn: '13-04-1990',
+    key: '5',
+    commentCount: '458'
+  },
+  {
     title: 'Title6',
     data: `Thumbnail component works very similar to Image`,
-    key: '6'
-  },
-];
+    postedOn: '13-04-1990',
+    key: '6',
+    commentCount: '0912'
+  }
+]
 
 export default class ForumsScreen extends Component {
- static navigationOptions = ({navigation}) => {
-        return {
-            title: localeStore.ForumScreen.title,
-    headerLeft: (
-       <NavigationButton sideBar={navigation}/>
-      ),
-        }
-    };
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: localeStore.ForumScreen.title,
+      headerLeft: <NavigationButton sideBar={navigation} />
+    }
+  }
 
   render() {
     return (
-      <Container  style={styles.container}>    
-          <FlatList
+      <Container style={styles.container}>
+        <FlatList
           data={newsArray}
-    renderItem={({item}) => 
-  <Card style={{flex: 1}} >
-            <CardItem button onPress={() => this.props.navigation.navigate('ForumDetail')}>
-            
-                <Body style={{flex: 1}} >
-                  <Text style={styles.boldFont}>{item.data}</Text>
-                  <Text note>April 13, 1990</Text>
-      </Body>
-              <Right style={{flex: 0.1}} >
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
-              <CardItem bordered style={styles.commentContainer}>
-              <Left>
-                <Button transparent>
-                  <FontAwesome>{Icons.comments}</FontAwesome>
-                  <Text>1,926 comments</Text>
-                </Button>
-              </Left>
-            </CardItem>
-          </Card>
-              }
-/>
-
+          renderItem={({ item }) => (
+            <ForumCard forumData={item} navigation={this.props.navigation} />
+          )}
+        />
       </Container>
-    );
+    )
   }
 }
-
