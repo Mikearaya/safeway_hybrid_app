@@ -72,7 +72,9 @@ export default class HomeScreen extends React.Component {
           data={newsArray}
 
   renderItem={({item}) => 
-  <NewsCard newsItems={item}/>
+  <NewsCard newsItems={item} 
+    navigation={this.props.navigation}
+  />
               }/>
       </Container>
     );

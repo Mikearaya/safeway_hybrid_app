@@ -3,7 +3,8 @@ import {
     View,
     Text,
     Button,
-    FlatList
+    FlatList,
+    StyleSheet
 } from 'react-native';
 import localeStore from '../locale/localization';
 import { Card, CardItem } from 'native-base';
@@ -86,6 +87,20 @@ key: '3'
     ]
 }
 
+
+const styles = StyleSheet.create({
+    discussionContainer: {
+        alignContent: 'center',
+        justifyContent: 'center'
+    },
+    mainContainer : {
+        flex: 1
+    },
+    postDate: {
+        fontWeight: 'bold',
+        color: 'lightgreen'
+    }
+});
 export default class ForumDetailScreen extends Component {
     static navigationOptions = ({navigation}) => {
         return {
@@ -95,7 +110,7 @@ export default class ForumDetailScreen extends Component {
 
     render() {
         return (
-<View style={{flex: 1, justifyContent: 'space-between',}}>     
+<View style={{flex: 1}}>     
     <Card>
         <CardItem>
         <Text style={{fontWeight: "bold"}} > {forumnDiscussionsList.topic} </Text>
@@ -105,8 +120,8 @@ export default class ForumDetailScreen extends Component {
        <FlatList
             data={forumnDiscussionsList.conversations}
             renderItem={({item}) => 
-            <View>
-            <Text>{item.datePosted}</Text>
+            <View style={styles.discussionContainer}>
+            <Text style={styles.postDate}  >{item.datePosted}</Text>
                 <Text>{item.message}</Text>
             </View>
             }
