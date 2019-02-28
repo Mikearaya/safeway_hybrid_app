@@ -8,40 +8,47 @@ import {
 import { Container,  Card, CardItem,  Text, Left, Body, Icon } from 'native-base';
 import localeStore from '../locale/localization';
 import NavigationButton from '../components/NavigationButton';
+import NewsCard from '../components/NewsCard';
 
 
 
 
 const newsArray = [{
     title: 'Title1',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions `,
     image: '../assets/images/image-not-found.jpg',
     key: '1'
   },
   {
     title: 'Title2',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions `,
     image: '../assets/images/image-not-found.jpg',
     key: '2'
   },
   {
     title: 'Title3',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions `,
     image: '../assets/images/image-not-found.jpg',
     key: '3'
   },
   {
     title: 'Title4',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions `,
     image: '../assets/images/image-not-found.jpg',
     key: '4'
   }, {
     title: 'Title5',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions`,
     image: '../assets/images/image-not-found.jpg',
     key: '5'
   }, {
     title: 'Title6',
+    postDate: '13-04-1990',
     data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions`,
     image: './../assets/images/image-not-found.jpg',
     key: '6'
@@ -54,16 +61,7 @@ export default class HomeScreen extends React.Component {
             title: localeStore.NewsScreen.title,
      headerLeft: (
              <NavigationButton sideBar={navigation}/>
-                ),
-        drawerIcon: ({tintColor}) => (
-          <Image 
-          source={require('./../assets/images/image-not-found.jpg')}
-          style={{fontSize: 24, 
-          color: tintColor,
-           height: 100, 
-           width:100}} />
-        )
-
+                )
         }
     };
  
@@ -74,24 +72,7 @@ export default class HomeScreen extends React.Component {
           data={newsArray}
 
   renderItem={({item}) => 
-  <Card style={{flex: 1}}>
-            <CardItem bordered>
-              <Left>
-                <Body>
-                  <Text>{item.title}</Text>
-                  <Text note>April 13, 1990</Text>
-                </Body>
-              </Left>
-            </CardItem>
-            <CardItem button onPress={() => this.props.navigation.navigate('NewsDetail')}>
-              <Body>
-                <Image  resizeMode="stretch" source={require('./../assets/images/notfound.png')} style={{height: 200, width: 320}}/>
-                <Text>
-                  {item.data}
-                </Text>
-              </Body>
-            </CardItem>
-          </Card>
+  <NewsCard newsItems={item}/>
               }/>
       </Container>
     );

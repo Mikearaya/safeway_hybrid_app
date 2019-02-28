@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import FontAwesome, { Icons } from 'react-native-fontawesome';
-import {Button, Text} from 'react-native';
+import Icon from 'react-native-fontawesome';
+import {Button, Text} from 'native-base';
+
 
 
 export default class NavigationButton extends Component {
@@ -10,11 +12,13 @@ export default class NavigationButton extends Component {
         <Button
             onPress={() => this.props.sideBar.toggleDrawer()}
             title="mike"
-            color="#fff"
+            transparent
+            
+            
         >
-            <FontAwesome>{Icons.newspaper }</FontAwesome>
-            <Text>Menu</Text>
+    <FontAwesome style={{fontSize: 50}} >{Icons.eject}</FontAwesome>
         </Button>
+         
         )
     }
 }
