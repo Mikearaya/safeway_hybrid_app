@@ -98,8 +98,7 @@ const styles = StyleSheet.create({
   indexTitle: {
     flex: 1
   }
-});
-
+})
 
 export default class PolicyIndexScreen extends Component {
   render() {
@@ -114,7 +113,7 @@ export default class PolicyIndexScreen extends Component {
               button
               onPress={() => this.props.navigation.navigate('Policies')}
             >
-              <Text style={styles.indexTitle}>{item.title}</Text>
+              <Text style={styles.indexTitle}>{item.key}-{item.title}</Text>
               <Right>
                 <Icon name="arrow-forward" />
               </Right>

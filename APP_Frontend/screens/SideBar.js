@@ -38,16 +38,13 @@ class SideBar extends Component {
       <View>
         <View
           style={{
-            height: 150,
-            backgroundColor: 'white',
+            height: 350,
+            backgroundColor: 'lightgreen',
             alignItems: 'center',
             justifyContent: 'center'
           }}
         >
-          <Image
-            source={require('./../assets/images/notfound.png')}
-            style={{ height: 150, width: width - 100 }}
-          />
+          <Text>Safe Way</Text>
         </View>
         <ScrollView>
           <View>
