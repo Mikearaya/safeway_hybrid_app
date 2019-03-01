@@ -11,7 +11,16 @@ import {
   UIManager
 } from 'react-native'
 import localeStore from '../locale/localization'
-import { Form, Textarea, Button, Icon } from 'native-base'
+import {
+  Form,
+  Textarea,
+  Button,
+  Icon,
+  ListItem,
+  Left,
+  Right,
+  Body
+} from 'native-base'
 
 const forumnDiscussionsList = {
   topic: 'Thumbnail component works very similar to Image',
@@ -165,10 +174,14 @@ export default class ForumDetailScreen extends Component {
         <FlatList
           data={forumnDiscussionsList.conversations}
           renderItem={({ item }) => (
-            <View style={styles.discussionContainer}>
-              <Text style={styles.postDate}>{item.datePosted}</Text>
-              <Text>{item.message}</Text>
-            </View>
+            <ListItem>
+              <Body>
+                <Text style={{fontWeight: 'bold', color: 'lightgreen'}}>{item.datePosted}</Text>
+                <Text note>
+                  {item.message}
+                </Text>
+              </Body>
+            </ListItem>
           )}
         />
         <View>
@@ -230,7 +243,7 @@ export default class ForumDetailScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'lightgrey',
+    backgroundColor: 'white',
     flex: 1,
     height: '100%',
     justifyContent: 'space-around',
