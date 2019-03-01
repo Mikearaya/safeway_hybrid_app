@@ -13,7 +13,6 @@ export default createAppContainer(createSwitchNavigator({
   Main: MainTabNavigator,
 }
 , {
-  Title: 'sdsd',
   initialRouteName: 'AuthLoading',
   
 }));

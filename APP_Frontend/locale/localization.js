@@ -13,7 +13,7 @@ const localizationString = {
         NewsDetailScreen: {
             title: 'Bal\'ina Oduu'
         },
-        
+
         GeneralInfoScreen: {
             title: 'Qarqaarsa'
         },
@@ -31,7 +31,8 @@ const localizationString = {
         SideBar: {
             News: 'Oduu',
             Forum: 'Haasawa',
-            Help: 'Odeeffannoo qarqaaran'
+            Help: 'Helpful information',
+            Language: 'Language'
         }
     },
     amharic: {
@@ -56,9 +57,10 @@ const localizationString = {
         Language: 'Language',
         Select_language: 'Select language (Amharic)',
         SideBar: {
-            News: 'News',
-            Forum: 'Forums',
-            Help: 'Helpful information'
+            News: 'Oduu',
+            Forum: 'Haasawa',
+            Help: 'Helpful information',
+            Language: 'Language'
         }
     },
     english: {
@@ -82,10 +84,11 @@ const localizationString = {
         },
         Language: 'Language',
         Select_language: 'Select language',
-        SideBar: { 
-            News: 'News',
-            Forum: 'Forums',
-            Help: 'Helpful information'
+        SideBar: {
+            News: 'Oduu',
+            Forum: 'Haasawa',
+            Help: 'Helpful information',
+            Language: 'Language'
         }
     },
     tigrigna: {
@@ -112,7 +115,8 @@ const localizationString = {
         SideBar: {
             News: 'Oduu',
             Forum: 'Haasawa',
-            Help: 'Helpful information'
+            Help: 'Helpful information',
+            Language: 'Language'
         }
 
     }
