@@ -4,7 +4,6 @@ import {
   Text,
   FlatList,
   StyleSheet,
-  KeyboardAvoidingView,
   TextInput,
   Animated,
   Dimensions,
@@ -12,16 +11,7 @@ import {
   UIManager
 } from 'react-native'
 import localeStore from '../locale/localization'
-import {
-  Card,
-  CardItem,
-  Content,
-  Form,
-  Input,
-  Textarea,
-  Button,
-  Icon
-} from 'native-base'
+import { Form, Textarea, Button, Icon } from 'native-base'
 
 const forumnDiscussionsList = {
   topic: 'Thumbnail component works very similar to Image',
@@ -134,7 +124,7 @@ export default class ForumDetailScreen extends Component {
   state = {
     shift: new Animated.Value(0),
     title: '',
-    refresh: false,
+    refresh: false
   }
 
   componentWillMount() {
@@ -172,7 +162,6 @@ export default class ForumDetailScreen extends Component {
       <Animated.View
         style={[styles.container, { transform: [{ translateY: shift }] }]}
       >
-       
         <FlatList
           data={forumnDiscussionsList.conversations}
           renderItem={({ item }) => (
@@ -188,7 +177,6 @@ export default class ForumDetailScreen extends Component {
               <Textarea
                 value={this.state.title}
                 style={styles.textInput}
-                
                 onChangeText={title => this.setState({ title })}
                 placeholder="Enter your comment"
               />

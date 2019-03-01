@@ -13,7 +13,7 @@ import NavigationButton from '../components/NavigationButton'
 const informationCatagories = [
   {
     catagory: 'Immigration Policies',
-    component: 'Policies',
+    component: 'PolicyIndex',
     key: 1
   },
   {

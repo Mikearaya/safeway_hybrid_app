@@ -1,14 +1,30 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { NavigationActions } from 'react-navigation'
-import { ScrollView, Text, View, Image } from 'react-native'
+import { ScrollView, Text, View, Image, StyleSheet } from 'react-native'
 import localeStore from '../locale/localization'
-import { Card, CardItem, Icon, Right, Button, StyleProvider } from 'native-base'
+import { Card, CardItem, Icon, Right, Button, StyleProvider, Content } from 'native-base'
 import FontAwesome, { Icons } from 'react-native-fontawesome'
 import { Dimensions } from 'react-native'
 
 const { width } = Dimensions.get('window')
 
+const styles = StyleSheet.create({
+  menuIcons: {
+   marginRight: 10, 
+   fontSize: 24,
+   color: 'lightgreen'
+  },
+  menuText: {
+    color: 'black'
+  },
+  menuItem : {
+    borderBottomColor: 'lightgrey',
+    borderBottomWidth: 1
+  }
+
+
+})
 class SideBar extends Component {
   navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
@@ -35,26 +51,22 @@ class SideBar extends Component {
         </View>
         <ScrollView>
           <View>
-            <Card style={{ paddingTop: 2 }}>
-              <CardItem button onPress={this.navigateToScreen('News')}>
-                <FontAwesome style={{ marginRight: 10, fontSize: 24 }}>
+            <Content style={{ paddingTop: 2 }}>
+              <CardItem style={styles.menuItem} button onPress={this.navigateToScreen('News')}>
+                <FontAwesome style={styles.menuIcons}>
                   {Icons.newspaper}
                 </FontAwesome>
-                <Text>{localeStore.SideBar.News}</Text>
+                <Text style={styles.menuText}>{localeStore.SideBar.News}</Text>
               </CardItem>
-              <CardItem button onPress={this.navigateToScreen('Forum')}>
-                <FontAwesome style={{ marginRight: 10, fontSize: 24 }}>
-                  {Icons.question}
-                </FontAwesome>
-                <Text>{localeStore.SideBar.Forum}</Text>
+              <CardItem style={styles.menuItem} button onPress={this.navigateToScreen('Forum')}>
+                <Icon name="chatbubbles" style={styles.menuIcons} />
+                <Text style={styles.menuText}>{localeStore.SideBar.Forum}</Text>
               </CardItem>
-              <CardItem button onPress={this.navigateToScreen('Help')}>
-                <FontAwesome style={{ marginRight: 10, fontSize: 24 }}>
-                  {Icons.infoCircle}
-                </FontAwesome>
-                <Text>{localeStore.SideBar.Help}</Text>
+              <CardItem style={styles.menuItem} button onPress={this.navigateToScreen('Help')}>
+                <Icon name="information-circle" style={styles.menuIcons} />
+                <Text style={styles.menuText}>{localeStore.SideBar.Help}</Text>
               </CardItem>
-            </Card>
+            </Content>
           </View>
         </ScrollView>
       </View>
