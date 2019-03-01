@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     commentContainer: {
-        color: '#87838B',
         paddingBottom: 0,
         paddingTop: 0
     }
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
 export default class ForumCard extends Component {
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Card style={styles.forumBody}>
           <CardItem
             button

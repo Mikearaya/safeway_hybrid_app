@@ -1,7 +1,27 @@
 import React, { Component } from 'react'
-import { View, Text, Button, FlatList, StyleSheet } from 'react-native'
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  KeyboardAvoidingView,
+  TextInput,
+  Animated,
+  Dimensions,
+  Keyboard,
+  UIManager
+} from 'react-native'
 import localeStore from '../locale/localization'
-import { Card, CardItem } from 'native-base'
+import {
+  Card,
+  CardItem,
+  Content,
+  Form,
+  Input,
+  Textarea,
+  Button,
+  Icon
+} from 'native-base'
 
 const forumnDiscussionsList = {
   topic: 'Thumbnail component works very similar to Image',
@@ -90,18 +110,20 @@ const forumnDiscussionsList = {
   ]
 }
 
-const styles = StyleSheet.create({
+const { State: TextInputState } = TextInput
+
+/* const styles = StyleSheet.create({
   discussionContainer: {
-    alignContent: 'center',
-    justifyContent: 'center'
+    flex: 1,
+    padding: 10
   },
   mainContainer: {
     flex: 1
   },
   postDate: {
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   }
-})
+}) */
 export default class ForumDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -109,16 +131,48 @@ export default class ForumDetailScreen extends Component {
     }
   }
 
+  state = {
+    shift: new Animated.Value(0),
+    title: '',
+    refresh: false,
+  }
+
+  componentWillMount() {
+    this.keyboardDidShowSub = Keyboard.addListener(
+      'keyboardDidShow',
+      this.handleKeyboardDidShow
+    )
+    this.keyboardDidHideSub = Keyboard.addListener(
+      'keyboardDidHide',
+      this.handleKeyboardDidHide
+    )
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowSub.remove()
+    this.keyboardDidHideSub.remove()
+  }
+
+  addMessage() {
+    forumnDiscussionsList.conversations.push({
+      message: this.state.title,
+      datePosted: new Date().toString(),
+      key: (forumnDiscussionsList.conversations.length + 1).toString()
+    })
+    this.setState({ title: '' })
+    Keyboard.dismiss()
+    this.setState({
+      refresh: !this.state.refresh
+    })
+  }
+
   render() {
+    const { shift } = this.state
     return (
-      <View style={{ flex: 1 }}>
-        <Card>
-          <CardItem>
-            <Text style={{ fontWeight: 'bold' }}>
-              {forumnDiscussionsList.topic}
-            </Text>
-          </CardItem>
-        </Card>
+      <Animated.View
+        style={[styles.container, { transform: [{ translateY: shift }] }]}
+      >
+       
         <FlatList
           data={forumnDiscussionsList.conversations}
           renderItem={({ item }) => (
@@ -129,12 +183,76 @@ export default class ForumDetailScreen extends Component {
           )}
         />
         <View>
-          <Button
-            title="Create Post"
-            onPress={() => this.props.navigation.navigate('ChatForm')}
-          />
+          <Form style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Textarea
+                value={this.state.title}
+                style={styles.textInput}
+                
+                onChangeText={title => this.setState({ title })}
+                placeholder="Enter your comment"
+              />
+            </View>
+            <View>
+              <Button
+                rounded
+                disabled={!this.state.title}
+                onPress={() => this.addMessage()}
+                style={{ backgroundColor: 'limegreen' }}
+              >
+                <Icon name="send" />
+              </Button>
+            </View>
+          </Form>
         </View>
-      </View>
+      </Animated.View>
     )
   }
+
+  handleKeyboardDidShow = event => {
+    const { height: windowHeight } = Dimensions.get('window')
+    const keyboardHeight = event.endCoordinates.height
+    const currentlyFocusedField = TextInputState.currentlyFocusedField()
+    UIManager.measure(
+      currentlyFocusedField,
+      (originX, originY, width, height, pageX, pageY) => {
+        const fieldHeight = height
+        const fieldTop = pageY
+        const gap = windowHeight - keyboardHeight - (fieldTop + fieldHeight)
+        if (gap >= 0) {
+          return
+        }
+        Animated.timing(this.state.shift, {
+          toValue: gap,
+          duration: 500,
+          useNativeDriver: true
+        }).start()
+      }
+    )
+  }
+
+  handleKeyboardDidHide = () => {
+    Animated.timing(this.state.shift, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true
+    }).start()
+  }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'lightgrey',
+    flex: 1,
+    height: '100%',
+    justifyContent: 'space-around',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '100%'
+  },
+  textInput: {
+    backgroundColor: 'white',
+    height: 40
+  }
+})
