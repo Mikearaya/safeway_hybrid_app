@@ -15,7 +15,7 @@ import {
 import FontAwesome, { Icons } from 'react-native-fontawesome'
 import { Dimensions } from 'react-native'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   menuIcons: {
@@ -44,13 +44,24 @@ class SideBar extends Component {
       <View>
         <View
           style={{
-            height: 350,
+            height: height/3,
+            width: width - width/3,
             backgroundColor: 'lightgreen',
-            alignItems: 'center',
+          
             justifyContent: 'center'
           }}
         >
-          <Text>Safe Way</Text>
+        <Image 
+        source={require('./../assets/images/logo.jpg')}
+        style = {
+          {
+            height: height / 3,
+            width: width - width / 3,
+          }
+        }
+
+        />
+   
         </View>
         <ScrollView>
           <View>

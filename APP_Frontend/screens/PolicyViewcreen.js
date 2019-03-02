@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Image, StyleSheet, View } from 'react-native'
+import { Text, Image, StyleSheet, View, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
 
 const imageLocation = './../assets/images/image-not-found.jpg'
