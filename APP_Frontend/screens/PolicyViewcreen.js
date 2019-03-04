@@ -11,7 +11,6 @@ accomplished through component properties. Flux can be considered a variant of t
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 10
   },
   paragraphContainer: {
     marginTop: 20,
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
   }
 })
 
+const {width} = Dimensions;
 export default class PolicyViewScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -35,7 +35,7 @@ export default class PolicyViewScreen extends Component {
             source={require(imageLocation)}
             style={{
               height: 200,
-              width: 350
+              width: width
             }}
           />
           <View style={styles.paragraphContainer}>

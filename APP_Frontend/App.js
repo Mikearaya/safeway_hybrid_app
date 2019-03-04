@@ -30,7 +30,7 @@ export default class App extends React.Component {
 
   _checkLocale = async () => {
     await AsyncStorage.getItem('userToken').then(locale => {
-      localeStore.setLocale(locale)
+      localeStore.setLocale(locale ? locale : 'english')
     })
   }
 

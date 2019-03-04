@@ -32,7 +32,12 @@ const localizationString = {
             News: 'Oduu',
             Forum: 'Haasawa',
             Help: 'Helpful information',
-            Language: 'Language'
+            Language: 'Language',
+
+        },
+
+        PolicyIndex: {
+            title: 'Index'
         }
     },
     amharic: {
@@ -61,6 +66,9 @@ const localizationString = {
             Forum: 'Haasawa',
             Help: 'Helpful information',
             Language: 'Language'
+        },
+        policy_index: {
+            title: 'Index'
         }
     },
     english: {
@@ -89,6 +97,9 @@ const localizationString = {
             Forum: 'Haasawa',
             Help: 'Helpful information',
             Language: 'Language'
+        },
+        policy_index: {
+            title: 'Index'
         }
     },
     tigrigna: {
@@ -117,6 +128,9 @@ const localizationString = {
             Forum: 'Haasawa',
             Help: 'Helpful information',
             Language: 'Language'
+        },
+        policy_index: {
+            title: 'Index'
         }
 
     }

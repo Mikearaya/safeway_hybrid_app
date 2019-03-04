@@ -58,7 +58,7 @@ export default class SettingsScreen extends React.Component {
                 button
                 onPress={() => this.props.navigation.navigate(component)}
               >
-                <Icon active name="logo-googleplus" />
+                <Icon style={{color: 'lightgreen'}} active name="logo-googleplus" />
                 <Text>{catagory}</Text>
                 <Right>
                   <Icon name="arrow-forward" />

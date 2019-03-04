@@ -17,6 +17,7 @@ import PolicyViewScreen from '../screens/PolicyViewcreen';
 import ForumDetailScreen from '../screens/ForumDetailScreen';
 import SideBar from '../screens/SideBar';
 import PolicyIndexScreen from '../screens/PolicyIndexScreen';
+import EmergencyContactDetailScreen from '../screens/EmergencyContactDetailScreen';
 
 export const defaultColors = {
   defaultNavigationOptions: {
@@ -55,26 +56,19 @@ const SettingsStack = createStackNavigator({
     StakeHolders: StakeHoldersScreen,
     MigrationTypes: MigrationTypeScreen,
     GeneralInfo: GeneralInformationsScreen,
+    EmergencyContactDetail: EmergencyContactDetailScreen,
     Policies: PolicyViewScreen,
+    'PolicyIndex': PolicyIndexScreen,
   },
   defaultColors
 
 );
 
 
-const IndexModalStacks = createStackNavigator({
-  'PolicyIndex': PolicyIndexScreen,
-}, {
-  mode: 'modal',
-  headerMode: 'none',
-});
-
 const MainTabNavigator = createDrawerNavigator({
   News: HomeStack,
   Forum: GroupForum,
   Help: SettingsStack,
-  IndexPages: IndexModalStacks
-
 
 }, {
   contentComponent: SideBar,

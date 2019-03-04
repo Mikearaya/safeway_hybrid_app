@@ -52,7 +52,7 @@ class SideBar extends Component {
           }}
         >
         <Image 
-        source={require('./../assets/images/logo.jpg')}
+        source={require('./../assets/images/sidebar.png')}
         style = {
           {
             height: height / 3,

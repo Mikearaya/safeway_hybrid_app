@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, CardItem, Icon, Right } from 'native-base'
 import { FlatList, StyleSheet } from 'react-native'
+import localeStore from '../locale/localization';
 const policiesList = [
   {
     title: 'policy',
@@ -101,6 +102,11 @@ const styles = StyleSheet.create({
 })
 
 export default class PolicyIndexScreen extends Component {
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: localeStore.PolicyIndex.title
+    }
+  }
   render() {
     return (
       <View style={styles.mainContainer}>
