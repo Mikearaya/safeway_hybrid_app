@@ -69,10 +69,11 @@ const localizationString = {
             address: 'Address'
         },
         LanguageScreen: {
-            amharic: 'Amharic',
+            amharic: 'አማርኛ',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna'
+            tigrigna: 'Tigrigna',
+            arabic: 'عربى'
         }
     },
     amharic: {
@@ -136,9 +137,10 @@ const localizationString = {
         },
         LanguageScreen: {
             amharic: 'አማርኛ',
-            english: 'እንግሊዝኛ',
-            afan_oromo: 'ኦሮምኛ',
-            tigrigna: 'ቲግራኒ'
+            english: 'English',
+            afan_oromo: 'Afan oromo',
+            tigrigna: 'ቲግራኒ',
+            arabic: 'عربى'
         }
 
 
@@ -206,7 +208,8 @@ const localizationString = {
             amharic: 'Amharic',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna'
+            tigrigna: 'Tigrigna',
+            arabic: 'عربى'
         }
 
 
@@ -274,7 +277,76 @@ const localizationString = {
             amharic: 'Amharic',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna'
+            tigrigna: 'Tigrigna',
+            arabic: 'عربى'
+        }
+
+    },
+    arabic: {
+        NewsScreen: {
+            title: 'أخبار'
+        },
+        NewsDetailScreen: {
+            title: 'تفاصيل الأخبار'
+        },
+        GeneralInfoScreen: {
+            title: 'معلومات عامة'
+        },
+        Menu: 'قائمة طعام',
+        Settings: 'الإعدادات',
+        Spelling: 'الإملائية',
+        ForumScreen: {
+            title: 'المنتديات'
+        },
+        ForumDetail: {
+            title: 'المنتدى'
+        },
+        Language: 'جهاز اكتساب',
+        Select_language: 'اختار اللغة',
+        SideBar: {
+            News: 'أخبار',
+            Forum: 'المنتدى',
+            Help: 'معلومات مفيدة',
+            Language: 'مهارات'
+        },
+        PolicyIndex: {
+            title: 'صفحة فهرس'
+        },
+        HelpScreen: {
+            title: 'معلومات مفيدة',
+            immigration_policy: 'سياسة الهجرة',
+            immigration_type: 'نوع الهجرة',
+            responsible_parties: 'شخص مسؤول',
+            emmergency_contacts: 'شخص الاتصال في حالات الطوارئ',
+            general_informations: 'معلومات عامة'
+        },
+        PolicyScreen: {
+            title: 'سياسة الهجرة'
+        },
+        EmmergencyContactsIndexScreen: {
+            title: 'معلومات الاتصال في حالات الطوارئ'
+        },
+        GeneralInformationScreen: {
+            title: 'معلومات عامة'
+        },
+        MigrationTypeScreen: {
+            title: 'نوع الهجرة'
+        },
+        ResponsiblePartiesScreen: {
+            title: 'شخص مسؤول'
+        },
+        EmergencyContactDetailScreen: {
+            title: 'بيانات المتصل',
+            telephone: 'هاتف',
+            email: 'البريد الإلكتروني',
+            address: 'عنوان'
+        },
+        LanguageScreen: {
+            amharic: 'አማርኛ',
+            english: 'English',
+            afan_oromo: 'Afan oromo',
+            tigrigna: 'Tigrigna',
+            arabic: 'عربى'
         }
 
     }

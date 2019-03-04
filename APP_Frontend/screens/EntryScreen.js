@@ -68,14 +68,22 @@ export default class EntryScreen extends Component {
               <Radio selected={this._isSelected('tigrigna') == true} />
             </Right>
           </ListItem>
+          <ListItem onPress={() => this._signInAsync('arabic')}>
+            <Left>
+              <Text>{localeStore.LanguageScreen.arabic}</Text>
+            </Left>
+            <Right>
+              <Radio selected={this._isSelected('arabic') == true} />
+            </Right>
+          </ListItem>
         </Content>
       </Container>
     )
   }
 
-  _isSelected = async data =>  {
-    const token = await AsyncStorage.getItem('userToken');
-    alert(token)
+  _isSelected = async data => {
+    const token = await AsyncStorage.getItem('userToken')
+    
     return this.state.radioValue.toUpperCase() === data.toUpperCase() ||
       token.toUpperCase() === data.toUpperCase()
       ? true
