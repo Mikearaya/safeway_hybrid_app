@@ -9,6 +9,7 @@ import {
   Right
 } from 'native-base'
 import NavigationButton from '../components/NavigationButton'
+import localeStore from '../locale/localization'
 
 const informationCatagories = [
   {
@@ -41,7 +42,7 @@ const informationCatagories = [
 export default class SettingsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title', 'Help'),
+      title: localeStore.HelpScreen.title,
       headerLeft: <NavigationButton sideBar={navigation} />
     }
   }
@@ -50,22 +51,78 @@ export default class SettingsScreen extends React.Component {
     return (
       <Container>
         <Content>
-          <Card
-            style={{ paddingTop: 2 }}
-            dataArray={informationCatagories}
-            renderRow={({ component, catagory }) => (
-              <CardItem
-                button
-                onPress={() => this.props.navigation.navigate(component)}
-              >
-                <Icon style={{color: 'lightgreen'}} active name="logo-googleplus" />
-                <Text>{catagory}</Text>
-                <Right>
-                  <Icon name="arrow-forward" />
-                </Right>
-              </CardItem>
-            )}
-          />
+          <Card style={{ paddingTop: 2 }}>
+            <CardItem
+              button
+              onPress={() => this.props.navigation.navigate('PolicyIndex')}
+            >
+              <Icon
+                style={{ color: 'lightgreen' }}
+                active
+                name="logo-googleplus"
+              />
+              <Text>{localeStore.HelpScreen.immigration_policy} </Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem
+              button
+              onPress={() => this.props.navigation.navigate('MigrationTypes')}
+            >
+              <Icon
+                style={{ color: 'lightgreen' }}
+                active
+                name="logo-googleplus"
+              />
+              <Text>{localeStore.HelpScreen.immigration_type} </Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem
+              button
+              onPress={() => this.props.navigation.navigate('StakeHolders')}
+            >
+              <Icon
+                style={{ color: 'lightgreen' }}
+                active
+                name="logo-googleplus"
+              />
+              <Text>{localeStore.HelpScreen.responsible_parties} </Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem
+              button
+              onPress={() => this.props.navigation.navigate('EmergencyContacts')}
+            >
+              <Icon
+                style={{ color: 'lightgreen' }}
+                active
+                name="logo-googleplus"
+              />
+              <Text>{localeStore.HelpScreen.emmergency_contacts} </Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+            <CardItem
+              button
+              onPress={() => this.props.navigation.navigate('GeneralInfo')}
+            >
+              <Icon
+                style={{ color: 'lightgreen' }}
+                active
+                name="logo-googleplus"
+              />
+              <Text>{localeStore.HelpScreen.general_informations} </Text>
+              <Right>
+                <Icon name="arrow-forward" />
+              </Right>
+            </CardItem>
+          </Card>
         </Content>
       </Container>
     )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, Image, StyleSheet, View, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
+import localeStore from '../locale/localization';
 
 const imageLocation = './../assets/images/image-not-found.jpg'
 
@@ -23,7 +24,7 @@ const {width} = Dimensions;
 export default class PolicyViewScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title', 'Imigration Policy')
+      title: localeStore.PolicyScreen.title
     }
   }
 

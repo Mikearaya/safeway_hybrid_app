@@ -22,7 +22,7 @@ const { width } = Dimensions.get('window')
 export default class NewsDetail extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title', localeStore.NewsDetailScreen.title)
+      title: localeStore.NewsDetailScreen.title
     }
   }
 

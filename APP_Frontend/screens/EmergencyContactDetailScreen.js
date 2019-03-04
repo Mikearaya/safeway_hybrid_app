@@ -14,6 +14,7 @@ import {
   Button
 } from 'native-base'
 import { StyleSheet } from 'react-native'
+import localeStore from '../locale/localization';
 
 const styles = StyleSheet.create({
   catagoryFont: {
@@ -30,6 +31,11 @@ const styles = StyleSheet.create({
 })
 
 export default class EmergencyContactDetailScreen extends Component {
+    static navigationOptions = ({navigation}) => {
+        return {
+            title: localeStore.EmergencyContactDetailScreen.title
+        }
+    }
   render() {
     return (
       <Container>
@@ -42,7 +48,7 @@ export default class EmergencyContactDetailScreen extends Component {
             </Left>
             <Body>
               <Text>0912669988</Text>
-              <Text style={styles.catagoryFont}>Telephone</Text>
+                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.telephone}</Text>
             </Body>
           </ListItem>
           <ListItem style={styles.listPosision} icon>
@@ -53,7 +59,7 @@ export default class EmergencyContactDetailScreen extends Component {
             </Left>
             <Body>
               <Text>Mikaelaraya12@gmail.com</Text>
-              <Text style={styles.catagoryFont}>Email</Text>
+                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.email}</Text>
             </Body>
           </ListItem>
           <ListItem style={styles.listPosision} icon>
@@ -64,7 +70,7 @@ export default class EmergencyContactDetailScreen extends Component {
             </Left>
             <Body>
               <Text>Bole, Addis Ababa Ethiopia</Text>
-              <Text style={styles.catagoryFont}>Address</Text>
+                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.address}</Text>
             </Body>
           </ListItem>
         </Content>

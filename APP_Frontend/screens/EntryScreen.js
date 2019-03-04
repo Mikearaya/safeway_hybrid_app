@@ -11,7 +11,7 @@ import {
   Left,
   Button
 } from 'native-base'
-import localeStore from '../locale/localization';
+import localeStore from '../locale/localization'
 
 const radioItem = [
   { label: 'Amharic', value: 'amharic' },
@@ -26,43 +26,67 @@ export default class EntryScreen extends Component {
       radioValue: ''
     }
   }
-  static navigationOptions = {
-    title: localeStore.Select_language
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: localeStore.Select_language
+    }
   }
 
   render() {
     return (
       <Container>
         <Content>
-          {radioItem.map((data, key) => {
-            return (
-              <ListItem
-                key={key}
-                onPress={() => this._signInAsync(data.value)}
-              >
-                <Left>
-                  <Text>{data.label}</Text>
-                </Left>
-                <Right>
-                  <Radio selected={data.value === this.state.radioValue} />
-                </Right>
-              </ListItem>
-            )
-          })}
-
-   
+          <ListItem onPress={() => this._signInAsync('amharic')}>
+            <Left>
+              <Text>{localeStore.LanguageScreen.amharic}</Text>
+            </Left>
+            <Right>
+              <Radio selected={this._isSelected('amharic') == true} />
+            </Right>
+          </ListItem>
+          <ListItem onPress={() => this._signInAsync('english')}>
+            <Left>
+              <Text>{localeStore.LanguageScreen.english}</Text>
+            </Left>
+            <Right>
+              <Radio selected={this._isSelected('english') == true} />
+            </Right>
+          </ListItem>
+          <ListItem onPress={() => this._signInAsync('afan_oromo')}>
+            <Left>
+              <Text>{localeStore.LanguageScreen.afan_oromo}</Text>
+            </Left>
+            <Right>
+              <Radio selected={this._isSelected('afan_oromo') == true} />
+            </Right>
+          </ListItem>
+          <ListItem onPress={() => this._signInAsync('tigrigna')}>
+            <Left>
+              <Text>{localeStore.LanguageScreen.tigrigna}</Text>
+            </Left>
+            <Right>
+              <Radio selected={this._isSelected('tigrigna') == true} />
+            </Right>
+          </ListItem>
         </Content>
       </Container>
     )
   }
 
-  _signInAsync = async (data) => {
+  _isSelected = async data =>  {
+    const token = await AsyncStorage.getItem('userToken');
+    alert(token)
+    return this.state.radioValue.toUpperCase() === data.toUpperCase() ||
+      token.toUpperCase() === data.toUpperCase()
+      ? true
+      : false
+  }
+  _signInAsync = async data => {
     this.setState({ radioValue: data })
-  
+
     await AsyncStorage.setItem('userToken', data)
     this.props.navigation.navigate('Home')
 
     localeStore.setLocale(data)
-  
   }
 }

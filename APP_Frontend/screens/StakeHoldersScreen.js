@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { Container, Content, Accordion } from 'native-base'
+import localeStore from '../locale/localization';
 
 const dataArray = [
   {
@@ -23,7 +24,7 @@ const dataArray = [
 export default class StakeHoldersScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title', 'Stakeholders')
+      title: localeStore.ResponsiblePartiesScreen.title
     }
   }
 

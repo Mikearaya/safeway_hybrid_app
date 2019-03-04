@@ -38,38 +38,110 @@ const localizationString = {
 
         PolicyIndex: {
             title: 'Index'
+        },
+        HelpScreen: {
+            title: 'Helpful informations',
+            immigration_policy: 'የኢሚግሬሽን መመሪያዎች',
+            immigration_type: 'Immigration types',
+            responsible_parties: 'Responsible parties',
+            emmergency_contacts: 'Emergency contacts',
+            general_informations: 'General informations'
+        },
+        PolicyScreen: {
+            title: 'Immigration Policies'
+        },
+        EmmergencyContactsIndexScreen: {
+            title: 'Emergrncy contacts'
+        },
+        GeneralInformationScreen: {
+            title: 'General informations'
+        },
+        MigrationTypeScreen: {
+            title: 'Migration types'
+        },
+        ResponsiblePartiesScreen: {
+            title: 'Responsible parties'
+        },
+        EmergencyContactDetailScreen: {
+            title: 'Contact detail',
+            telephone: 'Telephone',
+            email: 'E-Mail',
+            address: 'Address'
+        },
+        LanguageScreen: {
+            amharic: 'Amharic',
+            english: 'English',
+            afan_oromo: 'Afan oromo',
+            tigrigna: 'Tigrigna'
         }
     },
     amharic: {
         NewsScreen: {
-            title: 'News (Amharic)'
+            title: 'ዜና'
         },
         NewsDetailScreen: {
-            title: 'News detail (Amharic)'
+            title: 'ዝርዝር ዜናዎች'
         },
         GeneralInfoScreen: {
-            title: 'Helpful informations (Amharic)'
+            title: 'ጠቃሚ መረጃዎች'
         },
-        Menu: 'Menu (Amharic)',
-        Settings: 'Settings (Amharic)',
-        Spelling: 'Amharic (Amharic)',
+        Menu: 'ምናሌ',
+        Settings: 'Settings',
+        Spelling: 'አማርኛ',
         ForumScreen: {
-            title: 'Forums (Amharic)'
+            title: 'የውይይት መድረኮች'
         },
         ForumDetail: {
-            title: 'Wiyiyit'
+            title: 'መድረክ'
         },
-        Language: 'Language',
-        Select_language: 'Select language (Amharic)',
+        Language: 'ቋንቋ',
+        Select_language: 'ቋንቋ ይምረጡ',
         SideBar: {
-            News: 'Oduu',
-            Forum: 'Haasawa',
-            Help: 'Helpful information',
-            Language: 'Language'
+            News: 'ዜና',
+            Forum: 'የውይይት መድረኮች',
+            Help: 'ጠቃሚ መረጃዎች',
+            Language: 'ቋንቋ'
         },
-        policy_index: {
-            title: 'Index'
+        PolicyIndex: {
+            title: 'መረጃ ጠቋሚ ገጽ',
+        },
+        HelpScreen: {
+            title: 'ጠቃሚ መረጃዎች',
+            immigration_policy: 'የኢሚግሬሽን መመሪያዎች',
+            immigration_type: 'የስደት ዓይነቶች',
+            responsible_parties: 'ኃላፊነት ያለበት አካል',
+            emmergency_contacts: 'የአደጋ ጊዜ እውቂያዎች',
+            general_informations: 'አጠቃላይ መረጃ'
+        },
+        PolicyScreen: {
+            title: 'መመሪያ'
+        },
+        EmmergencyContactsIndexScreen: {
+            title: 'የአደጋ የአደጋ ጊዜ አድራሻ'
+        },
+        GeneralInformationScreen: {
+            title: 'አጠቃላይ መረጃ'
+        },
+        MigrationTypeScreen: {
+            title: 'የስደት ዓይነቶች'
+        },
+        ResponsiblePartiesScreen: {
+            title: 'ኃላፊነት ያለበት አካል'
+        },
+        EmergencyContactDetailScreen: {
+            title: 'አድራሻ',
+            telephone: 'ስልክ',
+            email: 'ኢ-ሜል',
+            address: 'አድራሻ'
+        },
+        LanguageScreen: {
+            amharic: 'አማርኛ',
+            english: 'እንግሊዝኛ',
+            afan_oromo: 'ኦሮምኛ',
+            tigrigna: 'ቲግራኒ'
         }
+
+
     },
     english: {
         NewsScreen: {
@@ -98,9 +170,46 @@ const localizationString = {
             Help: 'Helpful information',
             Language: 'Language'
         },
-        policy_index: {
+        PolicyIndex: {
             title: 'Index'
+        },
+        HelpScreen: {
+            title: 'Helpful information',
+            immigration_policy: 'Immigration policy',
+            immigration_type: 'Migration types',
+            responsible_parties: 'Responsible parties',
+            emmergency_contacts: 'Emergency contacts',
+            general_informations: 'General informations'
+        },
+        PolicyScreen: {
+            title: 'Immigration Policies'
+        },
+        EmmergencyContactsIndexScreen: {
+            title: 'Emergrncy contacts'
+        },
+        GeneralInformationScreen: {
+            title: 'General informations'
+        },
+        MigrationTypeScreen: {
+            title: 'Migration types'
+        },
+        ResponsiblePartiesScreen: {
+            title: 'Responsible parties'
+        },
+        EmergencyContactDetailScreen: {
+            title: 'Contact detail',
+            telephone: 'Telephone',
+            email: 'E-Mail',
+            address: 'Address'
+        },
+        LanguageScreen: {
+            amharic: 'Amharic',
+            english: 'English',
+            afan_oromo: 'Afan oromo',
+            tigrigna: 'Tigrigna'
         }
+
+
     },
     tigrigna: {
         NewsScreen: {
@@ -129,8 +238,43 @@ const localizationString = {
             Help: 'Helpful information',
             Language: 'Language'
         },
-        policy_index: {
+        PolicyIndex: {
             title: 'Index'
+        },
+        HelpScreen: {
+            title: 'Helpful informations',
+            immigration_policy: 'Immigration policy',
+            immigration_type: 'Migration types',
+            responsible_parties: 'Responsible parties',
+            emmergency_contacts: 'Emergency contacts',
+            general_informations: 'General informations'
+        },
+        PolicyScreen: {
+            title: 'Immigration Policies'
+        },
+        EmmergencyContactsIndexScreen: {
+            title: 'Emergrncy contacts'
+        },
+        GeneralInformationScreen: {
+            title: 'General informations'
+        },
+        MigrationTypeScreen: {
+            title: 'Migration types'
+        },
+        ResponsiblePartiesScreen: {
+            title: 'Responsible parties'
+        },
+        EmergencyContactDetailScreen: {
+            title: 'Contact detail',
+            telephone: 'Telephone',
+            email: 'E-Mail',
+            address: 'Address'
+        },
+        LanguageScreen: {
+            amharic: 'Amharic',
+            english: 'English',
+            afan_oromo: 'Afan oromo',
+            tigrigna: 'Tigrigna'
         }
 
     }

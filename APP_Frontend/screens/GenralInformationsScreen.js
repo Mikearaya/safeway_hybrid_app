@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
+import { Container, Content, Accordion } from 'native-base'
+import localeStore from '../locale/localization'
 
 const dataArray = [
   {
@@ -30,7 +32,7 @@ const dataArray = [
 export default class GeneralInformationsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: navigation.getParam('title', 'General Informations')
+      title: localeStore.GeneralInformationScreen.title
     }
   }
 

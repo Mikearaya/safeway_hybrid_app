@@ -19,6 +19,10 @@ const radioItem = [
 ]
 
 export default class LanguageChangeScreen extends Component {
+  static navigationOptions = {
+    title: localeStore.Select_language
+  }
+
   constructor() {
     super()
     this.state = {
