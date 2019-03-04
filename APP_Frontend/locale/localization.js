@@ -31,48 +31,48 @@ const localizationString = {
         SideBar: {
             News: 'Oduu',
             Forum: 'Haasawa',
-            Help: 'Helpful information',
-            Language: 'Language',
+            Help: 'gargaaraa odeeffannoo',
+            Language: 'Afaan',
 
         },
 
         PolicyIndex: {
-            title: 'Index'
+            title: 'Tarreeffama'
         },
         HelpScreen: {
-            title: 'Helpful informations',
-            immigration_policy: 'የኢሚግሬሽን መመሪያዎች',
-            immigration_type: 'Immigration types',
-            responsible_parties: 'Responsible parties',
-            emmergency_contacts: 'Emergency contacts',
-            general_informations: 'General informations'
+            title: 'gargaaraa odeeffannoo',
+            immigration_policy: 'Baqataa tarsiimoo',
+            immigration_type: 'Godaansa akaakuu',
+            responsible_parties: 'Itti-gaafatamaa nama',
+            emmergency_contacts: 'Balaa-tasaa Qunnamtii nama ',
+            general_informations: 'Waliigalaa odeeffannoo'
         },
         PolicyScreen: {
-            title: 'Immigration Policies'
+            title: 'Baqataa tarsiimoo'
         },
         EmmergencyContactsIndexScreen: {
-            title: 'Emergrncy contacts'
+            title: 'Balaa-tasaa Qunnamtii'
         },
         GeneralInformationScreen: {
-            title: 'General informations'
+            title: 'Waliigalaa odeeffannoo'
         },
         MigrationTypeScreen: {
-            title: 'Migration types'
+            title: 'Godaansa akaakuu'
         },
         ResponsiblePartiesScreen: {
-            title: 'Responsible parties'
+            title: 'Itti-gaafatamaa nama'
         },
         EmergencyContactDetailScreen: {
-            title: 'Contact detail',
-            telephone: 'Telephone',
-            email: 'E-Mail',
-            address: 'Address'
+            title: 'Qunnamtii foo\'uu',
+            telephone: 'Telefoona',
+            email: 'Imeelii',
+            address: 'Teessoo'
         },
         LanguageScreen: {
             amharic: 'አማርኛ',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna',
+            tigrigna: 'ትግርኛ',
             arabic: 'عربى'
         }
     },
@@ -139,7 +139,7 @@ const localizationString = {
             amharic: 'አማርኛ',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'ቲግራኒ',
+            tigrigna: 'ትግርኛ',
             arabic: 'عربى'
         }
 
@@ -167,8 +167,8 @@ const localizationString = {
         Language: 'Language',
         Select_language: 'Select language',
         SideBar: {
-            News: 'Oduu',
-            Forum: 'Haasawa',
+            News: 'News',
+            Forum: 'Forums',
             Help: 'Helpful information',
             Language: 'Language'
         },
@@ -208,7 +208,7 @@ const localizationString = {
             amharic: 'Amharic',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna',
+            tigrigna: 'ትግርኛ',
             arabic: 'عربى'
         }
 
@@ -216,68 +216,68 @@ const localizationString = {
     },
     tigrigna: {
         NewsScreen: {
-            title: 'News (tigigna)'
+            title: 'ዜና'
         },
         NewsDetailScreen: {
-            title: 'News detail (tigigna)'
+            title: 'ዝርዝር ዜና'
         },
         GeneralInfoScreen: {
-            title: 'Helpful informations (tigigna)'
+            title: 'ጠቓሚ ሓበሬታ'
         },
-        Menu: 'Menu (tigigna)',
-        Settings: 'Settings (tigigna)',
-        Spelling: 'Tigrigna (tigigna)',
+        Menu: 'መውጽኢ',
+        Settings: 'ዝተዳለው ነገር',
+        Spelling: 'ትግርኛ',
         ForumScreen: {
-            title: 'Forums (tigigna)'
+            title: 'ዝርርብ መድረኻት'
         },
         ForumDetail: {
-            title: 'forum detail (tigrigna)'
+            title: 'መድረክ'
         },
-        Language: 'Language',
-        Select_language: 'Select language (tigigna)',
+        Language: 'ቋንቋ',
+        Select_language: 'ቋንቋ ምረጹ',
         SideBar: {
-            News: 'Oduu',
-            Forum: 'Haasawa',
-            Help: 'Helpful information',
-            Language: 'Language'
+            News: 'ዜና',
+            Forum: 'ዝርርብ መድረኻት',
+            Help: 'ጠቓሚ ሓበሬታ',
+            Language: 'ቋንቋ'
         },
         PolicyIndex: {
-            title: 'Index'
+            title: 'መውጽኢ'
         },
         HelpScreen: {
-            title: 'Helpful informations',
-            immigration_policy: 'Immigration policy',
-            immigration_type: 'Migration types',
-            responsible_parties: 'Responsible parties',
-            emmergency_contacts: 'Emergency contacts',
-            general_informations: 'General informations'
+            title: 'ጠቓሚ ሓበሬታ',
+            immigration_policy: 'ፍልሰት ፖሊሲ',
+            immigration_type: 'ናይ ስደት ዓይነት',
+            responsible_parties: 'ሓላፊ ሰባት',
+            emmergency_contacts: 'ናይ ሓደጋ ጊዜ ርክብ',
+            general_informations: 'ኣጠቓላሊ ሓበሬታ'
         },
         PolicyScreen: {
-            title: 'Immigration Policies'
+            title: 'ፍልሰት ፖሊሲ'
         },
         EmmergencyContactsIndexScreen: {
-            title: 'Emergrncy contacts'
+            title: 'ናይ ሓደጋ ጊዜ ርክብ'
         },
         GeneralInformationScreen: {
-            title: 'General informations'
+            title: 'ኣጠቓላሊ ሓበሬታ'
         },
         MigrationTypeScreen: {
-            title: 'Migration types'
+            title: 'ናይ ስደት ዓይነት'
         },
         ResponsiblePartiesScreen: {
-            title: 'Responsible parties'
+            title: 'ሓላፊ ሰባት'
         },
         EmergencyContactDetailScreen: {
-            title: 'Contact detail',
-            telephone: 'Telephone',
-            email: 'E-Mail',
-            address: 'Address'
+            title: 'ዝርክብ ሰብ',
+            telephone: 'ተሌፎን',
+            email: 'ኢ-ሜይል',
+            address: 'አድራሻ'
         },
         LanguageScreen: {
-            amharic: 'Amharic',
+            amharic: 'አማርኛ',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna',
+            tigrigna: 'ትግርኛ',
             arabic: 'عربى'
         }
 
@@ -345,7 +345,7 @@ const localizationString = {
             amharic: 'አማርኛ',
             english: 'English',
             afan_oromo: 'Afan oromo',
-            tigrigna: 'Tigrigna',
+            tigrigna: 'ትግርኛ',
             arabic: 'عربى'
         }
 
