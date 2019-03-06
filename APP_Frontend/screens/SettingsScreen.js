@@ -94,20 +94,7 @@ export default class SettingsScreen extends React.Component {
                 <Icon name="arrow-forward" />
               </Right>
             </CardItem>
-            <CardItem
-              button
-              onPress={() => this.props.navigation.navigate('EmergencyContacts')}
-            >
-              <Icon
-                style={{ color: 'lightgreen' }}
-                active
-                name="logo-googleplus"
-              />
-              <Text>{localeStore.HelpScreen.emmergency_contacts} </Text>
-              <Right>
-                <Icon name="arrow-forward" />
-              </Right>
-            </CardItem>
+  
             <CardItem
               button
               onPress={() => this.props.navigation.navigate('GeneralInfo')}

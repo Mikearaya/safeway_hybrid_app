@@ -34,8 +34,7 @@ export default class NewsDetail extends Component {
           source={require(imageLocation)}
           style={{ height: 200, width: width }}
         />
-        <View style={styles.paragraphContainer}>
-        
+        <View style={styles.paragraphContainer}>        
           <Text> {paragraph} </Text>
           <Text> {paragraph} </Text>
           <Text> {paragraph} </Text>

@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'lightgreen'
   },
+  menuIconsDanger: {
+    marginRight: 10,
+    fontSize: 24,
+    color: 'red'
+  },
   menuText: {
     color: 'black'
   },
@@ -44,24 +49,20 @@ class SideBar extends Component {
       <View>
         <View
           style={{
-            height: height/3,
-            width: width - width/3,
+            height: height / 3,
+            width: width - width / 3,
             backgroundColor: 'lightgreen',
-          
+
             justifyContent: 'center'
           }}
         >
-        <Image 
-        source={require('./../assets/images/sidebar.png')}
-        style = {
-          {
-            height: height / 3,
-            width: width - width / 3,
-          }
-        }
-
-        />
-   
+          <Image
+            source={require('./../assets/images/sidebar.png')}
+            style={{
+              height: height / 3,
+              width: width - width / 3
+            }}
+          />
         </View>
         <ScrollView>
           <View>
@@ -95,10 +96,22 @@ class SideBar extends Component {
               <CardItem
                 style={styles.menuItem}
                 button
+                onPress={this.navigateToScreen('EmergencyContacts')}
+              >
+                <Icon name="contacts" style={styles.menuIconsDanger} />
+                <Text style={styles.menuText}>
+                  {localeStore.SideBar.EmergencyContacts}
+                </Text>
+              </CardItem>
+              <CardItem
+                style={styles.menuItem}
+                button
                 onPress={this.navigateToScreen('Auth')}
               >
                 <Icon name="information-circle" style={styles.menuIcons} />
-                <Text style={styles.menuText}>{localeStore.SideBar.Language}</Text>
+                <Text style={styles.menuText}>
+                  {localeStore.SideBar.Language}
+                </Text>
               </CardItem>
             </Content>
           </View>

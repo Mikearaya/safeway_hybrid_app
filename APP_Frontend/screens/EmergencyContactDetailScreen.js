@@ -40,6 +40,11 @@ export default class EmergencyContactDetailScreen extends Component {
     return (
       <Container>
         <Content style={{flex: 1}}>
+        <Header style={{backgroundColor: 'lightgreen', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+          <Text>Ethiopia Embassy</Text>
+          <Text style={{flex: 1}}>  
+          Riyad, Saudi arabia</Text>
+        </Header>
           <ListItem style={styles.listPosision} icon>
             <Left>
               <Button style={styles.iconBackground}>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, Image, StyleSheet, View, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
 import localeStore from '../locale/localization';
+import AudioPlayer from '../components/AudioPlayer';
 
 const imageLocation = './../assets/images/image-not-found.jpg'
 
@@ -40,6 +41,7 @@ export default class PolicyViewScreen extends Component {
             }}
           />
           <View style={styles.paragraphContainer}>
+          <AudioPlayer />
             <Text> {paragraph} </Text>
             <Text> {paragraph} </Text>
             <Text> {paragraph} </Text>

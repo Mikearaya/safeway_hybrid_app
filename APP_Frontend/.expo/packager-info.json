@@ -1,9 +1,9 @@
 {
-  "devToolsPort": 19004,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 12970,
+  "packagerPid": 15275,
   "expoServerNgrokUrl": "https://sx-2vf.mikearaya.app-frontend.exp.direct",
   "packagerNgrokUrl": "https://packager.sx-2vf.mikearaya.app-frontend.exp.direct",
-  "ngrokPid": 13052
+  "ngrokPid": 15343
 }

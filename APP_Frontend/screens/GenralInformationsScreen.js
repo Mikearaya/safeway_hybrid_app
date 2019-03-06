@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { Container, Content, Accordion } from 'native-base'
 import localeStore from '../locale/localization'
+import VideoPlayer from '../components/VideoComponent';
 
 const dataArray = [
   {
@@ -38,8 +39,9 @@ export default class GeneralInformationsScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <Content padder>
+      <Container >
+        <Content>
+      <VideoPlayer/>  
           <Accordion dataArray={dataArray} expanded={0} />
         </Content>
       </Container>

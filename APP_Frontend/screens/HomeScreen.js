@@ -1,6 +1,8 @@
 import React from 'react'
-import { StyleSheet, FlatList, Image, Button } from 'react-native'
-import { Container, Card, CardItem, Text, Left, Body, Icon } from 'native-base'
+import { StyleSheet, FlatList} from 'react-native'
+import {
+  Container,
+} from 'native-base'
 import localeStore from '../locale/localization'
 import NavigationButton from '../components/NavigationButton'
 import NewsCard from '../components/NewsCard'
@@ -59,6 +61,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
+
     return (
       <Container style={styles.container}>
         <FlatList

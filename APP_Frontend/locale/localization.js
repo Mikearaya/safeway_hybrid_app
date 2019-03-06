@@ -33,6 +33,7 @@ const localizationString = {
             Forum: 'Haasawa',
             Help: 'gargaaraa odeeffannoo',
             Language: 'Afaan',
+            EmergencyContacts: 'Balaa-tasaa Qunnamtii nama'
 
         },
 
@@ -44,7 +45,7 @@ const localizationString = {
             immigration_policy: 'Baqataa tarsiimoo',
             immigration_type: 'Godaansa akaakuu',
             responsible_parties: 'Itti-gaafatamaa nama',
-            emmergency_contacts: 'Balaa-tasaa Qunnamtii nama ',
+            emmergency_contacts: 'Balaa-tasaa Qunnamtii nama',
             general_informations: 'Waliigalaa odeeffannoo'
         },
         PolicyScreen: {
@@ -101,6 +102,7 @@ const localizationString = {
             News: 'ዜና',
             Forum: 'የውይይት መድረኮች',
             Help: 'ጠቃሚ መረጃዎች',
+            EmergencyContacts: 'የአደጋ ጊዜ እውቂያዎች',
             Language: 'ቋንቋ'
         },
         PolicyIndex: {
@@ -170,7 +172,8 @@ const localizationString = {
             News: 'News',
             Forum: 'Forums',
             Help: 'Helpful information',
-            Language: 'Language'
+            Language: 'Language',
+            EmergencyContacts: 'Emergency contacts'
         },
         PolicyIndex: {
             title: 'Index'
@@ -239,7 +242,8 @@ const localizationString = {
             News: 'ዜና',
             Forum: 'ዝርርብ መድረኻት',
             Help: 'ጠቓሚ ሓበሬታ',
-            Language: 'ቋንቋ'
+            Language: 'ቋንቋ',
+            EmergencyContacts: 'ናይ ሓደጋ ጊዜ ርክብ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     '
         },
         PolicyIndex: {
             title: 'መውጽኢ'
@@ -307,7 +311,8 @@ const localizationString = {
             News: 'أخبار',
             Forum: 'المنتدى',
             Help: 'معلومات مفيدة',
-            Language: 'مهارات'
+            Language: 'مهارات',
+            EmergencyContacts: 'شخص الاتصال في حالات الطوارئ'
         },
         PolicyIndex: {
             title: 'صفحة فهرس'
