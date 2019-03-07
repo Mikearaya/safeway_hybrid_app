@@ -12,6 +12,7 @@ import {
   Icon
 } from 'native-base'
 import localeStore from '../locale/localization'
+import ListViewComponent from '../components/ListViewComponent'
 
 export default class EmergencyContactsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -102,25 +103,13 @@ export default class EmergencyContactsScreen extends Component {
           <FlatList
             data={this.emergencyContactsList}
             renderItem={({ item }) => (
-              <ListItem
-                onPress={() =>
-                  this.props.navigation.navigate('EmergencyContactDetail')
-                }
-                avatar
-              >
-                <Left>
-                  <Thumbnail
-                    source={require('./../assets/images/saudi_embassy_log.jpg')}
-                  />
-                </Left>
-                <Body>
-                  <Text>{item.title}</Text>
-                  <Text note>{item.address}</Text>
-                </Body>
-                <Right>
-                  <Icon name="arrow-forward" />
-                </Right>
-              </ListItem>
+              <ListViewComponent
+                navigation={this.props.navigation}
+                images={require('./../assets/images/saudi_embassy_log.jpg')}
+                title={item.title}
+                address={item.address}
+                navigateTo={'EmergencyContactDetail'}
+              />
             )}
           />
         </Content>

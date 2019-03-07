@@ -15,20 +15,15 @@ import {
 } from 'native-base'
 import { StyleSheet } from 'react-native'
 import localeStore from '../locale/localization';
+import DetailListViewComponent from '../components/DetailListViewComponent';
 
-const styles = StyleSheet.create({
-  catagoryFont: {
-    color: 'lightgrey'
-  },
-  iconBackground: {
-    backgroundColor: 'lightgreen'
-  },
-  listPosision: {
-    paddingTop: 20,
-      paddingBottom: 20,
-    marginTop: 10
-  }
-})
+
+const detailInformation = {
+  name: 'Ethiopian Embassy',
+  address: 'Riyad, Saudi arabia',
+  phoneNumber: '0912669988',
+  email: 'mikaelaraya12@gmail.com'
+};
 
 export default class EmergencyContactDetailScreen extends Component {
     static navigationOptions = ({navigation}) => {
@@ -39,46 +34,7 @@ export default class EmergencyContactDetailScreen extends Component {
   render() {
     return (
       <Container>
-        <Content style={{flex: 1}}>
-        <Header style={{backgroundColor: 'lightgreen', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Ethiopia Embassy</Text>
-          <Text style={{flex: 1}}>  
-          Riyad, Saudi arabia</Text>
-        </Header>
-          <ListItem style={styles.listPosision} icon>
-            <Left>
-              <Button style={styles.iconBackground}>
-                <Icon active name="call" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>0912669988</Text>
-                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.telephone}</Text>
-            </Body>
-          </ListItem>
-          <ListItem style={styles.listPosision} icon>
-            <Left>
-              <Button style={styles.iconBackground}>
-                <Icon active name="mail" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Mikaelaraya12@gmail.com</Text>
-                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.email}</Text>
-            </Body>
-          </ListItem>
-          <ListItem style={styles.listPosision} icon>
-            <Left>
-              <Button style={styles.iconBackground}>
-                <Icon active name="compass" />
-              </Button>
-            </Left>
-            <Body>
-              <Text>Bole, Addis Ababa Ethiopia</Text>
-                        <Text style={styles.catagoryFont}>{localeStore.EmergencyContactDetailScreen.address}</Text>
-            </Body>
-          </ListItem>
-        </Content>
+        <DetailListViewComponent item={detailInformation}/>
       </Container>
     )
   }

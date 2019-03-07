@@ -126,7 +126,7 @@ const { State: TextInputState } = TextInput
 export default class ForumDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: localeStore.ForumDetail.title
+      title: localeStore.ForumDetail.titles
     }
   }
 

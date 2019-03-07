@@ -32,7 +32,7 @@ const newsArray = [
   {
     title: 'Title4',
     postDate: '13-04-1990',
-    data: `Thumbnail component works very similar to Image. It helps you to showcase an image with variuos dimensions `,
+    data: `Thumbnail component works very  to Image. It helps you to showcase an image with variuos dimensions `,
     image: '../assets/images/image-not-found.jpg',
     key: '4'
   },

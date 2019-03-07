@@ -112,6 +112,9 @@ class SideBar extends Component {
                 <Text style={styles.menuText}>
                   {localeStore.SideBar.Language}
                 </Text>
+                <Right>
+                  <Icon name="arrow-forward" />
+                </Right>
               </CardItem>
             </Content>
           </View>
