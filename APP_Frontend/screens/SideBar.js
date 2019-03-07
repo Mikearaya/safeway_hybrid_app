@@ -96,6 +96,36 @@ class SideBar extends Component {
               <CardItem
                 style={styles.menuItem}
                 button
+                onPress={this.navigateToScreen('AgenciesList')}
+              >
+                <Icon name="information-circle" style={styles.menuIcons} />
+                <Text style={styles.menuText}>
+                  {localeStore.SideBar.Agencies}
+                </Text>
+              </CardItem>
+              <CardItem
+                style={styles.menuItem}
+                button
+                onPress={this.navigateToScreen('HospitalsList')}
+              >
+                <Icon name="information-circle" style={styles.menuIcons} />
+                <Text style={styles.menuText}>
+                  {localeStore.SideBar.Hospitals}
+                </Text>
+              </CardItem>
+              <CardItem
+                style={styles.menuItem}
+                button
+                onPress={this.navigateToScreen('SchoolsList')}
+              >
+                <Icon name="information-circle" style={styles.menuIcons} />
+                <Text style={styles.menuText}>
+                  {localeStore.SideBar.Schools}
+                </Text>
+              </CardItem>
+              <CardItem
+                style={styles.menuItem}
+                button
                 onPress={this.navigateToScreen('EmergencyContacts')}
               >
                 <Icon name="contacts" style={styles.menuIconsDanger} />

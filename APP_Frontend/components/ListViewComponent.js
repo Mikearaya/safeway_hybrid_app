@@ -9,7 +9,7 @@ export default class ListViewComponent extends Component {
           <Thumbnail source={this.props.images} />
         </Left>
         <Body>
-          <Text>{this.props.title}</Text>
+          <Text>{this.props.name}</Text>
           <Text note>{this.props.address}</Text>
         </Body>
         <Right>

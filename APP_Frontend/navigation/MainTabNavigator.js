@@ -18,6 +18,12 @@ import ForumDetailScreen from '../screens/ForumDetailScreen';
 import SideBar from '../screens/SideBar';
 import PolicyIndexScreen from '../screens/PolicyIndexScreen';
 import EmergencyContactDetailScreen from '../screens/EmergencyContactDetailScreen';
+import AgenciesListScreen from '../screens/AgenciesListScreen';
+import AgencyDetailScreen from '../screens/AgencyDetailScreen';
+import SchoolsListScreen from '../screens/SchoolsListScreen';
+import SchoolDetailScreen from '../screens/SchoolDetailScreen';
+import HospitalsListScreen from '../screens/HospitalsListScreen';
+import HospitalDetailScreen from '../screens/HospitalDetailScreen';
 
 export const defaultColors = {
   defaultNavigationOptions: {
@@ -37,7 +43,13 @@ const {
 
 const HomeStack = createStackNavigator({
     Home: HomeScreen,
-    'NewsDetail': NewsDetailScreen
+    'NewsDetail': NewsDetailScreen,
+    'AgenciesList': AgenciesListScreen,
+    'AgencyDetail': AgencyDetailScreen,
+    'SchoolsList': SchoolsListScreen,
+    'SchoolDetail': SchoolDetailScreen,
+    'HospitalsList': HospitalsListScreen,
+    'HospitalDetail': HospitalDetailScreen
   },
   defaultColors);
 

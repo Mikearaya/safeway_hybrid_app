@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import {FlatList } from 'react-native'
-import {
-  Container,
-  Content,
-} from 'native-base'
+import { FlatList } from 'react-native'
+import { Container, Content } from 'native-base'
 import localeStore from '../locale/localization'
 import ListViewComponent from '../components/ListViewComponent'
 
-export default class EmergencyContactsScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
+export default class AgenciesListScreen extends Component {
+  static navigationOptions = () => {
     return {
-      title: localeStore.EmmergencyContactsIndexScreen.title
+      title: localeStore.AgenciesList.title
     }
   }
 
   emergencyContactsList = [
     {
-      contactName: 'saudi arabia embassy',
+      contactName: 'bionic agency',
       address: 'addis ababa, Ethiopia',
       image: './../assets/images/saudi_embassy_log.jpg',
       key: '1'
@@ -101,7 +98,7 @@ export default class EmergencyContactsScreen extends Component {
                 images={require('./../assets/images/saudi_embassy_log.jpg')}
                 name={item.contactName}
                 address={item.address}
-                navigateTo={'EmergencyContactDetail'}
+                navigateTo={'AgencyDetail'}
               />
             )}
           />
