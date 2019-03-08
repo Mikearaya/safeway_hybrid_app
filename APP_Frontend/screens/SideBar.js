@@ -88,7 +88,7 @@ class SideBar extends Component {
               <CardItem
                 style={styles.menuItem}
                 button
-                onPress={this.navigateToScreen('Help')}
+                onPress={this.navigateToScreen('Articles')}
               >
                 <Icon name="information-circle" style={styles.menuIcons} />
                 <Text style={styles.menuText}>{localeStore.SideBar.Help}</Text>

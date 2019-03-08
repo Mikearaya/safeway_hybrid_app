@@ -60,6 +60,13 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      posts: []
+    };  
+  }
+
   render() {
 
     return (
@@ -73,6 +80,23 @@ export default class HomeScreen extends React.Component {
       </Container>
     )
   }
+
+
+componentDidMount() {
+  let url = "http://localhost:3001/posts"
+
+  fetch(url)
+  .then(result => result.json())
+  .then(data => {
+    let posts = data.map( (post, index) => {
+      return  <NewsCard newsItems={post} navigation={this.props.navigation} />
+    
+    })
+    this.setState({posts: posts});
+  })
+  
+}
+
 }
 
 const styles = StyleSheet.create({
