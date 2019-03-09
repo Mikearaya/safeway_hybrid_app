@@ -8,7 +8,7 @@ import VideoPlayer from '../components/VideoComponent'
 const article = {
   photo: './../assets/images/image-not-found.jpg',
   audio: 'sds',
-  video: 'jkhkjh'
+  video: ''
 }
 const paragraph = `To support React's concept of unidirectional data flow (which might be contrasted with AngularJS's bidirectional flow), the Flux architecture represents an alternative to the popular model-view-controller architecture. 
 Flux features actions which are sent through a central dispatcher to a store, and changes to the store are propagated back to the view[22]. When used with React, this propagation is 

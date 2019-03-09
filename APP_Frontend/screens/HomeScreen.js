@@ -1,8 +1,6 @@
 import React from 'react'
-import { StyleSheet, FlatList} from 'react-native'
-import {
-  Container,
-} from 'native-base'
+import { StyleSheet, FlatList } from 'react-native'
+import { Container } from 'native-base'
 import localeStore from '../locale/localization'
 import NavigationButton from '../components/NavigationButton'
 import NewsCard from '../components/NewsCard'
@@ -64,15 +62,14 @@ export default class HomeScreen extends React.Component {
     super(props)
     this.state = {
       posts: []
-    };  
+    }
   }
 
   render() {
-
     return (
       <Container style={styles.container}>
         <FlatList
-          data={newsArray}
+          data={this.state.posts}
           renderItem={({ item }) => (
             <NewsCard newsItems={item} navigation={this.props.navigation} />
           )}
@@ -81,22 +78,21 @@ export default class HomeScreen extends React.Component {
     )
   }
 
+  componentDidMount() {
+    let url = 'http://192.168.1.2:3000/news'
 
-componentDidMount() {
-  let url = "http://localhost:3001/posts"
-
-  fetch(url)
-  .then(result => result.json())
-  .then(data => {
-    let posts = data.map( (post, index) => {
-      return  <NewsCard newsItems={post} navigation={this.props.navigation} />
-    
-    })
-    this.setState({posts: posts});
-  })
-  
-}
-
+    fetch(url)
+      .then(result => alert(JSON.stringify(result)))
+      /* .then(data => {
+        let posts = data.map((post, index) => {
+          return (
+            <NewsCard newsItems={post} navigation={this.props.navigation} />
+          )
+        })
+        this.setState({ posts: posts })
+      }) */
+      .catch(error => alert(JSON.stringify(error.message)))
+  }
 }
 
 const styles = StyleSheet.create({
