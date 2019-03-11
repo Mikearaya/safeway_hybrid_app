@@ -11,8 +11,4 @@ class API extends REST_Controller
 
 }
 
-class MY_Controller extends CI_Controller {
-
-}
-
 ?>
