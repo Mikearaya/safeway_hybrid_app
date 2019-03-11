@@ -19,22 +19,43 @@ class Auth extends API
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
      * Method: GET
      */
+
+     function __construct($config = 'rest') {
+         parent::__construct($config);
+         $this->load->model('auth_model');
+     }
     public function index_post()
     {
+        $this->load->library('form_validation');
+        $result = $this->auth_model->authenticate_user($this->input->post());
+  $this->form_validation->set_rules('username', 'Username', 'trim|required');
+    $this->form_validation->set_rules('password', 'Username', 'trim|required');
+
+
+    
+        if($this->form_validation->run() === FALSE) {
+        $this->set_response($this->validation_errors());
+        } else {
+            $result = $this->auth_model->authenticate_user($this->input->post());
+
+            if($result === false) {
+                $this->set_response(NULL,API::HTTP_UNAUTHORIZED);
+            }  else {
+
         $tokenData = array();
-        $tokenData['id'] = 1; //TODO: Replace with data for token
-        $tokenData['userName'] = 'mikearaya';
+        $tokenData['id'] = $result['ID']; //TODO: Replace with data for token
         $output['token'] = AUTHORIZATION::generateToken($tokenData);
+        $output['userName'] = $result['username'];
+        $this->set_response($output, API::HTTP_OK);        
+
+            }
     
-    
-        $this->set_response($output, API::HTTP_OK);
+        
+        }
+        
     }
-    /**
-     * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
-     * Method: POST
-     * Header Key: Authorization
-     * Value: Auth token generated in GET call
-     */
+
+
     public function token_post()
     {
         $headers = $this->input->request_headers();
