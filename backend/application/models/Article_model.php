@@ -1,12 +1,11 @@
 <?php 
 
 
-class Article_Model extends MY_Model {
+class Article_Model extends CI_Model {
 
     function __construct() {
-			$this->table_name = 'article';
-		}
+		parent::__construct();
+		$this->load->database();
+	}
 }
-
-
 ?>
