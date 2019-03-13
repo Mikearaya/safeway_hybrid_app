@@ -1,6 +1,6 @@
 <?php
 
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 require APPPATH . 'libraries/REST_Controller.php';
@@ -9,6 +9,7 @@ require APPPATH . 'libraries/REST_Controller.php';
 class API extends REST_Controller
 {
 
+<<<<<<< HEAD
     protected $model;
     protected $post_validator;
     protected $put_validator;
@@ -91,3 +92,8 @@ class API extends REST_Controller
     
 }
  
+=======
+}
+
+?>
+>>>>>>> 4dd2d0400f54e30ceb4cdcf9e1baf3e4c2e2454b

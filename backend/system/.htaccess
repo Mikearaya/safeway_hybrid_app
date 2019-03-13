@@ -1,10 +1,6 @@
-<FilesMatch ".(ttf|otf|eot|woff|woff2)$">
-  <IfModule mod_headers.c>
-    Allow from all
-    Header set Access-Control-Allow-Origin "*"
-  </IfModule>
-</FilesMatch>
-
-RewriteEngine On
-RewriteCond %{HTTP:Authorization} ^(.*)
-RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+<IfModule authz_core_module>
+	Require all denied
+</IfModule>
+<IfModule !authz_core_module>
+	Deny from all
+</IfModule>
