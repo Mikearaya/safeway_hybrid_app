@@ -79,18 +79,19 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    let url = 'http://192.168.1.2:3000/news'
+    let url =
+      'http://192.168.1.3/ilo_app/backend/index.php/emergency_contacts'
 
     fetch(url)
-      .then(result => alert(JSON.stringify(result)))
-      /* .then(data => {
+      .then(result => result.json())
+       .then(data => {
         let posts = data.map((post, index) => {
           return (
             <NewsCard newsItems={post} navigation={this.props.navigation} />
           )
         })
         this.setState({ posts: posts })
-      }) */
+      })
       .catch(error => alert(JSON.stringify(error.message)))
   }
 }

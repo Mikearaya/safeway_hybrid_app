@@ -1,34 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-/*
- * Changes:
- * 1. This project contains .htaccess file for windows machine.
- *    Please update as per your requirements.
- *    Samples (Win/Linux): http://stackoverflow.com/questions/28525870/removing-index-php-from-url-in-codeigniter-on-mandriva
- *
- * 2. Change 'encryption_key' in application\config\config.php
- *    Link for encryption_key: http://jeffreybarke.net/tools/codeigniter-encryption-key-generator/
- * 
- * 3. Change 'jwt_key' in application\config\jwt.php
- *
- */
+
 class Auth extends API
 {
-    /**
-     * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
-     * Method: GET
-     */
 
-     function __construct($config = 'rest') {
-         parent::__construct($config);
-         $this->load->model('auth_model');
-     }
+    function __construct($config = 'rest') {
+        parent::__construct($config);
+        $this->load->model('auth_model');
+    }
     public function index_post()
     {
         $this->load->library('form_validation');
         $result = $this->auth_model->authenticate_user($this->input->post());
-  $this->form_validation->set_rules('username', 'Username', 'trim|required');
+    
+    $this->form_validation->set_rules('username', 'Username', 'trim|required');
     $this->form_validation->set_rules('password', 'Username', 'trim|required');
 
 
@@ -43,7 +29,7 @@ class Auth extends API
             }  else {
 
         $tokenData = array();
-        $tokenData['id'] = $result['ID']; //TODO: Replace with data for token
+        $tokenData['id'] = $result['ID']; 
         $output['token'] = AUTHORIZATION::generateToken($tokenData);
         $output['userName'] = $result['username'];
         $this->set_response($output, API::HTTP_OK);        
