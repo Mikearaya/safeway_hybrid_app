@@ -9,6 +9,9 @@ import { ArticlesFormComponent } from './articles-form/articles-form.component';
 import { ArticlesViewComponent } from './articles-view/articles-view.component';
 import { ArticlesApiService } from './articles-api.service';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
+import { DocumentEditorContainerModule } from '@syncfusion/ej2-angular-documenteditor';
+import { ToolbarService } from '@syncfusion/ej2-angular-documenteditor';
 
 @NgModule({
   declarations: [
@@ -19,10 +22,12 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
   ],
   imports: [
     CommonModule,
+    DropDownListModule,
     ArticlesRoutingModule,
+    DocumentEditorContainerModule,
     SharedComponentModule,
     TabModule
   ],
-  providers: [ArticlesApiService]
+  providers: [ArticlesApiService, ToolbarService]
 })
 export class ArticlesModule {}

@@ -2,10 +2,11 @@ export interface ArticleModel {
   id?: number;
   title: string;
   content: string;
-  type: string;
+  type?: number;
 }
 
 export interface ArticleViewModel {
+  catagoryId?: number;
   id: number;
   title: string;
   content: string;

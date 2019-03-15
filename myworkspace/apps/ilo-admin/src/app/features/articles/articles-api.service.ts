@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import {
   ArticleCatagoryViewModel,
   ArticleCatagoryModel,
-  ArticleViewModel
+  ArticleViewModel,
+  ArticleModel
 } from './articles-data.model';
 import { Observable } from 'rxjs';
 
@@ -59,23 +60,19 @@ export class ArticlesApiService {
     return this.httpClient.get<ArticleViewModel[]>(`articles`);
   }
 
-  getArticleById(id: number): Observable<ArticleCatagoryViewModel> {
-    return this.httpClient.get<ArticleCatagoryViewModel>(`articles/${id}`);
+  getArticleById(id: number): Observable<ArticleViewModel> {
+    return this.httpClient.get<ArticleViewModel>(`articles/${id}`);
   }
 
-  createArticle(
-    articleCatagory: ArticleCatagoryModel
-  ): Observable<ArticleCatagoryViewModel> {
+  createArticle(articleCatagory: ArticleModel): Observable<ArticleViewModel> {
     const catagory = this.prepareRequestBody(articleCatagory);
-    return this.httpClient.post<ArticleCatagoryViewModel>(
+    return this.httpClient.post<ArticleViewModel>(
       `articles`,
       catagory.toString()
     );
   }
 
-  updateArticle(
-    articleCatagory: ArticleCatagoryModel
-  ): Observable<ArticleViewModel> {
+  updateArticle(articleCatagory: ArticleModel): Observable<ArticleViewModel> {
     const catagory = this.prepareRequestBody(articleCatagory);
     return this.httpClient.post<ArticleViewModel>(
       `articles/update/${articleCatagory.id}`,

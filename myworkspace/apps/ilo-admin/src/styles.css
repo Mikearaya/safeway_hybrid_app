@@ -9,6 +9,9 @@
 @import '../../../node_modules/@syncfusion/ej2-buttons/styles/material.css';
 @import '../../../node_modules/@syncfusion/ej2-popups/styles/material.css';
 @import '../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-angular-documenteditor/styles/material.css';
 
 body {
   background: rgb(195, 233, 195);
@@ -20,7 +23,7 @@ body {
   outline: 0;
 }
 
-.ng-invalid ~ ::before {
+.ng-invalid~ ::before {
   color: red;
 }
 
