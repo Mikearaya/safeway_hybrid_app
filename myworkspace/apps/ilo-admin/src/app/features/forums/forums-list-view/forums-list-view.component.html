@@ -1,12 +1,11 @@
 <bionic-data-grid-view
-[data]='data'
-[columnsList]='columnList'
-[idKey]="'ID'"
-
-[showDelete]='true'
-[showUpdate]='true'
-[enableFilter]='true'
-[enablePaging]='true'
-[enableSorting]='true'
-(deleteRecord)='deleteForum($event)'
+  [data]="data"
+  [columnsList]="columnList"
+  [idKey]="'ID'"
+  [showDelete]="true"
+  [showUpdate]="true"
+  [enableFilter]="true"
+  [enablePaging]="true"
+  [enableSorting]="true"
+  (deleteRecord)="deleteForum($event)"
 ></bionic-data-grid-view>

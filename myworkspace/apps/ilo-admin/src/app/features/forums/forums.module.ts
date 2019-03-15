@@ -14,7 +14,12 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     ForumsListViewComponent,
     ForumDetailViewComponent
   ],
-  imports: [CommonModule, ForumsRoutingModule, SharedComponentModule, TabModule],
+  imports: [
+    CommonModule,
+    ForumsRoutingModule,
+    SharedComponentModule,
+    TabModule
+  ],
   providers: [ForumApiService]
 })
 export class ForumsModule {}

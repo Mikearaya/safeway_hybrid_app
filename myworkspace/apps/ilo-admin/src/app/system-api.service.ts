@@ -13,5 +13,4 @@ export class SystemApiService {
   getLanguagesList(): Observable<any> {
     return this.httpClient.get<any>(`languages`);
   }
-
 }

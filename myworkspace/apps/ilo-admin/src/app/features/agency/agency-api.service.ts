@@ -19,6 +19,7 @@ export class AgencyApiService {
   }
 
   createAgency(newAgency: AgencyModel): Observable<AgencyViewModel> {
+
     const agencyModel = this.prepareRequestBody(newAgency);
     return this.httpClient.post<AgencyViewModel>(
       `agencies`,
@@ -29,7 +30,7 @@ export class AgencyApiService {
   updateAgency(updatedAgency: AgencyModel): Observable<void> {
     const agencyModel = this.prepareRequestBody(updatedAgency);
     return this.httpClient.post<void>(
-      `agencies/update`,
+      `agencies/update/${updatedAgency.ID}`,
       agencyModel.toString()
     );
   }

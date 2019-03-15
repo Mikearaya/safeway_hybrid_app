@@ -10,7 +10,7 @@ import { CustomGridColumns } from '@bionic/shared-component';
 })
 export class ForumsListViewComponent implements OnInit {
   public data: ForumViewModel[];
-   columnList: CustomGridColumns[] = [
+  columnList: CustomGridColumns[] = [
     {
       key: 'ID',
       width: 30,
@@ -50,16 +50,14 @@ export class ForumsListViewComponent implements OnInit {
   constructor(private forumApi: ForumApiService) {}
 
   ngOnInit() {
-
-    this.forumApi.getForumList().subscribe(
-      (data: ForumViewModel[]) => this.data = data
-    );
+    this.forumApi
+      .getForumList()
+      .subscribe((data: ForumViewModel[]) => (this.data = data));
   }
 
-
-  deleteForum(forum: any) : void {
-    this.forumApi.deleteForum([forum.ID]).subscribe(
-      () => alert('Forum deleted successfuly')
-    );
+  deleteForum(forum: any): void {
+    this.forumApi
+      .deleteForum([forum.ID])
+      .subscribe(() => alert('Forum deleted successfuly'));
   }
 }

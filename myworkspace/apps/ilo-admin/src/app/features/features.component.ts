@@ -10,9 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   encapsulation: ViewEncapsulation.None
 })
 export class FeaturesComponent implements OnInit {
-  constructor(private authorizationService: AuthorizationService,
+  constructor(
+    private authorizationService: AuthorizationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   public items: ItemModel[] = [
     {
@@ -21,25 +23,24 @@ export class FeaturesComponent implements OnInit {
     },
     {
       text: 'Articles',
-      id: 'article',
-
-    }];
-  ngOnInit() {}
-    articleClick($event) {
-
-      switch ($event.item.properties.id.trim().toUpperCase()) {
-        case 'ARTICLE':
-          this.router.navigate(['/articles']);
-          break;
-        case 'ARTICLE_CATAGORY':
-          this.router.navigate(['/articles/catagory']);
-          break;
-
-        default:
-          break;
-      }
-      console.log($event.item.properties.id);
+      id: 'article'
     }
+  ];
+  ngOnInit() {}
+  articleClick($event) {
+    switch ($event.item.properties.id.trim().toUpperCase()) {
+      case 'ARTICLE':
+        this.router.navigate(['/articles']);
+        break;
+      case 'ARTICLE_CATAGORY':
+        this.router.navigate(['/articles/catagory']);
+        break;
+
+      default:
+        break;
+    }
+    console.log($event.item.properties.id);
+  }
   logOut() {
     this.authorizationService.logout();
   }

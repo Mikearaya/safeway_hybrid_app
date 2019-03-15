@@ -6,7 +6,10 @@ import { EmergencyContactFormComponent } from './emergency-contact-form/emergenc
 const routes: Routes = [
   { path: '', component: EmergencyContactViewComponent },
   { path: 'new', component: EmergencyContactFormComponent },
-  { path: ':emergencyContactId/update', component: EmergencyContactFormComponent }
+  {
+    path: ':emergencyContactId/update',
+    component: EmergencyContactFormComponent
+  }
 ];
 
 @NgModule({

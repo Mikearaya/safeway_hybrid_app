@@ -10,7 +10,10 @@ const routes: Routes = [
   { path: 'new', component: ArticlesFormComponent },
   { path: 'catagory', component: ArticleCatagoryViewComponent },
   { path: 'catagory/new', component: ArticleCatagoryFormComponent },
-  { path: 'catagory/:catagoryId/update', component: ArticleCatagoryFormComponent },
+  {
+    path: 'catagory/:catagoryId/update',
+    component: ArticleCatagoryFormComponent
+  },
   { path: ':articleId/update', component: ArticleCatagoryFormComponent }
 ];
 

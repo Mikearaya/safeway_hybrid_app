@@ -1,39 +1,116 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="#" [routerLink]="['/']" routerLinkActive="router-link-active">
-    <img src="./../../assets/app_icon.png" width="70" height="70" alt="safeway" />
+  <a
+    class="navbar-brand"
+    href="#"
+    [routerLink]="['/']"
+    routerLinkActive="router-link-active"
+  >
+    <img
+      src="./../../assets/app_icon.png"
+      width="70"
+      height="70"
+      alt="safeway"
+    />
     Safeway
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
   </a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav nav-pills">
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/news']" routerLinkActive="router-link-active" href="#">News</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/news']"
+          routerLinkActive="router-link-active"
+          href="#"
+          >News</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/forums']" routerLinkActive="router-link-active" href="#" tabindex="-1">Forums</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/forums']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-1"
+          >Forums</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/complains']" routerLinkActive="router-link-active" href="#" tabindex="-2">Complains</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/complains']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-2"
+          >Complains</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/agencies']" routerLinkActive="router-link-active" href="#" tabindex="-3">Agencies</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/agencies']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-3"
+          >Agencies</a
+        >
       </li>
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/hospitals']" routerLinkActive="router-link-active" href="#" tabindex="-4">Mediacal
-          Centers</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/hospitals']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-4"
+          >Mediacal Centers</a
+        >
       </li>
       <li class="nav-item">
-        <button class="nav-link e-link" ejs-button [routerLink]="['/schools']" ejs-button routerLinkActive="router-link-active"  href="#" tabindex="-5">Schools</button>
+        <button
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/schools']"
+          ejs-button
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-5"
+        >
+          Schools
+        </button>
       </li>
       <li class="nav-item">
-        <button ejs-dropdownbutton (select)=articleClick($event) [items]='items' content='Articles'></button>
+        <button
+          ejs-dropdownbutton
+          (select)="articleClick($event)"
+          [items]="items"
+          content="Articles"
+        ></button>
       </li>
       <li class="nav-item">
-        <a class="nav-link e-link" ejs-button [routerLink]="['/emergency-contacts']" routerLinkActive="router-link-active" href="#"
-          tabindex="-7">Emmergency Contacts</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/emergency-contacts']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-7"
+          >Emmergency Contacts</a
+        >
       </li>
     </ul>
     <ul>
@@ -43,6 +120,4 @@
     </ul>
   </div>
 </nav>
-<div class="main-content">
-<router-outlet></router-outlet>
-</div>
+<div class="main-content"><router-outlet></router-outlet></div>

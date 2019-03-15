@@ -9,6 +9,11 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
   declarations: [EmergencyContactFormComponent, EmergencyContactViewComponent],
-  imports: [CommonModule, EmergencyContactsRoutingModule, SharedComponentModule, TabModule]
+  imports: [
+    CommonModule,
+    EmergencyContactsRoutingModule,
+    SharedComponentModule,
+    TabModule
+  ]
 })
 export class EmergencyContactsModule {}

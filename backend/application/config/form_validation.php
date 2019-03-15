@@ -108,21 +108,11 @@ $config = array(
             'field' => 'phone_number',
             'label' => 'Phonenumber',
             'rules' => 'required'
-        ),
-        array(
-            'field' => 'address',
-            'label' => 'Address',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'region',
-            'label' => 'Region',
-            'rules' => 'required'
         )
     ),
     'update_agency' => array(
         array(
-            'field' => 'id',
+            'field' => 'ID',
             'label' => 'Agency Id',
             'rules' => 'required'
         ),
@@ -134,16 +124,6 @@ $config = array(
         array(
             'field' => 'phone_number',
             'label' => 'Phonenumber',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'address',
-            'label' => 'Address',
-            'rules' => 'required'
-        ),
-        array(
-            'field' => 'region',
-            'label' => 'Region',
             'rules' => 'required'
         )
         ),

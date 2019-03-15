@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
-import {
-  SharedComponentModule,
-} from '@bionic/shared-component';
+import { SharedComponentModule } from '@bionic/shared-component';
 import { AuthorizationModule } from '@bionic/authorization';
 import { AppRoutungModule } from './app-routing.module';
 import { AuthenticationModule } from './authentication/authentication.module';

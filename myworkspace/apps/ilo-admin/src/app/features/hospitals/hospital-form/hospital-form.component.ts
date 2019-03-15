@@ -55,8 +55,6 @@ export class HospitalFormComponent implements OnInit {
     this.systemConfig
       .getLanguagesList()
       .subscribe((data: any) => (this.languages = data));
-
-
   }
 
   createForm() {

@@ -11,7 +11,9 @@ export class EmergencyContactApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getEmergencyContactById(contactId: number): Observable<EmergencyContactModel> {
+  getEmergencyContactById(
+    contactId: number
+  ): Observable<EmergencyContactModel> {
     return this.httpClient.get<EmergencyContactModel>(
       `${this.controller}/${contactId}`
     );
@@ -21,7 +23,9 @@ export class EmergencyContactApiService {
     return this.httpClient.get<EmergencyContactModel[]>(`${this.controller}`);
   }
 
-  addeEmrgencyContactsAddress(emergencyContact: EmergencyContactModel): Observable<EmergencyContactModel> {
+  addeEmrgencyContactsAddress(
+    emergencyContact: EmergencyContactModel
+  ): Observable<EmergencyContactModel> {
     const emergencyContactsData = this.prepareRequestBody(emergencyContact);
     return this.httpClient.post<EmergencyContactModel>(
       `${this.controller}`,
@@ -29,7 +33,9 @@ export class EmergencyContactApiService {
     );
   }
 
-  updateEmergencyContactsAddress(emergencyContacts: EmergencyContactModel): Observable<void> {
+  updateEmergencyContactsAddress(
+    emergencyContacts: EmergencyContactModel
+  ): Observable<void> {
     const emergencyContactsData = this.prepareRequestBody(emergencyContacts);
     return this.httpClient.post<void>(
       `${this.controller}/update/${emergencyContacts.id}`,
@@ -37,8 +43,12 @@ export class EmergencyContactApiService {
     );
   }
 
-  deleteEmergencyContactsAddress(emergencyContactsId: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.controller}/${emergencyContactsId}`);
+  deleteEmergencyContactsAddress(
+    emergencyContactsId: number
+  ): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${this.controller}/${emergencyContactsId}`
+    );
   }
 
   private prepareRequestBody(customer: EmergencyContactModel): URLSearchParams {

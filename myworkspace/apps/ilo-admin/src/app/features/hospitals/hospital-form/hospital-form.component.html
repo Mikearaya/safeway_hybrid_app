@@ -102,9 +102,7 @@
                 "
                 [formGroup]="locale"
               >
-
                 <div class="row" style="position:relative;">
-
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">locale</label>
                     <select
@@ -112,7 +110,11 @@
                       formControlName="locale"
                       id="locale"
                     >
-                      <option *ngFor='let lang of languages; let i=index' [value]='lang.name'>{{lang.name}}</option>
+                      <option
+                        *ngFor="let lang of languages; let i = index"
+                        [value]="lang.name"
+                        >{{ lang.name }}</option
+                      >
                     </select>
                     <div class="text-danger" *ngIf="region.errors">
                       <div *ngIf="region.errors['required']">
@@ -138,20 +140,32 @@
                   </div>
                   <div class="col-12 col-sm-4 form-group">
                     <label for="region">Address</label>
-                    <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
-                      aria-describedby="Address" placeholder="Address" />
-                    <small id="address" class="form-text text-muted">Address of the medical canter.</small>
+                    <input
+                      type="text"
+                      formControlName="address"
+                      formControlName="address"
+                      class="form-control"
+                      id="address"
+                      aria-describedby="Address"
+                      placeholder="Address"
+                    />
+                    <small id="address" class="form-text text-muted"
+                      >Address of the medical canter.</small
+                    >
                     <div class="text-danger" *ngIf="address.errors">
                       <div *ngIf="address.errors['required']">
                         Hospital address is required
                       </div>
                     </div>
                   </div>
-                    <button type='button' class='btn btn-sm rounded  bg-red delete-button' (click)='deleteLocale(i)'>
-                      <i class='fa fa-trash text-danger'></i>
-                    </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm rounded  bg-red delete-button"
+                    (click)="deleteLocale(i)"
+                  >
+                    <i class="fa fa-trash text-danger"></i>
+                  </button>
                 </div>
-
               </div>
             </div>
             <button type="submit" class="btn  btn-success">Submit</button>

@@ -40,7 +40,6 @@ export class ForumCreationFormComponent implements OnInit {
   ) {
     this.createForm();
     this.createLocalesForm();
-
   }
 
   ngOnInit() {
@@ -125,12 +124,10 @@ export class ForumCreationFormComponent implements OnInit {
       if (this.isUpdate) {
         this.forumApi.updateForum(emergencyContactData).subscribe();
       } else {
-        this.forumApi.addForum(emergencyContactData).subscribe(
-          (data: any) => {
-            this.isUpdate = true;
-            this.forumId = data;
-          }
-        );
+        this.forumApi.addForum(emergencyContactData).subscribe((data: any) => {
+          this.isUpdate = true;
+          this.forumId = data;
+        });
       }
     }
   }

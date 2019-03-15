@@ -5,10 +5,10 @@
 @import '../../../node_modules/@syncfusion/ej2-angular-buttons/styles/material.css';
 @import '../../../node_modules/@syncfusion/ej2-angular-popups/styles/material.css';
 @import '../../../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css';
-@import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
-@import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import '../../../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
 
 body {
   background: rgb(195, 233, 195);

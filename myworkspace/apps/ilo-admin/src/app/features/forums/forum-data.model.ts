@@ -8,5 +8,3 @@ export interface ForumViewModel {
   name: string;
   totalCount: number;
 }
-
-

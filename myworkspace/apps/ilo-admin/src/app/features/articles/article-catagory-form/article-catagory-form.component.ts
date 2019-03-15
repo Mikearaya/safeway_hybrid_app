@@ -45,7 +45,9 @@ export class ArticleCatagoryFormComponent implements OnInit {
   ngOnInit() {
     this.catagoryId = +this.activatedRoute.snapshot.paramMap.get('catagoryId');
 
-    this.systemApi.getLanguagesList().subscribe(data => (this.languages = data));
+    this.systemApi
+      .getLanguagesList()
+      .subscribe(data => (this.languages = data));
     if (this.catagoryId) {
       this.isUpdate = true;
       this.articleApi

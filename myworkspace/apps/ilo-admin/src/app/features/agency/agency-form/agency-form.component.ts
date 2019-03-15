@@ -18,6 +18,10 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./agency-form.component.css']
 })
 export class AgencyFormComponent implements OnInit {
+  public headerText: Object = [
+    { text: 'Enlish Language (default)' },
+    { text: 'Other Languages' }
+  ];
   public agencyForm: FormGroup;
   public agencyLocaleForm: FormGroup;
   public isUpdate: Boolean;
@@ -52,9 +56,9 @@ export class AgencyFormComponent implements OnInit {
   createForm(): void {
     this.agencyForm = this.formBuilder.group({
       name: ['', Validators.required],
-      region: [''],
+      region: [1, Validators.required],
       address: [''],
-      phoneNumber: [''],
+      phoneNumber: ['', Validators.required],
       fax: [''],
       email: ['']
     });
@@ -64,7 +68,7 @@ export class AgencyFormComponent implements OnInit {
     this.agencyForm = this.formBuilder.group({
       id: [agency.ID, Validators.required],
       name: [agency.name, Validators.required],
-      region: [agency.region],
+      region: [agency.region, Validators.required],
       address: [agency.address],
       phoneNumber: [agency.phone_number],
       fax: [agency.fax],
@@ -73,16 +77,12 @@ export class AgencyFormComponent implements OnInit {
   }
 
   createAgencyLocaleForm(): void {
-    this.agencyForm = this.formBuilder.group({
+    this.agencyLocaleForm = this.formBuilder.group({
       agencyLocales: this.formBuilder.array([
         this.formBuilder.group({
           name: ['', Validators.required],
-          region: [''],
           locale: ['', Validators.required],
-          address: [''],
-          phoneNumber: [''],
-          fax: [''],
-          email: ['']
+          address: ['']
         })
       ])
     });
@@ -125,25 +125,40 @@ export class AgencyFormComponent implements OnInit {
             () => alert('agency updated successfuly'),
             (error: HttpErrorResponse) => alert(error.message)
           );
+      } else {
+        this.agencyApi.createAgency(formData).subscribe(
+          (data: any) => {
+            this.agencyId = data;
+            this.isUpdate = true;
+            alert('Agency created successfully');
+          },
+          (error: HttpErrorResponse) => {
+            alert(error.message);
+          }
+        );
       }
-    } else {
-      this.agencyApi.createAgency(formData).subscribe(
-        (data: any) => {
-          this.agencyId = data;
-          this.isUpdate = true;
-          alert('Agency created successfully');
-        },
-        (error: HttpErrorResponse) => {
-          alert(error.message);
-        }
-      );
     }
+  }
+
+  addLocale(): void {
+    this.agencyLocales.controls.push(
+      this.formBuilder.group({
+        name: ['', Validators.required],
+        address: [''],
+        locale: ['', Validators.required]
+      })
+    );
+  }
+
+  deleteLocale(index: number): void {
+    this.agencyLocales.removeAt(index);
   }
 
   prepareFormData(): AgencyModel | null {
     if (this.agencyForm.valid) {
       if (this.isUpdate && this.agencyId) {
         return {
+          ID: this.agencyId,
           name: this.agencyName.value,
           phone_number: this.phoneNumber.value,
           address: this.address.value,
@@ -153,7 +168,6 @@ export class AgencyFormComponent implements OnInit {
         };
       } else {
         return {
-          ID: this.agencyId,
           name: this.agencyName.value,
           phone_number: this.phoneNumber.value,
           address: this.address.value,

@@ -1,5 +1,13 @@
-<bionic-data-grid-view [data]='data' [columnsList]='columnsList' [showUpdate]='true' [showDelete]='true' [enableFilter]='true'
-  [enablePaging]='true' [enableSearching]='true' [enableSorting]='true' [showColumnChooser]='true'
+<bionic-data-grid-view
+  [data]="data"
+  [columnsList]="columnsList"
+  [showUpdate]="true"
+  [showDelete]="true"
+  [enableFilter]="true"
+  [enablePaging]="true"
+  [enableSearching]="true"
+  [enableSorting]="true"
+  [showColumnChooser]="true"
   [idKey]="'ID'"
-  (deleteRecord)='deleteCatagory($event)'
-  ></bionic-data-grid-view>
+  (deleteRecord)="deleteCatagory($event)"
+></bionic-data-grid-view>
