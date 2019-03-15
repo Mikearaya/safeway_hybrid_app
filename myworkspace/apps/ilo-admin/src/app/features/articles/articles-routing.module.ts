@@ -8,6 +8,7 @@ import { ArticleCatagoryViewComponent } from './article-catagory-view/article-ca
 const routes: Routes = [
   { path: '', component: ArticlesViewComponent },
   { path: 'new', component: ArticlesFormComponent },
+  { path: ':articleId/update', component: ArticlesFormComponent },
   { path: 'catagory', component: ArticleCatagoryViewComponent },
   { path: 'catagory/new', component: ArticleCatagoryFormComponent },
   {

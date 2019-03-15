@@ -67,7 +67,7 @@ export class ArticlesFormComponent implements OnInit {
 
   initializeForm(article: ArticleViewModel): void {
     this.articleForm = this.formBuilder.group({
-      id: [article.id, Validators.required],
+      id: [article.ID, Validators.required],
       catagory: [article.CATAGORY_ID, Validators.required],
       title: [article.header, Validators.required],
       content: [article.content, Validators.required]

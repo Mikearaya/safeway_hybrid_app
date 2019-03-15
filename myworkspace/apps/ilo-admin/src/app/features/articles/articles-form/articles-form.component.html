@@ -65,7 +65,7 @@
                 <div class="row">
                   <div class="col-12 col-sm-12 form-group">
                     <label for="articleContent">Article content</label>
-                    <textarea formControlName="content" rows='10' cols='700' ></textarea>
+                    <textarea formControlName="content" rows='10' class='form-control' ></textarea>
                     <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
                     <div class="text-danger" *ngIf="locale.get('content').errors">
                       <div *ngIf="locale.get('content').errors['required']">
