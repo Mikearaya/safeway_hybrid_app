@@ -1,0 +1,48 @@
+.info-box {
+  display: block;
+  min-height: 90px;
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  margin-bottom: 15px;
+}
+
+.info-box-icon {
+  color: white;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 2px;
+  display: block;
+  float: left;
+  height: 100%;
+  width: 90px;
+  text-align: center;
+  font-size: 45px;
+  line-height: 90px;
+}
+
+.info-box-content {
+  padding: 5px 10px;
+  margin-left: 90px;
+  box-sizing: border-box;
+}
+
+.info-box-text {
+  display: block;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+.info-box-number {
+  line-height: 1.42857143;
+  color: #333;
+  display: block;
+  font-weight: bold;
+  font-size: 18px;
+}

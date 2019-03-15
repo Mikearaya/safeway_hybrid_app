@@ -1,0 +1,24 @@
+{
+  "npmScope": "bionic",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "ilo-admin": {
+      "tags": []
+    },
+    "ilo-admin-e2e": {
+      "tags": []
+    },
+    "shared-component": {
+      "tags": []
+    },
+    "authorization": {
+      "tags": []
+    }
+  }
+}

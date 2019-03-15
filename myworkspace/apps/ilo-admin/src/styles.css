@@ -1,0 +1,47 @@
+@import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+@import '../../../node_modules/font-awesome/css/font-awesome.min.css';
+@import '../../../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-angular-buttons/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-angular-popups/styles/material.css';
+@import '../../../node_modules/@syncfusion/ej2-angular-navigations/styles/material.css';
+@import "../../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+
+body {
+  background: rgb(195, 233, 195);
+}
+
+.ng-invalid {
+  background: #fff;
+  border-color: red;
+  outline: 0;
+}
+
+.ng-invalid ~ ::before {
+  color: red;
+}
+
+.ng-valid {
+  background: #fff;
+  border-color: lightgreen;
+  outline: 0;
+}
+
+.ng-invalid.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: red;
+  box-shadow: 0 0 0 0.2rem rgb(255, 97, 35);
+  outline: 0;
+}
+
+.ng-valid.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: green;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgb(96, 206, 96);
+}

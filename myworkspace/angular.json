@@ -1,0 +1,184 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "bionic",
+  "projects": {
+    "ilo-admin": {
+      "root": "apps/ilo-admin/",
+      "sourceRoot": "apps/ilo-admin/src",
+      "projectType": "application",
+      "prefix": "bionic",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ilo-admin",
+            "index": "apps/ilo-admin/src/index.html",
+            "main": "apps/ilo-admin/src/main.ts",
+            "polyfills": "apps/ilo-admin/src/polyfills.ts",
+            "tsConfig": "apps/ilo-admin/tsconfig.app.json",
+            "assets": [
+              "apps/ilo-admin/src/favicon.ico",
+              "apps/ilo-admin/src/assets"
+            ],
+            "styles": ["apps/ilo-admin/src/styles.css"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ilo-admin/src/environments/environment.ts",
+                  "with": "apps/ilo-admin/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ilo-admin:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ilo-admin:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ilo-admin:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/ilo-admin/tsconfig.app.json",
+              "apps/ilo-admin/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/ilo-admin/jest.config.js",
+            "tsConfig": "apps/ilo-admin/tsconfig.spec.json",
+            "setupFile": "apps/ilo-admin/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "ilo-admin-e2e": {
+      "root": "apps/ilo-admin-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/ilo-admin-e2e/cypress.json",
+            "tsConfig": "apps/ilo-admin-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ilo-admin:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ilo-admin:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/ilo-admin-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "shared-component": {
+      "root": "libs/shared-component",
+      "sourceRoot": "libs/shared-component/src",
+      "projectType": "library",
+      "prefix": "bionic",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared-component/tsconfig.lib.json",
+              "libs/shared-component/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/shared-component/jest.config.js",
+            "tsConfig": "libs/shared-component/tsconfig.spec.json",
+            "setupFile": "libs/shared-component/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "authorization": {
+      "root": "libs/authorization",
+      "sourceRoot": "libs/authorization/src",
+      "projectType": "library",
+      "prefix": "bionic",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/authorization/tsconfig.lib.json",
+              "libs/authorization/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "libs/authorization/jest.config.js",
+            "tsConfig": "libs/authorization/tsconfig.spec.json",
+            "setupFile": "libs/authorization/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {},
+  "defaultProject": "ilo-admin"
+}

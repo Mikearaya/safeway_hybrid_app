@@ -1,0 +1,35 @@
+<section class="red-square e-card">
+  <h3 class="text-center text-primary ">Log in</h3>
+  <form [formGroup]="logInForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <label for="userName">Username</label>
+          <input
+            type="text"
+            class="e-input"
+            placeholder="Username"
+            id="userName"
+            name="userName"
+            formControlName="userName"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="e-input"
+            placeholder="password"
+            id="password"
+            name="password"
+            formControlName="password"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- <output class="text-danger text-center">{{errorMessage}}</output> -->
+    <app-form-options [submitDisabled]="logInForm.invalid"></app-form-options>
+  </form>
+</section>
