@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   ArticleCatagoryViewModel,
-  ArticleCatagoryModel
+  ArticleCatagoryModel,
+  ArticleViewModel
 } from './articles-data.model';
 import { Observable } from 'rxjs';
 
@@ -49,6 +50,43 @@ export class ArticlesApiService {
     catagoryId.forEach(id => this.httpBody.append('id[]', `${id}`));
     return this.httpClient.post<ArticleCatagoryViewModel>(
       `article_catagory/delete`,
+      this.httpBody.toString()
+    );
+  }
+
+  // article api maipulations
+  getArticle(): Observable<ArticleViewModel[]> {
+    return this.httpClient.get<ArticleViewModel[]>(`articles`);
+  }
+
+  getArticleById(id: number): Observable<ArticleCatagoryViewModel> {
+    return this.httpClient.get<ArticleCatagoryViewModel>(`articles/${id}`);
+  }
+
+  createArticle(
+    articleCatagory: ArticleCatagoryModel
+  ): Observable<ArticleCatagoryViewModel> {
+    const catagory = this.prepareRequestBody(articleCatagory);
+    return this.httpClient.post<ArticleCatagoryViewModel>(
+      `articles`,
+      catagory.toString()
+    );
+  }
+
+  updateArticle(
+    articleCatagory: ArticleCatagoryModel
+  ): Observable<ArticleViewModel> {
+    const catagory = this.prepareRequestBody(articleCatagory);
+    return this.httpClient.post<ArticleViewModel>(
+      `articles/update/${articleCatagory.id}`,
+      catagory.toString()
+    );
+  }
+
+  deleteArticle(catagoryId: number[]): Observable<ArticleViewModel> {
+    catagoryId.forEach(id => this.httpBody.append('id[]', `${id}`));
+    return this.httpClient.post<ArticleViewModel>(
+      `articles/delete`,
       this.httpBody.toString()
     );
   }
