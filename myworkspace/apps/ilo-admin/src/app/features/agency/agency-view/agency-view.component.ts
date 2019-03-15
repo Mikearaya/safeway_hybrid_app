@@ -79,4 +79,10 @@ export class AgencyViewComponent implements OnInit {
       .getAgenciesList()
       .subscribe((data: AgencyViewModel[]) => (this.data = data));
   }
+
+  deleteAgency(agency: any): void {
+    this.agencyApi
+      .deleteAgency([agency.ID])
+      .subscribe(() => alert('agency deleted successfully'));
+  }
 }
