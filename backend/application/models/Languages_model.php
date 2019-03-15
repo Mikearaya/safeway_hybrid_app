@@ -1,13 +1,16 @@
+
 <?php
 
 
 
-class Languages_Model extends MY_Model {
+class Languages_Model extends MY_Model
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->table_name = 'language';
         $this->primary_key = 'ID';
     }
 }
-?>
+?> 

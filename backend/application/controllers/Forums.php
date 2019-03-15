@@ -1,3 +1,4 @@
+
 <?php 
 
 class Forums extends API
@@ -11,4 +12,3 @@ class Forums extends API
         parent::__construct($config);
     }
 }
- 

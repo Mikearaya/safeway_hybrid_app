@@ -1,11 +1,12 @@
+
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 class Auth extends API
 {
 
-    function __construct($config = 'rest') {
+    function __construct($config = 'rest')
+    {
         parent::__construct($config);
         $this->load->model('auth_model');
     }
@@ -13,32 +14,28 @@ class Auth extends API
     {
         $this->load->library('form_validation');
         $result = $this->auth_model->authenticate_user($this->input->post());
-    
-    $this->form_validation->set_rules('username', 'Username', 'trim|required');
-    $this->form_validation->set_rules('password', 'Username', 'trim|required');
+
+        $this->form_validation->set_rules('username', 'Username', 'trim|required');
+        $this->form_validation->set_rules('password', 'Username', 'trim|required');
 
 
-    
-        if($this->form_validation->run() === FALSE) {
-        $this->set_response($this->validation_errors());
+
+        if ($this->form_validation->run() === false) {
+            $this->set_response($this->validation_errors());
         } else {
             $result = $this->auth_model->authenticate_user($this->input->post());
 
-            if($result === false) {
-                $this->set_response(NULL,API::HTTP_UNAUTHORIZED);
-            }  else {
+            if ($result === false) {
+                $this->set_response(null, API::HTTP_UNAUTHORIZED);
+            } else {
 
-        $tokenData = array();
-        $tokenData['id'] = $result['ID']; 
-        $output['token'] = AUTHORIZATION::generateToken($tokenData);
-        $output['userName'] = $result['username'];
-        $this->set_response($output, API::HTTP_OK);        
-
+                $tokenData = array();
+                $tokenData['id'] = $result['ID'];
+                $output['token'] = AUTHORIZATION::generateToken($tokenData);
+                $output['userName'] = $result['username'];
+                $this->set_response($output, API::HTTP_OK);
             }
-    
-        
         }
-        
     }
 
 

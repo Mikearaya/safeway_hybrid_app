@@ -48,15 +48,8 @@
         >
       </li>
       <li class="nav-item">
-        <a
-          class="nav-link e-link"
-          ejs-button
-          [routerLink]="['/complains']"
-          routerLinkActive="router-link-active"
-          href="#"
-          tabindex="-2"
-          >Complains</a
-        >
+      <button ejs-dropdownbutton (select)="complainClick($event)" [items]="complains" content="COMPLAINS"></button>
+
       </li>
       <li class="nav-item">
         <a

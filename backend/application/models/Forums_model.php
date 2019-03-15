@@ -1,3 +1,4 @@
+
 <?php
 class Forums_model extends MY_Model
 {
@@ -10,4 +11,3 @@ class Forums_model extends MY_Model
         $this->primary_key = 'ID';
     }
 }
- 

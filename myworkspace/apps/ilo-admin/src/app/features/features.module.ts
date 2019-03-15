@@ -9,6 +9,7 @@ import { FeaturesDashboardComponent } from './features-dashboard/features-dashbo
 import { MenuModule } from '@syncfusion/ej2-angular-navigations';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
+import { ComplainsModule } from './complains/complains.module';
 
 @NgModule({
   declarations: [FeaturesComponent, FeaturesDashboardComponent],
@@ -19,7 +20,8 @@ import { DropDownButtonModule } from '@syncfusion/ej2-angular-splitbuttons';
     MenuModule,
     ButtonModule,
     SharedComponentModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComplainsModule
   ]
 })
 export class FeaturesModule {}

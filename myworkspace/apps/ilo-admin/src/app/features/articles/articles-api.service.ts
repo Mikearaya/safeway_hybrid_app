@@ -75,7 +75,7 @@ export class ArticlesApiService {
   updateArticle(articleCatagory: ArticleModel): Observable<ArticleViewModel> {
     const catagory = this.prepareRequestBody(articleCatagory);
     return this.httpClient.post<ArticleViewModel>(
-      `articles/update/${articleCatagory.id}`,
+      `articles/update/${articleCatagory.ID}`,
       catagory.toString()
     );
   }

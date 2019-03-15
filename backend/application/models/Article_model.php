@@ -1,3 +1,4 @@
+
 <?php 
 
 
@@ -11,4 +12,3 @@ class Article_Model extends MY_Model
 		parent::__construct();
 	}
 }
- 

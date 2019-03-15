@@ -26,6 +26,16 @@ export class FeaturesComponent implements OnInit {
       id: 'article'
     }
   ];
+  public complains: ItemModel[] = [
+    {
+      text: 'Complain types',
+      id: 'complain_type'
+    },
+    {
+      text: 'Complains',
+      id: 'complains'
+    }
+  ];
   ngOnInit() {}
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {
@@ -39,7 +49,22 @@ export class FeaturesComponent implements OnInit {
       default:
         break;
     }
-    console.log($event.item.properties.id);
+
+  }
+
+  complainClick($event) {
+    switch ($event.item.properties.id.trim().toUpperCase()) {
+      case 'COMPLAINS':
+        this.router.navigate(['/complains']);
+        break;
+      case 'COMPLAIN_TYPE':
+        this.router.navigate(['/complains/type']);
+        break;
+
+      default:
+        break;
+    }
+
   }
   logOut() {
     this.authorizationService.logout();

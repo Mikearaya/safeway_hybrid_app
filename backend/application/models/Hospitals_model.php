@@ -1,3 +1,4 @@
+
 <?php 
 
 class Hospitals_Model extends MY_Model
@@ -10,8 +11,4 @@ class Hospitals_Model extends MY_Model
         $this->primary_key = 'ID';
         parent::__construct();
     }
-
-
-    
 }
- 

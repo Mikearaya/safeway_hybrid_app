@@ -243,6 +243,13 @@ $config = array(
             'label' => 'Article content is required',
             'rules' => 'required'
         ),
+    ),
+    'add_complain' => array(
+
+    ),
+    'update_complain' => array(),
+    'add_complain_type' => array(),
+    'update_complain_type' => array(
         )
 
 

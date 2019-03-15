@@ -1,3 +1,4 @@
+
 <?php 
 
 class Emergency_contacts_Model extends MY_Model
@@ -10,5 +11,4 @@ class Emergency_contacts_Model extends MY_Model
         $this->primary_key = 'ID';
         parent::__construct();
     }
-
 }

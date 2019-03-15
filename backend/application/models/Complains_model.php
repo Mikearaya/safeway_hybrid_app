@@ -1,13 +1,12 @@
 
-<?php 
+<?php
 
-class Schools_Model extends MY_Model
+class Complains_model extends MY_Model
 {
-
 
     function __construct()
     {
-        $this->table_name = 'school';
+        $this->table_name = 'complains';
         $this->primary_key = 'ID';
         parent::__construct();
     }
