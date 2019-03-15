@@ -195,7 +195,42 @@ $config = array(
             'label' => 'Region',
             'rules' => 'required'
         )
+        ),
+        'create_forum' => array(
+    
+        array(
+            'field' => 'name',
+            'label' => 'Forum topic is required',
+            'rules' => 'required'
+        ),
+    ),
+    'update_forum' => array(
+
+        array(
+            'field' => 'name',
+            'label' => 'Forum topic is required',
+            'rules' => 'required'
+        ),
+    ),
+    'add_article_catagory' => array(
+    
+        array(
+            'field' => 'name',
+            'label' => 'Article catagory name is required',
+            'rules' => 'required'
+        ),
+    ),
+    'update_article_catagory' => array(
+
+        array(
+            'field' => 'name',
+            'label' => 'Article catagory name is required',
+            'rules' => 'required'
+        ),
         )
+
+
+
             );
         
 

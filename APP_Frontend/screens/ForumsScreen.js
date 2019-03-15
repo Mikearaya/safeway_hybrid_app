@@ -68,6 +68,13 @@ const newsArray = [
 ]
 
 export default class ForumsScreen extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      forums: []
+    }
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: localeStore.ForumScreen.title,
@@ -79,7 +86,7 @@ export default class ForumsScreen extends Component {
     return (
       <Container style={styles.container}>
         <FlatList
-          data={newsArray}
+          data={this.state.forums}
           renderItem={({ item }) => (
             <ForumCard forumData={item} navigation={this.props.navigation} />
           )}
@@ -87,4 +94,24 @@ export default class ForumsScreen extends Component {
       </Container>
     )
   }
+
+    }
+
+  componentDidMount() {
+    let url =
+      'http://192.168.1.3/ilo_app/backend/index.php/forums'
+
+    fetch(url)
+      .then(result => result.json())
+       .then(data => {
+        let posts = data.map((post, index) => {
+          return (
+            <ForumCard forumData={post} navigation={this.props.navigation} />
+          )
+        })
+        this.setState({ forums: posts })
+      })
+      .catch(error => alert(JSON.stringify(error.message)))
+  }
+}
 }
