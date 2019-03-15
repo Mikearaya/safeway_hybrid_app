@@ -207,6 +207,42 @@ $config = array(
             'label' => 'Article catagory name is required',
             'rules' => 'required'
         ),
+    ),
+    'add_article' => array(
+
+        array(
+            'title' => 'header',
+            'label' => 'Article title is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'CATAGORY_ID',
+            'label' => 'Article catagory is required',
+            'rules' => 'required'
+        ),
+        array(
+             'title' => 'content',
+            'label' => 'Article content is required',
+            'rules' => 'required'
+        ),
+    ),
+    'update_article' => array(
+
+        array(
+            'field' => 'header',
+            'label' => 'Article header title is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'CATAGORY_ID',
+            'label' => 'Article catagory is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'content',
+            'label' => 'Article content is required',
+            'rules' => 'required'
+        ),
         )
 
 

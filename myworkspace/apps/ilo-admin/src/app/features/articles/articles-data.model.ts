@@ -1,14 +1,14 @@
 export interface ArticleModel {
-  id?: number;
-  title: string;
+  ID?: number;
+  header: string;
   content: string;
-  type?: number;
+  CATAGORY_ID?: number;
 }
 
 export interface ArticleViewModel {
-  catagoryId?: number;
-  id: number;
-  title: string;
+  CATAGORY_ID?: number;
+  ID: number;
+  header: string;
   content: string;
 }
 

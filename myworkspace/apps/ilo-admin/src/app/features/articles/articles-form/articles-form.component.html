@@ -1,1 +1,88 @@
+<div class="container card shadow-lg pl-5 pr-5 md-3">
+  <ejs-tab id="element">
+    <e-tabitems>
+      <e-tabitem [header]="headerText[0]">
+        <ng-template #content>
+          <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+              <div class="col-12 col-sm-6 form-group ">
+                <label for="emergencyContactName">Emergency contact</label>
+                <select id='ddlelement'  formControlName="catagory"  class="form-control"  placeholder='Select article catagory'>
+                <option *ngFor="let cat of articleCatagories; let i=index; let last=last" [value]="cat.ID" > {{cat.name}}</option>
+                </select>
+                <div class="text-danger" *ngIf="catagory.errors">
+                  <div *ngIf="catagory.errors['required']">
+                    Article catagory is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 form-group">
+                <label for="title">Article header</label>
+                <input type="text" class="form-control" formControlName="title" id="title" placeholder="Article header" />
+                <small id="address" class="form-text text-muted">Header used as article title</small>
+                <div class="text-danger" *ngIf="articleTitle.errors">
+                  <div *ngIf="articleTitle.errors['required']">
+                    Phone number is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 form-group">
+                <label for="articleContent">Article content</label>
+                <textarea formControlName="content" rows='10' class='form-control'></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+      <e-tabitem *ngIf="isUpdate" [header]="headerText[1]">
+        <ng-template #content>
+          <form [formGroup]="articleLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+            <div formArrayName="articleLocales">
+              <div *ngFor="
+                  let locale of articleLocales.controls;
+                  let i = index;
+                  let last = last
+                "
+                [formGroup]="locale">
+                <div class="row" style="position:relative;">
+                  <div class="col-12 col-sm-12 form-group ">
+                    <label for="title">Article header</label>
+                    <input type="text" formControlName="title" class="form-control" id="hospital" aria-describedby="Article header"
+                      placeholder="Article header" />
+                    <div class="text-danger" *ngIf="locale.get('title').errors">
+                      <div *ngIf="locale.get('title').errors['required']">
+                        Article header is required
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
+                    <i class="fa fa-trash text-danger"></i>
+                  </button>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-12 form-group">
+                    <label for="articleContent">Article content</label>
+                    <textarea formControlName="content" rows='10' cols='700' ></textarea>
+                    <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
+                    <div class="text-danger" *ngIf="locale.get('content').errors">
+                      <div *ngIf="locale.get('content').errors['required']">
+                      </div>
+                    </div>
+                  </div>
 
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+            <button type="button" (click)="addLocale()" class="btn  btn-primary">
+              Add Locale
+            </button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+    </e-tabitems>
+  </ejs-tab>
+</div>

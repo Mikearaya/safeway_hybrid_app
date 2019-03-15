@@ -13,6 +13,7 @@ import {
   ArticleCatagoryViewModel,
   ArticleModel
 } from '../articles-data.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bionic-articles-form',
@@ -21,11 +22,16 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class ArticlesFormComponent implements OnInit {
+  public fields: Object = { text: 'name', value: 'ID' };
+  public headerText: Object = [
+    { text: 'Enlish Language (default)' },
+    { text: 'Other Languages' }
+  ];
   private articleId: number;
   public isUpdate: Boolean;
-  private articleForm: FormGroup;
-  private articleLocaleForm: FormGroup;
-  public articleCatagories: ArticleCatagoryViewModel[] = [];
+  public articleForm: FormGroup;
+  public articleLocaleForm: FormGroup;
+  public articleCatagories: any[] = [];
 
   constructor(
     private articleApi: ArticlesApiService,
@@ -62,8 +68,8 @@ export class ArticlesFormComponent implements OnInit {
   initializeForm(article: ArticleViewModel): void {
     this.articleForm = this.formBuilder.group({
       id: [article.id, Validators.required],
-      catagory: [article.catagoryId, Validators.required],
-      title: [article.title, Validators.required],
+      catagory: [article.CATAGORY_ID, Validators.required],
+      title: [article.header, Validators.required],
       content: [article.content, Validators.required]
     });
   }
@@ -96,24 +102,60 @@ export class ArticlesFormComponent implements OnInit {
     return this.articleLocaleForm.get('articleLocales') as FormArray;
   }
 
-  onSubmit(): void {}
+  onSubmit(): void {
+    const formData = this.prepareFormData();
+
+    if (formData) {
+      if (!this.isUpdate) {
+        this.articleApi.createArticle(formData).subscribe(
+          (data: any) => {
+            this.articleApi = data;
+            this.isUpdate = true;
+            alert('Article created successfully')
+          },
+          (error: HttpErrorResponse) => alert(error.message)
+        );
+      } else {
+        this.articleApi
+          .updateArticle(formData)
+          .subscribe(
+            () => alert('article updated successfully'),
+            (error: HttpErrorResponse) => alert(error.message)
+          );
+      }
+    }
+  }
 
   prepareFormData(): ArticleModel | null {
     if (this.articleForm.valid) {
       if (this.isUpdate && this.articleId) {
         return {
           content: this.content.value,
-          type: this.catagory.value,
-          title: this.articleTitle.value,
-          id: this.articleId
+          CATAGORY_ID: this.catagory.value,
+          header: this.articleTitle.value,
+          ID: this.articleId
         };
       } else {
         return {
-          title: this.articleTitle.value,
+          header: this.articleTitle.value,
           content: this.content.value,
-          type: this.catagory.value
+          CATAGORY_ID: this.catagory.value
         };
       }
     }
+  }
+
+  addLocale(): void {
+    this.articleLocales.controls.push(
+      this.formBuilder.group({
+        catagory: ['', Validators.required],
+        title: ['', Validators.required],
+        content: ['', Validators.required]
+      })
+    );
+  }
+
+  deleteLocale(index: number): void {
+    this.articleLocales.removeAt(index);
   }
 }
