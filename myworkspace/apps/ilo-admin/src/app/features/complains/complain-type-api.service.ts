@@ -19,8 +19,10 @@ export class ComplainTypeApiService {
     return this.httpClient.get<ComplainTypeViewModel[]>(`${this.controller}`);
   }
 
-  getComplainTypeById(): Observable<ComplainTypeViewModel> {
-    return this.httpClient.get<ComplainTypeViewModel>(`${this.controller}`);
+  getComplainTypeById(id: number): Observable<ComplainTypeViewModel> {
+    return this.httpClient.get<ComplainTypeViewModel>(
+      `${this.controller}/${id}`
+    );
   }
 
   createComplainType(
