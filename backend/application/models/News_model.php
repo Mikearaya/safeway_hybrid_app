@@ -1,7 +1,9 @@
 <?php
 
-class News_Model extends MY_Model {
-    function __construct() {
+class News_Model extends MY_Model
+{
+    function __construct()
+    {
         $this->table_name = 'article';
         $this->primary_key = 'ID';
         parent::__construct();
@@ -9,10 +11,11 @@ class News_Model extends MY_Model {
 
     function get_list()
     {
-        $this->db->where('CATAGORY_ID', NULL);
+        $this->db->where('CATAGORY_ID', null);
         $result = $this->db->get($this->table_name);
         return $result->result_array();
     }
-
 }
+ 
+
 ?>
