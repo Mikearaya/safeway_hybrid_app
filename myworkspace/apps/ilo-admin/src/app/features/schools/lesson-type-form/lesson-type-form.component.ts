@@ -25,6 +25,10 @@ export class LessonTypeFormComponent implements OnInit {
   public isUpdate: Boolean;
   public languages: any;
 
+  public headerText: Object = [
+    { text: 'Enlish Language (default)' },
+    { text: 'Other Languages' }
+  ];
   constructor(
     private lessonTypeApi: LessonTypeService,
     private formBuilder: FormBuilder,
@@ -53,13 +57,13 @@ export class LessonTypeFormComponent implements OnInit {
   }
 
   private createForm(): void {
-    this.formBuilder.group({
+    this.lessonTypeForm = this.formBuilder.group({
       type: ['', Validators.required]
     });
   }
 
   private createLocaleForm(): void {
-    this.lessonTypeForm = this.formBuilder.group({
+    this.lessonTypeLocaleForm = this.formBuilder.group({
       lessonTypeLocales: this.formBuilder.array([this.generateLocaleForm()])
     });
   }
@@ -76,28 +80,29 @@ export class LessonTypeFormComponent implements OnInit {
   }
 
   get lessonTypeLocales(): FormArray {
-    return this.lessonTypeForm.get('lessonTypeLocales') as FormArray;
+    return this.lessonTypeLocaleForm.get('lessonTypeLocales') as FormArray;
   }
 
   onSubmit(): void {
     const formData = this.prepareFormData();
-
-    if (this.isUpdate) {
-      this.lessonTypeApi
-        .updateLessonType(formData)
-        .subscribe(
-          () => alert('Lesson type updated successfully'),
+    if (formData) {
+      if (this.isUpdate) {
+        this.lessonTypeApi
+          .updateLessonType(formData)
+          .subscribe(
+            () => alert('Lesson type updated successfully'),
+            (error: HttpErrorResponse) => alert(error.message)
+          );
+      } else {
+        this.lessonTypeApi.createLessonType(formData).subscribe(
+          (data: any) => {
+            this.lessonTypeId = data;
+            this.isUpdate = true;
+            alert('lesson type created successfully');
+          },
           (error: HttpErrorResponse) => alert(error.message)
         );
-    } else {
-      this.lessonTypeApi.createLessonType(formData).subscribe(
-        (data: any) => {
-          this.lessonTypeId = data;
-          this.isUpdate = true;
-          alert('lesson type created successfully');
-        },
-        (error: HttpErrorResponse) => alert(error.message)
-      );
+      }
     }
   }
 
@@ -105,9 +110,16 @@ export class LessonTypeFormComponent implements OnInit {
     if (this.lessonTypeForm.valid) {
       if (this.isUpdate && this.lessonTypeId) {
         return {
+          ID: this.lessonTypeId,
+          type: this.type.value
+        };
+      } else {
+        return {
           type: this.type.value
         };
       }
+    } else {
+      return null;
     }
   }
   private generateLocaleForm(): FormGroup {

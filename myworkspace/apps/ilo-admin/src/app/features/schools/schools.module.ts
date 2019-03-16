@@ -9,10 +9,21 @@ import { LessonTypeFormComponent } from './lesson-type-form/lesson-type-form.com
 import { LessonTypeViewComponent } from './lesson-type-view/lesson-type-view.component';
 import { LessonTypeService } from './lesson-type.service';
 import { SchoolApiService } from './school-api.service';
+import { TabModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
-  declarations: [SchoolFormComponent, SchoolViewComponent, LessonTypeFormComponent, LessonTypeViewComponent],
-  imports: [CommonModule, SchoolsRoutingModule, SharedComponentModule],
+  declarations: [
+    SchoolFormComponent,
+    SchoolViewComponent,
+    LessonTypeFormComponent,
+    LessonTypeViewComponent
+  ],
+  imports: [
+    CommonModule,
+    SchoolsRoutingModule,
+    SharedComponentModule,
+    TabModule
+  ],
   providers: [LessonTypeService, SchoolApiService]
 })
 export class SchoolsModule {}

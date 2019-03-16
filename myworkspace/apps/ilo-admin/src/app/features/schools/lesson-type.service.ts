@@ -30,7 +30,7 @@ export class LessonTypeService {
   updateLessonType(lesson: LessonTypeModel): Observable<void> {
     const lessonType = this.prepareRequestBody(lesson);
     return this.httpClient.post<void>(
-      `${this.controller}/${lesson.ID}`,
+      `${this.controller}/update/${lesson.ID}`,
       lessonType.toString()
     );
   }
@@ -43,11 +43,11 @@ export class LessonTypeService {
     );
   }
 
-  private prepareRequestBody(customer: any): URLSearchParams {
+  private prepareRequestBody(lesson: any): URLSearchParams {
     const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
+    for (const key in lesson) {
+      if (lesson.hasOwnProperty(key)) {
+        const value = lesson[key];
         dataModel.set(key, value);
       }
     }

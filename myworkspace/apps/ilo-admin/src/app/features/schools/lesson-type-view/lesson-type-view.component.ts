@@ -53,7 +53,7 @@ export class LessonTypeViewComponent implements OnInit {
 
   deleteLessonType(data: any): void {
     this.lessonTypeApi
-      .deletelessonType(data.ID)
+      .deletelessonType([data.ID])
       .subscribe(
         () => alert('Lesson type deleted successfully'),
         (error: HttpErrorResponse) => alert(error.message)

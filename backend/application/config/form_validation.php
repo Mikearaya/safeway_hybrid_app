@@ -290,7 +290,26 @@ $config = array(
             'label' => 'news content is required',
             'rules' => 'required'
         ),
+    ),  'update_lesson_type' => array(
+        array(
+            'field' => 'type',
+            'label' => 'Lesson type is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'ID',
+            'label' => 'Lesson type ID is required',
+            'rules' => 'required'
         )
+    ),
+    'add_lesson_type' => array(
+          array(
+            'field' => 'type',
+            'label' => 'Lesson type is required',
+            'rules' => 'required'
+        )
+    ),
+    
 
 
 
