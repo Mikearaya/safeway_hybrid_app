@@ -1,1 +1,83 @@
-<p>news-form works!</p>
+<div class="container card shadow-lg pl-5 pr-5 md-3">
+  <ejs-tab id="element">
+    <e-tabitems>
+      <e-tabitem [header]="headerText[0]">
+        <ng-template #content>
+          <form [formGroup]="newsForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+
+              <div class="col-12 form-group">
+                <label for="header">News header</label>
+<input type="text" class="form-control" formControlName="header" id="header" placeholder="News header" />
+                <small id="header" class="form-text text-muted">Header used as News title</small>
+                <div class="text-danger" *ngIf="header.errors">
+                  <div *ngIf="header.errors['required']">
+                    News header is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 form-group">
+                <label for="newsContent">News content</label>
+                <textarea formControlName="content" rows='10' class='form-control'></textarea>
+                <div class="text-danger" *ngIf="newsContent.errors">
+                  <div *ngIf="newsContent.errors['required']">
+                    News content is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+      <e-tabitem *ngIf="isUpdate" [header]="headerText[1]">
+        <ng-template #content>
+          <form [formGroup]="newsLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+            <div formArrayName="newsLocales">
+              <div *ngFor="
+                  let locale of newsLocales.controls;
+                  let i = index;
+                  let last = last
+                "
+                [formGroup]="locale">
+                <div class="row" style="position:relative;">
+                  <div class="col-12 col-sm-12 form-group ">
+                    <label for="header">News header</label>
+                    <input type="text" formControlName="header" class="form-control" id="header" aria-describedby="News header"
+                      placeholder="News header" />
+                    <div class="text-danger" *ngIf="locale.get('header').errors">
+                      <div *ngIf="locale.get('header').errors['required']">
+                        News header is required
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
+                    <i class="fa fa-trash text-danger"></i>
+                  </button>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-12 form-group">
+                    <label for="newsContent">News content</label>
+                    <textarea formControlName="content" rows='10' id="newsContent" class='form-control'></textarea>
+                    <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
+                    <div class="text-danger" *ngIf="locale.get('content').errors">
+                      <div *ngIf="locale.get('content').errors['required']">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+            <button type="button" (click)="addLocale()" class="btn  btn-primary">
+              Add Locale
+            </button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+    </e-tabitems>
+  </ejs-tab>
+</div>
