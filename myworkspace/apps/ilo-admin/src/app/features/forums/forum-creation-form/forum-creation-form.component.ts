@@ -122,11 +122,14 @@ export class ForumCreationFormComponent implements OnInit {
 
     if (emergencyContactData) {
       if (this.isUpdate) {
-        this.forumApi.updateForum(emergencyContactData).subscribe();
+        this.forumApi
+          .updateForum(emergencyContactData)
+          .subscribe(() => alert('Forum updated successfuly'));
       } else {
         this.forumApi.addForum(emergencyContactData).subscribe((data: any) => {
           this.isUpdate = true;
           this.forumId = data;
+          alert('Forum created successfully');
         });
       }
     }
