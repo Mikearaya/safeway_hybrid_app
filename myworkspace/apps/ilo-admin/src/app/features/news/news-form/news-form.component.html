@@ -8,7 +8,7 @@
 
               <div class="col-12 form-group">
                 <label for="header">News header</label>
-<input type="text" class="form-control" formControlName="header" id="header" placeholder="News header" />
+                <input type="text" class="form-control" formControlName="header" id="header" placeholder="News header" />
                 <small id="header" class="form-text text-muted">Header used as News title</small>
                 <div class="text-danger" *ngIf="header.errors">
                   <div *ngIf="header.errors['required']">
@@ -32,7 +32,7 @@
           </form>
         </ng-template>
       </e-tabitem>
-      <e-tabitem *ngIf="isUpdate" [header]="headerText[1]">
+      <e-tabitem  [disabled]="!isUpdate" [header]="headerText[1]">
         <ng-template #content>
           <form [formGroup]="newsLocaleForm" (ngSubmit)="onSubmit()" novalidate>
             <div formArrayName="newsLocales">
@@ -43,7 +43,18 @@
                 "
                 [formGroup]="locale">
                 <div class="row" style="position:relative;">
-                  <div class="col-12 col-sm-12 form-group ">
+                  <div class="col-12 col-sm-4 form-group">
+                    <label for="locale">Language</label>
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.name">{{ lang.name }}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="locale.errors">
+                      <div *ngIf="locale.errors['required']">
+                        Hospital region is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-7 form-group ">
                     <label for="header">News header</label>
                     <input type="text" formControlName="header" class="form-control" id="header" aria-describedby="News header"
                       placeholder="News header" />

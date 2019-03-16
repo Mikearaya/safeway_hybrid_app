@@ -266,6 +266,30 @@ $config = array(
             'label' => 'updated Complain type Id is required',
             'rules' => 'required'
         ),
+    ),
+    'update_news' => array(
+        array(
+            'field' => 'header',
+            'label' => 'news header is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'content',
+            'label' => 'news content is required',
+            'rules' => 'required'
+        )
+    ),
+    'add_news' => array(
+          array(
+            'field' => 'header',
+            'label' => 'news header is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'content',
+            'label' => 'news content is required',
+            'rules' => 'required'
+        ),
         )
 
 

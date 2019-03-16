@@ -19,14 +19,14 @@ export class NewsApiService {
 
   createNews(newNews: NewsModel): Observable<NewsViewModel> {
     const newsModel = this.prepareRequestBody(newNews);
-    return this.httpClient.post<NewsViewModel>(`${this.controller}`, newsModel);
+    return this.httpClient.post<NewsViewModel>(`${this.controller}`, newsModel.toString());
   }
 
   updateNews(updatedNews: NewsModel): Observable<void> {
     const newsModel = this.prepareRequestBody(updatedNews);
     return this.httpClient.post<void>(
       `${this.controller}/update/${updatedNews.ID}`,
-      newsModel
+      newsModel.toString()
     );
   }
 

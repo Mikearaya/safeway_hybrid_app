@@ -47,6 +47,9 @@ export class NewsFormComponent implements OnInit {
         .getNewsById(this.newsId)
         .subscribe((data: NewsViewModel) => this.initializeForm(data));
     }
+    this.systemConf
+      .getLanguagesList()
+      .subscribe((data: any) => (this.languages = data));
   }
 
   private createForm(): void {
