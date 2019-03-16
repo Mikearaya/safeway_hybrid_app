@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: '', component: ComplainsViewComponent },
   { path: 'type', component: ComplainTypeViewComponent },
   { path: 'type/new', component: ComplainTypeFormComponent },
-  { path: 'type/:complainTypeId', component: ComplainTypeFormComponent },
+  { path: 'type/:complainTypeId/update', component: ComplainTypeFormComponent },
   { path: ':complainId', component: ComplainDetailViewComponent }
 ];
 

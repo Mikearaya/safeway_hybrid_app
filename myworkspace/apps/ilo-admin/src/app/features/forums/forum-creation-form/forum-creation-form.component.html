@@ -3,7 +3,7 @@
     <e-tabitems>
       <e-tabitem [header]="headerText[0]">
         <ng-template #content>
-          {{ isUpdate }}
+
           <form [formGroup]="forumForm" (ngSubmit)="onSubmit()" novalidate>
             <div class="row">
               <div class="col-12  form-group ">

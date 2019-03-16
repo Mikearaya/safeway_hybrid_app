@@ -17,6 +17,7 @@ import { ComplainTypeViewComponent } from './complain-type-view/complain-type-vi
 import { ComplainTypeFormComponent } from './complain-type-form/complain-type-form.component';
 import { ComplainTypeApiService } from './complain-type-api.service';
 import { ComplainApiService } from './complain-api.service';
+import { TabModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ComplainApiService } from './complain-api.service';
     CommonModule,
     ComplainsRoutingModule,
     SharedComponentModule,
+    TabModule
   ],
   providers: [ComplainTypeApiService, ComplainApiService]
 })

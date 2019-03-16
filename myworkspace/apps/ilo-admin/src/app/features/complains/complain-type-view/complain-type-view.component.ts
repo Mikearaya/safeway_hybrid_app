@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ComplainTypeApiService } from '../complain-type-api.service';
 import { ComplainTypeViewModel } from '../complain-data.model';
 import { CustomGridColumns } from '@bionic/shared-component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bionic-complain-type-view',
@@ -16,7 +17,8 @@ export class ComplainTypeViewComponent implements OnInit {
       key: 'ID',
       width: 50,
       header: 'id',
-      type: 'string'
+      type: 'string',
+      visible: false
     },
     {
       key: 'type',
@@ -44,8 +46,17 @@ export class ComplainTypeViewComponent implements OnInit {
   constructor(private complainTypeApi: ComplainTypeApiService) {}
 
   ngOnInit() {
-    this.complainTypeApi.getAllComplainTypes().subscribe(
-      (data: ComplainTypeViewModel[]) => this.data = data
-    )
+    this.complainTypeApi
+      .getAllComplainTypes()
+      .subscribe((data: ComplainTypeViewModel[]) => (this.data = data));
+  }
+
+  deleteComplainType(data: any): void {
+    this.complainTypeApi.deleteComplainType([data.ID]).subscribe(
+      () => alert('complain type deleted successfuly'),
+      (error: HttpErrorResponse) => {
+        alert('Failed while attempting to delete complain type');
+      }
+    );
   }
 }

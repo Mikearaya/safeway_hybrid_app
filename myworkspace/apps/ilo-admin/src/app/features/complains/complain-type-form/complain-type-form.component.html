@@ -1,3 +1,72 @@
-<p>
-  complain-type-form works!
-</p>
+<div class="container card shadow-lg pl-5 pr-5 md-3">
+  <ejs-tab id="element" #tab>
+    <e-tabitems>
+      <e-tabitem [header]="headerText[0]">
+        <ng-template #content>
+          <form [formGroup]="complainTypeForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+              <div class="col-12  form-group ">
+                <label for="type">Complain type</label>
+                <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Complain type"
+                  placeholder="Complain type" />
+                <div class="text-danger" *ngIf="type.errors">
+                  <div *ngIf="type.errors['required']">
+                    Complain type is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+      <e-tabitem [disabled]="!isUpdate" [header]="headerText[1]">
+        <ng-template #content>
+          <form [formGroup]="complainTypeLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+            <div formArrayName="complainTypeLocales">
+              <div *ngFor="
+                  let locale of complainTypeLocales.controls;
+                  let i = index;
+                  let last = last
+                "
+                [formGroup]="locale">
+                <div class="row" style="position:relative;">
+                  <div class="col-12 col-sm-3 form-group">
+                    <label for="locale">Language</label>
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.name">{{ lang.name }}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="locale.errors">
+                      <div *ngIf="locale.errors['required']">
+                        Language is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-7 form-group ">
+                    <label for="type">Type</label>
+                    <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Complain type"
+                      placeholder="Complain type" />
+                    <div class="text-danger" *ngIf="locale.get('type').errors">
+                      <div *ngIf="locale.get('type').errors['required']">
+                        Complain type is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-1">
+                    <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
+                      <i class="fa fa-trash text-danger"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+            <button type="button" (click)="addLocale()" class="btn  btn-primary">
+              Add Locale
+            </button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+    </e-tabitems>
+  </ejs-tab>
+</div>

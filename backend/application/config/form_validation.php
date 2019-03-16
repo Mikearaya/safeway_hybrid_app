@@ -248,8 +248,24 @@ $config = array(
 
     ),
     'update_complain' => array(),
-    'add_complain_type' => array(),
+    'add_complain_type' => array(
+        array(
+            'field' => 'type',
+            'label' => 'Complain type is required',
+            'rules' => 'required'
+        ),
+    ),
     'update_complain_type' => array(
+          array(
+            'field' => 'type',
+            'label' => 'Complain type is required',
+            'rules' => 'required'
+        ),
+        array(
+            'field' => 'ID',
+            'label' => 'updated Complain type Id is required',
+            'rules' => 'required'
+        ),
         )
 
 
