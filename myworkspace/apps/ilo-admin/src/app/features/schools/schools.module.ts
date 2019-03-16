@@ -10,6 +10,7 @@ import { LessonTypeViewComponent } from './lesson-type-view/lesson-type-view.com
 import { LessonTypeService } from './lesson-type.service';
 import { SchoolApiService } from './school-api.service';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { MultiSelectModule } from '@syncfusion/ej2-ng-dropdowns';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     CommonModule,
     SchoolsRoutingModule,
     SharedComponentModule,
-    TabModule
+    TabModule,
+    MultiSelectModule
   ],
   providers: [LessonTypeService, SchoolApiService]
 })

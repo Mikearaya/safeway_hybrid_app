@@ -1,1 +1,126 @@
-<p>school-forum works!</p>
+<div class="container card shadow-lg pl-5 pr-5 md-3">
+  <ejs-tab id="element">
+    <e-tabitems>
+      <e-tabitem [header]="headerText[0]">
+        <ng-template #content>
+          <form [formGroup]="schoolForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="row">
+              <div class="col-12 col-sm-6 form-group ">
+                <label for="name">School name</label>
+                <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="School name"
+                  placeholder="School name" />
+                <div class="text-danger" *ngIf="name.errors">
+                  <div *ngIf="name.errors['required']">
+                    School Name is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 form-group">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="number" class="form-control" formControlName="phoneNumber" id="phoneNumber" placeholder="Phone number" />
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-12 form-group">
+                <label for="lessonTypes">Lesson type</label>
+                <ejs-multiselect id='lessonTypes' class='form-control' formControlName="lessons" [fields]='fields'
+                  [dataSource]='data'></ejs-multiselect>
+                <small id="lessonType" class="form-text text-muted">Agecy type.</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 form-group">
+                <label for="address">Address</label>
+                <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
+                  aria-describedby="Address" placeholder="Address" />
+                <small id="address" class="form-text text-muted">Address of the Agency.</small>
+              </div>
+              <div class="col-12 col-sm-6 form-group">
+                <label for="region">Region</label>
+                <select class="form-control" formControlName="region" id="region">
+                  <option [value]='1'>Addis Ababa</option>
+                  <option [value]='2'>Dire dawa</option>
+                  <option [value]='3'>Hawassa</option>
+                  <option [value]='4'>Bishoftu</option>
+                  <option [value]='5'>Nazret</option>
+                </select>
+                <div class="text-danger" *ngIf="region.errors">
+                  <div *ngIf="region.errors['required']">
+                    Agency region is required
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6 form-group ">
+                <label for="emailAddress">email</label>
+                <input type="email" formControlName="email" class="form-control" id="emailAddress" aria-describedby="email"
+                  placeholder="Email address" />
+              </div>
+              <div class="col-12 col-sm-6 form-group">
+                <label for="fax">Fax</label>
+                <input type="text" class="form-control" formControlName="fax" id="fax" placeholder="Fax" />
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+      <e-tabitem [disabled]="!isUpdate" [header]="headerText[1]">
+        <ng-template #content>
+          <form [formGroup]="schoolLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+            <div formArrayName="schoolLocales">
+              <div *ngFor="
+                  let locale of schoolLocales.controls;
+                  let i = index;
+                  let last = last
+                "
+                [formGroup]="locale">
+
+                <div class="row" style="position:relative;">
+
+                  <div class="col-12 col-sm-4 form-group">
+                    <label for="locale">locale</label>
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor='let lang of languages; let i=index' [value]='lang.name'>{{lang.name}}</option>
+                    </select>
+                    <div class="text-danger" *ngIf="region.errors">
+                      <div *ngIf="region.errors['required']">
+                        Agency region is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 form-group ">
+                    <label for="name">Agency contact</label>
+                    <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="Agency name"
+                      placeholder="Agency name" />
+                    <div class="text-danger" *ngIf="locale.get('name').errors">
+                      <div *ngIf="locale.get('name').errors['required']">
+                        Agency Name is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4 form-group">
+                    <label for="region">Address</label>
+                    <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
+                      aria-describedby="Address" placeholder="Address" />
+                    <small id="address" class="form-text text-muted">Address of the school.</small>
+
+                  </div>
+                  <button type='button' class='btn btn-sm rounded  bg-red delete-button' (click)='deleteLocale(i)'>
+                    <i class='fa fa-trash text-danger'></i>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <button type="submit" class="btn  btn-success">Submit</button>
+            <button type="button" (click)="addLocale()" class="btn  btn-primary">
+              Add Locale
+            </button>
+          </form>
+        </ng-template>
+      </e-tabitem>
+    </e-tabitems>
+  </ejs-tab>
+</div>

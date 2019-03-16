@@ -19,7 +19,7 @@ export class SchoolApiService {
     return this.httpClient.get<SchoolViewModel[]>(`${this.controller}`);
   }
 
-  createSchool(lesson: SchoolViewModel): Observable<SchoolViewModel[]> {
+  createSchool(lesson: SchoolModel): Observable<SchoolViewModel[]> {
     const lessonType = this.prepareRequestBody(lesson);
     return this.httpClient.post<SchoolViewModel[]>(
       `${this.controller}`,

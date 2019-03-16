@@ -9,7 +9,10 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import { SchoolViewModel } from '../school-type.model';
+import { SchoolViewModel, SchoolModel } from '../school-type.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LessonTypeService } from '../lesson-type.service';
+import { LessonTypeViewModel } from '../lesson-type.model';
 
 @Component({
   selector: 'bionic-school-form',
@@ -18,6 +21,13 @@ import { SchoolViewModel } from '../school-type.model';
   encapsulation: ViewEncapsulation.None
 })
 export class SchoolFormComponent implements OnInit {
+  public headerText: Object = [
+    { text: 'Enlish Language (default)' },
+    { text: 'Other Languages' }
+  ];
+
+  public fields: Object = { text: 'type', value: 'ID' };
+  public data: LessonTypeViewModel[] = [];
   public schoolForm: FormGroup;
   public schoolLocaleForm: FormGroup;
   private schoolId: number;
@@ -28,7 +38,8 @@ export class SchoolFormComponent implements OnInit {
     private schoolApi: SchoolApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private systemConf: SystemApiService
+    private systemConf: SystemApiService,
+    private lessonTypeApi: LessonTypeService
   ) {
     this.createForm();
     this.createLocaleForm();
@@ -36,6 +47,9 @@ export class SchoolFormComponent implements OnInit {
 
   ngOnInit() {
     this.schoolId = +this.activatedRoute.snapshot.paramMap.get('schoolId');
+    this.lessonTypeApi
+      .getLessonTypeList()
+      .subscribe((data: LessonTypeViewModel[]) => (this.data = data));
 
     if (this.schoolId) {
       this.isUpdate = true;
@@ -55,6 +69,8 @@ export class SchoolFormComponent implements OnInit {
       lessons: ['', Validators.required],
       region: ['', Validators.required],
       address: [''],
+      fax: [''],
+      email: [''],
       phoneNumber: ['', Validators.required]
     });
   }
@@ -65,6 +81,8 @@ export class SchoolFormComponent implements OnInit {
       lessons: [data.LESSON_ID, Validators.required],
       region: [data.region, Validators.required],
       address: [data.address],
+      fax: [data.fax],
+      email: [data.email],
       phoneNumber: [data.phone_number, Validators.required]
     });
   }
@@ -91,6 +109,14 @@ export class SchoolFormComponent implements OnInit {
     return this.schoolForm.get('phoneNumber') as FormControl;
   }
 
+  get fax(): FormControl {
+    return this.schoolForm.get('fax') as FormControl;
+  }
+
+  get email(): FormControl {
+    return this.schoolForm.get('email') as FormControl;
+  }
+
   get address(): FormControl {
     return this.schoolForm.get('address') as FormControl;
   }
@@ -111,10 +137,61 @@ export class SchoolFormComponent implements OnInit {
     return this.formBuilder.group({
       locale: ['', Validators.required],
       name: ['', Validators.required],
-      lessons: ['', Validators.required],
-      region: ['', Validators.required],
-      address: [''],
-      phoneNumber: ['', Validators.required]
+      address: ['']
     });
+  }
+
+  onSubmit(): void {
+    const formData = this.prepareFormData();
+    if (formData) {
+      if (this.isUpdate) {
+        this.schoolApi
+          .updateSchool(formData)
+          .subscribe(
+            () => alert('School updated successfuly'),
+            (error: HttpErrorResponse) => alert(error.message)
+          );
+      } else {
+        this.schoolApi.createSchool(formData).subscribe(
+          (data: any) => {
+            this.isUpdate = true;
+            this.schoolId = data;
+            alert('School created successfuly');
+          },
+          (error: HttpErrorResponse) => alert(error.message)
+        );
+      }
+    } else {
+      return null;
+    }
+  }
+
+  private prepareFormData(): SchoolModel | null {
+    if (this.schoolForm.valid) {
+      if (this.isUpdate && this.schoolId) {
+        return {
+          ID: this.schoolId,
+          address: this.address.value,
+          name: this.name.value,
+          phone_number: this.phoneNumber.value,
+          region: this.region.value,
+          LESSON_ID: this.lessons.value,
+          fax: this.fax.value,
+          email: this.email.value
+        };
+      } else {
+        return {
+          address: this.address.value,
+          name: this.name.value,
+          phone_number: this.phoneNumber.value,
+          region: this.region.value,
+          LESSON_ID: this.lessons.value,
+          fax: this.fax.value,
+          email: this.email.value
+        };
+      }
+    } else {
+      return null;
+    }
   }
 }
