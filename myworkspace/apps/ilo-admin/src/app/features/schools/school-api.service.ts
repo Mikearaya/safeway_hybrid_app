@@ -11,7 +11,7 @@ export class SchoolApiService {
     this.httpBody = new URLSearchParams();
   }
 
-  getSchoolTypeById(id: number): Observable<SchoolViewModel> {
+  getSchoolById(id: number): Observable<SchoolViewModel> {
     return this.httpClient.get<SchoolViewModel>(`${this.controller}/${id}`);
   }
 
