@@ -9,7 +9,12 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
 import { ForumApiService } from '../forum-api.service';
-import { ForumViewModel, ForumModel } from '../forum-data.model';
+import {
+  ForumViewModel,
+  ForumModel,
+  Forum,
+  ForumLocaleModel
+} from '../forum-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TabComponent } from '@syncfusion/ej2-angular-navigations';
 
@@ -39,7 +44,6 @@ export class ForumCreationFormComponent implements OnInit {
     private systemConfig: SystemApiService
   ) {
     this.createForm();
-    this.createLocalesForm();
   }
 
   ngOnInit() {
@@ -50,7 +54,7 @@ export class ForumCreationFormComponent implements OnInit {
       this.forumApi
         .getForumById(this.forumId)
         .subscribe(
-          (data: ForumViewModel) => this.initializeForm(data),
+          (data: Forum) => this.initializeForm(data),
           (error: HttpErrorResponse) => alert(error.message)
         );
     }
@@ -62,15 +66,11 @@ export class ForumCreationFormComponent implements OnInit {
 
   createForm() {
     this.forumForm = this.forumBuilder.group({
-      topic: ['', Validators.required]
-    });
-  }
-
-  createLocalesForm() {
-    this.forumLocaleForm = this.forumBuilder.group({
+      topic: ['', Validators.required],
       forumLocale: this.forumBuilder.array([
         this.forumBuilder.group({
-          topic: ['', Validators.required]
+          name: ['', Validators.required],
+          locale: ['', Validators.required]
         })
       ])
     });
@@ -80,29 +80,26 @@ export class ForumCreationFormComponent implements OnInit {
     this.forumLocales.removeAt(index);
   }
 
-  initializeForm(forum: ForumViewModel) {
+  initializeForm(forum: Forum) {
     this.forumForm = this.forumBuilder.group({
-      id: [forum.id],
-      topic: [forum.name, Validators.required]
+      id: [forum.forum.id],
+      topic: [forum.forum.name, Validators.required],
+      forumLocale: this.forumBuilder.array([])
+    });
+    forum.forum_locale.forEach(locale => {
+      this.forumLocales.controls.push(this.generateLocale(locale));
     });
   }
 
-  generateLocale(forum: ForumViewModel): FormGroup {
+  generateLocale(forum: ForumLocaleModel): FormGroup {
     return this.forumBuilder.group({
-      topic: [forum.name, Validators.required],
+      locale: [forum.locale, Validators.required],
+      name: [forum.name, Validators.required],
       id: [forum.id, Validators.required]
     });
   }
   get forumLocales(): FormArray {
-    return this.forumLocaleForm.get('forumLocale') as FormArray;
-  }
-  initializeLocalesForm(forums: ForumViewModel[]) {
-    this.forumLocaleForm = this.forumBuilder.group({
-      forumLocale: this.forumBuilder.array([])
-    });
-    forums.forEach(locale => {
-      this.forumLocales.controls.push(this.generateLocale(locale));
-    });
+    return this.forumForm.get('forumLocale') as FormArray;
   }
 
   get topic(): FormControl {
@@ -113,7 +110,7 @@ export class ForumCreationFormComponent implements OnInit {
     this.forumLocales.controls.push(
       this.forumBuilder.group({
         locale: ['', Validators.required],
-        topic: ['', Validators.required]
+        name: ['', Validators.required]
       })
     );
   }
@@ -135,18 +132,29 @@ export class ForumCreationFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): ForumModel | null {
+  private prepareFormData(): Forum | null {
+    const forum = new Forum();
+
     if (this.forumForm.valid) {
       if (this.isUpdate && this.forumId) {
-        return {
+        forum.forum = {
           id: this.forumId,
           name: this.topic.value
         };
       } else {
-        return {
+        forum.forum = {
           name: this.topic.value
         };
       }
+
+      this.forumLocales.controls.forEach(element => {
+        forum.forum_locale.push({
+          locale: element.value.locale,
+          name: element.value.name,
+          id: element.value.id
+        });
+      });
+      return forum;
     } else {
       return null;
     }

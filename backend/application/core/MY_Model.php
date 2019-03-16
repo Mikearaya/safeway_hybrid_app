@@ -5,10 +5,12 @@ class MY_Model extends CI_Model
 {
 
     protected $table_name;
+    protected $child_tables;
     protected $primary_key;
 
     function __construct()
     {
+      
         $this->load->database();
     }
 
@@ -28,10 +30,25 @@ class MY_Model extends CI_Model
 
     function add($data)
     {
-        $result = $this->db->insert($this->table_name, $data);
+      if($data[$this->table_name]) {
+        $result = $this->db->insert($this->table_name, $data[$this->table_name]);
+      }
 
-        if ($this->db->affected_rows() == 1) {
-            $new_id['ID'] =  $this->db->insert_id();
+    $new_id = $this->db->insert_id();
+      if( count($this->child_tables) > 0) {
+        foreach ($this->child_tables as $key => $value) {
+          
+          if( $data[$key]) {
+            for($i = 0; $i < count( $data[$key]); $i++ ) {
+              $data[$key][$i][$value] = $new_id;
+            }
+
+          $this->db->insert_batch( $key, $data[$key]);
+          }
+        }
+    }
+
+        if ($new_id != NULL) {
             return $new_id;
         } else {
             return false;

@@ -40,7 +40,8 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
       const modifiedRequest = request.clone({
         url: `http://localhost/ilo_app/backend/index.php/${requestUrl}`,
         setHeaders: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+          'Content-Type': 'application/json; charset=utf-8',
+          //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
       });
       return next.handle(modifiedRequest);

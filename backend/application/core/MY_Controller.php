@@ -35,19 +35,21 @@ class API extends REST_Controller
 
     public function index_POST()
     {
-        if($this ->form_validation->run($this->post_validator) === false) {
+        
+
+ /*        if($this ->form_validation->run($this->post_validator) === false) {
             $this->response($this->validation_errors(), API::HTTP_UNPROCESSABLE_ENTITY);
-        } else {
+        } else { */
 
             $models = $this->model;
-            $result = $this->$models->add($this->input->post());
+            $result = $this->$models->add( $this->request->body);
 
             if($result !== null) {
                 $this->response($result, API::HTTP_CREATED);
             } else {
                 $this->response(null, API::HTTP_UNPROCESSABLE_ENTITY);
             }
-        }
+     /*    } */
         
      }
 
@@ -55,7 +57,7 @@ class API extends REST_Controller
     public function update_POST($id)
     {
         $models = $this->model;
-
+   
          if($this->form_validation->run($this->put_validator) === false) {
             $this->response($this->validation_errors(), API::HTTP_UNPROCESSABLE_ENTITY);
         } else {
