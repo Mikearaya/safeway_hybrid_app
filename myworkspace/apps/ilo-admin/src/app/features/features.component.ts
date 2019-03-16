@@ -36,6 +36,17 @@ export class FeaturesComponent implements OnInit {
       id: 'complains'
     }
   ];
+
+  public lessonTypes: ItemModel[] = [
+    {
+      text: 'Lesson Types',
+      id: 'lesson_type'
+    },
+    {
+      text: 'Schools',
+      id: 'schools'
+    }
+  ];
   ngOnInit() {}
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {
@@ -49,7 +60,6 @@ export class FeaturesComponent implements OnInit {
       default:
         break;
     }
-
   }
 
   complainClick($event) {
@@ -64,8 +74,22 @@ export class FeaturesComponent implements OnInit {
       default:
         break;
     }
-
   }
+
+  schoolClick($event) {
+    switch ($event.item.properties.id.trim().toUpperCase()) {
+      case 'SCHOOLS':
+        this.router.navigate(['/schools']);
+        break;
+      case 'LESSON_TYPE':
+        this.router.navigate(['/schools/lesson-types']);
+        break;
+
+      default:
+        break;
+    }
+  }
+
   logOut() {
     this.authorizationService.logout();
   }

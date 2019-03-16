@@ -8,7 +8,7 @@ import { SharedComponentModule } from '@bionic/shared-component';
 import { LessonTypeFormComponent } from './lesson-type-form/lesson-type-form.component';
 import { LessonTypeViewComponent } from './lesson-type-view/lesson-type-view.component';
 import { LessonTypeService } from './lesson-type.service';
-import { SchoolApiService } from '../../school-api.service';
+import { SchoolApiService } from './school-api.service';
 
 @NgModule({
   declarations: [SchoolFormComponent, SchoolViewComponent, LessonTypeFormComponent, LessonTypeViewComponent],

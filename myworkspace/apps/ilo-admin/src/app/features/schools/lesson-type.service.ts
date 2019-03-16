@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { URLSearchParams } from 'url';
 import { Observable } from 'rxjs';
 import { LessonTypeModel, LessonTypeViewModel } from './lesson-type.model';
 
