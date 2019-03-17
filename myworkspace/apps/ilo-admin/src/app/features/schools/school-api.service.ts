@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SchoolViewModel, SchoolModel } from './school-type.model';
+import { SchoolViewModel, SchoolModel, School } from './school-type.model';
 
 @Injectable()
 export class SchoolApiService {
@@ -11,27 +11,25 @@ export class SchoolApiService {
     this.httpBody = new URLSearchParams();
   }
 
-  getSchoolById(id: number): Observable<SchoolViewModel> {
-    return this.httpClient.get<SchoolViewModel>(`${this.controller}/${id}`);
+  getSchoolById(id: number): Observable<School> {
+    return this.httpClient.get<School>(`${this.controller}/${id}`);
   }
 
   getSchoolsList(): Observable<SchoolViewModel[]> {
     return this.httpClient.get<SchoolViewModel[]>(`${this.controller}`);
   }
 
-  createSchool(lesson: SchoolModel): Observable<SchoolViewModel[]> {
-    const lessonType = this.prepareRequestBody(lesson);
+  createSchool(school: School): Observable<SchoolViewModel[]> {
     return this.httpClient.post<SchoolViewModel[]>(
       `${this.controller}`,
-      lessonType.toString()
+      school
     );
   }
 
-  updateSchool(lesson: SchoolModel): Observable<void> {
-    const lessonType = this.prepareRequestBody(lesson);
+  updateSchool(school: School): Observable<void> {
     return this.httpClient.post<void>(
-      `${this.controller}/update/${lesson.ID}`,
-      lessonType.toString()
+      `${this.controller}/update/${school.school.ID}`,
+      school
     );
   }
 

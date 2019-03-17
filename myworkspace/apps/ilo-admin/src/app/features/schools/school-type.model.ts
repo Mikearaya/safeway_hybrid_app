@@ -4,7 +4,6 @@ export class SchoolModel {
   address: string;
   phone_number: string;
   region: number;
-  LESSON_ID: number;
   fax?: string;
   email?: string;
 }
@@ -20,4 +19,21 @@ export class SchoolViewModel {
   date_update: Date;
   fax?: string;
   email?: string;
+}
+
+export class SchoolLocaleModel {
+  id?: number;
+  name: string;
+  address: string;
+  locale: number;
+}
+export interface SchoolLessonsModel {
+  LESSON_ID: number;
+  SCHOOL_ID?: number;
+}
+
+export class School {
+  school: SchoolModel;
+  school_lessons: SchoolLessonsModel[] = [];
+  school_locale: SchoolLocaleModel[] = [];
 }

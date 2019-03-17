@@ -5,7 +5,7 @@ class MY_Model extends CI_Model
 {
 
     protected $table_name;
-    protected $child_tables;
+    protected $child_tables ;
     protected $primary_key;
 
     function __construct()

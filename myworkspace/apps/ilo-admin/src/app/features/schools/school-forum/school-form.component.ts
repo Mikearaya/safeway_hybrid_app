@@ -9,7 +9,12 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import { SchoolViewModel, SchoolModel } from '../school-type.model';
+import {
+  SchoolViewModel,
+  SchoolModel,
+  School,
+  SchoolLocaleModel
+} from '../school-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LessonTypeService } from '../lesson-type.service';
 import { LessonTypeViewModel } from '../lesson-type.model';
@@ -42,7 +47,6 @@ export class SchoolFormComponent implements OnInit {
     private lessonTypeApi: LessonTypeService
   ) {
     this.createForm();
-    this.createLocaleForm();
   }
 
   ngOnInit() {
@@ -55,7 +59,7 @@ export class SchoolFormComponent implements OnInit {
       this.isUpdate = true;
       this.schoolApi
         .getSchoolById(this.schoolId)
-        .subscribe((data: SchoolViewModel) => this.initializeForm(data));
+        .subscribe((data: School) => this.initializeForm(data));
     }
 
     this.systemConf
@@ -71,26 +75,26 @@ export class SchoolFormComponent implements OnInit {
       address: [''],
       fax: [''],
       email: [''],
-      phoneNumber: ['', Validators.required]
+      phoneNumber: ['', Validators.required],
+      schoolLocales: this.formBuilder.array([])
     });
   }
 
-  private initializeForm(data: SchoolViewModel): void {
+  private initializeForm(data: School): void {
     this.schoolForm = this.formBuilder.group({
-      name: [data.name, Validators.required],
-      lessons: [data.LESSON_ID, Validators.required],
-      region: [data.region, Validators.required],
-      address: [data.address],
-      fax: [data.fax],
-      email: [data.email],
-      phoneNumber: [data.phone_number, Validators.required]
+      name: [data.school.name, Validators.required],
+      lessons: [data.school_lessons.map(l => l.LESSON_ID), Validators.required],
+      region: [data.school.region, Validators.required],
+      address: [data.school.address],
+      fax: [data.school.fax],
+      email: [data.school.email],
+      phoneNumber: [data.school.phone_number, Validators.required],
+      schoolLocales: this.formBuilder.array([])
     });
-  }
 
-  private createLocaleForm(): void {
-    this.schoolLocaleForm = this.formBuilder.group({
-      schoolLocales: this.formBuilder.array([this.generateLocalesForm()])
-    });
+    data.school_locale.map(l =>
+      this.schoolLocales.controls.push(this.initializeLocalesForm(l))
+    );
   }
 
   get name(): FormControl {
@@ -141,6 +145,14 @@ export class SchoolFormComponent implements OnInit {
     });
   }
 
+  private initializeLocalesForm(locale: SchoolLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      locale: [locale.locale, Validators.required],
+      name: [locale.name, Validators.required],
+      address: [locale.address]
+    });
+  }
+
   onSubmit(): void {
     const formData = this.prepareFormData();
     if (formData) {
@@ -166,30 +178,44 @@ export class SchoolFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): SchoolModel | null {
+  private prepareFormData(): School | null {
+    const schoolData = new School();
     if (this.schoolForm.valid) {
       if (this.isUpdate && this.schoolId) {
-        return {
+        schoolData.school = {
           ID: this.schoolId,
           address: this.address.value,
           name: this.name.value,
           phone_number: this.phoneNumber.value,
           region: this.region.value,
-          LESSON_ID: this.lessons.value,
           fax: this.fax.value,
           email: this.email.value
         };
       } else {
-        return {
+        schoolData.school = {
           address: this.address.value,
           name: this.name.value,
           phone_number: this.phoneNumber.value,
           region: this.region.value,
-          LESSON_ID: this.lessons.value,
           fax: this.fax.value,
           email: this.email.value
         };
       }
+
+      this.lessons.value.forEach(element => {
+        schoolData.school_lessons.push({
+          LESSON_ID: element
+        });
+      });
+
+      this.schoolLocales.controls.forEach(element => {
+        schoolData.school_locale.push({
+          address: element.value.address,
+          name: element.value.name,
+          locale: element.value.locale
+        });
+      });
+      return schoolData;
     } else {
       return null;
     }
