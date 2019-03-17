@@ -1,9 +1,10 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-  <ejs-tab id="element" #tab>
-    <e-tabitems>
-      <e-tabitem [header]="headerText[0]">
-        <ng-template #content>
-          <form [formGroup]="complainTypeForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="complainTypeForm" (ngSubmit)="onSubmit()" novalidate>
+    <ejs-tab id="element" #tab>
+      <e-tabitems>
+        <e-tabitem [header]="headerText[0]">
+          <ng-template #content>
+
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="type">Complain type</label>
@@ -16,13 +17,11 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-      <e-tabitem [disabled]="!isUpdate" [header]="headerText[1]">
-        <ng-template #content>
-          <form [formGroup]="complainTypeLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+
+          </ng-template>
+        </e-tabitem>
+        <e-tabitem  [header]="headerText[1]">
+          <ng-template #content>
             <div formArrayName="complainTypeLocales">
               <div *ngFor="
                   let locale of complainTypeLocales.controls;
@@ -34,7 +33,7 @@
                   <div class="col-12 col-sm-3 form-group">
                     <label for="locale">Language</label>
                     <select class="form-control" formControlName="locale" id="locale">
-                      <option *ngFor="let lang of languages; let i = index" [value]="lang.name">{{ lang.name }}</option>
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
                     </select>
                     <div class="text-danger" *ngIf="locale.errors">
                       <div *ngIf="locale.errors['required']">
@@ -60,13 +59,13 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
             <button type="button" (click)="addLocale()" class="btn  btn-primary">
               Add Locale
             </button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-    </e-tabitems>
-  </ejs-tab>
+          </ng-template>
+        </e-tabitem>
+      </e-tabitems>
+    </ejs-tab>
+    <button type="submit" class="btn  btn-success">Submit</button>
+  </form>
 </div>

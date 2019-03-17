@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {
-  ComplainTypeViewModel,
-  ComplainTypeModel
-} from './complain-data.model';
+import { ComplainTypeViewModel, ComplainType } from './complain-data.model';
 
 @Injectable()
 export class ComplainTypeApiService {
@@ -19,29 +16,25 @@ export class ComplainTypeApiService {
     return this.httpClient.get<ComplainTypeViewModel[]>(`${this.controller}`);
   }
 
-  getComplainTypeById(id: number): Observable<ComplainTypeViewModel> {
-    return this.httpClient.get<ComplainTypeViewModel>(
-      `${this.controller}/${id}`
-    );
+  getComplainTypeById(id: number): Observable<ComplainType> {
+    return this.httpClient.get<ComplainType>(`${this.controller}/${id}`);
   }
 
   createComplainType(
-    complainType: ComplainTypeModel
+    complainType: ComplainType
   ): Observable<ComplainTypeViewModel> {
-    const type = this.prepareRequestBody(complainType);
     return this.httpClient.post<ComplainTypeViewModel>(
       `${this.controller}`,
-      type.toString()
+      complainType
     );
   }
 
   updateComplainType(
-    complainType: ComplainTypeModel
+    complainType: ComplainType
   ): Observable<ComplainTypeViewModel> {
-    const type = this.prepareRequestBody(complainType);
     return this.httpClient.post<ComplainTypeViewModel>(
-      `${this.controller}/update/${complainType.ID}`,
-      type.toString()
+      `${this.controller}/update/${complainType.complain_type.ID}`,
+      complainType
     );
   }
 
@@ -51,15 +44,5 @@ export class ComplainTypeApiService {
       `${this.controller}/delete/`,
       this.httpBody.toString()
     );
-  }
-  private prepareRequestBody(customer: any): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
   }
 }

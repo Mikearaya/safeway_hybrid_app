@@ -8,10 +8,7 @@ import {
 } from '@angular/forms';
 import { ComplainTypeApiService } from '../complain-type-api.service';
 import { ActivatedRoute } from '@angular/router';
-import {
-  ComplainTypeViewModel,
-  ComplainTypeModel
-} from '../complain-data.model';
+import { ComplainType, ComplainTypeLocaleModel } from '../complain-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService } from '../../../system-api.service';
 
@@ -26,6 +23,7 @@ export class ComplainTypeFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
+
   public isUpdate;
   private complainTypeId;
   public complainTypeForm: FormGroup;
@@ -39,7 +37,6 @@ export class ComplainTypeFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
-    this.createLocaleForm();
   }
 
   ngOnInit() {
@@ -55,38 +52,41 @@ export class ComplainTypeFormComponent implements OnInit {
       this.isUpdate = true;
       this.complainTypeApi
         .getComplainTypeById(this.complainTypeId)
-        .subscribe((data: ComplainTypeViewModel) => this.initializeForm(data));
+        .subscribe((data: ComplainType) => this.initializeForm(data));
     }
   }
 
-  initializeForm(complainType: ComplainTypeModel): void {
+  initializeForm(complainType: ComplainType): void {
     this.complainTypeForm = this.formBuilder.group({
-      id: [complainType.ID, Validators.required],
-      type: [complainType.type, Validators.required]
+      id: [complainType.complain_type.ID, Validators.required],
+      type: [complainType.complain_type.type, Validators.required],
+      complainTypeLocales: this.formBuilder.array([])
     });
-  }
 
-  private generateForm(): FormGroup {
-    return this.formBuilder.group({
-      id: [''],
-      type: ['', Validators.required]
-    });
+    complainType.complain_type_locale.map(element =>
+      this.initializeLocaleForm(element)
+    );
   }
 
   private generateLocaleForm(): FormGroup {
     return this.formBuilder.group({
-      id: [''],
       locale: ['', Validators.required],
       type: ['', Validators.required]
     });
   }
-  createForm(): void {
-    this.complainTypeForm = this.generateForm();
-  }
 
-  createLocaleForm(): void {
-    this.complainTypeLocaleForm = this.formBuilder.group({
-      complainTypeLocales: this.formBuilder.array([this.generateLocaleForm()])
+  private initializeLocaleForm(data: ComplainTypeLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      id: [data.ID, Validators.required],
+      locale: [data.locale, Validators.required],
+      type: [data.type, Validators.required]
+    });
+  }
+  createForm(): void {
+    this.complainTypeForm = this.formBuilder.group({
+      id: [''],
+      type: ['', Validators.required],
+      complainTypeLocales: this.formBuilder.array([])
     });
   }
 
@@ -103,7 +103,7 @@ export class ComplainTypeFormComponent implements OnInit {
   }
 
   get complainTypeLocales(): FormArray {
-    return this.complainTypeLocaleForm.get('complainTypeLocales') as FormArray;
+    return this.complainTypeForm.get('complainTypeLocales') as FormArray;
   }
   onSubmit(): void {
     const formData = this.prepareFormData();
@@ -128,16 +128,27 @@ export class ComplainTypeFormComponent implements OnInit {
     }
   }
 
-  prepareFormData(): ComplainTypeModel | null {
+  prepareFormData(): ComplainType | null {
+    const complainType = new ComplainType();
     if (this.complainTypeForm.valid) {
       if (this.isUpdate && this.complainTypeId) {
-        return {
+        complainType.complain_type = {
           ID: this.complainTypeId,
           type: this.type.value
         };
       } else {
-        return { ID: this.complainTypeId, type: this.type.value };
+        complainType.complain_type = {
+          ID: this.complainTypeId,
+          type: this.type.value
+        };
       }
+      this.complainTypeLocales.controls.forEach(element =>
+        complainType.complain_type_locale.push({
+          locale: element.value.locale,
+          type: element.value.type
+        })
+      );
+      return complainType;
     } else {
       return null;
     }

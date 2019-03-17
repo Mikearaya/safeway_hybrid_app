@@ -12,6 +12,17 @@ export interface ComplainTypeModel {
   type: string;
 }
 
+export interface ComplainTypeLocaleModel {
+  ID?: number;
+  type: string;
+  locale: number;
+}
+
+export class ComplainType {
+  complain_type: ComplainTypeModel;
+  complain_type_locale: ComplainTypeLocaleModel[] = [];
+}
+
 export interface ComplainModel {
   ID?: number;
   barcode?: string;
