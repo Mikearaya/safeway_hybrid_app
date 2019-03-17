@@ -4,7 +4,8 @@ import {
   ArticleCatagoryViewModel,
   ArticleCatagoryModel,
   ArticleViewModel,
-  ArticleModel
+  ArticleModel,
+  ArticleCatagory
 } from './articles-data.model';
 import { Observable } from 'rxjs';
 
@@ -19,29 +20,25 @@ export class ArticlesApiService {
     return this.httpClient.get<ArticleCatagoryViewModel[]>(`article_catagory`);
   }
 
-  getArticleCatagoryById(id: number): Observable<ArticleCatagoryViewModel> {
-    return this.httpClient.get<ArticleCatagoryViewModel>(
-      `article_catagory/${id}`
-    );
+  getArticleCatagoryById(id: number): Observable<ArticleCatagory> {
+    return this.httpClient.get<ArticleCatagory>(`article_catagory/${id}`);
   }
 
   createArticleCatagory(
-    articleCatagory: ArticleCatagoryModel
+    articleCatagory: ArticleCatagory
   ): Observable<ArticleCatagoryViewModel> {
-    const catagory = this.prepareRequestBody(articleCatagory);
     return this.httpClient.post<ArticleCatagoryViewModel>(
       `article_catagory`,
-      catagory.toString()
+      articleCatagory
     );
   }
 
   updateArticleCatagory(
-    articleCatagory: ArticleCatagoryModel
+    articleCatagory: ArticleCatagory
   ): Observable<ArticleCatagoryViewModel> {
-    const catagory = this.prepareRequestBody(articleCatagory);
     return this.httpClient.post<ArticleCatagoryViewModel>(
-      `article_catagory/update/${articleCatagory.id}`,
-      catagory.toString()
+      `article_catagory/update/${articleCatagory.article_catagory.ID}`,
+      articleCatagory
     );
   }
 

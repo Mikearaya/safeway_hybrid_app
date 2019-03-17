@@ -13,8 +13,14 @@ export interface ArticleViewModel {
 }
 
 export interface ArticleCatagoryModel {
+  ID?: number;
+  name: string;
+}
+
+export interface ArticleCatagoryLocaleModel {
   id?: number;
   name: string;
+  locale: number;
 }
 
 export interface ArticleCatagoryViewModel {
@@ -23,4 +29,9 @@ export interface ArticleCatagoryViewModel {
   locale: string;
   date_added: Date;
   date_updated: Date;
+}
+
+export class ArticleCatagory {
+  article_catagory: ArticleCatagoryModel;
+  article_catagory_locale: ArticleCatagoryLocaleModel[] = [];
 }

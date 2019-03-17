@@ -9,8 +9,8 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ArticleCatagoryModel,
-  ArticleCatagoryViewModel
+  ArticleCatagory,
+  ArticleCatagoryLocaleModel
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService } from '../../../system-api.service';
@@ -39,7 +39,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
     private systemApi: SystemApiService
   ) {
     this.createForm();
-    this.createLocaleForm();
   }
 
   ngOnInit() {
@@ -52,47 +51,38 @@ export class ArticleCatagoryFormComponent implements OnInit {
       this.isUpdate = true;
       this.articleApi
         .getArticleCatagoryById(this.catagoryId)
-        .subscribe((data: ArticleCatagoryViewModel) =>
-          this.initializeForm(data)
-        );
+        .subscribe((data: ArticleCatagory) => this.initializeForm(data));
     }
   }
   createForm(): void {
     this.articleCatagoryForm = this.formBuilder.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      catagoryLocales: this.formBuilder.array([this.generateLocaleForm()])
     });
   }
 
-  initializeForm(catagory: ArticleCatagoryViewModel): void {
+  initializeForm(catagory: ArticleCatagory): void {
     this.articleCatagoryForm = this.formBuilder.group({
-      name: [catagory.name, Validators.required]
-    });
-  }
-
-  createLocaleForm(): void {
-    this.articleCatagoryLocaleForm = this.formBuilder.group({
-      catagoryLocales: this.formBuilder.array([
-        this.formBuilder.group({
-          name: ['', Validators.required],
-          locale: ['', Validators.required]
-        })
-      ])
-    });
-  }
-
-  initializeLocaleForm(catagoryView: ArticleCatagoryViewModel[]): void {
-    this.articleCatagoryLocaleForm = this.formBuilder.group({
+      name: [catagory.article_catagory.name, Validators.required],
       catagoryLocales: this.formBuilder.array([])
     });
 
-    catagoryView.forEach(cat => {
-      this.catagoryLocales.controls.push(
-        this.formBuilder.group({
-          id: [cat.id, Validators.required],
-          name: [cat.name, Validators.required],
-          locale: [cat.locale, Validators.required]
-        })
-      );
+    catagory.article_catagory_locale.map(element =>
+      this.initializeLocaleForm(element)
+    );
+  }
+
+  initializeLocaleForm(locale: ArticleCatagoryLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      name: [locale.name, Validators.required],
+      locale: [locale.id, Validators.required]
+    });
+  }
+
+  generateLocaleForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', Validators.required],
+      locale: ['', Validators.required]
     });
   }
 
@@ -121,20 +111,28 @@ export class ArticleCatagoryFormComponent implements OnInit {
   }
 
   get catagoryLocales(): FormArray {
-    return this.articleCatagoryLocaleForm.get('catagoryLocales') as FormArray;
+    return this.articleCatagoryForm.get('catagoryLocales') as FormArray;
   }
-  prepareFormData(): ArticleCatagoryModel | null {
+  prepareFormData(): ArticleCatagory | null {
+    const articleCatagory = new ArticleCatagory();
+
     if (this.articleCatagoryForm.valid) {
       if (this.isUpdate && this.catagoryId) {
-        return {
-          id: this.catagoryId,
+        articleCatagory.article_catagory = {
+          ID: this.catagoryId,
           name: this.catagoryName.value
         };
       } else {
-        return {
-          name: this.catagoryName.value
-        };
+        articleCatagory.article_catagory = { name: this.catagoryName.value };
       }
+
+      this.catagoryLocales.controls.forEach(element => {
+        articleCatagory.article_catagory_locale.push({
+          locale: element.value.locale,
+          name: element.value.name
+        });
+      });
+      return articleCatagory;
     } else {
       return null;
     }

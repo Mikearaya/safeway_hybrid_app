@@ -1,25 +1,14 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-  <ejs-tab id="element" #tab>
-    <e-tabitems>
-      <e-tabitem [header]="headerText[0]">
-        <ng-template #content>
-          {{ isUpdate }}
-          <form
-            [formGroup]="articleCatagoryForm"
-            (ngSubmit)="onSubmit()"
-            novalidate
-          >
+  <form [formGroup]="articleCatagoryForm" (ngSubmit)="onSubmit()" novalidate>
+    <ejs-tab id="element" #tab>
+      <e-tabitems>
+        <e-tabitem [header]="headerText[0]">
+          <ng-template #content>
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="catagory">Article Catagory</label>
-                <input
-                  type="text"
-                  formControlName="name"
-                  class="form-control"
-                  id="catagory"
-                  aria-describedby="Article catagory"
-                  placeholder="Article catagory"
-                />
+                <input type="text" formControlName="name" class="form-control" id="catagory" aria-describedby="Article catagory"
+                  placeholder="Article catagory" />
                 <div class="text-danger" *ngIf="catagoryName.errors">
                   <div *ngIf="catagoryName.errors['required']">
                     Article catagory is required
@@ -27,87 +16,55 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-      <e-tabitem [disabled]="!isUpdate" [header]="headerText[1]">
-        <ng-template #content>
-          <form
-            [formGroup]="articleCatagoryLocaleForm"
-            (ngSubmit)="onSubmit()"
-            novalidate
-          >
+          </ng-template>
+        </e-tabitem>
+        <e-tabitem [header]="headerText[1]">
+          <ng-template #content>
             <div formArrayName="catagoryLocales">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let locale of catagoryLocales.controls;
                   let i = index;
                   let last = last
                 "
-                [formGroup]="locale"
-              >
+                [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
-                    <select
-                      class="form-control"
-                      formControlName="locale"
-                      id="locale"
-                    >
-                      <option
-                        *ngFor="let lang of languages; let i = index"
-                        [value]="lang.name"
-                        >{{ lang.name }}</option
-                      >
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
                     </select>
-                    <!--
-                      <div class="text-danger" *ngIf="catagoryLocales[i].controls.get('locale').errors">
-                        <div *ngIf="catagoryLocales[i].controls.get('locale').errors['required']">
-                          Hospital region is required
-                        </div>
+
+                    <div class="text-danger" *ngIf="locale.get('locale').errors">
+                      <div *ngIf="locale.get('locale').errors['required']">
+                        Hospital region is required
                       </div>
-                    -->
+                    </div>
+
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="catagory">Article catagory name</label>
-                    <input
-                      type="text"
-                      formControlName="name"
-                      class="form-control"
-                      id="catagory"
-                      aria-describedby="Article catagory name"
-                      placeholder="Article catagory name"
-                    />
-                    <!--
-                      <div class="text-danger" *ngIf="catagoryLocales[i].controls.get('name').errors">
-                        <div *ngIf="catagoryLocales[i].controls.get('name').errors['required']">
-                          Catagory Name is required
-                        </div>
+                    <input type="text" formControlName="name" class="form-control" id="catagory" aria-describedby="Article catagory name"
+                      placeholder="Article catagory name" />
+                    <div class="text-danger" *ngIf="locale.get('name').errors">
+                      <div *ngIf="locale.get('name').errors['required']">
+                        Catagory Name is required
                       </div>
-                    -->
+                    </div>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-sm rounded  bg-red delete-button"
-                    (click)="deleteLocale(i)"
-                  >
+                  <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
                     <i class="fa fa-trash text-danger"></i>
                   </button>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
-            <button
-              type="button"
-              (click)="addLocale()"
-              class="btn  btn-primary"
-            >
+            <button type="button" (click)="addLocale()" class="btn  btn-primary">
               Add Locale
             </button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-    </e-tabitems>
-  </ejs-tab>
+
+          </ng-template>
+        </e-tabitem>
+      </e-tabitems>
+    </ejs-tab>
+    <button type="submit" class="btn  btn-success">Submit</button>
+  </form>
 </div>
