@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LessonTypeModel, LessonTypeViewModel } from './lesson-type.model';
+import {
+  LessonTypeModel,
+  LessonTypeViewModel,
+  LessonType
+} from './lesson-type.model';
 
 @Injectable()
 export class LessonTypeService {
@@ -11,28 +15,22 @@ export class LessonTypeService {
     this.httpBody = new URLSearchParams();
   }
 
-  getLessonTypeById(id: number): Observable<LessonTypeViewModel> {
-    return this.httpClient.get<LessonTypeViewModel>(`${this.controller}/${id}`);
+  getLessonTypeById(id: number): Observable<LessonType> {
+    return this.httpClient.get<LessonType>(`${this.controller}/${id}`);
   }
 
   getLessonTypeList(): Observable<LessonTypeViewModel[]> {
     return this.httpClient.get<LessonTypeViewModel[]>(`${this.controller}`);
   }
 
-  createLessonType(lesson: LessonTypeModel): Observable<LessonTypeViewModel> {
+  createLessonType(lesson: LessonType): Observable<LessonTypeViewModel> {
     const lessonType = this.prepareRequestBody(lesson);
-    return this.httpClient.post<LessonTypeViewModel>(
-      `${this.controller}`,
-      lessonType.toString()
-    );
+    return this.httpClient.post<LessonTypeViewModel>(`${this.controller}`, lesson);
   }
 
-  updateLessonType(lesson: LessonTypeModel): Observable<void> {
+  updateLessonType(lesson: LessonType): Observable<void> {
     const lessonType = this.prepareRequestBody(lesson);
-    return this.httpClient.post<void>(
-      `${this.controller}/update/${lesson.ID}`,
-      lessonType.toString()
-    );
+    return this.httpClient.post<void>(`${this.controller}/update/${lesson.lesson_types.ID}`, lesson);
   }
 
   deletelessonType(typeId: number[]): Observable<void> {

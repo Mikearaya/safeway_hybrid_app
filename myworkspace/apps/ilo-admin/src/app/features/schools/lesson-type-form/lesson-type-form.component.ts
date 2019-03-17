@@ -9,7 +9,12 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import { LessonTypeViewModel, LessonTypeModel } from '../lesson-type.model';
+import {
+  LessonTypeViewModel,
+  LessonTypeModel,
+  LessonType,
+  LessonTypeLocaleModel
+} from '../lesson-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -36,7 +41,6 @@ export class LessonTypeFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
-    this.createLocaleForm();
   }
 
   ngOnInit() {
@@ -48,7 +52,7 @@ export class LessonTypeFormComponent implements OnInit {
       this.isUpdate = true;
       this.lessonTypeApi
         .getLessonTypeById(this.lessonTypeId)
-        .subscribe((data: LessonTypeViewModel) => this.initializeForm(data));
+        .subscribe((data: LessonType) => this.initializeForm(data));
     }
 
     this.systemConf
@@ -58,20 +62,20 @@ export class LessonTypeFormComponent implements OnInit {
 
   private createForm(): void {
     this.lessonTypeForm = this.formBuilder.group({
-      type: ['', Validators.required]
+      type: ['', Validators.required],
+      lessonTypeLocales: this.formBuilder.array([])
     });
   }
 
-  private createLocaleForm(): void {
-    this.lessonTypeLocaleForm = this.formBuilder.group({
-      lessonTypeLocales: this.formBuilder.array([this.generateLocaleForm()])
-    });
-  }
-
-  private initializeForm(lesson: LessonTypeViewModel): void {
+  private initializeForm(lesson: LessonType): void {
     this.lessonTypeForm = this.formBuilder.group({
-      id: [lesson.ID, Validators.required],
-      type: [lesson.type, Validators.required]
+      id: [lesson.lesson_types.ID, Validators.required],
+      type: [lesson.lesson_types.type, Validators.required],
+      lessonTypeLocales: this.formBuilder.array([])
+    });
+
+    lesson.lesson_type_locale.forEach(element => {
+      this.lessonTypeLocales.controls.push(this.initializeLocaleForm(element));
     });
   }
 
@@ -80,12 +84,13 @@ export class LessonTypeFormComponent implements OnInit {
   }
 
   get lessonTypeLocales(): FormArray {
-    return this.lessonTypeLocaleForm.get('lessonTypeLocales') as FormArray;
+    return this.lessonTypeForm.get('lessonTypeLocales') as FormArray;
   }
 
   onSubmit(): void {
     const formData = this.prepareFormData();
     if (formData) {
+
       if (this.isUpdate) {
         this.lessonTypeApi
           .updateLessonType(formData)
@@ -106,18 +111,30 @@ export class LessonTypeFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): LessonTypeModel | null {
+  private prepareFormData(): LessonType | null {
+    const lessonType = new LessonType();
+
     if (this.lessonTypeForm.valid) {
       if (this.isUpdate && this.lessonTypeId) {
-        return {
+        lessonType.lesson_types = {
           ID: this.lessonTypeId,
           type: this.type.value
         };
       } else {
-        return {
+        lessonType.lesson_types = {
           type: this.type.value
         };
       }
+
+      this.lessonTypeLocales.controls.forEach(element => {
+        lessonType.lesson_type_locale.push({
+          ID: element.value.ID,
+          type: element.value.type,
+          locale: element.value.locale
+        });
+      });
+
+      return lessonType;
     } else {
       return null;
     }
@@ -128,6 +145,14 @@ export class LessonTypeFormComponent implements OnInit {
       type: ['', Validators.required]
     });
   }
+
+  private initializeLocaleForm(locale: LessonTypeLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      locale: [locale.ID, Validators.required],
+      type: [locale.type, Validators.required]
+    });
+  }
+
   addLocale(): void {
     this.lessonTypeLocales.controls.push(this.generateLocaleForm());
   }

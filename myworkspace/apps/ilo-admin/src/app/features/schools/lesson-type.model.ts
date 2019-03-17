@@ -9,3 +9,14 @@ export interface LessonTypeViewModel {
   date_added: Date;
   date_updated: Date;
 }
+
+export interface LessonTypeLocaleModel {
+  ID?: number;
+  locale: number;
+  type: string;
+}
+
+export class LessonType {
+  lesson_types: LessonTypeModel;
+  lesson_type_locale: LessonTypeLocaleModel[] = [];
+}
