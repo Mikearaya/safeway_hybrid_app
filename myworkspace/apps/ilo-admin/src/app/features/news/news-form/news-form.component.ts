@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import { NewsViewModel, NewsModel } from '../news-data.model';
+import { News } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -22,7 +22,6 @@ export class NewsFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
-  public newsLocaleForm: FormGroup;
   public newsForm: FormGroup;
   private newsId: number;
   public languages: any;
@@ -35,7 +34,6 @@ export class NewsFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
-    this.createLocaleForm();
   }
 
   ngOnInit() {
@@ -45,7 +43,7 @@ export class NewsFormComponent implements OnInit {
       this.isUpdate = true;
       this.newsApi
         .getNewsById(this.newsId)
-        .subscribe((data: NewsViewModel) => this.initializeForm(data));
+        .subscribe((data: News) => this.initializeForm(data));
     }
     this.systemConf
       .getLanguagesList()
@@ -58,13 +56,8 @@ export class NewsFormComponent implements OnInit {
       content: ['', Validators.required],
       audio: [''],
       image: [''],
-      video: ['']
-    });
-  }
-
-  private createLocaleForm(): void {
-    this.newsLocaleForm = this.formBuilder.group({
-      newsLocales: this.formBuilder.array([this.generateLocaleForm()])
+      video: [''],
+      newsLocales: this.formBuilder.array([])
     });
   }
 
@@ -89,7 +82,7 @@ export class NewsFormComponent implements OnInit {
   }
 
   get newsLocales(): FormArray {
-    return this.newsLocaleForm.get('newsLocales') as FormArray;
+    return this.newsForm.get('newsLocales') as FormArray;
   }
 
   addLocale(): void {
@@ -100,13 +93,13 @@ export class NewsFormComponent implements OnInit {
     this.newsLocales.removeAt(index);
   }
 
-  private initializeForm(news: NewsModel): void {
+  private initializeForm(news: News): void {
     this.newsForm = this.formBuilder.group({
-      header: [news.header, Validators.required],
-      content: [news.content, Validators.required],
-      audio: [news.audio],
-      image: [news.image],
-      video: [news.video]
+      header: [news.article.header, Validators.required],
+      content: [news.article.content, Validators.required],
+      audio: [news.article.audio],
+      image: [news.article.image],
+      video: [news.article.video]
     });
   }
 
@@ -114,10 +107,7 @@ export class NewsFormComponent implements OnInit {
     return this.formBuilder.group({
       header: ['', Validators.required],
       content: ['', Validators.required],
-      locale: ['', Validators.required],
-      audio: [''],
-      image: [''],
-      video: ['']
+      locale: ['', Validators.required]
     });
   }
 
@@ -148,10 +138,11 @@ export class NewsFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): NewsModel | null {
+  private prepareFormData(): News | null {
+    const news = new News();
     if (this.newsForm.valid) {
       if (this.isUpdate && this.newsId) {
-        return {
+        news.article = {
           ID: this.newsId,
           header: this.header.value,
           content: this.newsContent.value,
@@ -160,7 +151,7 @@ export class NewsFormComponent implements OnInit {
           image: this.image.value
         };
       } else {
-        return {
+        news.article = {
           header: this.header.value,
           content: this.newsContent.value,
           audio: this.audio.value,
@@ -168,6 +159,16 @@ export class NewsFormComponent implements OnInit {
           image: this.image.value
         };
       }
+
+      this.newsLocales.controls.forEach(element => {
+        news.article_locale.push({
+          content: element.value.content,
+          header: element.value.header,
+          locale: element.value.locale
+        });
+      });
+
+      return news;
     } else {
       return null;
     }

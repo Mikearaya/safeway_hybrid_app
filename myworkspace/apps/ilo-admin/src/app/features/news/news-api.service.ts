@@ -1,32 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NewsViewModel, NewsModel } from './news-data.model';
+import { NewsViewModel, NewsModel, News } from './news-data.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class NewsApiService {
   private httpBody: URLSearchParams;
-  private controller = 'News';
+  private controller = 'articles';
   constructor(private httpClient: HttpClient) {}
 
-  getNewsById(id: number): Observable<NewsViewModel> {
-    return this.httpClient.get<NewsViewModel>(`${this.controller}/${id}`);
+  getNewsById(id: number): Observable<News> {
+    return this.httpClient.get<News>(`${this.controller}/${id}`);
   }
 
   getNewsList(): Observable<NewsViewModel[]> {
-    return this.httpClient.get<NewsViewModel[]>(`${this.controller}`);
+    return this.httpClient.get<NewsViewModel[]>(`news`);
   }
 
-  createNews(newNews: NewsModel): Observable<NewsViewModel> {
-    const newsModel = this.prepareRequestBody(newNews);
-    return this.httpClient.post<NewsViewModel>(`${this.controller}`, newsModel.toString());
+  createNews(newNews: News): Observable<NewsViewModel> {
+    return this.httpClient.post<NewsViewModel>(`${this.controller}`, newNews);
   }
 
-  updateNews(updatedNews: NewsModel): Observable<void> {
-    const newsModel = this.prepareRequestBody(updatedNews);
+  updateNews(updatedNews: News): Observable<void> {
     return this.httpClient.post<void>(
-      `${this.controller}/update/${updatedNews.ID}`,
-      newsModel.toString()
+      `${this.controller}/update/${updatedNews.article.ID}`,
+      updatedNews
     );
   }
 
@@ -36,16 +34,5 @@ export class NewsApiService {
       `${this.controller}/delete`,
       this.httpBody.toString()
     );
-  }
-
-  private prepareRequestBody(customer: any): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
   }
 }
