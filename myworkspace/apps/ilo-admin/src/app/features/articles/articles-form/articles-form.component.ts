@@ -9,11 +9,12 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
-  ArticleViewModel,
   ArticleCatagoryViewModel,
-  ArticleModel
+  Article,
+  ArticleLocaleModel
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SystemApiService } from '../../../system-api.service';
 
 @Component({
   selector: 'bionic-articles-form',
@@ -30,16 +31,16 @@ export class ArticlesFormComponent implements OnInit {
   private articleId: number;
   public isUpdate: Boolean;
   public articleForm: FormGroup;
-  public articleLocaleForm: FormGroup;
   public articleCatagories: any[] = [];
+  public languages: any;
 
   constructor(
     private articleApi: ArticlesApiService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private systemConf: SystemApiService
   ) {
     this.createForm();
-    this.createArticleLocaleForm();
   }
 
   ngOnInit() {
@@ -53,37 +54,49 @@ export class ArticlesFormComponent implements OnInit {
       this.isUpdate = true;
       this.articleApi
         .getArticleById(this.articleId)
-        .subscribe((data: ArticleViewModel) => this.initializeForm(data));
+        .subscribe((data: Article) => this.initializeForm(data));
     }
+
+    this.systemConf
+      .getLanguagesList()
+      .subscribe(data => (this.languages = data));
   }
 
   createForm(): void {
     this.articleForm = this.formBuilder.group({
       catagory: ['', Validators.required],
       title: ['', Validators.required],
-      content: ['', Validators.required]
+      content: ['', Validators.required],
+      articleLocales: this.formBuilder.array([])
     });
   }
 
-  initializeForm(article: ArticleViewModel): void {
+  generateLocaleForm(): FormGroup {
+    return this.formBuilder.group({
+      content: ['', Validators.required],
+      locale: ['', Validators.required],
+      title: ['', Validators.required]
+    });
+  }
+  initiLocaleForm(locale: ArticleLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      content: [locale.content, Validators.required],
+      locale: [locale.locale, Validators.required],
+      title: [locale.header, Validators.required]
+    });
+  }
+
+  initializeForm(article: Article): void {
     this.articleForm = this.formBuilder.group({
-      id: [article.ID, Validators.required],
-      catagory: [article.CATAGORY_ID, Validators.required],
-      title: [article.header, Validators.required],
-      content: [article.content, Validators.required]
+      id: [article.article.ID, Validators.required],
+      catagory: [article.article.CATAGORY_ID, Validators.required],
+      title: [article.article.header, Validators.required],
+      content: [article.article.content, Validators.required],
+      articleLocales: this.formBuilder.array([])
     });
-  }
 
-  createArticleLocaleForm(): void {
-    this.articleLocaleForm = this.formBuilder.group({
-      articleLocales: this.formBuilder.array([
-        this.formBuilder.group({
-          catagory: ['', Validators.required],
-          content: ['', Validators.required],
-          locale: ['', Validators.required],
-          title: ['', Validators.required]
-        })
-      ])
+    article.article_locale.forEach(element => {
+      this.articleLocales.controls.push(this.initiLocaleForm(element));
     });
   }
 
@@ -99,7 +112,7 @@ export class ArticlesFormComponent implements OnInit {
   }
 
   get articleLocales(): FormArray {
-    return this.articleLocaleForm.get('articleLocales') as FormArray;
+    return this.articleForm.get('articleLocales') as FormArray;
   }
 
   onSubmit(): void {
@@ -111,7 +124,7 @@ export class ArticlesFormComponent implements OnInit {
           (data: any) => {
             this.articleApi = data;
             this.isUpdate = true;
-            alert('Article created successfully')
+            alert('Article created successfully');
           },
           (error: HttpErrorResponse) => alert(error.message)
         );
@@ -126,33 +139,41 @@ export class ArticlesFormComponent implements OnInit {
     }
   }
 
-  prepareFormData(): ArticleModel | null {
+  prepareFormData(): Article | null {
+    const article = new Article();
+
     if (this.articleForm.valid) {
       if (this.isUpdate && this.articleId) {
-        return {
+        article.article = {
           content: this.content.value,
           CATAGORY_ID: this.catagory.value,
           header: this.articleTitle.value,
           ID: this.articleId
         };
       } else {
-        return {
+        article.article = {
           header: this.articleTitle.value,
           content: this.content.value,
           CATAGORY_ID: this.catagory.value
         };
       }
+
+      this.articleLocales.controls.forEach(element =>
+        article.article_locale.push({
+          content: element.value.content,
+          header: element.value.title,
+          locale: element.value.locale
+        })
+      );
+
+      return article;
+    } else {
+      return null;
     }
   }
 
   addLocale(): void {
-    this.articleLocales.controls.push(
-      this.formBuilder.group({
-        catagory: ['', Validators.required],
-        title: ['', Validators.required],
-        content: ['', Validators.required]
-      })
-    );
+    this.articleLocales.controls.push(this.generateLocaleForm());
   }
 
   deleteLocale(index: number): void {

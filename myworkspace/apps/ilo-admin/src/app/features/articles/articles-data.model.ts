@@ -12,6 +12,18 @@ export interface ArticleViewModel {
   content: string;
 }
 
+export interface ArticleLocaleModel {
+  ID?: number;
+  header: string;
+  content: string;
+  locale: number;
+}
+
+export class Article {
+  article: ArticleModel;
+  article_locale: ArticleLocaleModel[] = [];
+}
+
 export interface ArticleCatagoryModel {
   ID?: number;
   name: string;

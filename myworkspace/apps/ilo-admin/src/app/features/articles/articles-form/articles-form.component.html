@@ -1,14 +1,16 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-  <ejs-tab id="element">
-    <e-tabitems>
-      <e-tabitem [header]="headerText[0]">
-        <ng-template #content>
-          <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" novalidate>
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()" novalidate>
+    <ejs-tab id="element">
+      <e-tabitems>
+        <e-tabitem [header]="headerText[0]">
+          <ng-template #content>
+
             <div class="row">
               <div class="col-12 col-sm-6 form-group ">
                 <label for="emergencyContactName">Emergency contact</label>
-                <select id='ddlelement'  formControlName="catagory"  class="form-control"  placeholder='Select article catagory'>
-                <option *ngFor="let cat of articleCatagories; let i=index; let last=last" [value]="cat.ID" > {{cat.name}}</option>
+                <select id='ddlelement' formControlName="catagory" class="form-control" placeholder='Select article catagory'>
+                  <option *ngFor="let cat of articleCatagories; let i=index; let last=last" [value]="cat.ID">
+                    {{cat.name}}</option>
                 </select>
                 <div class="text-danger" *ngIf="catagory.errors">
                   <div *ngIf="catagory.errors['required']">
@@ -33,13 +35,11 @@
                 <textarea formControlName="content" rows='10' class='form-control'></textarea>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-      <e-tabitem *ngIf="isUpdate" [header]="headerText[1]">
-        <ng-template #content>
-          <form [formGroup]="articleLocaleForm" (ngSubmit)="onSubmit()" novalidate>
+
+          </ng-template>
+        </e-tabitem>
+        <e-tabitem [header]="headerText[1]">
+          <ng-template #content>
             <div formArrayName="articleLocales">
               <div *ngFor="
                   let locale of articleLocales.controls;
@@ -48,7 +48,20 @@
                 "
                 [formGroup]="locale">
                 <div class="row" style="position:relative;">
-                  <div class="col-12 col-sm-12 form-group ">
+                  <div class="col-12 col-sm-4 form-group">
+                    <label for="locale">Language</label>
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
+                    </select>
+
+                    <div class="text-danger" *ngIf="locale.get('locale').errors">
+                      <div *ngIf="locale.get('locale').errors['required']">
+                        Hospital region is required
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-12 col-sm-7 form-group ">
                     <label for="title">Article header</label>
                     <input type="text" formControlName="title" class="form-control" id="hospital" aria-describedby="Article header"
                       placeholder="Article header" />
@@ -58,14 +71,17 @@
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
-                    <i class="fa fa-trash text-danger"></i>
-                  </button>
+                  <div class="col-12 col-sm-1">
+                    <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
+                      <i class="fa fa-trash text-danger"></i>
+                    </button>
+                  </div>
+
                 </div>
                 <div class="row">
                   <div class="col-12 col-sm-12 form-group">
                     <label for="articleContent">Article content</label>
-                    <textarea formControlName="content" rows='10' class='form-control' ></textarea>
+                    <textarea formControlName="content" rows='10' class='form-control'></textarea>
                     <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
                     <div class="text-danger" *ngIf="locale.get('content').errors">
                       <div *ngIf="locale.get('content').errors['required']">
@@ -76,13 +92,13 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn  btn-success">Submit</button>
             <button type="button" (click)="addLocale()" class="btn  btn-primary">
               Add Locale
             </button>
-          </form>
-        </ng-template>
-      </e-tabitem>
-    </e-tabitems>
-  </ejs-tab>
+          </ng-template>
+        </e-tabitem>
+      </e-tabitems>
+    </ejs-tab>
+    <button type="submit" class="btn  btn-success">Submit</button>
+  </form>
 </div>

@@ -38,7 +38,7 @@ class MY_Model extends CI_Model
       if( count($this->child_tables) > 0) {
         foreach ($this->child_tables as $key => $value) {
           
-          if( $data[$key]) {
+          if($data[$key]) {
             for($i = 0; $i < count( $data[$key]); $i++ ) {
               $data[$key][$i][$value] = $new_id;
             }
