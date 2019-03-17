@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AgencyViewModel, AgencyModel } from './agency-data.model';
+import { AgencyViewModel, AgencyModel, Agency } from './agency-data.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -10,28 +10,24 @@ export class AgencyApiService {
     this.httpBody = new URLSearchParams();
   }
 
-  getAgencyById(agencyId: number): Observable<AgencyViewModel> {
-    return this.httpClient.get<AgencyViewModel>(`agencies/${agencyId}`);
+  getAgencyById(agencyId: number): Observable<Agency> {
+    return this.httpClient.get<Agency>(`agencies/${agencyId}`);
   }
 
   getAgenciesList(): Observable<AgencyViewModel[]> {
     return this.httpClient.get<AgencyViewModel[]>(`agencies`);
   }
 
-  createAgency(newAgency: AgencyModel): Observable<AgencyViewModel> {
-
+  createAgency(newAgency: Agency): Observable<AgencyViewModel> {
     const agencyModel = this.prepareRequestBody(newAgency);
-    return this.httpClient.post<AgencyViewModel>(
-      `agencies`,
-      agencyModel.toString()
-    );
+    return this.httpClient.post<AgencyViewModel>(`agencies`, newAgency);
   }
 
-  updateAgency(updatedAgency: AgencyModel): Observable<void> {
+  updateAgency(updatedAgency: Agency): Observable<void> {
     const agencyModel = this.prepareRequestBody(updatedAgency);
     return this.httpClient.post<void>(
-      `agencies/update/${updatedAgency.ID}`,
-      agencyModel.toString()
+      `agencies/update/${updatedAgency.agency.ID}`,
+      updatedAgency
     );
   }
 

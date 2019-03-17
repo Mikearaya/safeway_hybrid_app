@@ -9,7 +9,12 @@ import {
   FormControl,
   FormArray
 } from '@angular/forms';
-import { AgencyViewModel, AgencyModel } from '../agency-data.model';
+import {
+  AgencyViewModel,
+  AgencyModel,
+  Agency,
+  AgencyLocaleModel
+} from '../agency-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -35,7 +40,6 @@ export class AgencyFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
-    this.createAgencyLocaleForm();
   }
 
   ngOnInit() {
@@ -43,13 +47,13 @@ export class AgencyFormComponent implements OnInit {
 
     this.systemConf
       .getLanguagesList()
-      .subscribe((data: any) => (this.languages = this.languages));
+      .subscribe((data: any) => (this.languages = data));
 
     if (this.agencyId) {
       this.isUpdate = true;
       this.agencyApi
         .getAgencyById(this.agencyId)
-        .subscribe((data: AgencyViewModel) => this.initializeForm(data));
+        .subscribe((data: Agency) => this.initializeForm(data));
     }
   }
 
@@ -60,31 +64,42 @@ export class AgencyFormComponent implements OnInit {
       address: [''],
       phoneNumber: ['', Validators.required],
       fax: [''],
-      email: ['']
+      email: [''],
+      agencyLocales: this.formBuilder.array([])
     });
   }
 
-  initializeForm(agency: AgencyViewModel): void {
+  initializeForm(agency: Agency): void {
     this.agencyForm = this.formBuilder.group({
-      id: [agency.ID, Validators.required],
-      name: [agency.name, Validators.required],
-      region: [agency.region, Validators.required],
-      address: [agency.address],
-      phoneNumber: [agency.phone_number],
-      fax: [agency.fax],
-      email: [agency.email]
+      id: [agency.agency.ID, Validators.required],
+      name: [agency.agency.name, Validators.required],
+      region: [agency.agency.region, Validators.required],
+      address: [agency.agency.address],
+      phoneNumber: [agency.agency.phone_number],
+      fax: [agency.agency.fax],
+      email: [agency.agency.email],
+      agencyLocales: this.formBuilder.array([])
+    });
+
+    agency.agency_locale.map(local =>
+      this.agencyLocales.controls.push(this.initializeLocaleForm(local))
+    );
+  }
+
+  generateLocaleForm(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', Validators.required],
+      locale: ['', Validators.required],
+      address: ['']
     });
   }
 
-  createAgencyLocaleForm(): void {
-    this.agencyLocaleForm = this.formBuilder.group({
-      agencyLocales: this.formBuilder.array([
-        this.formBuilder.group({
-          name: ['', Validators.required],
-          locale: ['', Validators.required],
-          address: ['']
-        })
-      ])
+  initializeLocaleForm(locale: AgencyLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      ID: [locale.ID, Validators.required],
+      name: [locale.name, Validators.required],
+      locale: [locale.locale, Validators.required],
+      address: [locale.address]
     });
   }
 
@@ -111,7 +126,7 @@ export class AgencyFormComponent implements OnInit {
   }
 
   get agencyLocales(): FormArray {
-    return this.agencyLocaleForm.get('agencyLocales') as FormArray;
+    return this.agencyForm.get('agencyLocales') as FormArray;
   }
 
   onSubmit() {
@@ -141,23 +156,19 @@ export class AgencyFormComponent implements OnInit {
   }
 
   addLocale(): void {
-    this.agencyLocales.controls.push(
-      this.formBuilder.group({
-        name: ['', Validators.required],
-        address: [''],
-        locale: ['', Validators.required]
-      })
-    );
+    this.agencyLocales.controls.push(this.generateLocaleForm());
   }
 
   deleteLocale(index: number): void {
     this.agencyLocales.removeAt(index);
   }
 
-  prepareFormData(): AgencyModel | null {
+  prepareFormData(): Agency | null {
+    const agency = new Agency();
+
     if (this.agencyForm.valid) {
       if (this.isUpdate && this.agencyId) {
-        return {
+        agency.agency = {
           ID: this.agencyId,
           name: this.agencyName.value,
           phone_number: this.phoneNumber.value,
@@ -167,7 +178,7 @@ export class AgencyFormComponent implements OnInit {
           region: this.region.value
         };
       } else {
-        return {
+        agency.agency = {
           name: this.agencyName.value,
           phone_number: this.phoneNumber.value,
           address: this.address.value,
@@ -176,6 +187,15 @@ export class AgencyFormComponent implements OnInit {
           region: this.region.value
         };
       }
+      this.agencyLocales.controls.forEach(element => {
+        agency.agency_locale.push({
+          address: element.value.address,
+          locale: element.value.locale,
+          name: element.value.name
+        });
+      });
+
+      return agency;
     } else {
       return null;
     }

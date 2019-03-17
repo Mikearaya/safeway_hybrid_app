@@ -10,8 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
 import { ForumApiService } from '../forum-api.service';
 import {
-  ForumViewModel,
-  ForumModel,
   Forum,
   ForumLocaleModel
 } from '../forum-data.model';
@@ -67,12 +65,7 @@ export class ForumCreationFormComponent implements OnInit {
   createForm() {
     this.forumForm = this.forumBuilder.group({
       topic: ['', Validators.required],
-      forumLocale: this.forumBuilder.array([
-        this.forumBuilder.group({
-          name: ['', Validators.required],
-          locale: ['', Validators.required]
-        })
-      ])
+      forumLocale: this.forumBuilder.array([])
     });
   }
 
@@ -87,11 +80,18 @@ export class ForumCreationFormComponent implements OnInit {
       forumLocale: this.forumBuilder.array([])
     });
     forum.forum_locale.forEach(locale => {
-      this.forumLocales.controls.push(this.generateLocale(locale));
+      this.forumLocales.controls.push(this.initializeLocale(locale));
     });
   }
 
-  generateLocale(forum: ForumLocaleModel): FormGroup {
+  generateLocale(): FormGroup {
+    return this.forumBuilder.group({
+      name: ['', Validators.required],
+      locale: ['', Validators.required]
+    });
+  }
+
+  initializeLocale(forum: ForumLocaleModel): FormGroup {
     return this.forumBuilder.group({
       locale: [forum.locale, Validators.required],
       name: [forum.name, Validators.required],
@@ -107,12 +107,7 @@ export class ForumCreationFormComponent implements OnInit {
   }
 
   addLocale(): void {
-    this.forumLocales.controls.push(
-      this.forumBuilder.group({
-        locale: ['', Validators.required],
-        name: ['', Validators.required]
-      })
-    );
+    this.forumLocales.controls.push(this.generateLocale());
   }
   onSubmit() {
     const emergencyContactData = this.prepareFormData();

@@ -9,6 +9,13 @@ export interface AgencyModel {
   fax?: string;
 }
 
+export interface AgencyLocaleModel {
+  ID?: number;
+  name: string;
+  address?: string;
+  locale: number;
+}
+
 export interface AgencyViewModel {
   ID?: number;
   name: string;
@@ -20,4 +27,9 @@ export interface AgencyViewModel {
   fax?: string;
   date_added: Date;
   date_updated: Date;
+}
+
+export class Agency {
+  agency: AgencyModel;
+  agency_locale: AgencyLocaleModel[] = [];
 }
