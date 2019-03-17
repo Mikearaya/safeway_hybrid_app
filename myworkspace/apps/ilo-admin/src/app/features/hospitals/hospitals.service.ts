@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HospitalViewModel, HospitalModel } from './hospital-data.model';
+import {
+  HospitalViewModel,
+  HospitalModel,
+  Hospital
+} from './hospital-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,44 +16,29 @@ export class HospitalsService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getHospitalById(hospitalId: number): Observable<HospitalViewModel> {
-    return this.httpClient.get<HospitalViewModel>(
-      `${this.controller}/${hospitalId}`
-    );
+  getHospitalById(hospitalId: number): Observable<Hospital> {
+    return this.httpClient.get<Hospital>(`${this.controller}/${hospitalId}`);
   }
 
   getHospitalsList(): Observable<HospitalViewModel[]> {
     return this.httpClient.get<HospitalViewModel[]>(`${this.controller}`);
   }
 
-  addHospitalAddress(hospital: HospitalModel): Observable<HospitalViewModel> {
-    const hospitalData = this.prepareRequestBody(hospital);
+  addHospitalAddress(hospital: Hospital): Observable<HospitalViewModel> {
     return this.httpClient.post<HospitalViewModel>(
       `${this.controller}`,
-      hospitalData.toString()
+      hospital
     );
   }
 
-  updateHospitalAddress(hospital: HospitalModel): Observable<void> {
-    const hospitalData = this.prepareRequestBody(hospital);
+  updateHospitalAddress(hospital: Hospital): Observable<void> {
     return this.httpClient.post<void>(
-      `${this.controller}/update/${hospital.id}`,
-      hospitalData.toString()
+      `${this.controller}/update/${hospital.hospital.ID}`,
+      hospital
     );
   }
 
   deleteHospitalAddress(hospitalId: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.controller}/${hospitalId}`);
-  }
-
-  private prepareRequestBody(customer: HospitalModel): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
   }
 }

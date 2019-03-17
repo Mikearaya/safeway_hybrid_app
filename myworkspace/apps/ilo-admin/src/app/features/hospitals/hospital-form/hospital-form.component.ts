@@ -7,7 +7,12 @@ import {
   FormArray
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { HospitalModel, HospitalViewModel } from '../hospital-data.model';
+import {
+  HospitalModel,
+  HospitalViewModel,
+  Hospital,
+  HospitalLocaleModel
+} from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService } from '../../../system-api.service';
@@ -24,7 +29,6 @@ export class HospitalFormComponent implements OnInit {
     { text: 'Other Languages' }
   ];
   public hospitalsForm: FormGroup;
-  public hospitalLocalesForm: FormGroup;
   private hospitalId: number;
   public languages: any[];
 
@@ -36,7 +40,6 @@ export class HospitalFormComponent implements OnInit {
     private systemConfig: SystemApiService
   ) {
     this.createForm();
-    this.createLocalesForm();
   }
 
   ngOnInit() {
@@ -47,7 +50,7 @@ export class HospitalFormComponent implements OnInit {
       this.hospitalApi
         .getHospitalById(this.hospitalId)
         .subscribe(
-          (data: HospitalViewModel) => this.initializeForm(data),
+          (data: Hospital) => this.initializeForm(data),
           (error: HttpErrorResponse) => alert(error.message)
         );
     }
@@ -62,20 +65,17 @@ export class HospitalFormComponent implements OnInit {
       phoneNumber: ['', Validators.required],
       address: ['', Validators.required],
       name: ['', Validators.required],
-      region: ['', Validators.required]
+      region: ['', Validators.required],
+      hospitalLocale: this.forumBuilder.array([])
     });
   }
 
-  createLocalesForm() {
-    this.hospitalLocalesForm = this.forumBuilder.group({
-      hospitalLocale: this.forumBuilder.array([
-        this.forumBuilder.group({
-          address: ['', Validators.required],
-          locale: ['', Validators.required],
-          name: ['', Validators.required],
-          region: ['', Validators.required]
-        })
-      ])
+  generateLocaleForm(): FormGroup {
+    return this.forumBuilder.group({
+      address: ['', Validators.required],
+      locale: ['', Validators.required],
+      name: ['', Validators.required],
+      region: ['', Validators.required]
     });
   }
 
@@ -83,32 +83,26 @@ export class HospitalFormComponent implements OnInit {
     this.hospitalLocales.removeAt(index);
   }
 
-  initializeForm(hospital: HospitalViewModel) {
+  initializeForm(hospital: Hospital) {
     this.hospitalsForm = this.forumBuilder.group({
-      phoneNumber: [hospital.phone_number, Validators.required],
-      address: [hospital.address, Validators.required],
-      name: [hospital.name, Validators.required],
-      region: [hospital.region, Validators.required]
-    });
-  }
-
-  generateLocale(hospital: HospitalViewModel): FormGroup {
-    return this.forumBuilder.group({
-      phoneNumber: [hospital.phone_number, Validators.required],
-      address: [hospital.address, Validators.required],
-      name: [hospital.name, Validators.required],
-      region: [hospital.region, Validators.required]
-    });
-  }
-  get hospitalLocales(): FormArray {
-    return this.hospitalLocalesForm.get('hospitalLocale') as FormArray;
-  }
-  initializeLocalesForm(hospital: HospitalViewModel[]) {
-    this.hospitalLocalesForm = this.forumBuilder.group({
+      phoneNumber: [hospital.hospital.phone_number, Validators.required],
+      address: [hospital.hospital.address, Validators.required],
+      name: [hospital.hospital.name, Validators.required],
+      region: [hospital.hospital.region, Validators.required],
       hospitalLocale: this.forumBuilder.array([])
     });
-    hospital.forEach(locale => {
-      this.hospitalLocales.controls.push(this.generateLocale(locale));
+
+    hospital.hospital_locale.map(locale => this.initializeLocalesForm(locale));
+  }
+
+  get hospitalLocales(): FormArray {
+    return this.hospitalsForm.get('hospitalLocale') as FormArray;
+  }
+  initializeLocalesForm(locale: HospitalLocaleModel) {
+    return this.forumBuilder.group({
+      address: [locale.address, Validators.required],
+      name: [locale.name, Validators.required],
+      locale: [locale.locale, Validators.required]
     });
   }
 
@@ -147,24 +141,33 @@ export class HospitalFormComponent implements OnInit {
     }
   }
 
-  private prepareFormData(): HospitalModel | null {
+  private prepareFormData(): Hospital | null {
+    const hospitalData = new Hospital();
     if (this.hospitalsForm.valid) {
       if (this.isUpdate && this.hospitalId) {
-        return {
-          id: this.hospitalId,
+        hospitalData.hospital = {
+          ID: this.hospitalId,
           phone_number: this.phoneNumber.value,
           address: this.address.value,
           name: this.hospitalName.value,
           region: this.region.value
         };
       } else {
-        return {
+        hospitalData.hospital = {
           phone_number: this.phoneNumber.value,
           address: this.address.value,
           name: this.hospitalName.value,
           region: this.region.value
         };
       }
+      this.hospitalLocales.controls.forEach(element => {
+        hospitalData.hospital_locale.push({
+          address: element.value.address,
+          locale: element.value.locale,
+          name: element.value.name
+        });
+      });
+      return hospitalData;
     } else {
       return null;
     }

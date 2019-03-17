@@ -1,9 +1,16 @@
 export interface HospitalModel {
-  id?: number;
+  ID?: number;
   name: string;
   phone_number: string;
   address: string;
-  region: string;
+  region: number;
+}
+
+export interface HospitalLocaleModel {
+  ID?: number;
+  name: string;
+  address: string;
+  locale: number;
 }
 
 export class HospitalViewModel {
@@ -15,4 +22,9 @@ export class HospitalViewModel {
   region: string;
   date_added: Date;
   date_updated: Date;
+}
+
+export class Hospital {
+  hospital: HospitalModel;
+  hospital_locale: HospitalLocaleModel[] = [];
 }
