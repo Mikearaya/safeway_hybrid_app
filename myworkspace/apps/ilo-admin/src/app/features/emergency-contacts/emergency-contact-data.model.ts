@@ -10,9 +10,21 @@ export class EmergencyContactView {
 }
 
 export class EmergencyContactModel {
-  id?: number;
+  ID?: number;
   name: string;
   phone_number: string;
   region: string;
   address: string;
+}
+
+export class EmergencyContactLocaleModel {
+  ID?: number;
+  name: string;
+  address: string;
+  locale: number;
+}
+
+export class EmergencyContact {
+  emergency_contact: EmergencyContactModel;
+  emergency_contact_locale: EmergencyContactLocaleModel[] = [];
 }

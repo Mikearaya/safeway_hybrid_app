@@ -11,7 +11,9 @@ import { EmergencyContactApiService } from '../emergency-contact-api.service';
 import { SystemApiService } from '../../../system-api.service';
 import {
   EmergencyContactView,
-  EmergencyContactModel
+  EmergencyContactModel,
+  EmergencyContact,
+  EmergencyContactLocaleModel
 } from '../emergency-contact-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -26,7 +28,6 @@ export class EmergencyContactFormComponent implements OnInit {
     { text: 'Other Languages' }
   ];
   public emergencyContactsForm: FormGroup;
-  public emergencyContactLocalesForm: FormGroup;
   private emergencyContactId: number;
   public languages: any[];
 
@@ -38,7 +39,6 @@ export class EmergencyContactFormComponent implements OnInit {
     private systemConfig: SystemApiService
   ) {
     this.createForm();
-    this.createLocalesForm();
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class EmergencyContactFormComponent implements OnInit {
       this.emergencyContactsApi
         .getEmergencyContactById(this.emergencyContactId)
         .subscribe(
-          (data: EmergencyContactView) => this.initializeForm(data),
+          (data: EmergencyContact) => this.initializeForm(data),
           (error: HttpErrorResponse) => alert(error.message)
         );
     }
@@ -66,20 +66,25 @@ export class EmergencyContactFormComponent implements OnInit {
       phoneNumber: ['', Validators.required],
       address: ['', Validators.required],
       name: ['', Validators.required],
+      region: ['', Validators.required],
+      emergencyContactLocale: this.forumBuilder.array([])
+    });
+  }
+
+  generateLocaleForm(): FormGroup {
+    return this.forumBuilder.group({
+      address: ['', Validators.required],
+      locale: ['', Validators.required],
+      name: ['', Validators.required],
       region: ['', Validators.required]
     });
   }
 
-  createLocalesForm() {
-    this.emergencyContactLocalesForm = this.forumBuilder.group({
-      emergencyContactLocale: this.forumBuilder.array([
-        this.forumBuilder.group({
-          address: ['', Validators.required],
-          locale: ['', Validators.required],
-          name: ['', Validators.required],
-          region: ['', Validators.required]
-        })
-      ])
+  initializeLocaleForm(locale: EmergencyContactLocaleModel): FormGroup {
+    return this.forumBuilder.group({
+      address: [locale.address, Validators.required],
+      locale: [locale.locale, Validators.required],
+      name: [locale.name, Validators.required]
     });
   }
 
@@ -87,35 +92,30 @@ export class EmergencyContactFormComponent implements OnInit {
     this.emergencyContactLocales.removeAt(index);
   }
 
-  initializeForm(emergencyContact: EmergencyContactView) {
+  initializeForm(emergencyContact: EmergencyContact) {
     this.emergencyContactsForm = this.forumBuilder.group({
-      phoneNumber: [emergencyContact.phone_number, Validators.required],
-      address: [emergencyContact.address, Validators.required],
-      name: [emergencyContact.name, Validators.required],
-      region: [emergencyContact.region, Validators.required]
-    });
-  }
-
-  generateLocale(emergencyContact: EmergencyContactView): FormGroup {
-    return this.forumBuilder.group({
-      phoneNumber: [emergencyContact.phone_number, Validators.required],
-      address: [emergencyContact.address, Validators.required],
-      name: [emergencyContact.name, Validators.required],
-      region: [emergencyContact.region, Validators.required]
-    });
-  }
-  get emergencyContactLocales(): FormArray {
-    return this.emergencyContactLocalesForm.get(
-      'emergencyContactLocale'
-    ) as FormArray;
-  }
-  initializeLocalesForm(emergencyContact: EmergencyContactView[]) {
-    this.emergencyContactLocalesForm = this.forumBuilder.group({
+      phoneNumber: [
+        emergencyContact.emergency_contact.phone_number,
+        Validators.required
+      ],
+      address: [
+        emergencyContact.emergency_contact.address,
+        Validators.required
+      ],
+      name: [emergencyContact.emergency_contact.name, Validators.required],
+      region: [emergencyContact.emergency_contact.region, Validators.required],
       emergencyContactLocale: this.forumBuilder.array([])
     });
-    emergencyContact.forEach(locale => {
-      this.emergencyContactLocales.controls.push(this.generateLocale(locale));
-    });
+
+    emergencyContact.emergency_contact_locale.map(element =>
+      this.emergencyContactLocales.push(this.initializeLocaleForm(element))
+    );
+  }
+
+  get emergencyContactLocales(): FormArray {
+    return this.emergencyContactsForm.get(
+      'emergencyContactLocale'
+    ) as FormArray;
   }
 
   get emergencyContactName(): FormControl {
@@ -132,14 +132,7 @@ export class EmergencyContactFormComponent implements OnInit {
     return this.emergencyContactsForm.get('address') as FormControl;
   }
   addLocale(): void {
-    this.emergencyContactLocales.controls.push(
-      this.forumBuilder.group({
-        address: ['', Validators.required],
-        locale: ['', Validators.required],
-        name: ['', Validators.required],
-        region: ['', Validators.required]
-      })
-    );
+    this.emergencyContactLocales.controls.push(this.generateLocaleForm());
   }
   onSubmit() {
     const emergencyContactData = this.prepareFormData();
@@ -148,33 +141,52 @@ export class EmergencyContactFormComponent implements OnInit {
       if (this.isUpdate) {
         this.emergencyContactsApi
           .updateEmergencyContactsAddress(emergencyContactData)
-          .subscribe();
+          .subscribe(
+            () => alert('Emergency contact updated successfuly'),
+            (error: HttpErrorResponse) => alert(error.message)
+          );
       } else {
         this.emergencyContactsApi
           .addeEmrgencyContactsAddress(emergencyContactData)
-          .subscribe();
+          .subscribe(
+            (data: any) => {
+              this.isUpdate = true;
+              this.emergencyContactId = data;
+              alert('Emergency contact created successfuly');
+            },
+            (error: HttpErrorResponse) => alert(error.message)
+          );
       }
     }
   }
 
-  private prepareFormData(): EmergencyContactModel | null {
+  private prepareFormData(): EmergencyContact | null {
+    const emergencyContact = new EmergencyContact();
     if (this.emergencyContactsForm.valid) {
       if (this.isUpdate && this.emergencyContactId) {
-        return {
-          id: this.emergencyContactId,
+        emergencyContact.emergency_contact = {
+          ID: this.emergencyContactId,
           phone_number: this.phoneNumber.value,
           address: this.address.value,
           name: this.emergencyContactName.value,
           region: this.region.value
         };
       } else {
-        return {
+        emergencyContact.emergency_contact = {
           phone_number: this.phoneNumber.value,
           address: this.address.value,
           name: this.emergencyContactName.value,
           region: this.region.value
         };
       }
+      this.emergencyContactLocales.controls.forEach(element => {
+        emergencyContact.emergency_contact_locale.push({
+          address: element.value.address,
+          locale: element.value.locale,
+          name: element.value.name
+        });
+      });
+      return emergencyContact;
     } else {
       return null;
     }
