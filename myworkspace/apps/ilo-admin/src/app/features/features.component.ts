@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthorizationService } from '../authorization.service';
 import { ItemModel } from '@syncfusion/ej2-splitbuttons';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SystemApiService } from '../system-api.service';
 
 @Component({
   selector: 'bionic-features',
@@ -12,8 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class FeaturesComponent implements OnInit {
   constructor(
     private authorizationService: AuthorizationService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   public items: ItemModel[] = [
@@ -47,7 +47,9 @@ export class FeaturesComponent implements OnInit {
       id: 'schools'
     }
   ];
-  ngOnInit() {}
+
+  dashboard: DashboardStatModel;
+  ngOnInit() { }
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {
       case 'ARTICLE':
@@ -93,4 +95,15 @@ export class FeaturesComponent implements OnInit {
   logOut() {
     this.authorizationService.logout();
   }
+}
+
+export interface DashboardStatModel {
+  agencies_count: number;
+  forum_count: number;
+  hospital_count: number;
+  emergency_contact_count: number;
+  article_count: number;
+  school_count: number;
+  news_count: number;
+  complain_count: number;
 }

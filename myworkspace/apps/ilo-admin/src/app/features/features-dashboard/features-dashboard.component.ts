@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SystemApiService } from '../../system-api.service';
+import { DashboardStatModel } from '../features.component';
 
 @Component({
   selector: 'bionic-features-dashboard',
@@ -7,7 +9,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class FeaturesDashboardComponent implements OnInit {
-  constructor() {}
+  public dashboard: DashboardStatModel;
 
-  ngOnInit() {}
+  constructor(private systemConf: SystemApiService) {}
+
+  ngOnInit() {
+    this.systemConf
+      .getSystemStatstics()
+      .subscribe(data => (this.dashboard = data));
+  }
 }
