@@ -97,7 +97,7 @@ export class FeaturesComponent implements OnInit {
   }
 }
 
-export interface DashboardStatModel {
+export class DashboardStatModel {
   agencies_count: number;
   forum_count: number;
   hospital_count: number;

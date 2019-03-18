@@ -12,18 +12,7 @@ class Auth extends API
     }
     public function index_post()
     {
-        $this->load->library('form_validation');
-        $result = $this->auth_model->authenticate_user($this->input->post());
-
-        $this->form_validation->set_rules('username', 'Username', 'trim|required');
-        $this->form_validation->set_rules('password', 'Username', 'trim|required');
-
-
-
-        if ($this->form_validation->run() === false) {
-            $this->set_response($this->validation_errors());
-        } else {
-            $result = $this->auth_model->authenticate_user($this->input->post());
+        $result = $this->auth_model->authenticate_user($this->request->body);
 
             if ($result === false) {
                 $this->set_response(null, API::HTTP_UNAUTHORIZED);
@@ -35,7 +24,7 @@ class Auth extends API
                 $output['userName'] = $result['username'];
                 $this->set_response($output, API::HTTP_OK);
             }
-        }
+        
     }
 
 

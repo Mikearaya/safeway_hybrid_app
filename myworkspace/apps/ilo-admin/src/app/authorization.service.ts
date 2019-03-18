@@ -13,7 +13,7 @@ export class AuthorizationService {
     this.httpBody = this.prepareRequestBody(authData);
     return this.httpClient.post<AuthenticationModel>(
       `auth`,
-      this.httpBody.toString()
+   authData
     );
   }
 
