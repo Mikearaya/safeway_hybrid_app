@@ -34,21 +34,8 @@ export class SchoolApiService {
   }
 
   deleteSchool(typeId: number[]): Observable<void> {
-    typeId.forEach(id => this.httpBody.append('id[]', `${id}`));
-    return this.httpClient.post<void>(
-      `${this.controller}/delete/`,
-      this.httpBody.toString()
-    );
-  }
-
-  private prepareRequestBody(lesson: any): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in lesson) {
-      if (lesson.hasOwnProperty(key)) {
-        const value = lesson[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
+    const idArr: any[] = [];
+    idArr.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<void>(`${this.controller}/delete/`, idArr);
   }
 }

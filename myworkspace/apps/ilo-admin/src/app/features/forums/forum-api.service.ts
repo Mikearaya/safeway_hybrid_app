@@ -13,9 +13,7 @@ export class ForumApiService {
   }
 
   getForumById(hospitalId: number): Observable<Forum> {
-    return this.httpClient.get<Forum>(
-      `${this.controller}/${hospitalId}`
-    );
+    return this.httpClient.get<Forum>(`${this.controller}/${hospitalId}`);
   }
 
   getForumList(): Observable<ForumViewModel[]> {
@@ -30,28 +28,15 @@ export class ForumApiService {
   updateForum(forum: Forum): Observable<void> {
     // const forumData = this.prepareRequestBody(forum);
     return this.httpClient.post<void>(
-      `${this.controller}/update/${forum.forum. id}`,
+      `${this.controller}/update/${forum.forum.id}`,
       forum
     );
   }
 
   deleteForum(forumId: number[]): Observable<void> {
-    forumId.forEach(id => this.httpBody.append('id[]', `${id}`));
-    return this.httpClient.post<void>(
-      `${this.controller}/delete/`,
-      this.httpBody.toString()
-    );
+    const idArr: any[] = [];
+    forumId.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<void>(`${this.controller}/delete/`, idArr);
   }
 
-  private prepareRequestBody(customer: ForumModel): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
-  }
-  
 }

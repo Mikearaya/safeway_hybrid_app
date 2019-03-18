@@ -39,7 +39,8 @@ export class ComplainTypeApiService {
   }
 
   deleteComplainType(typeId: number[]): Observable<void> {
-    typeId.forEach(id => this.httpBody.append('id[]', `${id}`));
+    const idArr: any[] = [];
+    typeId.forEach(id => idArr.push({ id: `${id}` }));
     return this.httpClient.post<void>(
       `${this.controller}/delete/`,
       this.httpBody.toString()

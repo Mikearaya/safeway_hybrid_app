@@ -74,21 +74,10 @@ export class ArticlesApiService {
   }
 
   deleteArticle(catagoryId: number[]): Observable<ArticleViewModel> {
-    catagoryId.forEach(id => this.httpBody.append('id[]', `${id}`));
-    return this.httpClient.post<ArticleViewModel>(
-      `articles/delete`,
-      this.httpBody.toString()
-    );
+    const idArr: any[] = [];
+    catagoryId.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<ArticleViewModel>(`articles/delete`, idArr);
   }
 
-  private prepareRequestBody(customer: any): URLSearchParams {
-    const dataModel = new URLSearchParams();
-    for (const key in customer) {
-      if (customer.hasOwnProperty(key)) {
-        const value = customer[key];
-        dataModel.set(key, value);
-      }
-    }
-    return dataModel;
-  }
+
 }

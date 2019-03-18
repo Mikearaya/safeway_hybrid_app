@@ -77,7 +77,8 @@ class MY_Model extends CI_Model
     try {
       
       foreach($id  as $key => $value) {
-        $deletedIds[ $this->primary_key] = $value;
+        $deletedIds[] = current($value);
+    
 
       }
       $this->db->where_in($this->primary_key, $deletedIds);

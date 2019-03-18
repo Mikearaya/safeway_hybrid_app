@@ -38,7 +38,9 @@ export class HospitalsService {
     );
   }
 
-  deleteHospitalAddress(hospitalId: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.controller}/${hospitalId}`);
+  deleteHospitalAddress(hospitalId: number[]): Observable<void> {
+    const idArr: any[] = [];
+    hospitalId.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<void>(`${this.controller}/delete`, idArr);
   }
 }

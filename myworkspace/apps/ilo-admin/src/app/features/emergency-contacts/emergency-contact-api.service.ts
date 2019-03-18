@@ -43,12 +43,13 @@ export class EmergencyContactApiService {
   }
 
   deleteEmergencyContactsAddress(
-    emergencyContactsId: number
+    emergencyContactsId: number[]
   ): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${this.controller}/${emergencyContactsId}`
+    const idArr: any[] = [];
+    emergencyContactsId.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<void>(
+      `${this.controller}/${emergencyContactsId}`,
+      idArr
     );
   }
-
-
 }
