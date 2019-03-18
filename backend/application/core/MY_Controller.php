@@ -80,7 +80,7 @@ class API extends REST_Controller
     {
 
         $models = $this->model;
-        $result = $this->$models->delete($this->input->post('id'));
+        $result = $this->$models->delete( $this->request->body);
         
         if($result) {
             $this->response($result, API::HTTP_NO_CONTENT);

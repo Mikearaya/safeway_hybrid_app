@@ -17,9 +17,18 @@ class MY_Model extends CI_Model
 
     function get_by_id($id) {
             $this->db->where($this->primary_key, $id);
+            
             $result_set = $this->db->get($this->table_name);
-            return $result_set->row_array();
-    }
+            $result[$this->table_name] = $result_set->row_array();
+            foreach ($this->child_tables as $table => $primary_key) {
+                $this->db->where($primary_key, $id);
+                $result_set = $this->db->get($table);
+                $result[$table] = $result_set->result_array();
+            }
+
+            return $result;
+    
+          }
 
     function get_list()
     {
@@ -66,8 +75,10 @@ class MY_Model extends CI_Model
   public function delete($id) {
     $deletedIds = [];
     try {
+      
       foreach($id  as $key => $value) {
-        $deletedIds[] = $value;
+        $deletedIds[ $this->primary_key] = $value;
+
       }
       $this->db->where_in($this->primary_key, $deletedIds);
       $this->db->delete($this->table_name);

@@ -76,7 +76,7 @@ export class ForumCreationFormComponent implements OnInit {
   initializeForm(forum: Forum) {
     this.forumForm = this.forumBuilder.group({
       id: [forum.forum.id],
-      topic: [forum.forum.name, Validators.required],
+      topic: [forum.forum.title, Validators.required],
       forumLocale: this.forumBuilder.array([])
     });
     forum.forum_locale.forEach(locale => {
@@ -94,7 +94,7 @@ export class ForumCreationFormComponent implements OnInit {
   initializeLocale(forum: ForumLocaleModel): FormGroup {
     return this.forumBuilder.group({
       locale: [forum.locale, Validators.required],
-      name: [forum.name, Validators.required],
+      name: [forum.title, Validators.required],
       id: [forum.id, Validators.required]
     });
   }
@@ -134,18 +134,18 @@ export class ForumCreationFormComponent implements OnInit {
       if (this.isUpdate && this.forumId) {
         forum.forum = {
           id: this.forumId,
-          name: this.topic.value
+          title: this.topic.value
         };
       } else {
         forum.forum = {
-          name: this.topic.value
+          title: this.topic.value
         };
       }
 
       this.forumLocales.controls.forEach(element => {
         forum.forum_locale.push({
           locale: element.value.locale,
-          name: element.value.name,
+          title: element.value.name,
           id: element.value.id
         });
       });

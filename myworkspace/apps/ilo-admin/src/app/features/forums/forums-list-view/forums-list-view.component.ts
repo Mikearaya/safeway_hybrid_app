@@ -18,8 +18,8 @@ export class ForumsListViewComponent implements OnInit {
       type: 'string'
     },
     {
-      key: 'name',
-      header: 'Contact name',
+      key: 'title',
+      header: 'Forum topic',
       type: 'string'
     },
     {

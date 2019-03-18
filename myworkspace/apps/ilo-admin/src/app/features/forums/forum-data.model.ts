@@ -1,11 +1,11 @@
 export interface ForumModel {
   id?: number;
-  name: string;
+  title: string;
 }
 
 export interface ForumLocaleModel {
   id?: number;
-  name: string;
+  title: string;
   locale: number;
 }
 

@@ -32,10 +32,11 @@ export class AgencyApiService {
   }
 
   deleteAgency(indexes: number[]): Observable<void> {
-    indexes.forEach(id => this.httpBody.append('id[]', `${id}`));
+    const idArr: any[] = [];
+    indexes.forEach(id => idArr.push({'id' : `${id}`}));
     return this.httpClient.post<void>(
       `agencies/delete`,
-      this.httpBody.toString()
+      idArr
     );
   }
 
