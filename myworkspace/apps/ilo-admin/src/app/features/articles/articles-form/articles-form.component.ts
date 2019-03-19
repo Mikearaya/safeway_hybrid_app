@@ -33,6 +33,7 @@ export class ArticlesFormComponent implements OnInit {
   public articleForm: FormGroup;
   public articleCatagories: any[] = [];
   public languages: any;
+  public deletedIds: number[] = [];
 
   constructor(
     private articleApi: ArticlesApiService,
@@ -80,6 +81,7 @@ export class ArticlesFormComponent implements OnInit {
   }
   initiLocaleForm(locale: ArticleLocaleModel): FormGroup {
     return this.formBuilder.group({
+      id: [locale.ID, Validators.required],
       content: [locale.content, Validators.required],
       locale: [locale.locale, Validators.required],
       title: [locale.header, Validators.required]
@@ -160,12 +162,15 @@ export class ArticlesFormComponent implements OnInit {
 
       this.articleLocales.controls.forEach(element =>
         article.article_locale.push({
+          ID: element.value.id,
           content: element.value.content,
           header: element.value.title,
           locale: element.value.locale
         })
       );
-
+      this.deletedIds.forEach(element => {
+        article.deleted_ids.article_locale.push(element);
+      });
       return article;
     } else {
       return null;
@@ -177,6 +182,20 @@ export class ArticlesFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.articleLocales.removeAt(index);
+
+    const deletedControlId = this.articleLocales.controls[index].get('id');
+
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.articleLocales.removeAt(index);
+      }
+    } else {
+      this.articleLocales.removeAt(index);
+    }
+
   }
+
 }
