@@ -7,12 +7,7 @@ import {
   FormArray
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  HospitalModel,
-  HospitalViewModel,
-  Hospital,
-  HospitalLocaleModel
-} from '../hospital-data.model';
+import { Hospital, HospitalLocaleModel } from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService } from '../../../system-api.service';
@@ -31,6 +26,7 @@ export class HospitalFormComponent implements OnInit {
   public hospitalsForm: FormGroup;
   private hospitalId: number;
   public languages: any[];
+  public deletedIds: number[] = [];
 
   isUpdate: boolean;
   constructor(
@@ -80,7 +76,18 @@ export class HospitalFormComponent implements OnInit {
   }
 
   deleteLocale(index) {
-    this.hospitalLocales.removeAt(index);
+    const deletedControlId = this.hospitalLocales.controls[index].get('id');
+
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.hospitalLocales.removeAt(index);
+      }
+    } else {
+      this.hospitalLocales.removeAt(index);
+    }
   }
 
   initializeForm(hospital: Hospital) {
@@ -92,7 +99,9 @@ export class HospitalFormComponent implements OnInit {
       hospitalLocale: this.forumBuilder.array([])
     });
 
-    hospital.hospital_locale.map(locale => this.initializeLocalesForm(locale));
+    hospital.hospital_locale.map(locale =>
+      this.hospitalLocales.controls.push(this.initializeLocalesForm(locale))
+    );
   }
 
   get hospitalLocales(): FormArray {
@@ -100,6 +109,7 @@ export class HospitalFormComponent implements OnInit {
   }
   initializeLocalesForm(locale: HospitalLocaleModel) {
     return this.forumBuilder.group({
+      id: [locale.ID],
       address: [locale.address, Validators.required],
       name: [locale.name, Validators.required],
       locale: [locale.locale, Validators.required]
@@ -134,9 +144,20 @@ export class HospitalFormComponent implements OnInit {
 
     if (hospitalData) {
       if (this.isUpdate) {
-        this.hospitalApi.updateHospitalAddress(hospitalData).subscribe();
+        this.hospitalApi
+          .updateHospitalAddress(hospitalData)
+          .subscribe(
+            () => alert('Medical Centers updated successfully'),
+            (error: HttpErrorResponse) => alert(error.message)
+          );
       } else {
-        this.hospitalApi.addHospitalAddress(hospitalData).subscribe();
+        this.hospitalApi
+          .addHospitalAddress(hospitalData)
+          .subscribe((data: any) => {
+            this.hospitalId = data;
+            this.isUpdate = true;
+            alert('Medical center added successfuly');
+          });
       }
     }
   }
@@ -162,11 +183,16 @@ export class HospitalFormComponent implements OnInit {
       }
       this.hospitalLocales.controls.forEach(element => {
         hospitalData.hospital_locale.push({
+          ID: element.value.id,
           address: element.value.address,
           locale: element.value.locale,
           name: element.value.name
         });
       });
+
+      this.deletedIds.map(element =>
+        hospitalData.deleted_ids.hospital_locale.push(element)
+      );
       return hospitalData;
     } else {
       return null;

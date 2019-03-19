@@ -38,5 +38,4 @@ export class ForumApiService {
     forumId.forEach(id => idArr.push({ id: `${id}` }));
     return this.httpClient.post<void>(`${this.controller}/delete/`, idArr);
   }
-
 }

@@ -27,4 +27,9 @@ export class HospitalViewModel {
 export class Hospital {
   hospital: HospitalModel;
   hospital_locale: HospitalLocaleModel[] = [];
+  deleted_ids: HospitalDeletables = new HospitalDeletables();
+}
+
+export class HospitalDeletables {
+  hospital_locale: number[] = [];
 }
