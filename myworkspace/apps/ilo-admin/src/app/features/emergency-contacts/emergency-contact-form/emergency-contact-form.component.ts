@@ -10,8 +10,6 @@ import { ActivatedRoute } from '@angular/router';
 import { EmergencyContactApiService } from '../emergency-contact-api.service';
 import { SystemApiService } from '../../../system-api.service';
 import {
-  EmergencyContactView,
-  EmergencyContactModel,
   EmergencyContact,
   EmergencyContactLocaleModel
 } from '../emergency-contact-data.model';
@@ -30,7 +28,7 @@ export class EmergencyContactFormComponent implements OnInit {
   public emergencyContactsForm: FormGroup;
   private emergencyContactId: number;
   public languages: any[];
-
+public deletedIds: number[] = [];
   isUpdate: boolean;
   constructor(
     private forumBuilder: FormBuilder,
@@ -89,7 +87,20 @@ export class EmergencyContactFormComponent implements OnInit {
   }
 
   deleteLocale(index) {
-    this.emergencyContactLocales.removeAt(index);
+    const deletedControlId = this.emergencyContactLocales.controls[index].get('id');
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+      alert(conf);
+
+      if(conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.emergencyContactLocales.removeAt(index);
+      }
+
+    } else {
+      this.emergencyContactLocales.removeAt(index);
+    }
+
   }
 
   initializeForm(emergencyContact: EmergencyContact) {
@@ -187,6 +198,10 @@ export class EmergencyContactFormComponent implements OnInit {
           name: element.value.name
         });
       });
+
+     this.deletedIds.forEach(element => {
+      emergencyContact.deleted_ids.emergency_contact_locale.push(element);
+     });
       return emergencyContact;
     } else {
       return null;

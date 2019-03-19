@@ -27,4 +27,9 @@ export class EmergencyContactLocaleModel {
 export class EmergencyContact {
   emergency_contact: EmergencyContactModel;
   emergency_contact_locale: EmergencyContactLocaleModel[] = [];
+  deleted_ids: Deletables = new Deletables();
+}
+
+export class Deletables {
+  emergency_contact_locale: number[] = []
 }

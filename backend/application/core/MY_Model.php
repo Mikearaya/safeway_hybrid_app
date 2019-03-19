@@ -71,31 +71,47 @@ class MY_Model extends CI_Model
       
 
       if(count($this->child_tables) > 0) {
-      foreach ($this->child_tables as $key => $value) {
-        $updated = [];
-        $inserted = [];
-        
       
-        if( $data[$key]) {
-          
-          for( $i = 0; $i < count($data[$key]); $i++) {
-            $data[$key][$i][$value] = $data[$this->table_name][$this->primary_key];
-            if(isset( $data[$key][$i][$this->primary_key])) {
-              $updated[] = $data[$key][$i];
-            } else {
-            $inserted[] = $data[$key][$i];        
-            };
+        foreach ($this->child_tables as $key => $value) {
+          $updated = [];
+          $inserted = [];
+
+          $deleted = [];
+
+          foreach ( $data['deleted_ids'][$key] as $key2 => $value2) {
+              $deleted[] = $value2;		
           }
-          if($updated) {
-          $this->db->update_batch($key, $updated, 'ID');          
-          }  if($inserted)  {
-            $this->db->insert_batch($key, $inserted);
+
+          if($deleted) {
+              $this->db->where_in('ID', $deleted);       
+              $this->db->delete($key);
           }
+        
+          if( $data[$key]) {
+            
+            for( $i = 0; $i < count($data[$key]); $i++) {
+              $data[$key][$i][$value] = $data[$this->table_name][$this->primary_key];
+              if(isset( $data[$key][$i][$this->primary_key])) {
+                $updated[] = $data[$key][$i];
+              } else {
+              $inserted[] = $data[$key][$i];        
+              };
+            
+            }
+            
+            if($updated) {              
+              $this->db->update_batch($key, $updated, $this->primary_key);                      
+            }  
+            
+            if($inserted)  {
+              $this->db->insert_batch($key, $inserted);            
+            }
+
+          }
+        
+        }
 
         }
-      }
-
-      }
     }
 
 
