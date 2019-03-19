@@ -69,18 +69,29 @@ class MY_Model extends CI_Model
       $this->db->where($this->primary_key, $id);
       $this->db->update($this->table_name, $data[$this->table_name]);
       
-      $updated = [];
+
       if(count($this->child_tables) > 0) {
       foreach ($this->child_tables as $key => $value) {
-
+        $updated = [];
+        $inserted = [];
+        
+      
         if( $data[$key]) {
+          
           for( $i = 0; $i < count($data[$key]); $i++) {
-            if(isset( $data[$key][$i]['ID'])) {
-              $updated[] = $data[$key][$i]['ID'];
-            }
+            $data[$key][$i][$value] = $data[$this->table_name][$this->primary_key];
+            if(isset( $data[$key][$i][$this->primary_key])) {
+              $updated[] = $data[$key][$i];
+            } else {
+            $inserted[] = $data[$key][$i];        
+            };
+          }
+          if($updated) {
+          $this->db->update_batch($key, $updated, 'ID');          
+          }  if($inserted)  {
+            $this->db->insert_batch($key, $inserted);
           }
 
-          $this->db->update_batch($key, $data[$key], $value);
         }
       }
 

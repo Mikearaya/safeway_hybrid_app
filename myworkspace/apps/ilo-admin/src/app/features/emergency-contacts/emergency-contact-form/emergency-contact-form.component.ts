@@ -76,12 +76,12 @@ export class EmergencyContactFormComponent implements OnInit {
       address: ['', Validators.required],
       locale: ['', Validators.required],
       name: ['', Validators.required],
-      region: ['', Validators.required]
     });
   }
 
   initializeLocaleForm(locale: EmergencyContactLocaleModel): FormGroup {
     return this.forumBuilder.group({
+      id: [locale.ID, Validators.required],
       address: [locale.address, Validators.required],
       locale: [locale.locale, Validators.required],
       name: [locale.name, Validators.required]
@@ -181,6 +181,7 @@ export class EmergencyContactFormComponent implements OnInit {
       }
       this.emergencyContactLocales.controls.forEach(element => {
         emergencyContact.emergency_contact_locale.push({
+          ID: element.value.id,
           address: element.value.address,
           locale: element.value.locale,
           name: element.value.name

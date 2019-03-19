@@ -57,20 +57,11 @@ class API extends REST_Controller
     public function update_POST($id)
     {
         $models = $this->model;
-   
-         if($this->form_validation->run($this->put_validator) === false) {
-            $this->response($this->validation_errors(), API::HTTP_UNPROCESSABLE_ENTITY);
-        } else {
 
-            $result = $this->$models->update($id, $this->input->post());
-            $this->response(null, API::HTTP_NO_CONTENT);
 
-            if($result !== null) {
-                $this->response($result, API::HTTP_CREATED);
-            } else {
-                $this->response(null, API::HTTP_UNPROCESSABLE_ENTITY);
-            }
-        }
+            $result = $this->$models->update($id, $this->request->body);
+      
+            $this->response(null, API::HTTP_NO_CONTENT);    
 
 
     }
