@@ -157,12 +157,9 @@ export class AgencyFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-
-
     const deletedControlId = this.agencyLocales.controls[index].get('id');
     if (deletedControlId) {
       const conf = confirm('Are you sure you want to delete');
-
 
       if (conf) {
         this.deletedIds.push(deletedControlId.value);

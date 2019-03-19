@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import { News } from '../news-data.model';
+import { News, NewsLocaleModel } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -26,6 +26,7 @@ export class NewsFormComponent implements OnInit {
   private newsId: number;
   public languages: any;
   public isUpdate: Boolean;
+  public deletedIds: number[] = [];
 
   constructor(
     private newsApi: NewsApiService,
@@ -90,7 +91,17 @@ export class NewsFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.newsLocales.removeAt(index);
+    const deletedControlId = this.newsLocales.controls[index].get('id');
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.newsLocales.removeAt(index);
+      }
+    } else {
+      this.newsLocales.removeAt(index);
+    }
   }
 
   private initializeForm(news: News): void {
@@ -99,8 +110,14 @@ export class NewsFormComponent implements OnInit {
       content: [news.article.content, Validators.required],
       audio: [news.article.audio],
       image: [news.article.image],
-      video: [news.article.video]
+      video: [news.article.video],
+      newsLocales: this.formBuilder.array([])
     });
+
+    news.article_locale.map(element =>
+      this.newsLocales.push(this.initializeLocaleForm(element))
+    );
+    this.newsLocales.push;
   }
 
   private generateLocaleForm(): FormGroup {
@@ -108,6 +125,15 @@ export class NewsFormComponent implements OnInit {
       header: ['', Validators.required],
       content: ['', Validators.required],
       locale: ['', Validators.required]
+    });
+  }
+
+  private initializeLocaleForm(locale: NewsLocaleModel): FormGroup {
+    return this.formBuilder.group({
+      id: [locale.ID, Validators.required],
+      header: [locale.header, Validators.required],
+      content: [locale.content, Validators.required],
+      locale: [locale.locale, Validators.required]
     });
   }
 
@@ -162,10 +188,15 @@ export class NewsFormComponent implements OnInit {
 
       this.newsLocales.controls.forEach(element => {
         news.article_locale.push({
+          ID: element.value.id,
           content: element.value.content,
           header: element.value.header,
           locale: element.value.locale
         });
+      });
+
+      this.deletedIds.forEach(element => {
+        news.deleted_ids.article_locale.push(element);
       });
 
       return news;

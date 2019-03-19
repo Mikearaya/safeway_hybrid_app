@@ -28,4 +28,11 @@ export interface NewsLocaleModel {
 export class News {
   article: NewsModel;
   article_locale: NewsLocaleModel[] = [];
+  deleted_ids: NewsDeletables = new NewsDeletables();
 }
+
+export class NewsDeletables {
+  article_locale: number[] = [];
+}
+
+
