@@ -9,12 +9,7 @@ import {
   FormControl,
   FormArray
 } from '@angular/forms';
-import {
-  AgencyViewModel,
-  AgencyModel,
-  Agency,
-  AgencyLocaleModel
-} from '../agency-data.model';
+import { Agency, AgencyLocaleModel } from '../agency-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -27,6 +22,8 @@ export class AgencyFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
+
+  public deletedIds: number[] = [];
   public agencyForm: FormGroup;
   public agencyLocaleForm: FormGroup;
   public isUpdate: Boolean;
@@ -96,7 +93,7 @@ export class AgencyFormComponent implements OnInit {
 
   initializeLocaleForm(locale: AgencyLocaleModel): FormGroup {
     return this.formBuilder.group({
-      ID: [locale.ID, Validators.required],
+      id: [locale.ID, Validators.required],
       name: [locale.name, Validators.required],
       locale: [locale.locale, Validators.required],
       address: [locale.address]
@@ -160,7 +157,20 @@ export class AgencyFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.agencyLocales.removeAt(index);
+
+
+    const deletedControlId = this.agencyLocales.controls[index].get('id');
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.agencyLocales.removeAt(index);
+      }
+    } else {
+      this.agencyLocales.removeAt(index);
+    }
   }
 
   prepareFormData(): Agency | null {
@@ -189,12 +199,15 @@ export class AgencyFormComponent implements OnInit {
       }
       this.agencyLocales.controls.forEach(element => {
         agency.agency_locale.push({
+          ID: element.value.id,
           address: element.value.address,
           locale: element.value.locale,
           name: element.value.name
         });
       });
-
+      this.deletedIds.forEach(element => {
+        agency.deleted_ids.agency_locale.push(element);
+      });
       return agency;
     } else {
       return null;

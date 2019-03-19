@@ -32,4 +32,9 @@ export interface AgencyViewModel {
 export class Agency {
   agency: AgencyModel;
   agency_locale: AgencyLocaleModel[] = [];
+  deleted_ids: AgencyDeleteables = new AgencyDeleteables();
+}
+
+export class AgencyDeleteables {
+  agency_locale: number[] = [];
 }

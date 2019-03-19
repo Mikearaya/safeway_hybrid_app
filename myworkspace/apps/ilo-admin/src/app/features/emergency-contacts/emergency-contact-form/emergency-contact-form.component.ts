@@ -90,8 +90,6 @@ public deletedIds: number[] = [];
     const deletedControlId = this.emergencyContactLocales.controls[index].get('id');
     if (deletedControlId) {
       const conf = confirm('Are you sure you want to delete');
-      alert(conf);
-
       if(conf) {
         this.deletedIds.push(deletedControlId.value);
         this.emergencyContactLocales.removeAt(index);

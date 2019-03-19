@@ -24,7 +24,6 @@ export class AgencyApiService {
   }
 
   updateAgency(updatedAgency: Agency): Observable<void> {
-    const agencyModel = this.prepareRequestBody(updatedAgency);
     return this.httpClient.post<void>(
       `agencies/update/${updatedAgency.agency.ID}`,
       updatedAgency
