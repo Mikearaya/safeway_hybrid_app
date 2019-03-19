@@ -31,6 +31,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
   private catagoryId: number;
   public isUpdate: Boolean;
   public languages: any;
+  public deletedIds: number[] = [];
 
   constructor(
     private articleApi: ArticlesApiService,
@@ -66,16 +67,16 @@ export class ArticleCatagoryFormComponent implements OnInit {
       name: [catagory.article_catagory.name, Validators.required],
       catagoryLocales: this.formBuilder.array([])
     });
-
-    catagory.article_catagory_locale.map(element =>
-      this.initializeLocaleForm(element)
+    catagory.article_catagory_locale.map(locale =>
+      this.catagoryLocales.push(this.initializeLocaleForm(locale))
     );
   }
 
   initializeLocaleForm(locale: ArticleCatagoryLocaleModel): FormGroup {
     return this.formBuilder.group({
+      id: [locale.ID, Validators.required],
       name: [locale.name, Validators.required],
-      locale: [locale.id, Validators.required]
+      locale: [locale.locale, Validators.required]
     });
   }
 
@@ -123,15 +124,24 @@ export class ArticleCatagoryFormComponent implements OnInit {
           name: this.catagoryName.value
         };
       } else {
-        articleCatagory.article_catagory = { name: this.catagoryName.value };
+        articleCatagory.article_catagory = {
+          name: this.catagoryName.value
+        };
       }
 
       this.catagoryLocales.controls.forEach(element => {
         articleCatagory.article_catagory_locale.push({
+          ID: element.value.id,
           locale: element.value.locale,
           name: element.value.name
         });
+
       });
+
+      this.deletedIds.forEach(element => {
+        articleCatagory.deleted_ids.article_catagory_locale.push(element);
+      });
+
       return articleCatagory;
     } else {
       return null;
@@ -139,10 +149,20 @@ export class ArticleCatagoryFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.catagoryLocales.removeAt(index);
+    const deletedControlId = this.catagoryLocales.controls[index].get('id');
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.catagoryLocales.removeAt(index);
+      }
+    } else {
+      this.catagoryLocales.removeAt(index);
+    }
   }
 
-  addLocale(index: number): void {
+  addLocale(): void {
     this.catagoryLocales.controls.push(
       this.formBuilder.group({
         locale: ['', Validators.required],
