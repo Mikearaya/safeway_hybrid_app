@@ -1,16 +1,16 @@
 export interface ForumModel {
-  id?: number;
+  ID?: number;
   title: string;
 }
 
 export interface ForumLocaleModel {
-  id?: number;
+  ID?: number;
   title: string;
   locale: number;
 }
 
 export interface ForumViewModel {
-  id: number;
+  ID: number;
   name: string;
   locale: number;
   totalCount: number;
@@ -19,4 +19,10 @@ export interface ForumViewModel {
 export class Forum {
   forum: ForumModel;
   forum_locale: ForumLocaleModel[] = [];
+  deleted_ids: ForumDeletables = new ForumDeletables();
+}
+
+
+export class ForumDeletables {
+  forum_locale: number[] = [];
 }

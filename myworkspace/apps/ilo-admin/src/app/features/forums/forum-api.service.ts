@@ -28,7 +28,7 @@ export class ForumApiService {
   updateForum(forum: Forum): Observable<void> {
     // const forumData = this.prepareRequestBody(forum);
     return this.httpClient.post<void>(
-      `${this.controller}/update/${forum.forum.id}`,
+      `${this.controller}/update/${forum.forum.ID}`,
       forum
     );
   }

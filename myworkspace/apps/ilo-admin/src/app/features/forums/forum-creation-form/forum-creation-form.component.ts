@@ -9,10 +9,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
 import { ForumApiService } from '../forum-api.service';
-import {
-  Forum,
-  ForumLocaleModel
-} from '../forum-data.model';
+import { Forum, ForumLocaleModel } from '../forum-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TabComponent } from '@syncfusion/ej2-angular-navigations';
 
@@ -24,6 +21,7 @@ import { TabComponent } from '@syncfusion/ej2-angular-navigations';
 export class ForumCreationFormComponent implements OnInit {
   @ViewChild('tab')
   public tab: TabComponent;
+  public deletedIds: number[] = [];
 
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
@@ -70,12 +68,22 @@ export class ForumCreationFormComponent implements OnInit {
   }
 
   deleteLocale(index) {
-    this.forumLocales.removeAt(index);
+    const deletedControlId = this.forumLocales.controls[index].get('id');
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.forumLocales.removeAt(index);
+      }
+    } else {
+      this.forumLocales.removeAt(index);
+    }
   }
 
   initializeForm(forum: Forum) {
     this.forumForm = this.forumBuilder.group({
-      id: [forum.forum.id],
+      id: [forum.forum.ID, Validators.required],
       topic: [forum.forum.title, Validators.required],
       forumLocale: this.forumBuilder.array([])
     });
@@ -93,9 +101,9 @@ export class ForumCreationFormComponent implements OnInit {
 
   initializeLocale(forum: ForumLocaleModel): FormGroup {
     return this.forumBuilder.group({
+      id: [forum.ID, Validators.required],
       locale: [forum.locale, Validators.required],
-      name: [forum.title, Validators.required],
-      id: [forum.id, Validators.required]
+      name: [forum.title, Validators.required]
     });
   }
   get forumLocales(): FormArray {
@@ -133,7 +141,7 @@ export class ForumCreationFormComponent implements OnInit {
     if (this.forumForm.valid) {
       if (this.isUpdate && this.forumId) {
         forum.forum = {
-          id: this.forumId,
+          ID: this.forumId,
           title: this.topic.value
         };
       } else {
@@ -146,9 +154,14 @@ export class ForumCreationFormComponent implements OnInit {
         forum.forum_locale.push({
           locale: element.value.locale,
           title: element.value.name,
-          id: element.value.id
+          ID: element.value.id
         });
       });
+
+      this.deletedIds.map(element =>
+        forum.deleted_ids.forum_locale.push(element)
+      );
+
       return forum;
     } else {
       return null;
