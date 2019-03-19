@@ -40,7 +40,7 @@ class MY_Model extends CI_Model
     function add($data)
     {
       if($data[$this->table_name]) {
-        $result = $this->db->insert($this->table_name, $data[$this->table_name]);
+        $this->db->insert($this->table_name, $data[$this->table_name]);
       }
 
     $new_id = $this->db->insert_id();
@@ -67,7 +67,24 @@ class MY_Model extends CI_Model
 
     function update($id, $data) {
       $this->db->where($this->primary_key, $id);
-      return $this->db->update($this->table_name, $data);
+      $this->db->update($this->table_name, $data[$this->table_name]);
+      
+      $updated = [];
+      if(count($this->child_tables) > 0) {
+      foreach ($this->child_tables as $key => $value) {
+
+        if( $data[$key]) {
+          for( $i = 0; $i < count($data[$key]); $i++) {
+            if(isset( $data[$key][$i]['ID'])) {
+              $updated[] = $data[$key][$i]['ID'];
+            }
+          }
+
+          $this->db->update_batch($key, $data[$key], $value);
+        }
+      }
+
+      }
     }
 
 
