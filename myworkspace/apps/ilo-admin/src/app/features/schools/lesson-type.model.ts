@@ -19,4 +19,9 @@ export interface LessonTypeLocaleModel {
 export class LessonType {
   lesson_types: LessonTypeModel;
   lesson_type_locale: LessonTypeLocaleModel[] = [];
+  deleted_ids: LessonTypeDeletable = new LessonTypeDeletable();
+}
+
+export class LessonTypeDeletable {
+  lesson_type_locale: number[] = [];
 }

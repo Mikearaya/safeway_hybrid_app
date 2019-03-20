@@ -9,12 +9,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SystemApiService } from '../../../system-api.service';
-import {
-  LessonTypeViewModel,
-  LessonTypeModel,
-  LessonType,
-  LessonTypeLocaleModel
-} from '../lesson-type.model';
+import { LessonType, LessonTypeLocaleModel } from '../lesson-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -29,6 +24,7 @@ export class LessonTypeFormComponent implements OnInit {
   private lessonTypeId: number;
   public isUpdate: Boolean;
   public languages: any;
+  public deletedIds: number[] = [];
 
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
@@ -90,7 +86,6 @@ export class LessonTypeFormComponent implements OnInit {
   onSubmit(): void {
     const formData = this.prepareFormData();
     if (formData) {
-
       if (this.isUpdate) {
         this.lessonTypeApi
           .updateLessonType(formData)
@@ -128,17 +123,24 @@ export class LessonTypeFormComponent implements OnInit {
 
       this.lessonTypeLocales.controls.forEach(element => {
         lessonType.lesson_type_locale.push({
-          ID: element.value.ID,
+          ID: element.value.id,
           type: element.value.type,
           locale: element.value.locale
         });
       });
+      this.deletedIds.map(element =>
+        lessonType.deleted_ids.lesson_type_locale.push(element)
+      );
 
       return lessonType;
     } else {
       return null;
     }
+
+
   }
+
+
   private generateLocaleForm(): FormGroup {
     return this.formBuilder.group({
       locale: ['', Validators.required],
@@ -148,7 +150,8 @@ export class LessonTypeFormComponent implements OnInit {
 
   private initializeLocaleForm(locale: LessonTypeLocaleModel): FormGroup {
     return this.formBuilder.group({
-      locale: [locale.ID, Validators.required],
+      id: [locale.ID, Validators.required],
+      locale: [locale.locale, Validators.required],
       type: [locale.type, Validators.required]
     });
   }
@@ -158,6 +161,17 @@ export class LessonTypeFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.lessonTypeLocales.removeAt(index);
+    const deletedControlId = this.lessonTypeLocales.controls[index].get('id');
+
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.lessonTypeLocales.removeAt(index);
+      }
+    } else {
+      this.lessonTypeLocales.removeAt(index);
+    }
   }
 }
