@@ -10,3 +10,13 @@ nav {
   padding-left: 1em;
   padding-right: 1em;
 }
+
+
+i.nav-link-icon {
+  display: block !important;
+  color: #0d47a1;
+}
+
+.nav-item {
+  text-align: center;
+}

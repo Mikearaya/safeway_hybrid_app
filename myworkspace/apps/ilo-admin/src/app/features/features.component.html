@@ -7,39 +7,48 @@
       <span class="navbar-toggler-icon"></span>
     </button>
   </a>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="nav nav-pills">
+<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="nav nav-tab mr-auto">
       <li class="nav-item">
+<i class="fa nav-link-icon fa-newspaper-o " aria-hidden="true"> </i>
         <a class="nav-link e-link" ejs-button [routerLink]="['/news']" routerLinkActive="router-link-active" href="#">News</a>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-comment" aria-hidden="true"> </i>
         <a class="nav-link e-link" ejs-button [routerLink]="['/forums']" routerLinkActive="router-link-active" href="#"
           tabindex="-1">Forums</a>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-tint" aria-hidden="true"> </i>
         <button ejs-dropdownbutton (select)="complainClick($event)" [items]="complains" content="COMPLAINS"></button>
 
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-link" aria-hidden="true"> </i>
         <a class="nav-link e-link" ejs-button [routerLink]="['/agencies']" routerLinkActive="router-link-active" href="#"
           tabindex="-3">Agencies</a>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-stethoscope " aria-hidden="true"> </i>
         <a class="nav-link e-link" ejs-button [routerLink]="['/hospitals']" routerLinkActive="router-link-active" href="#"
           tabindex="-4">Mediacal Centers</a>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-graduation-cap" aria-hidden="true"> </i>
         <button ejs-dropdownbutton (select)="schoolClick($event)" [items]="lessonTypes" content="SCHOOLS"></button>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-file-text" aria-hidden="true"> </i>
         <button ejs-dropdownbutton (select)="articleClick($event)" [items]="items" content="ARTICLES"></button>
       </li>
       <li class="nav-item">
+<i class="fa nav-link-icon fa-ambulance" aria-hidden="true"> </i>
         <a class="nav-link e-link" ejs-button [routerLink]="['/emergency-contacts']" routerLinkActive="router-link-active"
-          href="#" tabindex="-7">Emmergency Contacts</a>
+          href="#" tabindex="-7">
+          Emmergency Contacts</a>
       </li>
     </ul>
-    <ul>
+    <ul class='navbar-nav'>
       <li class="nav-item" (click)="logOut()">
         <a class="nav-link e-link" ejs-button tabindex="-1">Log out</a>
       </li>
