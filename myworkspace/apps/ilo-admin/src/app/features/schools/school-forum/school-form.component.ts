@@ -38,6 +38,8 @@ export class SchoolFormComponent implements OnInit {
   private schoolId: number;
   public languages: any[];
   public isUpdate: Boolean;
+  public deletedLocaleIds: number[] = [];
+  public deletedLessonIds: number[] = [];
 
   constructor(
     private schoolApi: SchoolApiService,
@@ -134,7 +136,25 @@ export class SchoolFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.schoolLocales.removeAt(index);
+    const deletedControlId = this.schoolLocales.controls[index].get('id');
+
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        alert(deletedControlId.value);
+        this.deletedLocaleIds.push(deletedControlId.value);
+        this.schoolLocales.removeAt(index);
+      }
+    } else {
+      this.schoolLocales.removeAt(index);
+    }
+  }
+
+
+  lessonRemoved(data: any): void {
+    console.log(data);
+    this.deletedLessonIds.push(data.itemData.ID)
   }
 
   private generateLocalesForm(): FormGroup {
@@ -147,6 +167,7 @@ export class SchoolFormComponent implements OnInit {
 
   private initializeLocalesForm(locale: SchoolLocaleModel): FormGroup {
     return this.formBuilder.group({
+      id: [locale.ID, Validators.required],
       locale: [locale.locale, Validators.required],
       name: [locale.name, Validators.required],
       address: [locale.address]
@@ -210,11 +231,19 @@ export class SchoolFormComponent implements OnInit {
 
       this.schoolLocales.controls.forEach(element => {
         schoolData.school_locale.push({
+          ID: element.value.id,
           address: element.value.address,
           name: element.value.name,
           locale: element.value.locale
         });
       });
+
+      this.deletedLocaleIds.forEach(element => {
+        schoolData.deleted_ids.school_locale.push(element);
+      });
+
+      this.deletedLessonIds.forEach(element =>schoolData.deleted_ids.school_lessons.push(element))
+
       return schoolData;
     } else {
       return null;

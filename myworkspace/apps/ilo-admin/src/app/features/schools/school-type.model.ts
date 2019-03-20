@@ -22,7 +22,7 @@ export class SchoolViewModel {
 }
 
 export class SchoolLocaleModel {
-  id?: number;
+  ID?: number;
   name: string;
   address: string;
   locale: number;
@@ -36,4 +36,10 @@ export class School {
   school: SchoolModel;
   school_lessons: SchoolLessonsModel[] = [];
   school_locale: SchoolLocaleModel[] = [];
+  deleted_ids: SchoolDeletables = new SchoolDeletables();
+}
+
+export class SchoolDeletables {
+  school_lessons: number[] = [];
+  school_locale: number[] = [];
 }

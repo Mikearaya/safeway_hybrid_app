@@ -21,6 +21,7 @@ export interface ComplainTypeLocaleModel {
 export class ComplainType {
   complain_type: ComplainTypeModel;
   complain_type_locale: ComplainTypeLocaleModel[] = [];
+  deleted_ids: ComplainTypeDeletable = new ComplainTypeDeletable();
 }
 
 export interface ComplainModel {
@@ -46,4 +47,8 @@ export interface ComplainViewModel {
   COMPLAIN_TYPE: number;
   date_added: Date;
   date_updated: Date;
+}
+
+export class ComplainTypeDeletable {
+  complain_type_locale: number[] = [];
 }

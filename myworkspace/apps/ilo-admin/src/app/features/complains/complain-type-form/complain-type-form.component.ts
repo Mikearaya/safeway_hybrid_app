@@ -29,6 +29,7 @@ export class ComplainTypeFormComponent implements OnInit {
   public complainTypeForm: FormGroup;
   public complainTypeLocaleForm: FormGroup;
   public languages: any;
+  public deletedIds: number[] = [];
 
   constructor(
     private complainTypeApi: ComplainTypeApiService,
@@ -64,7 +65,7 @@ export class ComplainTypeFormComponent implements OnInit {
     });
 
     complainType.complain_type_locale.map(element =>
-      this.initializeLocaleForm(element)
+      this.complainTypeLocales.controls.push(this.initializeLocaleForm(element))
     );
   }
 
@@ -95,7 +96,18 @@ export class ComplainTypeFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-    this.complainTypeLocales.removeAt(index);
+    const deletedControlId = this.complainTypeLocales.controls[index].get('id');
+
+    if (deletedControlId) {
+      const conf = confirm('Are you sure you want to delete');
+
+      if (conf) {
+        this.deletedIds.push(deletedControlId.value);
+        this.complainTypeLocales.removeAt(index);
+      }
+    } else {
+      this.complainTypeLocales.removeAt(index);
+    }
   }
 
   get type(): FormControl {
@@ -142,11 +154,18 @@ export class ComplainTypeFormComponent implements OnInit {
           type: this.type.value
         };
       }
-      this.complainTypeLocales.controls.forEach(element =>
+      this.complainTypeLocales.controls.forEach(element => {
         complainType.complain_type_locale.push({
+          ID: element.value.id,
           locale: element.value.locale,
           type: element.value.type
-        })
+        });
+
+        console.log(element);
+      });
+
+      this.deletedIds.forEach(id =>
+        complainType.deleted_ids.complain_type_locale.push(id)
       );
       return complainType;
     } else {

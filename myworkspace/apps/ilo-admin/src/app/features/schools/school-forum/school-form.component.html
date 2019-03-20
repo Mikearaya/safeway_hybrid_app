@@ -24,7 +24,7 @@
             <div class="row ">
               <div class="col-12 form-group">
                 <label for="lessonTypes">Lesson type</label>
-                <ejs-multiselect id='lessonTypes' class='form-control' formControlName="lessons" [fields]='fields'
+                  <ejs-multiselect id='lessonTypes' class='form-control' (removed)='lessonRemoved($event)' formControlName="lessons" [fields]='fields'
                   [dataSource]='data'></ejs-multiselect>
                 <small id="lessonType" class="form-text text-muted">Agecy type.</small>
               </div>
