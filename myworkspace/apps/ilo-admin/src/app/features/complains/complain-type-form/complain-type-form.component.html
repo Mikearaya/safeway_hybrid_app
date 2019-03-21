@@ -8,8 +8,8 @@
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="type">Complain type</label>
-                <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Complain type"
-                  placeholder="Complain type" />
+                <input type="text" formControlName="type" class="form-control" id="type"
+                  aria-describedby="Complain type" placeholder="Complain type" />
                 <div class="text-danger" *ngIf="type.errors">
                   <div *ngIf="type.errors['required']">
                     Complain type is required
@@ -20,15 +20,14 @@
 
           </ng-template>
         </e-tabitem>
-        <e-tabitem  [header]="headerText[1]">
+        <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="complainTypeLocales">
               <div *ngFor="
                   let locale of complainTypeLocales.controls;
                   let i = index;
                   let last = last
-                "
-                [formGroup]="locale">
+                " [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-3 form-group">
                     <label for="locale">Language</label>
@@ -43,8 +42,8 @@
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="type">Type</label>
-                    <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Complain type"
-                      placeholder="Complain type" />
+                    <input type="text" formControlName="type" class="form-control" id="type"
+                      aria-describedby="Complain type" placeholder="Complain type" />
                     <div class="text-danger" *ngIf="locale.get('type').errors">
                       <div *ngIf="locale.get('type').errors['required']">
                         Complain type is required
@@ -52,20 +51,30 @@
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
-                      <i class="fa fa-trash text-danger"></i>
+                    <button type="button" (click)="addLocale()" *ngIf='last'
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary' " [disabled]='locale.invalid'
+                      class="btn  btn-sm  btn-primary">
+                      <i class='fa fa-plus'></i>
                     </button>
+                    <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
+                      <i class="fa fa-trash "></i>
+                    </button>
+
                   </div>
                 </div>
               </div>
             </div>
-            <button type="button" (click)="addLocale()" class="btn  btn-primary">
-              Add Locale
-            </button>
+            <div class='text-right'>
+              <button type="button" (click)="addLocale()" class="btn  btn-success"
+                *ngIf='complainTypeLocales.length == 0'>
+                <i class="fa fa-plus "></i>Add Language
+              </button>
+            </div>
           </ng-template>
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button type="submit" class="btn  btn-success">Submit</button>
+    <button type="submit" [disabled]='complainTypeForm.invalid' [ngClass]="complainTypeForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn">Submit</button>
   </form>
 </div>
