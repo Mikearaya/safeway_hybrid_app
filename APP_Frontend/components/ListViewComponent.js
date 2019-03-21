@@ -4,7 +4,7 @@ import { ListItem, Left, Thumbnail, Body, Text, Right, Icon } from 'native-base'
 export default class ListViewComponent extends Component {
   render() {
     return (
-      <ListItem onPress={() => this.props.navigation.navigate(this.props.navigateTo)} avatar>
+      <ListItem onPress={() => this.props.navigation.navigate(this.props.navigateTo, {id : this.props.id})} avatar>
         <Left>
           <Thumbnail source={this.props.images} />
         </Left>

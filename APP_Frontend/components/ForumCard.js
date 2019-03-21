@@ -45,8 +45,8 @@ export default class ForumCard extends Component {
             onPress={() => this.props.navigation.navigate('ForumDetail')}
           >
             <Body>
-              <Text style={styles.boldFont}>{this.props.forumData.data}</Text>
-              <Text >{this.props.forumData.postedOn}</Text>
+              <Text style={styles.boldFont}>{this.props.forumData.title}</Text>
+              <Text >{this.props.forumData.date_added}</Text>
             </Body>
             <Right style={styles.rightIcon}>
               <Icon name="arrow-forward" />

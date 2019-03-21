@@ -70,9 +70,9 @@ export default class HomeScreen extends React.Component {
       <Container style={styles.container}>
         <FlatList
           data={this.state.posts}
-          renderItem={({ item }) => (
-            <NewsCard newsItems={item} navigation={this.props.navigation} />
-          )}
+          renderItem={({ item }) => ( item)
+            
+          }
         />
       </Container>
     )
@@ -80,7 +80,7 @@ export default class HomeScreen extends React.Component {
 
   componentDidMount() {
     let url =
-      'http://192.168.1.3/ilo_app/backend/index.php/emergency_contacts'
+      'http://192.168.1.3/ilo_app/backend/index.php/news'
 
     fetch(url)
       .then(result => result.json())
@@ -94,6 +94,7 @@ export default class HomeScreen extends React.Component {
       })
       .catch(error => alert(JSON.stringify(error.message)))
   }
+
 }
 
 const styles = StyleSheet.create({

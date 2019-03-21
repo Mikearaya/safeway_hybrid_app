@@ -5,98 +5,31 @@ import localeStore from '../locale/localization'
 import ListViewComponent from '../components/ListViewComponent'
 
 export default class AgenciesListScreen extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      agencies: []
+    }
+  }
   static navigationOptions = () => {
     return {
       title: localeStore.AgenciesList.title
     }
   }
 
-  emergencyContactsList = [
-    {
-      contactName: 'bionic agency',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '1'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '2'
-    },
-    {
-      contactName: 'saudi arabia embassy',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '3'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '4'
-    },
-    {
-      contactName: 'saudi arabia embassy',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '5'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '6'
-    },
-    {
-      contactName: 'saudi arabia embassy',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '7'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '8'
-    },
-    {
-      contactName: 'saudi arabia embassy',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '9'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '10'
-    },
-    {
-      contactName: 'saudi arabia embassy',
-      address: 'addis ababa, Ethiopia',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '11'
-    },
-    {
-      contactName: 'Thiopia embassy',
-      address: 'jidah, saudi arabya',
-      image: './../assets/images/saudi_embassy_log.jpg',
-      key: '12'
-    }
-  ]
 
   render() {
     return (
       <Container>
         <Content>
           <FlatList
-            data={this.emergencyContactsList}
+            data={this.state.agencies}
             renderItem={({ item }) => (
               <ListViewComponent
+              id={item.ID}
                 navigation={this.props.navigation}
                 images={require('./../assets/images/saudi_embassy_log.jpg')}
-                name={item.contactName}
+                name={item.name}
                 address={item.address}
                 navigateTo={'AgencyDetail'}
               />
@@ -106,4 +39,18 @@ export default class AgenciesListScreen extends Component {
       </Container>
     )
   }
+
+    componentDidMount() {
+    let url =
+      'http://192.168.1.3/ilo_app/backend/index.php/agencies'
+
+    fetch(url)
+      .then(result => result.json())
+       .then(data => {
+        this.setState({ agencies: data })
+      })
+      .catch(error => alert(JSON.stringify(error.message)))
+  }
+
+
 }

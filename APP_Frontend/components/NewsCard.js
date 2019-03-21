@@ -20,12 +20,14 @@ export default class NewsCard extends Component {
                 <CardItem bordered>
                     <Left>
                         <Body>
-                            <Text>{this.props.newsItems.title}</Text>
-                            <Text note>{this.props.newsItems.postDate}</Text>
+                            <Text>{this.props.newsItems.header}</Text>
+                            <Text note>{this.props.newsItems.date_added}</Text>
                         </Body>
                     </Left>
                 </CardItem>
-                <CardItem button onPress={() => this.props.navigation.navigate('NewsDetail')}>
+                <CardItem button onPress={() => this.props.navigation.navigate('NewsDetail', {
+              id: this.props.newsItems.ID,
+            })}>
                     <Body>
                         <Image  resizeMode="stretch" source={require('./../assets/images/notfound.png')} style={style.newsImage}/>
                         <Text>

@@ -103,6 +103,8 @@ const styles = StyleSheet.create({
 
 export default class ArticleIndexScreen extends Component {
   static navigationOptions = ({ navigation }) => {
+    const articleId = navigation.getParam('articleId', 0);
+    alert(articleId);
     return {
       title: localeStore.PolicyIndex.title
     }

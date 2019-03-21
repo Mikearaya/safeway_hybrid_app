@@ -20,11 +20,37 @@ const styles = StyleSheet.create({
 const { width } = Dimensions.get('window')
 
 export default class NewsDetail extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: localeStore.NewsDetailScreen.title
-    }
+  
+constructor(props) {
+  super(props)
+  this.state = {
+    header: '',
+    content: ''
   }
+}
+  static navigationOptions = ({ navigation }) => {
+    const newsId = navigation.getParam('id', 0);
+    
+  let url =
+    `http://192.168.1.3/ilo_app/backend/index.php/articles/${newsId}`
+
+  fetch(url)
+    .then(result => result.json())
+    .then(data => {
+     this.setState({
+       news: data.header,
+       content: data.content
+     })
+  
+    })
+    .catch(error => alert(JSON.stringify(error.message)));
+      return {
+        title: localeStore.NewsDetailScreen.title
+      }
+}    
+
+  
+  
 
   render() {
     return (

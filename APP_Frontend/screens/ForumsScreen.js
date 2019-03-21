@@ -22,51 +22,6 @@ const styles = StyleSheet.create({
   }
 })
 
-const newsArray = [
-  {
-    title: 'Title1',
-    data: `Thumbnail component works very similar to Image. `,
-    postedOn: '13-04-1990',
-    key: '1',
-    commentCount: '345'
-  },
-  {
-    title: 'Title2',
-    data: `Thumbnail component works very similar to Image. `,
-    postedOn: '13-04-1990',
-    key: '2',
-    commentCount: '1234'
-  },
-  {
-    title: 'Title3',
-    data: `Thumbnail component works very similar to Image. `,
-    postedOn: '13-04-1990',
-    key: '3',
-    commentCount: '3454'
-  },
-  {
-    title: 'Title4',
-    data: `Thumbnail component works very similar to Image. `,
-    postedOn: '13-04-1990',
-    key: '4',
-    commentCount: '14'
-  },
-  {
-    title: 'Title5',
-    data: `Thumbnail component works very similar to Image.`,
-    postedOn: '13-04-1990',
-    key: '5',
-    commentCount: '458'
-  },
-  {
-    title: 'Title6',
-    data: `Thumbnail component works very similar to Image`,
-    postedOn: '13-04-1990',
-    key: '6',
-    commentCount: '0912'
-  }
-]
-
 export default class ForumsScreen extends Component {
 
   constructor(props) {
@@ -95,23 +50,20 @@ export default class ForumsScreen extends Component {
     )
   }
 
+     componentDidMount() {
+       let url =
+         'http://192.168.1.3/ilo_app/backend/index.php/forums'
+
+       fetch(url)
+         .then(result => result.json())
+         .then(data => {
+           this.setState({
+             forums: data
+           })
+         })
+         .catch(error => alert(JSON.stringify(error.message)))
+     }
+
+  
     }
 
-  componentDidMount() {
-    let url =
-      'http://192.168.1.3/ilo_app/backend/index.php/forums'
-
-    fetch(url)
-      .then(result => result.json())
-       .then(data => {
-        let posts = data.map((post, index) => {
-          return (
-            <ForumCard forumData={post} navigation={this.props.navigation} />
-          )
-        })
-        this.setState({ forums: posts })
-      })
-      .catch(error => alert(JSON.stringify(error.message)))
-  }
-}
-}

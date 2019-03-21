@@ -15,7 +15,7 @@ export default class ArticleList extends Component {
           active
           name="book"
         />
-        <Text> {this.props.catagory} </Text>
+        <Text> {this.props.catagory.name} </Text>
         <Right>
           <Badge>
             <Text> {this.props.articleCount} </Text>

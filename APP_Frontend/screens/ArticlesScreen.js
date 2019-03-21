@@ -39,6 +39,12 @@ const informationCatagories = [
 ]
 
 export default class ArticlesScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      catagories: []
+    }
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: localeStore.HelpScreen.title,
@@ -51,11 +57,11 @@ export default class ArticlesScreen extends React.Component {
       <Container>
         <Content>
           <FlatList
-            data={informationCatagories}
+            data={this.state.catagories}
             renderItem={({ item }) => (
               <ArticleList
                 onPress={() => this._catagorySelected(item)}
-                catagory={item.catagory}
+                catagory={item}
                 articleCount={item.articleCount}
               />
             )}
@@ -65,9 +71,24 @@ export default class ArticlesScreen extends React.Component {
     )
   }
 
+    componentDidMount() {
+      let url =
+        'http://192.168.1.3/ilo_app/backend/index.php/article_catagory'
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+     
+          this.setState({
+            catagories: data
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
+    }
+
   _catagorySelected(selectedCatagory) {
     const catagory = {
-      articleId: selectedCatagory.key,
+      articleId: selectedCatagory.ID,
       articleTitle: selectedCatagory.catagory
     }
     if (selectedCatagory.articleCount == 1) {
