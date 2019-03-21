@@ -14,6 +14,13 @@ const detailInformation = {
 };
 
 export default class AgencyDetailScreen extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            agencyDetail: {}
+        }
+    }
     static navigationOptions = ({ navigation }) => {
         return {
             title: localeStore.AgencyDetail.title
@@ -22,8 +29,23 @@ export default class AgencyDetailScreen extends Component {
     render() {
         return (
             <Container>
-                <DetailListViewComponent item={detailInformation} />
+                <DetailListViewComponent item={this.state.agencyDetail} />
             </Container>
         )
+    }
+
+        componentDidMount() {
+      const {state} = this.props.navigation;
+      let url =
+        `http://192.168.1.3/ilo_app/backend/index.php/agencies/${state.params.id}`
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+          this.setState({
+            agencyDetail: data.agency
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
     }
 }

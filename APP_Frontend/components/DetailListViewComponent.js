@@ -27,6 +27,7 @@ styles = StyleSheet.create({
 })
 export default class DetailListViewComponent extends Component {
   render() {
+  
     return (
       <List style={styles.list}>
         <Header style={styles.listHeader}>
@@ -39,7 +40,7 @@ export default class DetailListViewComponent extends Component {
             </Button>
           </Left>
           <Body>
-            <Text>{this.props.item.phoneNumber}</Text>
+            <Text>{this.props.item.phone_number}</Text>
             <Text style={styles.catagoryFont}>
               {localeStore.EmergencyContactDetailScreen.telephone}
             </Text>

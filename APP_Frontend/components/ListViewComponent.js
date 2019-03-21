@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { ListItem, Left, Thumbnail, Body, Text, Right, Icon } from 'native-base'
 
 export default class ListViewComponent extends Component {
+  constructor(props) {
+    super(props)
+  }
   render() {
     return (
       <ListItem onPress={() => this.props.navigation.navigate(this.props.navigateTo, {id : this.props.id})} avatar>

@@ -11,6 +11,13 @@ const detailInformation = {
 }
 
 export default class HospitalDetailScreen extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hospitalDetail: {}
+    }
+  }
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: localeStore.HospitalDetail.title
@@ -19,8 +26,23 @@ export default class HospitalDetailScreen extends Component {
   render() {
     return (
       <Container>
-        <DetailListViewComponent item={detailInformation} />
+        <DetailListViewComponent item={this.state.hospitalDetail} />
       </Container>
     )
   }
+
+  componentDidMount() {
+      const {state} = this.props.navigation;
+      let url =
+        `http://192.168.1.3/ilo_app/backend/index.php/hospitals/${state.params.id}`
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+          this.setState({
+            hospitalDetail: data.hospital
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
+    }
 }

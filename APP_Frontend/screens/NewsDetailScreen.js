@@ -24,30 +24,14 @@ export default class NewsDetail extends Component {
 constructor(props) {
   super(props)
   this.state = {
+    newsDetail: {},
     header: '',
     content: ''
   }
 }
   static navigationOptions = ({ navigation }) => {
-    const newsId = navigation.getParam('id', 0);
-    
-  let url =
-    `http://192.168.1.3/ilo_app/backend/index.php/articles/${newsId}`
 
-  fetch(url)
-    .then(result => result.json())
-    .then(data => {
-     this.setState({
-       news: data.header,
-       content: data.content
-     })
-  
-    })
-    .catch(error => alert(JSON.stringify(error.message)));
-      return {
-        title: localeStore.NewsDetailScreen.title
-      }
-}    
+  }    
 
   
   
@@ -61,13 +45,30 @@ constructor(props) {
           style={{ height: 200, width: width }}
         />
         <View style={styles.paragraphContainer}>        
-          <Text> {paragraph} </Text>
-          <Text> {paragraph} </Text>
-          <Text> {paragraph} </Text>
-          <Text> {paragraph} </Text>
+          <Text> {this.state.content} </Text>
+
           </View>
         </Content>
       </Container>
     )
   }
+
+    componentDidMount() {
+      const {state} = this.props.navigation;
+    let url =
+      `http://192.168.1.3/ilo_app/backend/index.php/news/${state.params.id}`
+
+    fetch(url)
+      .then(result => result.json())
+       .then(data => {
+        this.setState({
+          content: data.article.content
+        })
+      })
+      .catch(error => alert(JSON.stringify(error.message)))
+  }
+
+
+
+
 }
