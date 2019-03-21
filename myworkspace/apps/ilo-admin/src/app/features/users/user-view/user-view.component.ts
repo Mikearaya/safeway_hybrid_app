@@ -73,7 +73,7 @@ export class UserViewComponent implements OnInit {
     this.authService.readToken();
     this.userApi
       .getAllUsers()
-      .subscribe((userView: any[]) => this.data = userView);
+      .subscribe((userView: any[]) => (this.data = userView));
   }
 
   deleteUser(args: any): void {

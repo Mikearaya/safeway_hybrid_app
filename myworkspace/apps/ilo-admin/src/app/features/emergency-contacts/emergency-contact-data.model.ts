@@ -31,5 +31,5 @@ export class EmergencyContact {
 }
 
 export class Deletables {
-  emergency_contact_locale: number[] = []
+  emergency_contact_locale: number[] = [];
 }

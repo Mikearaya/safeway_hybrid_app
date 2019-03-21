@@ -151,10 +151,9 @@ export class SchoolFormComponent implements OnInit {
     }
   }
 
-
   lessonRemoved(data: any): void {
     console.log(data);
-    this.deletedLessonIds.push(data.itemData.ID)
+    this.deletedLessonIds.push(data.itemData.ID);
   }
 
   private generateLocalesForm(): FormGroup {
@@ -242,7 +241,9 @@ export class SchoolFormComponent implements OnInit {
         schoolData.deleted_ids.school_locale.push(element);
       });
 
-      this.deletedLessonIds.forEach(element =>schoolData.deleted_ids.school_lessons.push(element))
+      this.deletedLessonIds.forEach(element =>
+        schoolData.deleted_ids.school_lessons.push(element)
+      );
 
       return schoolData;
     } else {

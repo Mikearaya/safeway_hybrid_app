@@ -136,10 +136,7 @@ export class LessonTypeFormComponent implements OnInit {
     } else {
       return null;
     }
-
-
   }
-
 
   private generateLocaleForm(): FormGroup {
     return this.formBuilder.group({

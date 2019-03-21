@@ -134,8 +134,7 @@ export class HospitalFormComponent implements OnInit {
       this.forumBuilder.group({
         address: ['', Validators.required],
         locale: ['', Validators.required],
-        name: ['', Validators.required],
-        region: ['', Validators.required]
+        name: ['', Validators.required]
       })
     );
   }

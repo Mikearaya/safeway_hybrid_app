@@ -8,9 +8,8 @@ describe('ComplainTypeViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ComplainTypeViewComponent ]
-    })
-    .compileComponents();
+      declarations: [ComplainTypeViewComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

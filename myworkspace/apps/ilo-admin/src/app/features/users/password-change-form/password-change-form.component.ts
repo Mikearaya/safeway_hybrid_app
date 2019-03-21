@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import {
+  Validators,
+  FormBuilder,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { UserApiService } from '../user-api.service';
 
@@ -9,16 +14,16 @@ import { UserApiService } from '../user-api.service';
   styleUrls: ['./password-change-form.component.css']
 })
 export class PasswordChangeFormComponent implements OnInit {
-
   private userId: string;
   public passwordChangeForm: FormGroup;
 
-  constructor(private userApi: UserApiService,
+  constructor(
+    private userApi: UserApiService,
     private formBuilder: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute
+  ) {
     this.createForm();
   }
-
 
   ngOnInit() {
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId');
@@ -47,7 +52,7 @@ export class PasswordChangeFormComponent implements OnInit {
   onSubmit(): void {
     const formData = this.prepareFormData();
 
-   /*  if (formData) {
+    /*  if (formData) {
       this.userApi.updateUser(formData).subscribe(
         () => {
           alert('Password updated successfuly');
@@ -63,7 +68,6 @@ export class PasswordChangeFormComponent implements OnInit {
   }
 
   private prepareFormData() {
-
     if (this.passwordChangeForm.valid) {
       return {
         id: this.userId,

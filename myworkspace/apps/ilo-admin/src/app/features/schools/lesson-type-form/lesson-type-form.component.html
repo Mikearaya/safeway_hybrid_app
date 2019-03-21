@@ -1,15 +1,20 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-<form [formGroup]="lessonTypeForm" (ngSubmit)="onSubmit()" novalidate>
-  <ejs-tab id="element" #tab>
-    <e-tabitems>
-      <e-tabitem [header]="headerText[0]">
-        <ng-template #content>
-
+  <form [formGroup]="lessonTypeForm" (ngSubmit)="onSubmit()" novalidate>
+    <ejs-tab id="element" #tab>
+      <e-tabitems>
+        <e-tabitem [header]="headerText[0]">
+          <ng-template #content>
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="type">Lesson type</label>
-                <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Lesson type"
-                  placeholder="Lesson type" />
+                <input
+                  type="text"
+                  formControlName="type"
+                  class="form-control"
+                  id="type"
+                  aria-describedby="Lesson type"
+                  placeholder="Lesson type"
+                />
                 <div class="text-danger" *ngIf="type.errors">
                   <div *ngIf="type.errors['required']">
                     Lesson type is required
@@ -17,23 +22,32 @@
                 </div>
               </div>
             </div>
-
-        </ng-template>
-      </e-tabitem>
-      <e-tabitem  [header]="headerText[1]">
-        <ng-template #content>
-<div formArrayName="lessonTypeLocales">
-              <div *ngFor="
-let locale of lessonTypeLocales.controls;
+          </ng-template>
+        </e-tabitem>
+        <e-tabitem [header]="headerText[1]">
+          <ng-template #content>
+            <div formArrayName="lessonTypeLocales">
+              <div
+                *ngFor="
+                  let locale of lessonTypeLocales.controls;
                   let i = index;
                   let last = last
                 "
-                [formGroup]="locale">
+                [formGroup]="locale"
+              >
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-3 form-group">
                     <label for="locale">Language</label>
-                    <select class="form-control" formControlName="locale" id="locale">
-                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
+                    <select
+                      class="form-control"
+                      formControlName="locale"
+                      id="locale"
+                    >
+                      <option
+                        *ngFor="let lang of languages; let i = index"
+                        [value]="lang.ID"
+                        >{{ lang.name }}</option
+                      >
                     </select>
                     <div class="text-danger" *ngIf="locale.errors">
                       <div *ngIf="locale.errors['required']">
@@ -43,8 +57,14 @@ let locale of lessonTypeLocales.controls;
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="type"> Lesson Type translation</label>
-                    <input type="text" formControlName="type" class="form-control" id="type" aria-describedby="Lesson type translation"
-                      placeholder="Lesson type translation" />
+                    <input
+                      type="text"
+                      formControlName="type"
+                      class="form-control"
+                      id="type"
+                      aria-describedby="Lesson type translation"
+                      placeholder="Lesson type translation"
+                    />
                     <div class="text-danger" *ngIf="locale.get('type').errors">
                       <div *ngIf="locale.get('type').errors['required']">
                         lesson type translation is required
@@ -52,20 +72,47 @@ let locale of lessonTypeLocales.controls;
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
-                      <i class="fa fa-trash text-danger"></i>
+                    <button
+                      type="button"
+                      (click)="addLocale()"
+                      *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
+                      [disabled]="locale.invalid"
+                      class="btn  btn-sm  btn-primary"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm rounded  btn-danger"
+                      (click)="deleteLocale(i)"
+                    >
+                      <i class="fa fa-trash "></i>
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            <button type="button" (click)="addLocale()" class="btn  btn-primary">
-              Add Locale
-            </button>
-        </ng-template>
-      </e-tabitem>
-    </e-tabitems>
-  </ejs-tab>
-  <button type="submit" class="btn  btn-success">Submit</button>
+            <div class="text-right">
+              <button
+                type="button"
+                (click)="addLocale()"
+                class="btn  btn-success"
+                *ngIf="lessonTypeLocales.length == 0"
+              >
+                <i class="fa fa-plus "></i>Add Language
+              </button>
+            </div>
+          </ng-template>
+        </e-tabitem>
+      </e-tabitems>
+    </ejs-tab>
+    <button
+      type="submit"
+      [ngClass]="lessonTypeForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn"
+    >
+      Submit
+    </button>
   </form>
 </div>

@@ -4,12 +4,17 @@
       <e-tabitems>
         <e-tabitem [header]="headerText[0]">
           <ng-template #content>
-
             <div class="row">
               <div class="col-12 col-sm-6 form-group ">
                 <label for="name">School name</label>
-                <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="School name"
-                  placeholder="School name" />
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  id="name"
+                  aria-describedby="School name"
+                  placeholder="School name"
+                />
                 <div class="text-danger" *ngIf="name.errors">
                   <div *ngIf="name.errors['required']">
                     School Name is required
@@ -18,32 +23,59 @@
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="number" class="form-control" formControlName="phoneNumber" id="phoneNumber" placeholder="Phone number" />
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="phoneNumber"
+                  id="phoneNumber"
+                  placeholder="Phone number"
+                />
               </div>
             </div>
             <div class="row ">
               <div class="col-12 form-group">
                 <label for="lessonTypes">Lesson type</label>
-                  <ejs-multiselect id='lessonTypes' class='form-control' (removed)='lessonRemoved($event)' formControlName="lessons" [fields]='fields'
-                  [dataSource]='data'></ejs-multiselect>
-                <small id="lessonType" class="form-text text-muted">Agecy type.</small>
+                <ejs-multiselect
+                  id="lessonTypes"
+                  class="form-control"
+                  (removed)="lessonRemoved($event)"
+                  formControlName="lessons"
+                  [fields]="fields"
+                  [dataSource]="data"
+                ></ejs-multiselect>
+                <small id="lessonType" class="form-text text-muted"
+                  >Agecy type.</small
+                >
               </div>
             </div>
             <div class="row">
               <div class="col-12 col-sm-6 form-group">
                 <label for="address">Address</label>
-                <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
-                  aria-describedby="Address" placeholder="Address" />
-                <small id="address" class="form-text text-muted">Address of the Agency.</small>
+                <input
+                  type="text"
+                  formControlName="address"
+                  formControlName="address"
+                  class="form-control"
+                  id="address"
+                  aria-describedby="Address"
+                  placeholder="Address"
+                />
+                <small id="address" class="form-text text-muted"
+                  >Address of the Agency.</small
+                >
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="region">Region</label>
-                <select class="form-control" formControlName="region" id="region">
-                  <option [value]='1'>Addis Ababa</option>
-                  <option [value]='2'>Dire dawa</option>
-                  <option [value]='3'>Hawassa</option>
-                  <option [value]='4'>Bishoftu</option>
-                  <option [value]='5'>Nazret</option>
+                <select
+                  class="form-control"
+                  formControlName="region"
+                  id="region"
+                >
+                  <option [value]="1">Addis Ababa</option>
+                  <option [value]="2">Dire dawa</option>
+                  <option [value]="3">Hawassa</option>
+                  <option [value]="4">Bishoftu</option>
+                  <option [value]="5">Nazret</option>
                 </select>
                 <div class="text-danger" *ngIf="region.errors">
                   <div *ngIf="region.errors['required']">
@@ -55,72 +87,135 @@
             <div class="row">
               <div class="col-12 col-sm-6 form-group ">
                 <label for="emailAddress">email</label>
-                <input type="email" formControlName="email" class="form-control" id="emailAddress" aria-describedby="email"
-                  placeholder="Email address" />
+                <input
+                  type="email"
+                  formControlName="email"
+                  class="form-control"
+                  id="emailAddress"
+                  aria-describedby="email"
+                  placeholder="Email address"
+                />
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="fax">Fax</label>
-                <input type="text" class="form-control" formControlName="fax" id="fax" placeholder="Fax" />
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="fax"
+                  id="fax"
+                  placeholder="Fax"
+                />
               </div>
             </div>
-
           </ng-template>
         </e-tabitem>
-        <e-tabitem  [header]="headerText[1]">
+        <e-tabitem [header]="headerText[1]">
           <ng-template #content>
-              <div formArrayName="schoolLocales">
-                <div *ngFor="
+            <div formArrayName="schoolLocales">
+              <div
+                *ngFor="
                   let locale of schoolLocales.controls;
                   let i = index;
                   let last = last
                 "
-                  [formGroup]="locale">
-
-                  <div class="row" style="position:relative;">
-
-                    <div class="col-12 col-sm-4 form-group">
-                      <label for="locale">locale</label>
-                      <select class="form-control" formControlName="locale" id="locale">
-                        <option *ngFor='let lang of languages; let i=index' [value]='lang.ID'>{{lang.name}}</option>
-                      </select>
-                      <div class="text-danger" *ngIf="region.errors">
-                        <div *ngIf="region.errors['required']">
-                          Agency region is required
-                        </div>
+                [formGroup]="locale"
+              >
+                <div class="row" style="position:relative;">
+                  <div class="col-12 col-sm-3 form-group">
+                    <label for="locale">locale</label>
+                    <select
+                      class="form-control"
+                      formControlName="locale"
+                      id="locale"
+                    >
+                      <option
+                        *ngFor="let lang of languages; let i = index"
+                        [value]="lang.ID"
+                        >{{ lang.name }}</option
+                      >
+                    </select>
+                    <div
+                      class="text-danger"
+                      *ngIf="locale.get('locale').errors"
+                    >
+                      <div *ngIf="locale.get('locale').errors['required']">
+                        School region is required
                       </div>
                     </div>
-                    <div class="col-12 col-sm-4 form-group ">
-                      <label for="name">Agency contact</label>
-                      <input type="text" formControlName="name" class="form-control" id="name" aria-describedby="Agency name"
-                        placeholder="Agency name" />
-                      <div class="text-danger" *ngIf="locale.get('name').errors">
-                        <div *ngIf="locale.get('name').errors['required']">
-                          Agency Name is required
-                        </div>
+                  </div>
+                  <div class="col-12 col-sm-4 form-group ">
+                    <label for="name">Agency contact</label>
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      id="name"
+                      aria-describedby="Agency name"
+                      placeholder="Agency name"
+                    />
+                    <div class="text-danger" *ngIf="locale.get('name').errors">
+                      <div *ngIf="locale.get('name').errors['required']">
+                        School Name is required
                       </div>
                     </div>
-                    <div class="col-12 col-sm-4 form-group">
-                      <label for="region">Address</label>
-                      <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
-                        aria-describedby="Address" placeholder="Address" />
-                      <small id="address" class="form-text text-muted">Address of the school.</small>
-
-                    </div>
-                    <button type='button' class='btn btn-sm rounded  bg-red delete-button' (click)='deleteLocale(i)'>
-                      <i class='fa fa-trash text-danger'></i>
+                  </div>
+                  <div class="col-12 col-sm-4 form-group">
+                    <label for="region">Address</label>
+                    <input
+                      type="text"
+                      formControlName="address"
+                      formControlName="address"
+                      class="form-control"
+                      id="address"
+                      aria-describedby="Address"
+                      placeholder="Address"
+                    />
+                    <small id="address" class="form-text text-muted"
+                      >Address of the school.</small
+                    >
+                  </div>
+                  <div class="col-12 col-sm-1">
+                    <button
+                      type="button"
+                      (click)="addLocale()"
+                      *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
+                      [disabled]="locale.invalid"
+                      class="btn  btn-sm  btn-primary"
+                    >
+                      <i class="fa fa-plus"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm rounded  btn-danger"
+                      (click)="deleteLocale(i)"
+                    >
+                      <i class="fa fa-trash "></i>
                     </button>
                   </div>
-
                 </div>
               </div>
-              <button type="button" (click)="addLocale()" class="btn  btn-primary">
-                Add Locale
+            </div>
+            <div class="text-right">
+              <button
+                type="button"
+                (click)="addLocale()"
+                class="btn  btn-success"
+                *ngIf="schoolLocales.length == 0"
+              >
+                <i class="fa fa-plus "></i>Add Language
               </button>
-
+            </div>
           </ng-template>
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button type="submit" class="btn  btn-success">Submit</button>
+    <button
+      type="submit"
+      [ngClass]="schoolForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn"
+    >
+      Submit
+    </button>
   </form>
 </div>

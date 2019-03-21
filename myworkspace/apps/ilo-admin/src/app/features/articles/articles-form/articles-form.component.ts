@@ -182,7 +182,6 @@ export class ArticlesFormComponent implements OnInit {
   }
 
   deleteLocale(index: number): void {
-
     const deletedControlId = this.articleLocales.controls[index].get('id');
 
     if (deletedControlId) {
@@ -195,7 +194,5 @@ export class ArticlesFormComponent implements OnInit {
     } else {
       this.articleLocales.removeAt(index);
     }
-
   }
-
 }

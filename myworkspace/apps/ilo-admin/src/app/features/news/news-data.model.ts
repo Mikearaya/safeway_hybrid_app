@@ -34,5 +34,3 @@ export class News {
 export class NewsDeletables {
   article_locale: number[] = [];
 }
-
-

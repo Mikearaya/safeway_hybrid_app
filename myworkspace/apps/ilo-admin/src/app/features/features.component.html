@@ -1,70 +1,145 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
-  <a class="navbar-brand" href="#" [routerLink]="['/']" routerLinkActive="router-link-active">
-    <img src="./../../assets/app_icon.png" width="70" height="70" alt="safeway" />
+  <a
+    class="navbar-brand"
+    href="#"
+    [routerLink]="['/']"
+    routerLinkActive="router-link-active"
+  >
+    <img
+      src="./../../assets/app_icon.png"
+      width="70"
+      height="70"
+      alt="safeway"
+    />
     Safeway
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
   </a>
-  <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+  <div
+    class="collapse navbar-collapse justify-content-between"
+    id="navbarSupportedContent"
+  >
     <ul class="nav nav-tab mr-auto">
       <li class="nav-item">
         <i class="fa nav-link-icon fa-newspaper-o " aria-hidden="true"> </i>
-        <a class="nav-link e-link" ejs-button [routerLink]="['/news']" routerLinkActive="router-link-active"
-          href="#">News</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/news']"
+          routerLinkActive="router-link-active"
+          href="#"
+          >News</a
+        >
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-comment" aria-hidden="true"> </i>
-        <a class="nav-link e-link" ejs-button [routerLink]="['/forums']" routerLinkActive="router-link-active" href="#"
-          tabindex="-1">Forums</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/forums']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-1"
+          >Forums</a
+        >
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-tint" aria-hidden="true"> </i>
-        <button ejs-dropdownbutton (select)="complainClick($event)" [items]="complains" content="COMPLAINS"></button>
-
+        <button
+          ejs-dropdownbutton
+          (select)="complainClick($event)"
+          [items]="complains"
+          content="COMPLAINS"
+        ></button>
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-link" aria-hidden="true"> </i>
-        <a class="nav-link e-link" ejs-button [routerLink]="['/agencies']" routerLinkActive="router-link-active"
-          href="#" tabindex="-3">Agencies</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/agencies']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-3"
+          >Agencies</a
+        >
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-stethoscope " aria-hidden="true"> </i>
-        <a class="nav-link e-link" ejs-button [routerLink]="['/hospitals']" routerLinkActive="router-link-active"
-          href="#" tabindex="-4">Mediacal Centers</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/hospitals']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-4"
+          >Mediacal Centers</a
+        >
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-graduation-cap" aria-hidden="true"> </i>
-        <button ejs-dropdownbutton (select)="schoolClick($event)" [items]="lessonTypes" content="SCHOOLS"></button>
+        <button
+          ejs-dropdownbutton
+          (select)="schoolClick($event)"
+          [items]="lessonTypes"
+          content="SCHOOLS"
+        ></button>
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-file-text" aria-hidden="true"> </i>
-        <button ejs-dropdownbutton (select)="articleClick($event)" [items]="items" content="ARTICLES"></button>
+        <button
+          ejs-dropdownbutton
+          (select)="articleClick($event)"
+          [items]="items"
+          content="ARTICLES"
+        ></button>
       </li>
       <li class="nav-item">
         <i class="fa nav-link-icon fa-ambulance" aria-hidden="true"> </i>
-        <a class="nav-link e-link" ejs-button [routerLink]="['/emergency-contacts']"
-          routerLinkActive="router-link-active" href="#" tabindex="-7">
-          Emmergency Contacts</a>
+        <a
+          class="nav-link e-link"
+          ejs-button
+          [routerLink]="['/emergency-contacts']"
+          routerLinkActive="router-link-active"
+          href="#"
+          tabindex="-7"
+        >
+          Emmergency Contacts</a
+        >
       </li>
     </ul>
 
     <!-- <a class="nav-link e-link"  ejs-button tabindex="-1">Log out</a> -->
     <div class="navbar-navinput-group mb-3">
       <div class="input-group-prepend">
-        <button type="button" (click)="logOut()" class="btn btn-sm btn-outline-secondary">Log out</button>
-        <button type="button" [items]='settings' ejs-dropdownbutton (select)='settingClick($event)'
-          class="btn btn-outline-secondary btn-sm dropdown-toggle-split" [iconCss]="'e-icons e-search'"
-          aria-haspopup="true"
-          aria-expanded="false">
-
+        <button
+          type="button"
+          (click)="logOut()"
+          class="btn btn-sm btn-outline-secondary"
+        >
+          Log out
         </button>
+        <button
+          type="button"
+          [items]="settings"
+          ejs-dropdownbutton
+          (select)="settingClick($event)"
+          class="btn btn-outline-secondary btn-sm dropdown-toggle-split"
+          [iconCss]="'e-icons e-search'"
+          aria-haspopup="true"
+          aria-expanded="false"
+        ></button>
       </div>
     </div>
-
   </div>
 </nav>
-<div class="main-content">
-  <router-outlet></router-outlet>
-</div>
+<div class="main-content"><router-outlet></router-outlet></div>

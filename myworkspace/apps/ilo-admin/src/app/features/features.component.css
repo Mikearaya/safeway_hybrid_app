@@ -11,7 +11,6 @@ nav {
   padding-right: 1em;
 }
 
-
 i.nav-link-icon {
   display: block !important;
   color: #0d47a1;
@@ -20,7 +19,6 @@ i.nav-link-icon {
 .nav-item {
   text-align: center;
 }
-
 
 .e-search:before {
   content: '\e57e';

@@ -28,7 +28,7 @@ export class EmergencyContactFormComponent implements OnInit {
   public emergencyContactsForm: FormGroup;
   private emergencyContactId: number;
   public languages: any[];
-public deletedIds: number[] = [];
+  public deletedIds: number[] = [];
   isUpdate: boolean;
   constructor(
     private forumBuilder: FormBuilder,
@@ -73,7 +73,7 @@ public deletedIds: number[] = [];
     return this.forumBuilder.group({
       address: ['', Validators.required],
       locale: ['', Validators.required],
-      name: ['', Validators.required],
+      name: ['', Validators.required]
     });
   }
 
@@ -87,18 +87,18 @@ public deletedIds: number[] = [];
   }
 
   deleteLocale(index) {
-    const deletedControlId = this.emergencyContactLocales.controls[index].get('id');
+    const deletedControlId = this.emergencyContactLocales.controls[index].get(
+      'id'
+    );
     if (deletedControlId) {
       const conf = confirm('Are you sure you want to delete');
-      if(conf) {
+      if (conf) {
         this.deletedIds.push(deletedControlId.value);
         this.emergencyContactLocales.removeAt(index);
       }
-
     } else {
       this.emergencyContactLocales.removeAt(index);
     }
-
   }
 
   initializeForm(emergencyContact: EmergencyContact) {
@@ -197,9 +197,9 @@ public deletedIds: number[] = [];
         });
       });
 
-     this.deletedIds.forEach(element => {
-      emergencyContact.deleted_ids.emergency_contact_locale.push(element);
-     });
+      this.deletedIds.forEach(element => {
+        emergencyContact.deleted_ids.emergency_contact_locale.push(element);
+      });
       return emergencyContact;
     } else {
       return null;

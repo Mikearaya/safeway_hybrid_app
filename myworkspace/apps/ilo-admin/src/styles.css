@@ -23,7 +23,7 @@ body {
   outline: 0;
 }
 
-.ng-invalid~ ::before {
+.ng-invalid ~ ::before {
   color: red;
 }
 

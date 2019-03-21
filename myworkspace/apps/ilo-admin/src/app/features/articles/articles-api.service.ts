@@ -78,6 +78,4 @@ export class ArticlesApiService {
     catagoryId.forEach(id => idArr.push({ id: `${id}` }));
     return this.httpClient.post<ArticleViewModel>(`articles/delete`, idArr);
   }
-
-
 }

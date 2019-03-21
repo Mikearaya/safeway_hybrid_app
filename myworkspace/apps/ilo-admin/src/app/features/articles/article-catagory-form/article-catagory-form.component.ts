@@ -135,7 +135,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
           locale: element.value.locale,
           name: element.value.name
         });
-
       });
 
       this.deletedIds.forEach(element => {

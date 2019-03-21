@@ -8,9 +8,8 @@ describe('ComplainTypeFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ComplainTypeFormComponent ]
-    })
-    .compileComponents();
+      declarations: [ComplainTypeFormComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

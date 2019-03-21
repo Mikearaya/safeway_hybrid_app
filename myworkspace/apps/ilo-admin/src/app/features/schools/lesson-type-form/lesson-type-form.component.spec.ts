@@ -8,9 +8,8 @@ describe('LessonTypeFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LessonTypeFormComponent ]
-    })
-    .compileComponents();
+      declarations: [LessonTypeFormComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

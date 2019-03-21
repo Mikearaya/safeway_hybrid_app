@@ -22,7 +22,6 @@ export class Forum {
   deleted_ids: ForumDeletables = new ForumDeletables();
 }
 
-
 export class ForumDeletables {
   forum_locale: number[] = [];
 }

@@ -8,9 +8,8 @@ describe('LessonTypeViewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LessonTypeViewComponent ]
-    })
-    .compileComponents();
+      declarations: [LessonTypeViewComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

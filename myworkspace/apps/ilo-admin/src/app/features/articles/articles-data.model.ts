@@ -27,7 +27,6 @@ export class Article {
 
 export class ArticleDeletables {
   article_locale: number[] = [];
-
 }
 
 export interface ArticleCatagoryModel {
@@ -39,7 +38,6 @@ export interface ArticleCatagoryLocaleModel {
   ID?: number;
   name: string;
   locale: number;
-
 }
 
 export interface ArticleCatagoryViewModel {
@@ -58,5 +56,4 @@ export class ArticleCatagory {
 
 export class ArticleCatagoryDeletables {
   article_catagory_locale: number[] = [];
-
 }

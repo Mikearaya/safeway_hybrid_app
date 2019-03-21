@@ -39,7 +39,6 @@ export class AuthorizationService {
   }
 
   readToken(): AuthToken {
-
     const tokenData = jwt_decode(localStorage.getItem('token'));
     return tokenData;
   }

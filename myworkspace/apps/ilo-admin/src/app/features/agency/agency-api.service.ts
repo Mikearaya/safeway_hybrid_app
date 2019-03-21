@@ -32,11 +32,8 @@ export class AgencyApiService {
 
   deleteAgency(indexes: number[]): Observable<void> {
     const idArr: any[] = [];
-    indexes.forEach(id => idArr.push({'id' : `${id}`}));
-    return this.httpClient.post<void>(
-      `agencies/delete`,
-      idArr
-    );
+    indexes.forEach(id => idArr.push({ id: `${id}` }));
+    return this.httpClient.post<void>(`agencies/delete`, idArr);
   }
 
   private prepareRequestBody(customer: any): URLSearchParams {
