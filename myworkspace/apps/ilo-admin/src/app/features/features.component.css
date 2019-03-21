@@ -20,3 +20,8 @@ i.nav-link-icon {
 .nav-item {
   text-align: center;
 }
+
+
+.e-search:before {
+  content: '\e57e';
+}

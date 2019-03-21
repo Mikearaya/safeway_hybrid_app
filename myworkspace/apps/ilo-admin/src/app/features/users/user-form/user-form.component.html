@@ -1,0 +1,24 @@
+<section class='card'>
+  <form id="reactive" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class='container'>
+
+      <div class="row">
+        <div class="col-sm-12 col-md-6 form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" formControlName="userName" id="username" placeholder="Username" />
+        </div>
+        <div class="col-sm-12 col-md-6 form-group">
+          <label for="Fullname">Fullname</label>
+          <input type="text" class="form-control" formControlName="fullName" id="Fullname" placeholder="Fullname" />
+        </div>
+      </div>
+      <div class="row" *ngIf='!isUpdate'>
+        <div class="col-12 form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" formControlName="password" id="password" placeholder="Password" />
+        </div>
+      </div>
+      <button type="submit" class="btn  btn-success">Submit</button>
+    </div>
+  </form>
+</section>

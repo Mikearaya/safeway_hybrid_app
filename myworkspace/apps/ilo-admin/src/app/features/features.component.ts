@@ -13,7 +13,7 @@ import { SystemApiService } from '../system-api.service';
 export class FeaturesComponent implements OnInit {
   constructor(
     private authorizationService: AuthorizationService,
-    private router: Router,
+    private router: Router
   ) {}
 
   public items: ItemModel[] = [
@@ -37,6 +37,21 @@ export class FeaturesComponent implements OnInit {
     }
   ];
 
+  public settings: ItemModel[] = [
+    {
+      text: 'USERS',
+      id: 'users'
+    },
+    {
+      text: 'UPDATE PROFILE',
+      id: 'profile_update'
+    },
+    {
+      text: 'CHANGE PASSWORD',
+      id: 'password_update'
+    }
+  ];
+
   public lessonTypes: ItemModel[] = [
     {
       text: 'Lesson Types',
@@ -49,7 +64,7 @@ export class FeaturesComponent implements OnInit {
   ];
 
   dashboard: DashboardStatModel;
-  ngOnInit() { }
+  ngOnInit() {}
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {
       case 'ARTICLE':
@@ -85,6 +100,24 @@ export class FeaturesComponent implements OnInit {
         break;
       case 'LESSON_TYPE':
         this.router.navigate(['/schools/lesson-types']);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  settingClick($event) {
+    switch ($event.item.properties.id.trim().toUpperCase()) {
+      case 'USERS':
+        this.router.navigate([`/users`]);
+        break;
+      case 'PROFILE_UPDATE':
+        const user = this.authorizationService.readToken();
+        this.router.navigate([`/users/${user.id}/update`]);
+        break;
+      case 'PASSWORD_UPDATE':
+        this.router.navigate(['/users/password-update']);
         break;
 
       default:

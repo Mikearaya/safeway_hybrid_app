@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -14,17 +13,17 @@ class Auth extends API
     {
         $result = $this->auth_model->authenticate_user($this->request->body);
 
-            if ($result === false) {
-                $this->set_response(null, API::HTTP_UNAUTHORIZED);
-            } else {
+        if ($result === false) {
+            $this->set_response(null, API::HTTP_UNAUTHORIZED);
+        } else {
 
-                $tokenData = array();
-                $tokenData['id'] = $result['ID'];
-                $output['token'] = AUTHORIZATION::generateToken($tokenData);
-                $output['userName'] = $result['username'];
-                $this->set_response($output, API::HTTP_OK);
-            }
-        
+            $tokenData = array();
+            $tokenData['id'] = $result['ID'];
+            $tokenData['userName'] = $result['username'];
+            $output['token'] = AUTHORIZATION::generateToken($tokenData);
+
+            $this->set_response($output, API::HTTP_OK);
+        }
     }
 
 
@@ -41,3 +40,4 @@ class Auth extends API
         $this->set_response("Unauthorised", API::HTTP_UNAUTHORIZED);
     }
 }
+
