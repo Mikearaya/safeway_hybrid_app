@@ -52,7 +52,7 @@
                       </div>
                     </div>
                   </div>
-                  <button type="button" (click)="addLocale()" *ngIf='last' [disabled]='locale.invalid'
+                  <button type="button" (click)="addLocale()" *ngIf='last' [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary' " [disabled]='locale.invalid'
                     class="btn  btn-sm  btn-primary">
                     <i class='fa fa-plus'></i>
                   </button>

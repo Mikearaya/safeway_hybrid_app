@@ -9,7 +9,8 @@
 
               <div class="col-12 form-group">
                 <label for="header">News header</label>
-                <input type="text" class="form-control" formControlName="header" id="header" placeholder="News header" />
+                <input type="text" class="form-control" formControlName="header" id="header"
+                  placeholder="News header" />
                 <small id="header" class="form-text text-muted">Header used as News title</small>
                 <div class="text-danger" *ngIf="header.errors">
                   <div *ngIf="header.errors['required']">
@@ -39,13 +40,12 @@
                   let locale of newsLocales.controls;
                   let i = index;
                   let last = last
-                "
-                [formGroup]="locale">
+                " [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
                     <select class="form-control" formControlName="locale" id="locale">
-                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
+                      <option *ngFor="let lang of languages; let i = index; let last=last" [value]="lang.ID">{{ lang.name }}</option>
                     </select>
                     <div class="text-danger" *ngIf="locale.errors">
                       <div *ngIf="locale.errors['required']">
@@ -55,16 +55,19 @@
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="header">News header</label>
-                    <input type="text" formControlName="header" class="form-control" id="header" aria-describedby="News header"
-                      placeholder="News header" />
+                    <input type="text" formControlName="header" class="form-control" id="header"
+                      aria-describedby="News header" placeholder="News header" />
                     <div class="text-danger" *ngIf="locale.get('header').errors">
                       <div *ngIf="locale.get('header').errors['required']">
                         News header is required
                       </div>
                     </div>
                   </div>
-                  <button type="button" class="btn btn-sm rounded  bg-red delete-button" (click)="deleteLocale(i)">
-                    <i class="fa fa-trash text-danger"></i>
+                  <button type="button" class="btn btn-sm btn-primary" *ngIf='last' [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary' " [disabled]='locale.invalid' (click)="addLocale()">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
+                    <i class="fa fa-trash"></i>
                   </button>
                 </div>
                 <div class="row">
@@ -81,14 +84,17 @@
                 </div>
               </div>
             </div>
-            <button type="button" (click)="addLocale()" class="btn  btn-primary">
-              Add Locale
-            </button>
+            <div class='text-right'>
+              <button type="button" (click)="addLocale()" class="btn  btn-success" *ngIf='newsLocales.length == 0'>
+                <i class="fa fa-plus "></i>Add Language
+              </button>
+            </div>
 
           </ng-template>
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button type="submit" class="btn  btn-success">Submit</button>
+    <button type="submit" [ngClass]="newsForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn">Submit</button>
   </form>
 </div>
