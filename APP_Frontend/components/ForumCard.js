@@ -42,7 +42,7 @@ export default class ForumCard extends Component {
         <Card style={styles.forumBody}>
           <CardItem
             button
-            onPress={() => this.props.navigation.navigate('ForumDetail')}
+            onPress={() => this.props.navigation.navigate('ForumDetail', {id: this.props.forumData.ID})}
           >
             <Body>
               <Text style={styles.boldFont}>{this.props.forumData.title}</Text>

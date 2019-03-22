@@ -111,19 +111,14 @@ const forumnDiscussionsList = {
 
 const { State: TextInputState } = TextInput
 
-/* const styles = StyleSheet.create({
-  discussionContainer: {
-    flex: 1,
-    padding: 10
-  },
-  mainContainer: {
-    flex: 1
-  },
-  postDate: {
-    fontWeight: 'bold'
-  }
-}) */
 export default class ForumDetailScreen extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      comments: []
+    }
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: localeStore.ForumDetail.titles
@@ -172,13 +167,13 @@ export default class ForumDetailScreen extends Component {
         style={[styles.container, { transform: [{ translateY: shift }] }]}
       >
         <FlatList
-          data={forumnDiscussionsList.conversations}
+          data={this.state.comments}
           renderItem={({ item }) => (
             <ListItem>
               <Body>
-                <Text style={{fontWeight: 'bold', color: 'lightgreen'}}>{item.datePosted}</Text>
+                <Text style={{fontWeight: 'bold', color: 'lightgreen'}}>{item.date_added}</Text>
                 <Text note>
-                  {item.message}
+                  {item.content}
                 </Text>
               </Body>
             </ListItem>
@@ -190,7 +185,7 @@ export default class ForumDetailScreen extends Component {
               <Textarea
                 value={this.state.title}
                 style={styles.textInput}
-                onChangeText={title => this.setState({ title })}
+                onChangeText={title => this.setState({ comments })}
                 placeholder="Enter your comment"
               />
             </View>
@@ -209,6 +204,22 @@ export default class ForumDetailScreen extends Component {
       </Animated.View>
     )
   }
+
+
+     componentDidMount() {
+      const {state} = this.props.navigation;
+      let url =
+        `http://192.168.1.4/ilo_app/backend/index.php/forum_comments/${state.params.id}`
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+          this.setState({
+            comments: data
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
+    }
 
   handleKeyboardDidShow = event => {
     const { height: windowHeight } = Dimensions.get('window')

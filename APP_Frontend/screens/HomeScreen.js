@@ -70,9 +70,7 @@ export default class HomeScreen extends React.Component {
       <Container style={styles.container}>
         <FlatList
           data={this.state.posts}
-          renderItem={({ item }) => ( item)
-            
-          }
+          renderItem={({ item }) => ( item)   }
         />
       </Container>
     )
