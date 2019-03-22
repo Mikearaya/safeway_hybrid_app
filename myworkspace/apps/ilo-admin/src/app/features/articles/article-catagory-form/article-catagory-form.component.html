@@ -1,4 +1,11 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
+  {{formId}}
+  <div class="row">
+    <div class="col-12  form-group ">
+      <ejs-uploader #defaultupload name='fileupload' id='fileupload' formControlName="image" [asyncSettings]='path'
+        [autoUpload]=true [multiple]='true' (selected)='onFileSelect($event)'></ejs-uploader>
+    </div>
+  </div>
   <form [formGroup]="articleCatagoryForm" (ngSubmit)="onSubmit()" novalidate>
     <ejs-tab id="element" #tab>
       <e-tabitems>
@@ -22,6 +29,9 @@
                 </div>
               </div>
             </div>
+
+
+
           </ng-template>
         </e-tabitem>
         <e-tabitem [header]="headerText[1]">

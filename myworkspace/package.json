@@ -43,6 +43,7 @@
     "@syncfusion/ej2-angular-buttons": "^16.4.55",
     "@syncfusion/ej2-angular-documenteditor": "^16.4.54",
     "@syncfusion/ej2-angular-grids": "^16.4.52",
+    "@syncfusion/ej2-angular-inputs": "^16.4.55",
     "@syncfusion/ej2-angular-navigations": "^16.4.54",
     "@syncfusion/ej2-angular-popups": "^16.4.54",
     "@syncfusion/ej2-angular-splitbuttons": "^16.4.53",

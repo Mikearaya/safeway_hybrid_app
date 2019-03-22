@@ -49,6 +49,7 @@ export interface ArticleCatagoryViewModel {
 }
 
 export class ArticleCatagory {
+  token: string;
   article_catagory: ArticleCatagoryModel;
   article_catagory_locale: ArticleCatagoryLocaleModel[] = [];
   deleted_ids: ArticleCatagoryDeletables = new ArticleCatagoryDeletables();

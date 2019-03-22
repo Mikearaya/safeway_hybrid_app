@@ -12,6 +12,7 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
 import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { DocumentEditorContainerModule } from '@syncfusion/ej2-angular-documenteditor';
 import { ToolbarService } from '@syncfusion/ej2-angular-documenteditor';
+import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ToolbarService } from '@syncfusion/ej2-angular-documenteditor';
     ArticlesViewComponent
   ],
   imports: [
+    UploaderModule,
     CommonModule,
     DropDownListModule,
     ArticlesRoutingModule,

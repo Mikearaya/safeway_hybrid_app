@@ -13,7 +13,8 @@ import {
   ArticleCatagoryLocaleModel
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
+import { EmitType } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'bionic-article-catagory-form',
@@ -27,11 +28,14 @@ export class ArticleCatagoryFormComponent implements OnInit {
     { text: 'Other Languages' }
   ];
   public articleCatagoryForm: FormGroup;
+  public formId: string;
   public articleCatagoryLocaleForm: FormGroup;
   private catagoryId: number;
   public isUpdate: Boolean;
   public languages: any;
   public deletedIds: number[] = [];
+  uploadInput: any;
+  public path: Object;
 
   constructor(
     private articleApi: ArticlesApiService,
@@ -40,6 +44,11 @@ export class ArticleCatagoryFormComponent implements OnInit {
     private systemApi: SystemApiService
   ) {
     this.createForm();
+    this.formId = Guid.newGuid();
+    this.path = {
+
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/article/${this.formId}`,
+    };
   }
 
   ngOnInit() {
@@ -55,8 +64,11 @@ export class ArticleCatagoryFormComponent implements OnInit {
         .subscribe((data: ArticleCatagory) => this.initializeForm(data));
     }
   }
+
+
   createForm(): void {
     this.articleCatagoryForm = this.formBuilder.group({
+      id: [Guid.newGuid(), Validators.required],
       name: ['', Validators.required],
       catagoryLocales: this.formBuilder.array([this.generateLocaleForm()])
     });
@@ -140,7 +152,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         articleCatagory.deleted_ids.article_catagory_locale.push(element);
       });
-
+      articleCatagory.token = this.formId;
       return articleCatagory;
     } else {
       return null;
@@ -169,4 +181,10 @@ export class ArticleCatagoryFormComponent implements OnInit {
       })
     );
   }
+
+  public onFileSelect: EmitType<Object> = (args: any) => {
+    this.uploadInput = args.filesData[0].name;
+    console.log(args.filesData[0]);
+    console.log(this.articleCatagoryForm.get('image'));
+  };
 }

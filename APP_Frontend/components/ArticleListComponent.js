@@ -18,7 +18,7 @@ export default class ArticleList extends Component {
         <Text> {this.props.catagory.name} </Text>
         <Right>
           <Badge>
-            <Text> {this.props.articleCount} </Text>
+            <Text> {this.props.catagory.totalArticles} </Text>
           </Badge>
         </Right>
       </CardItem>

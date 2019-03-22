@@ -7,6 +7,8 @@ class MY_Model extends CI_Model
     protected $table_name;
     protected $child_tables =  array() ;
     protected $primary_key;
+    protected $media_location =  array('temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media',
+  'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/permanent' ) ;
 
     function __construct()
     {
@@ -57,8 +59,15 @@ class MY_Model extends CI_Model
         }
     }
 
+
         if ($new_id != NULL) {
+      if (!is_dir($this->media_location['permanent'].'/'. $new_id)) {
+        mkdir($this->media_location['permanent']. '/' . $new_id, 0777, true);
+        copy( $this->media_location['permanent'] .'/'. $data['token'], $this->media_location['permanent'] .'/'. $new_id);
+      }
+
             return $new_id;
+
         } else {
             return false;
         }

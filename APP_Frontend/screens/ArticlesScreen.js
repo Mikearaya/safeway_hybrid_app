@@ -73,7 +73,7 @@ export default class ArticlesScreen extends React.Component {
 
     componentDidMount() {
       let url =
-        'http://192.168.1.3/ilo_app/backend/index.php/article_catagory'
+        'http://192.168.1.4/ilo_app/backend/index.php/article_catagory'
 
       fetch(url)
         .then(result => result.json())
@@ -91,7 +91,7 @@ export default class ArticlesScreen extends React.Component {
       articleId: selectedCatagory.ID,
       articleTitle: selectedCatagory.catagory
     }
-    if (selectedCatagory.articleCount == 1) {
+    if (selectedCatagory.totalArticles == 1) {
       this.props.navigation.navigate('Article', catagory)
     } else {
       this.props.navigation.navigate('ArticleIndex', catagory)

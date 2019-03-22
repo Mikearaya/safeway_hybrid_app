@@ -56,7 +56,7 @@ export default class ForumCard extends Component {
             <Left>
               <Button transparent>
                 <FontAwesome>{Icons.comments}</FontAwesome>
-                <Text>{this.props.forumData.commentCount} </Text>
+                <Text>{this.props.forumData.totalComments} </Text>
               </Button>
             </Left>
           </CardItem>
