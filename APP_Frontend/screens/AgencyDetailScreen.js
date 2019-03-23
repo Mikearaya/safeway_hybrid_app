@@ -4,6 +4,7 @@ import {
 } from 'native-base'
 import localeStore from '../locale/localization';
 import DetailListViewComponent from '../components/DetailListViewComponent';
+var Enviroment = require('../global.js')
 
 
 const detailInformation = {
@@ -37,7 +38,7 @@ export default class AgencyDetailScreen extends Component {
         componentDidMount() {
       const {state} = this.props.navigation;
       let url =
-        `http://192.168.1.3/ilo_app/backend/index.php/agencies/${state.params.id}`
+        `${Enviroment.API_URL}/agencies/${state.params.id}`
 
       fetch(url)
         .then(result => result.json())

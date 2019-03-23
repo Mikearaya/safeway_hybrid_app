@@ -128,6 +128,7 @@ export default class ArticleIndexScreen extends Component {
                   articleTitle: item.title
                 })
               }
+               keyExtractor={(item, index) => index}
             >
               <Text style={styles.indexTitle}>
                 {item.key}-{item.title}

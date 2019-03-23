@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, Image } from 'react-native'
-
+import { FlatList, StyleSheet } from 'react-native'
 import { Container } from 'native-base'
 import localeStore from '../locale/localization'
 import NavigationButton from '../components/NavigationButton'
 import ForumCard from '../components/ForumCard'
+var Enviroment = require('../global.js')
 
 const styles = StyleSheet.create({
   container: {
@@ -45,6 +45,7 @@ export default class ForumsScreen extends Component {
           renderItem={({ item }) => (
             <ForumCard forumData={item} navigation={this.props.navigation} />
           )}
+          keyExtractor={(item, index) => index.toString()}
         />
       </Container>
     )
@@ -52,7 +53,7 @@ export default class ForumsScreen extends Component {
 
      componentDidMount() {
        let url =
-         'http://192.168.1.4/ilo_app/backend/index.php/forums'
+         `${Enviroment.API_URL}/forums`
 
        fetch(url)
          .then(result => result.json())

@@ -3,6 +3,7 @@ import { FlatList } from 'react-native'
 import { Container, Content } from 'native-base'
 import localeStore from '../locale/localization'
 import ListViewComponent from '../components/ListViewComponent'
+var Enviroment = require('../global.js')
 
 export default class HospitalsListScreen extends Component {
 
@@ -44,7 +45,7 @@ export default class HospitalsListScreen extends Component {
 
 componentDidMount() {
   let url =
-    'http://192.168.1.3/ilo_app/backend/index.php/hospitals'
+    `${Enviroment.API_URL}/hospitals`
 
   fetch(url)
     .then(result => result.json())

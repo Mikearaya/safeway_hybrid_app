@@ -6,6 +6,7 @@ import {
 } from 'native-base'
 import localeStore from '../locale/localization'
 import ListViewComponent from '../components/ListViewComponent'
+var Enviroment = require('../global.js')
 
 export default class EmergencyContactsScreen extends Component {
     constructor(props) {
@@ -36,6 +37,7 @@ export default class EmergencyContactsScreen extends Component {
                 navigateTo={'EmergencyContactDetail'}
               />
             )}
+            keyExtractor={(item, index) => index.toString()}
           />
         </Content>
       </Container>
@@ -44,7 +46,7 @@ export default class EmergencyContactsScreen extends Component {
 
    componentDidMount() {
      let url =
-       'http://192.168.1.3/ilo_app/backend/index.php/emergency_contacts'
+       `${Enviroment.API_URL}/emergency_contacts`
 
      fetch(url)
        .then(result => result.json())

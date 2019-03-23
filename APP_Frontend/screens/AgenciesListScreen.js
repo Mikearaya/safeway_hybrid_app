@@ -3,6 +3,7 @@ import { FlatList } from 'react-native'
 import { Container, Content } from 'native-base'
 import localeStore from '../locale/localization'
 import ListViewComponent from '../components/ListViewComponent'
+var Enviroment = require('../global.js')
 
 export default class AgenciesListScreen extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class AgenciesListScreen extends Component {
                 navigateTo={'AgencyDetail'}
               />
             )}
+            keyExtractor={(item, index) => index.toString()}
           />
         </Content>
       </Container>
@@ -42,7 +44,7 @@ export default class AgenciesListScreen extends Component {
 
     componentDidMount() {
     let url =
-      'http://192.168.1.3/ilo_app/backend/index.php/agencies'
+      `${Enviroment.API_URL}/agencies`
 
     fetch(url)
       .then(result => result.json())

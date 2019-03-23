@@ -4,14 +4,7 @@ import {
 } from 'native-base'
 import localeStore from '../locale/localization';
 import DetailListViewComponent from '../components/DetailListViewComponent';
-
-
-const detailInformation = {
-  name: 'Ethiopian Embassy',
-  address: 'Riyad, Saudi arabia',
-  phoneNumber: '0912669988',
-  email: 'mikaelaraya12@gmail.com'
-};
+var Enviroment = require('../global.js')
 
 export default class EmergencyContactDetailScreen extends Component {
 
@@ -39,7 +32,7 @@ export default class EmergencyContactDetailScreen extends Component {
     componentDidMount() {
       const {state} = this.props.navigation;
       let url =
-        `http://192.168.1.3/ilo_app/backend/index.php/emergency_contacts/${state.params.id}`
+        `${Enviroment.API_URL}/emergency_contacts/${state.params.id}`
 
       fetch(url)
         .then(result => result.json())

@@ -4,39 +4,8 @@ import NavigationButton from '../components/NavigationButton'
 import localeStore from '../locale/localization'
 import { FlatList } from 'react-native'
 import ArticleList from '../components/ArticleListComponent'
+var Enviroment = require('../global.js')
 
-const informationCatagories = [
-  {
-    catagory: 'Immigration Policies',
-    articleCount: 100,
-    key: '1'
-  },
-  {
-    catagory: 'Migration Types',
-    articleCount: 1,
-    key: '2'
-  },
-  {
-    catagory: 'Responsible Parties',
-    articleCount: 200,
-    key: '3'
-  },
-  {
-    catagory: 'Emergency Contacts',
-    articleCount: 1,
-    key: '4'
-  },
-  {
-    catagory: 'General Information',
-    articleCount: 300,
-    key: '6'
-  },
-  {
-    catagory: ' Information',
-    articleCount: 300,
-    key: '5'
-  }
-]
 
 export default class ArticlesScreen extends React.Component {
   constructor(props) {
@@ -65,6 +34,7 @@ export default class ArticlesScreen extends React.Component {
                 articleCount={item.articleCount}
               />
             )}
+            keyExtractor={(item, index) => index.toString()}
           />
         </Content>
       </Container>
@@ -73,7 +43,7 @@ export default class ArticlesScreen extends React.Component {
 
     componentDidMount() {
       let url =
-        'http://192.168.1.4/ilo_app/backend/index.php/article_catagory'
+        `${Enviroment.API_URL}/article_catagory`
 
       fetch(url)
         .then(result => result.json())

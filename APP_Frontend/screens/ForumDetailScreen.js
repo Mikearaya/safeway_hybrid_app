@@ -17,97 +17,9 @@ import {
   Button,
   Icon,
   ListItem,
-  Left,
-  Right,
   Body
 } from 'native-base'
-
-const forumnDiscussionsList = {
-  topic: 'Thumbnail component works very similar to Image',
-  dateCreated: '13-04-1990',
-  conversations: [
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '1'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '2'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '3'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '4'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '5'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '6'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '7'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '8'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '9'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '10'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '11'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '12'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '13'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '14'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '15'
-    },
-    {
-      message: 'some example message text placeholder usage',
-      datePosted: '19-09-1990',
-      key: '16'
-    }
-  ]
-}
+var Enviroment = require('../global.js')
 
 const { State: TextInputState } = TextInput
 
@@ -116,7 +28,10 @@ export default class ForumDetailScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      comments: []
+      comments_list: [],
+       shift: new Animated.Value(0),
+    title: '',
+    refresh: false
     }
   }
   static navigationOptions = ({ navigation }) => {
@@ -125,11 +40,7 @@ export default class ForumDetailScreen extends Component {
     }
   }
 
-  state = {
-    shift: new Animated.Value(0),
-    title: '',
-    refresh: false
-  }
+
 
   componentWillMount() {
     this.keyboardDidShowSub = Keyboard.addListener(
@@ -167,17 +78,18 @@ export default class ForumDetailScreen extends Component {
         style={[styles.container, { transform: [{ translateY: shift }] }]}
       >
         <FlatList
-          data={this.state.comments}
+          data={this.state.comments_list}
           renderItem={({ item }) => (
             <ListItem>
               <Body>
                 <Text style={{fontWeight: 'bold', color: 'lightgreen'}}>{item.date_added}</Text>
                 <Text note>
-                  {item.content}
+                  {item.comment}
                 </Text>
               </Body>
             </ListItem>
           )}
+          keyExtractor={(item, index) => index.toString()}
         />
         <View>
           <Form style={{ flexDirection: 'row' }}>
@@ -185,7 +97,7 @@ export default class ForumDetailScreen extends Component {
               <Textarea
                 value={this.state.title}
                 style={styles.textInput}
-                onChangeText={title => this.setState({ comments })}
+                onChangeText={comments => this.setState({ comments })}
                 placeholder="Enter your comment"
               />
             </View>
@@ -209,13 +121,13 @@ export default class ForumDetailScreen extends Component {
      componentDidMount() {
       const {state} = this.props.navigation;
       let url =
-        `http://192.168.1.4/ilo_app/backend/index.php/forum_comments/${state.params.id}`
+        `${Enviroment.API_URL}/forum_comments/${state.params.id}`
 
       fetch(url)
         .then(result => result.json())
         .then(data => {
           this.setState({
-            comments: data
+            comments_list: data
           })
         })
         .catch(error => alert(JSON.stringify(error.message)))
