@@ -1,11 +1,4 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-  {{formId}}
-  <div class="row">
-    <div class="col-12  form-group ">
-      <ejs-uploader #defaultupload name='fileupload' id='fileupload' formControlName="image" [asyncSettings]='path'
-        [autoUpload]=true [multiple]='true' (selected)='onFileSelect($event)'></ejs-uploader>
-    </div>
-  </div>
   <form [formGroup]="articleCatagoryForm" (ngSubmit)="onSubmit()" novalidate>
     <ejs-tab id="element" #tab>
       <e-tabitems>
@@ -14,14 +7,8 @@
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="catagory">Article Catagory</label>
-                <input
-                  type="text"
-                  formControlName="name"
-                  class="form-control"
-                  id="catagory"
-                  aria-describedby="Article catagory"
-                  placeholder="Article catagory"
-                />
+                <input type="text" formControlName="name" class="form-control" id="catagory"
+                  aria-describedby="Article catagory" placeholder="Article catagory" />
                 <div class="text-danger" *ngIf="catagoryName.errors">
                   <div *ngIf="catagoryName.errors['required']">
                     Article catagory is required
@@ -30,40 +17,24 @@
               </div>
             </div>
 
-
-
           </ng-template>
         </e-tabitem>
         <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="catagoryLocales">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let locale of catagoryLocales.controls;
                   let i = index;
                   let last = last
-                "
-                [formGroup]="locale"
-              >
+                " [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
-                    <select
-                      class="form-control"
-                      formControlName="locale"
-                      id="locale"
-                    >
-                      <option
-                        *ngFor="let lang of languages; let i = index"
-                        [value]="lang.ID"
-                        >{{ lang.name }}</option
-                      >
+                    <select class="form-control" #localeSelect formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
                     </select>
 
-                    <div
-                      class="text-danger"
-                      *ngIf="locale.get('locale').errors"
-                    >
+                    <div class="text-danger" *ngIf="locale.get('locale').errors">
                       <div *ngIf="locale.get('locale').errors['required']">
                         Hospital region is required
                       </div>
@@ -71,14 +42,8 @@
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="catagory">Article catagory name</label>
-                    <input
-                      type="text"
-                      formControlName="name"
-                      class="form-control"
-                      id="catagory"
-                      aria-describedby="Article catagory name"
-                      placeholder="Article catagory name"
-                    />
+                    <input type="text" formControlName="name" class="form-control" id="catagory"
+                      aria-describedby="Article catagory name" placeholder="Article catagory name" />
                     <div class="text-danger" *ngIf="locale.get('name').errors">
                       <div *ngIf="locale.get('name').errors['required']">
                         Catagory Name is required
@@ -86,21 +51,12 @@
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button
-                      type="button"
-                      (click)="addLocale()"
-                      *ngIf="last"
-                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
-                      [disabled]="locale.invalid"
-                      class="btn  btn-sm  btn-primary"
-                    >
+                    <button type="button" (click)="addLocale()" *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'" [disabled]="locale.invalid"
+                      class="btn  btn-sm  btn-primary">
                       <i class="fa fa-plus"></i>
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm rounded  btn-danger"
-                      (click)="deleteLocale(i)"
-                    >
+                    <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
                       <i class="fa fa-trash "></i>
                     </button>
                   </div>
@@ -108,12 +64,7 @@
               </div>
             </div>
             <div class="text-right">
-              <button
-                type="button"
-                (click)="addLocale()"
-                class="btn  btn-success"
-                *ngIf="catagoryLocales.length == 0"
-              >
+              <button type="button" (click)="addLocale()" class="btn  btn-success" *ngIf="catagoryLocales.length == 0">
                 <i class="fa fa-plus "></i>Add Language
               </button>
             </div>
@@ -121,12 +72,8 @@
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button
-      type="submit"
-      [disabled]="articleCatagoryForm.invalid"
-      [ngClass]="articleCatagoryForm.invalid ? 'btn-danger' : 'btn-success'"
-      class="btn"
-    >
+    <button type="submit" [disabled]="articleCatagoryForm.invalid"
+      [ngClass]="articleCatagoryForm.invalid ? 'btn-danger' : 'btn-success'" class="btn">
       Submit
     </button>
   </form>

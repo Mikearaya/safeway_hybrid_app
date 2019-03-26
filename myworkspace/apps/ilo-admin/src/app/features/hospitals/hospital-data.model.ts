@@ -24,12 +24,15 @@ export class HospitalViewModel {
   date_updated: Date;
 }
 
-export class Hospital {
-  hospital: HospitalModel;
-  hospital_locale: HospitalLocaleModel[] = [];
-  deleted_ids: HospitalDeletables = new HospitalDeletables();
-}
-
 export class HospitalDeletables {
   hospital_locale: number[] = [];
 }
+
+export class Hospital {
+  token: string;
+  hospital: HospitalModel;
+  hospital_locale: HospitalLocaleModel[] = [];
+  deleted_ids: HospitalDeletables = new HospitalDeletables();
+  image: Object[] = [];
+}
+

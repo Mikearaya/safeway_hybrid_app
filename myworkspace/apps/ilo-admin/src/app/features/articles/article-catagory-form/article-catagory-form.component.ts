@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ArticlesApiService } from '../articles-api.service';
 import {
   FormBuilder,
@@ -14,7 +14,8 @@ import {
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
-import { EmitType } from '@syncfusion/ej2-base';
+import { EmitType, detach } from '@syncfusion/ej2-base';
+import { UploaderComponent, FileInfo, SelectedEventArgs } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-article-catagory-form',
@@ -25,7 +26,8 @@ import { EmitType } from '@syncfusion/ej2-base';
 export class ArticleCatagoryFormComponent implements OnInit {
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
-    { text: 'Other Languages' }
+    { text: 'Other Languages' },
+    { text: 'File Attachments' }
   ];
   public articleCatagoryForm: FormGroup;
   public formId: string;
@@ -37,6 +39,14 @@ export class ArticleCatagoryFormComponent implements OnInit {
   uploadInput: any;
   public path: Object;
 
+  @ViewChild('defaultupload')
+  public defaultupload: UploaderComponent;
+
+  @ViewChild('default')
+  public default: UploaderComponent;
+  @ViewChild('defaultupload')
+  public uploadObj: UploaderComponent;
+
   constructor(
     private articleApi: ArticlesApiService,
     private formBuilder: FormBuilder,
@@ -46,8 +56,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
     this.createForm();
     this.formId = Guid.newGuid();
     this.path = {
-
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/article/${this.formId}`,
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${this.formId}`,
     };
   }
 
@@ -103,6 +112,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
     return this.articleCatagoryForm.get('name') as FormControl;
   }
   onSubmit(): void {
+    this.defaultupload.upload(this.defaultupload.getFilesData());
     const catagory = this.prepareFormData();
 
     if (this.isUpdate) {
@@ -187,4 +197,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
     console.log(args.filesData[0]);
     console.log(this.articleCatagoryForm.get('image'));
   };
+
+
 }

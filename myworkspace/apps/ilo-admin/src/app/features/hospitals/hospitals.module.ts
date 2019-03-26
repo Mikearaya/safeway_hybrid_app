@@ -7,6 +7,7 @@ import { HospitalFormComponent } from './hospital-form/hospital-form.component';
 import { SharedComponentModule } from '@bionic/shared-component';
 import { HospitalsService } from './hospitals.service';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 
 @NgModule({
   declarations: [HospitalFormComponent, HospitalsViewComponent],
@@ -14,7 +15,8 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     CommonModule,
     HospitalsRoutingModule,
     TabModule,
-    SharedComponentModule
+    SharedComponentModule,
+    UploaderModule
   ],
   providers: [HospitalsService]
 })

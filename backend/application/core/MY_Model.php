@@ -7,13 +7,16 @@ class MY_Model extends CI_Model
     protected $table_name;
     protected $child_tables =  array() ;
     protected $primary_key;
-    protected $media_location =  array('temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media',
-  'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/permanent' ) ;
+    protected $media_location =  array('temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp',
+  'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/permanent',
+    'url' => 'http://192.168.1.4/ilo_app/backend/application/controllers/uploads/media/permanent' ) ;
+
 
     function __construct()
     {
       
         $this->load->database();
+    $this->load->helper('file');
     }
 
 
@@ -27,6 +30,37 @@ class MY_Model extends CI_Model
                 $result_set = $this->db->get($table);
                 $result[$table] = $result_set->result_array();
             }
+        
+            $directory = [];
+
+            if( is_dir($this->media_location['permanent'] .'/'.$this->table_name.'/'.$id."/english")) {
+              $directory = $this->getDirectoryContent($this->media_location['permanent'] .'/'.$this->table_name.'/'.$id."/english");
+            }
+    $result['videos'] = [];
+    $result['audios'] = [];
+    $result['image'] = [];
+    foreach ($directory as $info) {
+      
+ 
+      if(!$info ->isDot() && !$info->isDir()) {
+        
+        $file = $this->extract_file_info($info);
+    
+        $mime = get_mime_by_extension($info->getFilename());
+        if(strstr($mime, "video/")){
+          $result['videos'][] = $file;
+        }else if(strstr($mime, "image/")){
+          $result['image'][] = $file;
+      } else if( strstr($mime, "audio/")){
+          $result['audios'][] = $file;
+        }
+
+
+    
+        }
+
+
+    }
 
             return $result;
     
@@ -35,10 +69,37 @@ class MY_Model extends CI_Model
     function get_list()
     {
         $result = $this->db->get($this->table_name);
-        return $result->result_array();
+        $result = $result->result_array();
+        
+        for($i = 0; $i < count($result); $i++) {
+
+        if(is_dir( $this->media_location['permanent'].'/'.$this->table_name .'/'.$result[$i]['ID']."/english") ) {
+    
+          $x = $this->getDirectoryContent($this->media_location['permanent'] .'/'.$this->table_name.'/'.$result[$i]['ID']."/english");           
+
+        foreach ($x as $info) {    
+          if(!$info ->isDot() && !$info->isDir()) {
+              $result[$i]['medias'] = $this->media_location['url'].'/'.$this->table_name.'/'.$result[$i]['ID']."/english/".$info->getFilename();
+          } 
+        }
+        }
+
+      }
+
+
+    
+        return $result;
     }
 
+  private function extract_file_info($file) {
 
+        $filename = $file->getRealPath();
+      return array('name' =>  pathinfo($filename)['filename'],
+                    'type' => '.'. pathinfo($filename)['extension'],
+                    'size' => $file->getSize(),
+                    'path' => $file->getRealPath()
+                  );
+}
     function add($data)
     {
       if($data[$this->table_name]) {
@@ -61,11 +122,14 @@ class MY_Model extends CI_Model
 
 
         if ($new_id != NULL) {
-      if (!is_dir($this->media_location['permanent'].'/'. $new_id)) {
-        mkdir($this->media_location['permanent']. '/' . $new_id, 0777, true);
-        copy( $this->media_location['permanent'] .'/'. $data['token'], $this->media_location['permanent'] .'/'. $new_id);
+
+      $oldmask = umask(0);
+      if (!is_dir($this->media_location['permanent'].'/'.$this->table_name.'/'. $new_id)) {
+        mkdir($this->media_location['permanent']. '/'. $this->table_name . '/' . $new_id, 0777, true);
+        $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $new_id);
       }
 
+      $oldmask = umask($oldmask);
             return $new_id;
 
         } else {
@@ -121,6 +185,17 @@ class MY_Model extends CI_Model
         }
 
         }
+
+
+      $oldmask = umask(0);
+      if (!is_dir($this->media_location['permanent'].'/'.$this->table_name.'/'. $id)) {
+        mkdir($this->media_location['permanent']. '/'. $this->table_name . '/' . $id, 0777, true);
+        $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $id);
+      } else {
+         $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $id);
+      }
+
+         $oldmask = umask($oldmask);
     }
 
 
@@ -140,9 +215,41 @@ class MY_Model extends CI_Model
     } catch (Exception $e) {
       return false;
 		}
-	}
+  }
+  private function copyTree($source,$destination) {
 
-
+    $source = rtrim($source, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+    $destination = rtrim($destination, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
     
+
+    if(!is_dir($source) && !is_readable($source)) {
+        return false;
+    }
+    
+    if(!is_dir($destination)) {
+        if(!mkdir($destination, 0777, true)) {
+            return false;
+        }
+    }
+    
+    $dirIteratorObject = $this->getDirectoryContent($source);
+    
+     foreach ($dirIteratorObject as $info ) {
+  
+        if ($info->isFile ()) {
+            copy($info->getFileInfo(), $destination.$info->getFilename());
+        } elseif(!$info->isDot() && $info->isDir()) {
+          $this->copyTree($info->getRealPath(), $destination.$info);
+        }
+
+    }
+}
+
+  private function getDirectoryContent($directory) {
+    return new DirectoryIterator($directory);
+  }
+
+
+
 }
  

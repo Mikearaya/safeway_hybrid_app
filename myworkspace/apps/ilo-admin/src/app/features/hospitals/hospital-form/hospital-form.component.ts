@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -10,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Hospital, HospitalLocaleModel } from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-hospital-form',
@@ -23,12 +24,25 @@ export class HospitalFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
+
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
   public hospitalsForm: FormGroup;
   private hospitalId: number;
   public languages: any[];
   public deletedIds: number[] = [];
 
   isUpdate: boolean;
+  formId: string;
+  public preLoadFiles: Object[] = [
+    {
+      name: '',
+      size: '',
+      type: ''
+    }
+  ];
+  path: { saveUrl: string; removeUrl: string };
   constructor(
     private forumBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -36,12 +50,22 @@ export class HospitalFormComponent implements OnInit {
     private systemConfig: SystemApiService
   ) {
     this.createForm();
+
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+      }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/hospital'
+    };
   }
 
   ngOnInit() {
     this.hospitalId = +this.activatedRoute.snapshot.paramMap.get('hospitalId');
 
     if (this.hospitalId) {
+      this.path.removeUrl = this.path.removeUrl.concat(`/${this.hospitalId.toString()}`);
       this.isUpdate = true;
       this.hospitalApi
         .getHospitalById(this.hospitalId)
@@ -53,10 +77,13 @@ export class HospitalFormComponent implements OnInit {
 
     this.systemConfig
       .getLanguagesList()
-      .subscribe((data: any) => (this.languages = data));
+
+
   }
 
   createForm() {
+
+
     this.hospitalsForm = this.forumBuilder.group({
       phoneNumber: ['', Validators.required],
       address: ['', Validators.required],
@@ -98,6 +125,10 @@ export class HospitalFormComponent implements OnInit {
       region: [hospital.hospital.region, Validators.required],
       hospitalLocale: this.forumBuilder.array([])
     });
+    this.defaultUpload.clearAll();
+    if(hospital.image.length) {
+    this.preLoadFiles = hospital.image;
+    }
 
     hospital.hospital_locale.map(locale =>
       this.hospitalLocales.controls.push(this.initializeLocalesForm(locale))
@@ -192,6 +223,7 @@ export class HospitalFormComponent implements OnInit {
       this.deletedIds.map(element =>
         hospitalData.deleted_ids.hospital_locale.push(element)
       );
+      hospitalData.token = this.formId;
       return hospitalData;
     } else {
       return null;

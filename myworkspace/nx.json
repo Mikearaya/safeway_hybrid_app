@@ -1,5 +1,5 @@
 {
-  "npmScope": "",
+  "npmScope": "bionic",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",

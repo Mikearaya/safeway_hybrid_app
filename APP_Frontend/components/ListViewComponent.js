@@ -9,7 +9,12 @@ export default class ListViewComponent extends Component {
     return (
       <ListItem onPress={() => this.props.navigation.navigate(this.props.navigateTo, {id : this.props.id})} avatar>
         <Left>
-          <Thumbnail source={this.props.images} />
+          <Thumbnail source = {
+            {
+              uri: this.props.images
+            }
+          }
+          />
         </Left>
         <Body>
           <Text>{this.props.name}</Text>
