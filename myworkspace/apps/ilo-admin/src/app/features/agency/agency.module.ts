@@ -7,6 +7,7 @@ import { AgencyViewComponent } from './agency-view/agency-view.component';
 import { SharedComponentModule } from '@bionic/shared-component';
 import { AgencyApiService } from './agency-api.service';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 
 @NgModule({
   declarations: [AgencyFormComponent, AgencyViewComponent],
@@ -14,7 +15,8 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     CommonModule,
     AgencyRoutingModule,
     SharedComponentModule,
-    TabModule
+    TabModule,
+    UploaderModule
   ],
   providers: [AgencyApiService]
 })

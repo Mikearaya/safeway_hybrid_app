@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgencyApiService } from '../agency-api.service';
 import { ActivatedRoute } from '@angular/router';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
 import {
   FormGroup,
   FormBuilder,
@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { Agency, AgencyLocaleModel } from '../agency-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-agency-form',
@@ -18,6 +19,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./agency-form.component.css']
 })
 export class AgencyFormComponent implements OnInit {
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
@@ -29,6 +33,15 @@ export class AgencyFormComponent implements OnInit {
   public isUpdate: Boolean;
   private agencyId: number;
   public languages: any;
+  formId: any;
+  path: { saveUrl: string; removeUrl: string };
+  public preLoadFiles: Object[] = [
+    {
+      name: null,
+      size: null,
+      type: null
+    }
+  ];
 
   constructor(
     private agencyApi: AgencyApiService,
@@ -37,6 +50,15 @@ export class AgencyFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
+
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+      }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/agency'
+    };
   }
 
   ngOnInit() {
@@ -57,7 +79,7 @@ export class AgencyFormComponent implements OnInit {
   createForm(): void {
     this.agencyForm = this.formBuilder.group({
       name: ['', Validators.required],
-      region: [1, Validators.required],
+      region: ['', Validators.required],
       address: [''],
       phoneNumber: ['', Validators.required],
       fax: [''],
@@ -81,6 +103,10 @@ export class AgencyFormComponent implements OnInit {
     agency.agency_locale.map(local =>
       this.agencyLocales.controls.push(this.initializeLocaleForm(local))
     );
+    this.defaultUpload.clearAll();
+    if (agency.image.length) {
+      this.preLoadFiles = agency.image;
+    }
   }
 
   generateLocaleForm(): FormGroup {
@@ -127,6 +153,8 @@ export class AgencyFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+
     const formData = this.prepareFormData();
 
     if (formData) {
@@ -205,6 +233,8 @@ export class AgencyFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         agency.deleted_ids.agency_locale.push(element);
       });
+
+      agency.token = this.formId;
       return agency;
     } else {
       return null;

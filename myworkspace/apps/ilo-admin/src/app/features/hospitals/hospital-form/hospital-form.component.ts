@@ -11,7 +11,7 @@ import { Hospital, HospitalLocaleModel } from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
-import { UploaderComponent, ActionCompleteEventArgs, SelectedEventArgs } from '@syncfusion/ej2-angular-inputs';
+import { UploaderComponent, ActionCompleteEventArgs } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-hospital-form',
@@ -124,6 +124,8 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
       this.hospitalLocales.removeAt(index);
     }
   }
+
+  onSele
 
   initializeForm(hospital: Hospital) {
     this.hospitalsForm = this.forumBuilder.group({

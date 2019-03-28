@@ -29,12 +29,16 @@ export interface AgencyViewModel {
   date_updated: Date;
 }
 
-export class Agency {
-  agency: AgencyModel;
-  agency_locale: AgencyLocaleModel[] = [];
-  deleted_ids: AgencyDeleteables = new AgencyDeleteables();
-}
+
 
 export class AgencyDeleteables {
   agency_locale: number[] = [];
+}
+
+export class Agency {
+  token: string;
+  image: string[] = [];
+  agency: AgencyModel;
+  agency_locale: AgencyLocaleModel[] = [];
+  deleted_ids: AgencyDeleteables = new AgencyDeleteables();
 }
