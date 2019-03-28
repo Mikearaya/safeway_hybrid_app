@@ -24,12 +24,14 @@ export class EmergencyContactLocaleModel {
   locale: number;
 }
 
+export class Deletables {
+  emergency_contact_locale: number[] = [];
+}
+
 export class EmergencyContact {
+  image: any[] = [];
   emergency_contact: EmergencyContactModel;
   emergency_contact_locale: EmergencyContactLocaleModel[] = [];
   deleted_ids: Deletables = new Deletables();
-}
-
-export class Deletables {
-  emergency_contact_locale: number[] = [];
+  token: string;
 }

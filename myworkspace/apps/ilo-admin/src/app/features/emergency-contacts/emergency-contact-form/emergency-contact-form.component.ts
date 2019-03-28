@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -8,12 +8,14 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { EmergencyContactApiService } from '../emergency-contact-api.service';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
 import {
   EmergencyContact,
   EmergencyContactLocaleModel
 } from '../emergency-contact-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActionCompleteEventArgs, ClearingEventArgs } from '@syncfusion/ej2-inputs';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-emergency-contact-form',
@@ -25,11 +27,25 @@ export class EmergencyContactFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
+
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
+
+  public preLoadFiles: Object[] = [
+    {
+      name: null,
+      size: null,
+      type: null
+    }
+  ];
   public emergencyContactsForm: FormGroup;
   private emergencyContactId: number;
   public languages: any[];
   public deletedIds: number[] = [];
   isUpdate: boolean;
+  formId: any;
+  path: { saveUrl: string; removeUrl: string; };
   constructor(
     private forumBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -37,7 +53,17 @@ export class EmergencyContactFormComponent implements OnInit {
     private systemConfig: SystemApiService
   ) {
     this.createForm();
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+        }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/emergency_contact'
+    };
   }
+
+
 
   ngOnInit() {
     this.emergencyContactId = +this.activatedRoute.snapshot.paramMap.get(
@@ -84,8 +110,17 @@ export class EmergencyContactFormComponent implements OnInit {
       locale: [locale.locale, Validators.required],
       name: [locale.name, Validators.required]
     });
+
   }
 
+  imageUploaded(event: ActionCompleteEventArgs) {
+    const upload = event.fileData.filter((res) => res.statusCode === "2")
+
+    if (upload === null) {
+
+      return;
+    }
+  }
   deleteLocale(index) {
     const deletedControlId = this.emergencyContactLocales.controls[index].get(
       'id'
@@ -115,6 +150,10 @@ export class EmergencyContactFormComponent implements OnInit {
       region: [emergencyContact.emergency_contact.region, Validators.required],
       emergencyContactLocale: this.forumBuilder.array([])
     });
+    this.defaultUpload.clearAll();
+    if (emergencyContact.image.length) {
+      this.preLoadFiles = emergencyContact.image;
+    }
 
     emergencyContact.emergency_contact_locale.map(element =>
       this.emergencyContactLocales.push(this.initializeLocaleForm(element))
@@ -144,7 +183,12 @@ export class EmergencyContactFormComponent implements OnInit {
     this.emergencyContactLocales.controls.push(this.generateLocaleForm());
   }
   onSubmit() {
+
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+
+    setInterval(() => console.log('uploading'), 1000)
     const emergencyContactData = this.prepareFormData();
+
 
     if (emergencyContactData) {
       if (this.isUpdate) {
@@ -168,7 +212,10 @@ export class EmergencyContactFormComponent implements OnInit {
       }
     }
   }
-
+ removing(data: ClearingEventArgs) {
+  console.log(data);
+  this.defaultUpload.refresh();
+ }
   private prepareFormData(): EmergencyContact | null {
     const emergencyContact = new EmergencyContact();
     if (this.emergencyContactsForm.valid) {
@@ -200,6 +247,7 @@ export class EmergencyContactFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         emergencyContact.deleted_ids.emergency_contact_locale.push(element);
       });
+      emergencyContact.token = this.formId;
       return emergencyContact;
     } else {
       return null;

@@ -6,6 +6,7 @@ import { EmergencyContactFormComponent } from './emergency-contact-form/emergenc
 import { EmergencyContactViewComponent } from './emergency-contact-view/emergency-contact-view.component';
 import { SharedComponentModule } from '@bionic/shared-component';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 
 @NgModule({
   declarations: [EmergencyContactFormComponent, EmergencyContactViewComponent],
@@ -13,6 +14,7 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     CommonModule,
     EmergencyContactsRoutingModule,
     SharedComponentModule,
+    UploaderModule,
     TabModule
   ]
 })

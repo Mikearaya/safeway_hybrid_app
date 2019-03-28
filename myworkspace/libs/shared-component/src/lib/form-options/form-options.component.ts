@@ -15,9 +15,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./form-options.component.css']
 })
 export class FormOptionsComponent implements OnInit {
-  @Input('isSelfContained') isSelfContained: Boolean;
-  @Input('submitDisabled') submitDisabled: Boolean;
-  @Input('cancelDisabled') cancelDisabled: Boolean;
+  @Input()
+  public isSelfContained: Boolean;
+  @Input()
+  public submitDisabled: Boolean;
+  @Input()
+  public  cancelDisabled: Boolean;
 
   constructor(private location: Location) {
     // setting default valeue

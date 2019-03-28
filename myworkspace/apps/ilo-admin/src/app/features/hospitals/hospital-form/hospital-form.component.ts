@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +11,7 @@ import { Hospital, HospitalLocaleModel } from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { UploaderComponent, ActionCompleteEventArgs, SelectedEventArgs } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-hospital-form',
@@ -19,7 +19,9 @@ import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
   styleUrls: ['./hospital-form.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class HospitalFormComponent implements OnInit {
+export class HospitalFormComponent implements OnInit, AfterViewChecked {
+
+
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
@@ -37,9 +39,9 @@ export class HospitalFormComponent implements OnInit {
   formId: string;
   public preLoadFiles: Object[] = [
     {
-      name: '',
-      size: '',
-      type: ''
+      name: null,
+      size: null,
+      type: null
     }
   ];
   path: { saveUrl: string; removeUrl: string };
@@ -62,10 +64,13 @@ export class HospitalFormComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.hospitalId = +this.activatedRoute.snapshot.paramMap.get('hospitalId');
 
     if (this.hospitalId) {
-      this.path.removeUrl = this.path.removeUrl.concat(`/${this.hospitalId.toString()}`);
+      this.path.removeUrl = this.path.removeUrl.concat(
+        `/${this.hospitalId.toString()}`
+      );
       this.isUpdate = true;
       this.hospitalApi
         .getHospitalById(this.hospitalId)
@@ -77,12 +82,14 @@ export class HospitalFormComponent implements OnInit {
 
     this.systemConfig
       .getLanguagesList()
-
-
+      .subscribe((lang: any) => (this.languages = lang));
   }
 
-  createForm() {
 
+  ngAfterViewChecked(): void {
+
+  }
+  createForm() {
 
     this.hospitalsForm = this.forumBuilder.group({
       phoneNumber: ['', Validators.required],
@@ -94,6 +101,7 @@ export class HospitalFormComponent implements OnInit {
   }
 
   generateLocaleForm(): FormGroup {
+
     return this.forumBuilder.group({
       address: ['', Validators.required],
       locale: ['', Validators.required],
@@ -126,8 +134,8 @@ export class HospitalFormComponent implements OnInit {
       hospitalLocale: this.forumBuilder.array([])
     });
     this.defaultUpload.clearAll();
-    if(hospital.image.length) {
-    this.preLoadFiles = hospital.image;
+    if (hospital.image.length) {
+      this.preLoadFiles = hospital.image;
     }
 
     hospital.hospital_locale.map(locale =>
@@ -169,9 +177,18 @@ export class HospitalFormComponent implements OnInit {
       })
     );
   }
-  onSubmit() {
-    const hospitalData = this.prepareFormData();
 
+  imageUploaded(event: ActionCompleteEventArgs) {
+    const upload  = event.fileData.filter((res) => res.statusCode ===  "2" )
+
+    if(upload === null) {
+
+      return;
+    }
+  }
+  onSubmit() {
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+    const hospitalData = this.prepareFormData();
     if (hospitalData) {
       if (this.isUpdate) {
         this.hospitalApi

@@ -1,9 +1,5 @@
 <div class="container card shadow-lg pl-5 pr-5 md-3">
-  <div class="row">
-    <div class="col-12  form-group ">
-      <ejs-uploader #defaultupload autoUpload='true' name='fileupload'  [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'></ejs-uploader>
-    </div>
-  </div>
+
   <form [formGroup]="hospitalsForm" (ngSubmit)="onSubmit()" novalidate>
     <ejs-tab id="element">
       <e-tabitems>
@@ -59,6 +55,15 @@
                     Hospital region is required
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12  form-group ">
+                  <ejs-uploader #defaultupload [autoUpload]='false' (actionComplete)='imageUploaded($event)'
+                (selected)='onSelect($event)'
+                [allowedExtensions]="'image/*'"  name='fileupload' [files]='preLoadFiles'
+                  [multiple]='false' [asyncSettings]='path'></ejs-uploader>
+
               </div>
             </div>
 

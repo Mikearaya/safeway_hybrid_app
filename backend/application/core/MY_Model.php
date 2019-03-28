@@ -125,6 +125,7 @@ class MY_Model extends CI_Model
 
       $oldmask = umask(0);
       if (!is_dir($this->media_location['permanent'].'/'.$this->table_name.'/'. $new_id)) {
+        var_dump('in');
         mkdir($this->media_location['permanent']. '/'. $this->table_name . '/' . $new_id, 0777, true);
         $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $new_id);
       }
