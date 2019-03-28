@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { SchoolApiService } from '../school-api.service';
 import {
   FormBuilder,
@@ -8,7 +8,7 @@ import {
   FormArray
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
 import {
   SchoolViewModel,
   SchoolModel,
@@ -18,6 +18,7 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { LessonTypeService } from '../lesson-type.service';
 import { LessonTypeViewModel } from '../lesson-type.model';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-school-form',
@@ -26,6 +27,9 @@ import { LessonTypeViewModel } from '../lesson-type.model';
   encapsulation: ViewEncapsulation.None
 })
 export class SchoolFormComponent implements OnInit {
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
@@ -41,6 +45,16 @@ export class SchoolFormComponent implements OnInit {
   public deletedLocaleIds: number[] = [];
   public deletedLessonIds: number[] = [];
 
+  formId: string;
+  public preLoadFiles: Object[] = [
+    {
+      name: null,
+      size: null,
+      type: null
+    }
+  ];
+  path: { saveUrl: string; removeUrl: string };
+
   constructor(
     private schoolApi: SchoolApiService,
     private formBuilder: FormBuilder,
@@ -49,6 +63,15 @@ export class SchoolFormComponent implements OnInit {
     private lessonTypeApi: LessonTypeService
   ) {
     this.createForm();
+
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+      }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/school'
+    };
   }
 
   ngOnInit() {
@@ -94,6 +117,7 @@ export class SchoolFormComponent implements OnInit {
       schoolLocales: this.formBuilder.array([])
     });
 
+    this.preLoadFiles = data.image;
     data.school_locale.map(l =>
       this.schoolLocales.controls.push(this.initializeLocalesForm(l))
     );
@@ -174,6 +198,8 @@ export class SchoolFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+
     const formData = this.prepareFormData();
     if (formData) {
       if (this.isUpdate) {
@@ -244,7 +270,7 @@ export class SchoolFormComponent implements OnInit {
       this.deletedLessonIds.forEach(element =>
         schoolData.deleted_ids.school_lessons.push(element)
       );
-
+      schoolData.token = this.formId;
       return schoolData;
     } else {
       return null;

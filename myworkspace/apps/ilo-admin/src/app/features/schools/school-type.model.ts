@@ -33,6 +33,8 @@ export interface SchoolLessonsModel {
 }
 
 export class School {
+  token: string;
+  image: string[] = [];
   school: SchoolModel;
   school_lessons: SchoolLessonsModel[] = [];
   school_locale: SchoolLocaleModel[] = [];

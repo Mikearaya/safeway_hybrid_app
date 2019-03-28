@@ -11,6 +11,7 @@ import { LessonTypeService } from './lesson-type.service';
 import { SchoolApiService } from './school-api.service';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
 import { MultiSelectModule } from '@syncfusion/ej2-ng-dropdowns';
+import { UploaderModule } from '@syncfusion/ej2-angular-inputs';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MultiSelectModule } from '@syncfusion/ej2-ng-dropdowns';
     SchoolsRoutingModule,
     SharedComponentModule,
     TabModule,
+    UploaderModule,
     MultiSelectModule
   ],
   providers: [LessonTypeService, SchoolApiService]
