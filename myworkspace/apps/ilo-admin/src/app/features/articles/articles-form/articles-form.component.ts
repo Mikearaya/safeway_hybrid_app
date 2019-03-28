@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ArticlesApiService } from '../articles-api.service';
 import {
   FormBuilder,
@@ -14,7 +14,10 @@ import {
   ArticleLocaleModel
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { ConditionalExpr, IfStmt } from '@angular/compiler';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'bionic-articles-form',
@@ -23,10 +26,21 @@ import { SystemApiService } from '../../../system-api.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ArticlesFormComponent implements OnInit {
-  public fields: Object = { text: 'name', value: 'ID' };
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
-    { text: 'Other Languages' }
+    { text: 'Other Languages' },
+    { text: 'File Attachments' }
+  ];
+
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
+  public preLoadFiles: Object[] = [
+    {
+      name: null,
+      size: null,
+      type: null
+    }
   ];
   private articleId: number;
   public isUpdate: Boolean;
@@ -34,6 +48,8 @@ export class ArticlesFormComponent implements OnInit {
   public articleCatagories: any[] = [];
   public languages: any;
   public deletedIds: number[] = [];
+  path: { saveUrl: string; removeUrl: string };
+  formId: any;
 
   constructor(
     private articleApi: ArticlesApiService,
@@ -42,6 +58,14 @@ export class ArticlesFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+      }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/article'
+    };
   }
 
   ngOnInit() {
@@ -88,6 +112,9 @@ export class ArticlesFormComponent implements OnInit {
     });
   }
 
+  actionComplete(event: any) {
+    this.submitForm();
+  }
   initializeForm(article: Article): void {
     this.articleForm = this.formBuilder.group({
       id: [article.article.ID, Validators.required],
@@ -100,6 +127,26 @@ export class ArticlesFormComponent implements OnInit {
     article.article_locale.forEach(element => {
       this.articleLocales.controls.push(this.initiLocaleForm(element));
     });
+
+    this.defaultUpload.clearAll();
+    this.preLoadFiles = [];
+    if (article.image.length) {
+      article.image.forEach(element => {
+        this.preLoadFiles.push(element);
+      });
+    }
+
+    if (article.audios.length) {
+      article.audios.forEach(element => {
+        this.preLoadFiles.push(element);
+      });
+    }
+
+    if (article.videos.length) {
+      article.videos.forEach(element => {
+        this.preLoadFiles.push(element);
+      });
+    }
   }
 
   get articleTitle(): FormControl {
@@ -118,6 +165,10 @@ export class ArticlesFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+  }
+
+  submitForm(): void {
     const formData = this.prepareFormData();
 
     if (formData) {
@@ -140,7 +191,6 @@ export class ArticlesFormComponent implements OnInit {
       }
     }
   }
-
   prepareFormData(): Article | null {
     const article = new Article();
 
@@ -171,6 +221,8 @@ export class ArticlesFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         article.deleted_ids.article_locale.push(element);
       });
+
+      article.token = this.formId;
       return article;
     } else {
       return null;

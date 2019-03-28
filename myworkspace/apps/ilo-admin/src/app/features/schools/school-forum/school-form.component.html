@@ -65,7 +65,8 @@
             </div>
             <div class="row">
               <div class="col-12  form-group ">
-                <ejs-uploader #defaultupload [autoUpload]='false' [allowedExtensions]="'image/*'" name='fileupload'
+                <ejs-uploader #defaultupload [autoUpload]='false' (change)='removeFile($event)'
+                  [allowedExtensions]="'image/*'" name='fileupload'
                   [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'>
                 </ejs-uploader>
 

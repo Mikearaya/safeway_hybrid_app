@@ -19,14 +19,17 @@ export interface ArticleLocaleModel {
   locale: number;
 }
 
+export class ArticleDeletables {
+  article_locale: number[] = [];
+}
 export class Article {
+  image: string[] = [];
+  audios: any[] = [];
+  videos: any[] = [];
+  token: string;
   article: ArticleModel;
   article_locale: ArticleLocaleModel[] = [];
   deleted_ids: ArticleDeletables = new ArticleDeletables();
-}
-
-export class ArticleDeletables {
-  article_locale: number[] = [];
 }
 
 export interface ArticleCatagoryModel {
@@ -48,13 +51,12 @@ export interface ArticleCatagoryViewModel {
   date_updated: Date;
 }
 
+export class ArticleCatagoryDeletables {
+  article_catagory_locale: number[] = [];
+}
+
 export class ArticleCatagory {
-  token: string;
   article_catagory: ArticleCatagoryModel;
   article_catagory_locale: ArticleCatagoryLocaleModel[] = [];
   deleted_ids: ArticleCatagoryDeletables = new ArticleCatagoryDeletables();
-}
-
-export class ArticleCatagoryDeletables {
-  article_catagory_locale: number[] = [];
 }

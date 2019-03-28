@@ -15,7 +15,11 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
 import { EmitType, detach } from '@syncfusion/ej2-base';
-import { UploaderComponent, FileInfo, SelectedEventArgs } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  FileInfo,
+  SelectedEventArgs
+} from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-article-catagory-form',
@@ -28,6 +32,14 @@ export class ArticleCatagoryFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' },
     { text: 'File Attachments' }
+  ];
+
+  public preLoadFiles: Object[] = [
+    {
+      name: null,
+      size: null,
+      type: null
+    }
   ];
   public articleCatagoryForm: FormGroup;
   public formId: string;
@@ -42,11 +54,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
   @ViewChild('defaultupload')
   public defaultupload: UploaderComponent;
 
-  @ViewChild('default')
-  public default: UploaderComponent;
-  @ViewChild('defaultupload')
-  public uploadObj: UploaderComponent;
-
   constructor(
     private articleApi: ArticlesApiService,
     private formBuilder: FormBuilder,
@@ -54,10 +61,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
     private systemApi: SystemApiService
   ) {
     this.createForm();
-    this.formId = Guid.newGuid();
-    this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${this.formId}`,
-    };
   }
 
   ngOnInit() {
@@ -73,7 +76,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
         .subscribe((data: ArticleCatagory) => this.initializeForm(data));
     }
   }
-
 
   createForm(): void {
     this.articleCatagoryForm = this.formBuilder.group({
@@ -162,7 +164,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         articleCatagory.deleted_ids.article_catagory_locale.push(element);
       });
-      articleCatagory.token = this.formId;
+
       return articleCatagory;
     } else {
       return null;
@@ -197,6 +199,4 @@ export class ArticleCatagoryFormComponent implements OnInit {
     console.log(args.filesData[0]);
     console.log(this.articleCatagoryForm.get('image'));
   };
-
-
 }
