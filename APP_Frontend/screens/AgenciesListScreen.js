@@ -29,7 +29,7 @@ export default class AgenciesListScreen extends Component {
               <ListViewComponent
               id={item.ID}
                 navigation={this.props.navigation}
-                images={require('./../assets/images/saudi_embassy_log.jpg')}
+                images={item.medias}
                 name={item.name}
                 address={item.address}
                 navigateTo={'AgencyDetail'}
