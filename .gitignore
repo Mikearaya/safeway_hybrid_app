@@ -1,18 +1,6 @@
-BionicInventory.Application/obj/
-BionicInventory.API/obj/
-BionicInventory.DataStore/obj/
-BionicInventory.Infrastructure/obj/
-BionicInventory.Shared/obj/
-BionicInventory.Domain/obj/
-BionicProduction.Migration/obj/
+
 node_modules/
-BionicInventory.Application/bin/
-BionicInventory.API/bin/
-BionicInventory.DataStore/bin/
-BionicInventory.Infrastructure/bin/
-BionicInventory.Shared/bin/
-BionicInventory.Domain/bin/
-BionicProduction.Migration/bin/
+backend/application/controllers/uploads/
 
 .vscode/
 

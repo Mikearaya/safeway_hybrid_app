@@ -13,7 +13,7 @@ class Upload extends API
     public function media_POST($language = 'english', $formId ) {
         $uploadlocation = '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp/'.$formId.'/'.$language; 
         $config['upload_path'] = $uploadlocation;
-        $config['allowed_types'] = 'gif|jpg|png|mp3|mp4';
+        $config['allowed_types'] = 'gif|jpg|png|mp3|mp4|flv|wmv|avi';
         $config['max_size']  = 20000000 ;
 
         if (!is_dir($uploadlocation)) { 
@@ -23,6 +23,7 @@ class Upload extends API
 
 
         $this->load->library('upload', $config);
+        var_dump($uploadlocation);
 
         if (!$this->upload->do_upload( 'fileupload')) {
                 $error = array('error' => $this->upload->display_errors());

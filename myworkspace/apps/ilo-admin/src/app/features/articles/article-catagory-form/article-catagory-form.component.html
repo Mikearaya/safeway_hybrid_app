@@ -16,6 +16,14 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-12  form-group ">
+                <ejs-uploader #defaultupload [autoUpload]='true' [allowedExtensions]="'image/*'" name='fileupload'
+                  [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'>
+                </ejs-uploader>
+
+              </div>
+            </div>
 
           </ng-template>
         </e-tabitem>
