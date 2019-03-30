@@ -23,6 +23,7 @@ constructor(props) {
   this.state = {
     newsDetail: {},
     header: '',
+    image: '',
     content: ''
   }
 }
@@ -38,7 +39,7 @@ constructor(props) {
       <Container style={styles.mainContainer}>
         <Content >
         <Image
-          source={require(imageLocation)}
+          source={{uri: this.state.image ? this.state.image : 'http://192.168.1.4/ilo_app/backend/application/uploads/media/permanent/article/46/english/Screenshot_from_2019-03-34_27-59-17,png'}}
           style={{ height: 200, width: width }}
         />
         <View style={styles.paragraphContainer}>        
@@ -59,7 +60,9 @@ constructor(props) {
       .then(result => result.json())
        .then(data => {
         this.setState({
-          content: data.article.content
+          content: data.article.content,
+          image: data.image 
+
         })
       })
       .catch(error => alert(JSON.stringify(error.message)))

@@ -25,12 +25,16 @@ export interface NewsLocaleModel {
   locale: number;
 }
 
+export class NewsDeletables {
+  article_locale: number[] = [];
+}
+
 export class News {
+  image: string[] = [];
+  token: string;
+  audios: string[] = [];
+  videos: string[] = [];
   article: NewsModel;
   article_locale: NewsLocaleModel[] = [];
   deleted_ids: NewsDeletables = new NewsDeletables();
-}
-
-export class NewsDeletables {
-  article_locale: number[] = [];
 }

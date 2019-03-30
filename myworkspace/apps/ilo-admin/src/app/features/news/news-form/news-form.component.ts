@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NewsApiService } from '../news-api.service';
 import {
   FormBuilder,
@@ -8,9 +8,10 @@ import {
   FormArray
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { SystemApiService } from '../../../system-api.service';
+import { SystemApiService, Guid } from '../../../system-api.service';
 import { News, NewsLocaleModel } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-news-form',
@@ -22,11 +23,18 @@ export class NewsFormComponent implements OnInit {
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
   ];
+
+  @ViewChild('defaultupload')
+  public defaultUpload: UploaderComponent;
+
   public newsForm: FormGroup;
   private newsId: number;
   public languages: any;
   public isUpdate: Boolean;
   public deletedIds: number[] = [];
+  formId: any;
+  path: { saveUrl: string; removeUrl: string };
+  preLoadFiles: string[];
 
   constructor(
     private newsApi: NewsApiService,
@@ -35,6 +43,14 @@ export class NewsFormComponent implements OnInit {
     private systemConf: SystemApiService
   ) {
     this.createForm();
+    this.formId = Guid.newGuid();
+    this.path = {
+      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+        this.formId
+      }`,
+      removeUrl:
+        'http://localhost/ilo_app/backend/index.php/upload/media_delete/news'
+    };
   }
 
   ngOnInit() {
@@ -117,7 +133,7 @@ export class NewsFormComponent implements OnInit {
     news.article_locale.map(element =>
       this.newsLocales.push(this.initializeLocaleForm(element))
     );
-    this.newsLocales.push;
+
   }
 
   private generateLocaleForm(): FormGroup {
@@ -137,7 +153,7 @@ export class NewsFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  private submitForm(): void {
     const formData = this.prepareFormData();
 
     if (formData) {
@@ -162,6 +178,10 @@ export class NewsFormComponent implements OnInit {
         );
       }
     }
+  }
+  onSubmit(): void {
+    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+    this.submitForm();
   }
 
   private prepareFormData(): News | null {
@@ -198,6 +218,8 @@ export class NewsFormComponent implements OnInit {
       this.deletedIds.forEach(element => {
         news.deleted_ids.article_locale.push(element);
       });
+
+      news.token = this.formId;
 
       return news;
     } else {

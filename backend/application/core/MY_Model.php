@@ -51,6 +51,7 @@ class MY_Model extends CI_Model
           $result['videos'][] = $file;
         }else if(strstr($mime, "image/")){
           $result['image'][] = $file;
+            $result['image'] = $this->media_location['url'].'/'.$this->table_name.'/'.$id."/english/".$info->getFilename();
       } else if( strstr($mime, "audio/")){
           $result['audios'][] = $file;
         }
@@ -246,7 +247,7 @@ class MY_Model extends CI_Model
     }
 }
 
-  private function getDirectoryContent($directory) {
+  protected function getDirectoryContent($directory) {
     return new DirectoryIterator($directory);
   }
 

@@ -3,7 +3,7 @@
     "node_modules/codelyzer",
     "node_modules/@nrwl/schematics/src/tslint"
   ],
-  "extendss": [
+  "extends": [
     "tslint-clean-code"
   ],
   "rules": {
@@ -45,6 +45,9 @@
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
+    "no-duplicate-variable": true,
+    "no-duplicate-switch-case": true,
+    "no-duplicate-imports": true,
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
@@ -87,20 +90,23 @@
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,
+    "unnecessary-else": true,
     "no-input-rename": true,
     "no-output-rename": true,
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-
+    "max-classes-per-file": [true, 1],
+    "file-name-casing": [true, "kebab-case"],
     "nx-enforce-module-boundaries": [
       true,
       {
         "allow": [],
-        "depConstraints": [
-          { "sourceTag": "*", "onlyDependOnLibsWithTags": ["*"] }
-        ]
+        "depConstraints": [{
+          "sourceTag": "*",
+          "onlyDependOnLibsWithTags": ["*"]
+        }]
       }
     ]
   }

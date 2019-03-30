@@ -7,16 +7,9 @@
             <div class="row">
               <div class="col-12 form-group">
                 <label for="header">News header</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="header"
-                  id="header"
-                  placeholder="News header"
-                />
-                <small id="header" class="form-text text-muted"
-                  >Header used as News title</small
-                >
+                <input type="text" class="form-control" formControlName="header" id="header"
+                  placeholder="News header" />
+                <small id="header" class="form-text text-muted">Header used as News title</small>
                 <div class="text-danger" *ngIf="header.errors">
                   <div *ngIf="header.errors['required']">
                     News header is required
@@ -27,11 +20,7 @@
             <div class="row">
               <div class="col-12 form-group">
                 <label for="newsContent">News content</label>
-                <textarea
-                  formControlName="content"
-                  rows="10"
-                  class="form-control"
-                ></textarea>
+                <textarea formControlName="content" rows="10" class="form-control"></textarea>
                 <div class="text-danger" *ngIf="newsContent.errors">
                   <div *ngIf="newsContent.errors['required']">
                     News content is required
@@ -39,36 +28,33 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-12  form-group ">
+                <ejs-uploader #defaultupload [autoUpload]='true' [allowedExtensions]="'image/*'" name='fileupload'
+                  [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'>
+                </ejs-uploader>
+
+              </div>
+            </div>
           </ng-template>
         </e-tabitem>
         <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="newsLocales">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let locale of newsLocales.controls;
                   let i = index;
                   let last = last
-                "
-                [formGroup]="locale"
-              >
+                " [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
-                    <select
-                      class="form-control"
-                      formControlName="locale"
-                      id="locale"
-                    >
-                      <option
-                        *ngFor="
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="
                           let lang of languages;
                           let i = index;
                           let last = last
-                        "
-                        [value]="lang.ID"
-                        >{{ lang.name }}</option
-                      >
+                        " [value]="lang.ID">{{ lang.name }}</option>
                     </select>
                     <div class="text-danger" *ngIf="locale.errors">
                       <div *ngIf="locale.errors['required']">
@@ -78,72 +64,45 @@
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="header">News header</label>
-                    <input
-                      type="text"
-                      formControlName="header"
-                      class="form-control"
-                      id="header"
-                      aria-describedby="News header"
-                      placeholder="News header"
-                    />
-                    <div
-                      class="text-danger"
-                      *ngIf="locale.get('header').errors"
-                    >
+                    <input type="text" formControlName="header" class="form-control" id="header"
+                      aria-describedby="News header" placeholder="News header" />
+                    <div class="text-danger" *ngIf="locale.get('header').errors">
                       <div *ngIf="locale.get('header').errors['required']">
                         News header is required
                       </div>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-primary"
-                    *ngIf="last"
-                    [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
-                    [disabled]="locale.invalid"
-                    (click)="addLocale()"
-                  >
+                  <button type="button" class="btn btn-sm btn-primary" *ngIf="last"
+                    [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'" [disabled]="locale.invalid"
+                    (click)="addLocale()">
                     <i class="fa fa-plus"></i>
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-sm rounded  btn-danger"
-                    (click)="deleteLocale(i)"
-                  >
+                  <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
                     <i class="fa fa-trash"></i>
                   </button>
                 </div>
                 <div class="row">
                   <div class="col-12 col-sm-12 form-group">
                     <label for="newsContent">News content</label>
-                    <textarea
-                      formControlName="content"
-                      rows="10"
-                      id="newsContent"
-                      class="form-control"
-                    ></textarea>
-                    <small id="address" class="form-text text-muted"
-                      >Address of the Emergency contact.</small
-                    >
-                    <div
-                      class="text-danger"
-                      *ngIf="locale.get('content').errors"
-                    >
-                      <div
-                        *ngIf="locale.get('content').errors['required']"
-                      ></div>
+                    <textarea formControlName="content" rows="10" id="newsContent" class="form-control"></textarea>
+                    <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
+                    <div class="text-danger" *ngIf="locale.get('content').errors">
+                      <div *ngIf="locale.get('content').errors['required']"></div>
                     </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12  form-group ">
+                    <ejs-uploader #defaultupload [autoUpload]='false' [allowedExtensions]="'image/*'" name='fileupload'
+                      [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'>
+                    </ejs-uploader>
+
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-right">
-              <button
-                type="button"
-                (click)="addLocale()"
-                class="btn  btn-success"
-                *ngIf="newsLocales.length == 0"
-              >
+              <button type="button" (click)="addLocale()" class="btn  btn-success" *ngIf="newsLocales.length == 0">
                 <i class="fa fa-plus "></i>Add Language
               </button>
             </div>
@@ -151,11 +110,7 @@
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button
-      type="submit"
-      [ngClass]="newsForm.invalid ? 'btn-danger' : 'btn-success'"
-      class="btn"
-    >
+    <button type="submit" [ngClass]="newsForm.invalid ? 'btn-danger' : 'btn-success'" class="btn">
       Submit
     </button>
   </form>

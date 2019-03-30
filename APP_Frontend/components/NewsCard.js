@@ -29,7 +29,7 @@ export default class NewsCard extends Component {
               id: this.props.newsItems.ID,
             })}>
                     <Body>
-                        <Image  resizeMode="stretch" source={require('./../assets/images/notfound.png')} style={style.newsImage}/>
+                        <Image  resizeMode="stretch" source={ {uri: this.props.newsItems.medias? this.props.newsItems.medias : './../assets/images/notfound.png'}} style={style.newsImage}/>
                         <Text>
                             {
                                 this.props.newsItems.data

@@ -40,10 +40,9 @@ export default class ArticleScreen extends Component {
     return (
       <Container style={styles.mainContainer}>
         <Content>
-          {this._renderImage(article.photo)}
+          {this._renderImage(article.image)}
           {this._renderVideo(article.video)}
           <View style={styles.paragraphContainer}>
-            
             {this._renderAudio(article.audio)}
             <Text> {paragraph} </Text>
             <Text> {paragraph} </Text>
@@ -56,12 +55,13 @@ export default class ArticleScreen extends Component {
   }
 
   _renderImage(image) {
+    alert(image);
     if (image === null || image === '') {
       return
     } else {
       return (
         <Image
-          source={require('./../assets/images/image-not-found.jpg')}
+          source={{ uri: image }}
           style={{
             height: 200,
             width: width
