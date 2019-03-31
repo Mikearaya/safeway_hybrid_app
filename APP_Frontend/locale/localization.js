@@ -1,5 +1,9 @@
-import { DangerZone } from 'expo'
-const { Localization } = DangerZone
+import {
+  DangerZone
+} from 'expo';
+const {
+  Localization
+} = DangerZone;
 
 const localizationString = {
   afan_oromo: {
