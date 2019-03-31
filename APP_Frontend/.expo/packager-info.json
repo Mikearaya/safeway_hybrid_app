@@ -1,10 +1,10 @@
 {
-  "devToolsPort": 19003,
+  "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 16957,
+  "packagerPid": 10307,
   "expoServerNgrokUrl": "https://2f-ndd.mikearaya.app-frontend.exp.direct",
   "packagerNgrokUrl": "https://packager.2f-ndd.mikearaya.app-frontend.exp.direct",
-  "ngrokPid": 17019,
+  "ngrokPid": 10406,
   "webpackServerPort": null
 }

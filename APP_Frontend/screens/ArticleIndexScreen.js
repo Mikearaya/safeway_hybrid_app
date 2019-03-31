@@ -2,88 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, CardItem, Icon, Right } from 'native-base'
 import { FlatList, StyleSheet } from 'react-native'
 import localeStore from '../locale/localization'
-const policiesList = [
-  {
-    title: 'policy',
-    key: '1'
-  },
-  {
-    title: 'policy',
-    key: '2'
-  },
-  {
-    title: 'policy',
-    key: '3'
-  },
-  {
-    title: 'policy',
-    key: '4'
-  },
-  {
-    title: 'policy',
-    key: '5'
-  },
-  {
-    title: 'policy',
-    key: '6'
-  },
-  {
-    title: 'policy',
-    key: '7'
-  },
-  {
-    title: 'policy',
-    key: '8'
-  },
-  {
-    title: 'policy',
-    key: '9'
-  },
-  {
-    title: 'policy',
-    key: '10'
-  },
-  {
-    title: 'policy',
-    key: '11'
-  },
-  {
-    title: 'policy',
-    key: '12'
-  },
-  {
-    title: 'policy',
-    key: '13'
-  },
-  {
-    title: 'policy',
-    key: '14'
-  },
-  {
-    title: 'policy',
-    key: '15'
-  },
-  {
-    title: 'policy',
-    key: '16'
-  },
-  {
-    title: 'policy',
-    key: '17'
-  },
-  {
-    title: 'policy',
-    key: '18'
-  },
-  {
-    title: 'policy',
-    key: '19'
-  },
-  {
-    title: 'policy',
-    key: '20'
-  }
-]
+var Enviroment = require('../global.js')
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -104,34 +23,41 @@ const styles = StyleSheet.create({
 export default class ArticleIndexScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const articleId = navigation.getParam('articleId', 0);
-    alert(articleId);
     return {
       title: localeStore.PolicyIndex.title
     }
   }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      'tableOfContent': []
+    }
+
+  }
   render() {
-    const { navigation } = this.props
+    const { navigation } = this.props;
 
     const articleId = navigation.getParam('articleId')
     return (
       <View style={styles.mainContainer}>
         <FlatList
           style={{ flex: 1 }}
-          data={policiesList}
+          data={this.state.tableOfContent}
           renderItem={({ item }) => (
             <CardItem
               style={styles.indexBox}
               button
               onPress={() =>
                 this.props.navigation.navigate('Article', {
-                  articleId: item.key,
-                  articleTitle: item.title
+                  articleId: item.ID,
+                  articleTitle: item.header
                 })
               }
-               keyExtractor={(item, index) => index}
+            keyExtractor={(item, index) => index}
             >
               <Text style={styles.indexTitle}>
-                {item.key}-{item.title}
+                {item.key}-{item.header}
               </Text>
               <Right>
                 <Icon name="arrow-forward" />
@@ -141,5 +67,23 @@ export default class ArticleIndexScreen extends Component {
         />
       </View>
     )
+  }
+
+
+  componentDidMount() {
+        const {state} = this.props.navigation;
+
+        let url =  `${Enviroment.API_URL}/articles/content/${state.params.CATAGORY_ID}`
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+          this.setState({
+            tableOfContent: data
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
+
+
   }
 }

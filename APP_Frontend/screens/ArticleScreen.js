@@ -4,15 +4,7 @@ import { Container, Content } from 'native-base'
 
 import AudioPlayer from '../components/AudioPlayer'
 import VideoPlayer from '../components/VideoComponent'
-
-const article = {
-  photo: './../assets/images/image-not-found.jpg',
-  audio: 'sds',
-  video: ''
-}
-const paragraph = `To support React's concept of unidirectional data flow (which might be contrasted with AngularJS's bidirectional flow), the Flux architecture represents an alternative to the popular model-view-controller architecture. 
-Flux features actions which are sent through a central dispatcher to a store, and changes to the store are propagated back to the view[22]. When used with React, this propagation is 
-accomplished through component properties. Flux can be considered a variant of the observer pattern. React component under the Flux architecture should not directly modify any props passed to it, but should be passed c`
+var Enviroment = require('../global.js')
 
 const styles = StyleSheet.create({
   mainContainer: {
@@ -33,29 +25,38 @@ export default class ArticleScreen extends Component {
     }
   }
 
+  constructor(params) {
+    super(params);
+    this.state = {
+      article: {
+        article: {content: ''}
+      }
+    }
+  }
+
   render() {
     const { navigation } = this.props
 
-    const articleId = navigation.getParam('articleId', '0')
+    
     return (
       <Container style={styles.mainContainer}>
-        <Content>
-          {this._renderImage(article.image)}
-          {this._renderVideo(article.video)}
-          <View style={styles.paragraphContainer}>
-            {this._renderAudio(article.audio)}
-            <Text> {paragraph} </Text>
-            <Text> {paragraph} </Text>
-            <Text> {paragraph} </Text>
-            <Text> {paragraph} </Text>
+           
+             <View style={styles.paragraphContainer}>
+            {this._renderAudio(this.state.article.audios)}
+
           </View>
+        <Content>
+          {this._renderImage(this.state.article.image)}
+          {this._renderVideo(this.state.article.videos)}
+   
         </Content>
+        <Text> {this.state.article.article.content} </Text>
       </Container>
     )
   }
 
   _renderImage(image) {
-    alert(image);
+  
     if (image === null || image === '') {
       return
     } else {
@@ -72,7 +73,7 @@ export default class ArticleScreen extends Component {
   }
 
   _renderAudio(audio) {
-    if (audio === null || audio === '') {
+    if (audio === null || audio === []) {
       return
     } else {
       return <AudioPlayer />
@@ -85,5 +86,24 @@ export default class ArticleScreen extends Component {
     } else {
       return <VideoPlayer />
     }
+  }
+
+
+    componentDidMount() {
+        const {state} = this.props.navigation;
+
+        let url =  `${Enviroment.API_URL}/articles/${state.params.articleId}`
+
+      fetch(url)
+        .then(result => result.json())
+        .then(data => {
+        
+          this.setState({
+            article: data
+          })
+        })
+        .catch(error => alert(JSON.stringify(error.message)))
+
+
   }
 }

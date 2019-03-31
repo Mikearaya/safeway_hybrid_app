@@ -57,14 +57,17 @@ export default class ArticlesScreen extends React.Component {
     }
 
   _catagorySelected(selectedCatagory) {
+
     const catagory = {
       articleId: selectedCatagory.ID,
-      articleTitle: selectedCatagory.catagory
+      articleTitle: selectedCatagory.name
     }
+    
     if (selectedCatagory.totalArticles == 1) {
       this.props.navigation.navigate('Article', catagory)
     } else {
-      this.props.navigation.navigate('ArticleIndex', catagory)
+
+      this.props.navigation.navigate('ArticleIndex', selectedCatagory)
     }
   }
 }
