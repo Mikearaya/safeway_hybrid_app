@@ -26,5 +26,13 @@ class Article_catagory_model extends MY_Model
         $result_set = $this->db->get();
          return $result_set->result_array();
         }
+
+
+        public function get_catagories_list() {
+
+            $result_set = $this->db->get('article_catagory');
+
+            return $result_set->result_array();
+        }
     }
  

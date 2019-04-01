@@ -21,6 +21,7 @@ class MY_Model extends CI_Model
 
 
     function get_by_id($id) {
+      
             $this->db->where($this->primary_key, $id);
             
             $result_set = $this->db->get($this->table_name);
@@ -203,6 +204,8 @@ class MY_Model extends CI_Model
 
 
   public function delete($id) {
+
+    var_dump($id);
     $deletedIds = [];
     try {
       

@@ -56,6 +56,7 @@ export class ArticleCatagoryViewComponent implements OnInit {
   }
 
   deleteCatagory(data: any): void {
+    alert(data.ID);
     this.articleCatagoryApi
       .deleteArticleCatagory([data.ID])
       .subscribe(() => alert('article deleted successfuly'));

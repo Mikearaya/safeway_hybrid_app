@@ -35,6 +35,7 @@ export class Article {
 export interface ArticleCatagoryModel {
   ID?: number;
   name: string;
+  country: string;
 }
 
 export interface ArticleCatagoryLocaleModel {
@@ -46,6 +47,7 @@ export interface ArticleCatagoryLocaleModel {
 export interface ArticleCatagoryViewModel {
   id: number;
   name: string;
+  country: string;
   locale: string;
   date_added: Date;
   date_updated: Date;

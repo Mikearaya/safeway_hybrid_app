@@ -63,6 +63,51 @@ export class ArticleCatagoryFormComponent implements OnInit {
     this.createForm();
   }
 
+  get catagoryName(): FormControl {
+    return this.articleCatagoryForm.get('name') as FormControl;
+  }
+  get catagoryLocales(): FormArray {
+    return this.articleCatagoryForm.get('catagoryLocales') as FormArray;
+  }
+
+  get country(): FormControl {
+    return this.articleCatagoryForm.get('country') as FormControl;
+  }
+  prepareFormData(): ArticleCatagory | null {
+    const articleCatagory = new ArticleCatagory();
+
+    if (this.articleCatagoryForm.valid) {
+      if (this.isUpdate && this.catagoryId) {
+        articleCatagory.article_catagory = {
+          ID: this.catagoryId,
+          name: this.catagoryName.value,
+          country: this.country.value
+        };
+      } else {
+        articleCatagory.article_catagory = {
+          name: this.catagoryName.value,
+          country: this.country.value
+        };
+      }
+
+      this.catagoryLocales.controls.forEach(element => {
+        articleCatagory.article_catagory_locale.push({
+          ID: element.value.id,
+          locale: element.value.locale,
+          name: element.value.name
+        });
+      });
+
+      this.deletedIds.forEach(element => {
+        articleCatagory.deleted_ids.article_catagory_locale.push(element);
+      });
+
+      return articleCatagory;
+    } else {
+      return null;
+    }
+  }
+
   ngOnInit() {
     this.catagoryId = +this.activatedRoute.snapshot.paramMap.get('catagoryId');
 
@@ -81,6 +126,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
     this.articleCatagoryForm = this.formBuilder.group({
       id: [Guid.newGuid(), Validators.required],
       name: ['', Validators.required],
+      country: ['', Validators.required],
       catagoryLocales: this.formBuilder.array([this.generateLocaleForm()])
     });
   }
@@ -88,6 +134,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
   initializeForm(catagory: ArticleCatagory): void {
     this.articleCatagoryForm = this.formBuilder.group({
       name: [catagory.article_catagory.name, Validators.required],
+      country: [catagory.article_catagory.country, Validators.required],
       catagoryLocales: this.formBuilder.array([])
     });
     catagory.article_catagory_locale.map(locale =>
@@ -108,67 +155,6 @@ export class ArticleCatagoryFormComponent implements OnInit {
       name: ['', Validators.required],
       locale: ['', Validators.required]
     });
-  }
-
-  get catagoryName(): FormControl {
-    return this.articleCatagoryForm.get('name') as FormControl;
-  }
-  onSubmit(): void {
-    this.defaultupload.upload(this.defaultupload.getFilesData());
-    const catagory = this.prepareFormData();
-
-    if (this.isUpdate) {
-      this.articleApi
-        .updateArticleCatagory(catagory)
-        .subscribe(
-          () => alert('Article updated '),
-          (error: HttpErrorResponse) => alert(error.message)
-        );
-    } else {
-      this.articleApi.createArticleCatagory(catagory).subscribe(
-        (data: any) => {
-          this.catagoryId = data;
-          this.isUpdate = true;
-        },
-        (error: HttpErrorResponse) => alert(error.message)
-      );
-    }
-  }
-
-  get catagoryLocales(): FormArray {
-    return this.articleCatagoryForm.get('catagoryLocales') as FormArray;
-  }
-  prepareFormData(): ArticleCatagory | null {
-    const articleCatagory = new ArticleCatagory();
-
-    if (this.articleCatagoryForm.valid) {
-      if (this.isUpdate && this.catagoryId) {
-        articleCatagory.article_catagory = {
-          ID: this.catagoryId,
-          name: this.catagoryName.value
-        };
-      } else {
-        articleCatagory.article_catagory = {
-          name: this.catagoryName.value
-        };
-      }
-
-      this.catagoryLocales.controls.forEach(element => {
-        articleCatagory.article_catagory_locale.push({
-          ID: element.value.id,
-          locale: element.value.locale,
-          name: element.value.name
-        });
-      });
-
-      this.deletedIds.forEach(element => {
-        articleCatagory.deleted_ids.article_catagory_locale.push(element);
-      });
-
-      return articleCatagory;
-    } else {
-      return null;
-    }
   }
 
   deleteLocale(index: number): void {
@@ -194,9 +180,31 @@ export class ArticleCatagoryFormComponent implements OnInit {
     );
   }
 
-  public onFileSelect: EmitType<Object> = (args: any) => {
+  onFileSelect: EmitType<Object> = (args: any) => {
     this.uploadInput = args.filesData[0].name;
     console.log(args.filesData[0]);
     console.log(this.articleCatagoryForm.get('image'));
   };
+
+  onSubmit(): void {
+    this.defaultupload.upload(this.defaultupload.getFilesData());
+    const catagory = this.prepareFormData();
+
+    if (this.isUpdate) {
+      this.articleApi
+        .updateArticleCatagory(catagory)
+        .subscribe(
+          () => alert('Article updated '),
+          (error: HttpErrorResponse) => alert(error.message)
+        );
+    } else {
+      this.articleApi.createArticleCatagory(catagory).subscribe(
+        (data: any) => {
+          this.catagoryId = data;
+          this.isUpdate = true;
+        },
+        (error: HttpErrorResponse) => alert(error.message)
+      );
+    }
+  }
 }

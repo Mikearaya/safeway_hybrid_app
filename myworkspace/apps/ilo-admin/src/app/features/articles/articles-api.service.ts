@@ -46,10 +46,11 @@ export class ArticlesApiService {
   deleteArticleCatagory(
     catagoryId: number[]
   ): Observable<ArticleCatagoryViewModel> {
-    catagoryId.forEach(id => this.httpBody.append('id[]', `${id}`));
+    const idArr: any[] = [];
+    catagoryId.forEach(id => idArr.push({ ID: `${id}` }));
     return this.httpClient.post<ArticleCatagoryViewModel>(
       `article_catagory/delete`,
-      this.httpBody.toString()
+      idArr
     );
   }
 

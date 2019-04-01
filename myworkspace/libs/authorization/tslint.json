@@ -2,6 +2,7 @@
   "extends": "../../tslint.json",
   "rules": {
     "directive-selector": [true, "attribute", "bionic", "camelCase"],
-    "component-selector": [true, "element", "bionic", "kebab-case"]
+    "component-selector": [true, "element", "bionic", "kebab-case"],
+    "member-ordering": false
   }
 }
