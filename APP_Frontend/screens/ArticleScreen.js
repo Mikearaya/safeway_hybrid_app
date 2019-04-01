@@ -39,6 +39,7 @@ export default class ArticleScreen extends Component {
 
     return (
       <Container style={styles.mainContainer}>
+       
         <View style={styles.paragraphContainer}>
           {this._renderAudio(this.state.article.audios)}
         </View>
