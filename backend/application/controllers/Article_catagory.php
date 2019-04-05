@@ -12,7 +12,7 @@ class Article_catagory extends API
     }
 
 
-    public function index_get($type = 'catagories')
+    public function index_get($type = null)
     {
         if ($type == 'catagories') {
             $data = $this->article_catagory_model->get_catagories_list();

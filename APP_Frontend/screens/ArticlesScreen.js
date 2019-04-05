@@ -2,67 +2,95 @@ import React from "react";
 import { Container, Content } from "native-base";
 import NavigationButton from "../components/NavigationButton";
 import localeStore from "../locale/localization";
-import { FlatList } from "react-native";
+import { FlatList, View, Text } from "react-native";
 import ArticleList from "../components/ArticleListComponent";
 var Enviroment = require("../global.js");
+import { connect } from "react-redux";
 
-export default class ArticlesScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      catagories: []
-    };
-  }
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: localeStore.HelpScreen.title,
-      headerLeft: <NavigationButton sideBar={navigation} />
-    };
-  };
+import CountryFilterDropdown from "../components/CountryFilterDropdown";
+import { changeFilterCountry } from "../redux/app-redux";
 
-  render() {
-    return (
-      <Container>
-        <Content>
-          <FlatList
-            data={this.state.catagories}
-            renderItem={({ item }) => (
-              <ArticleList
-                onPress={() => this._catagorySelected(item)}
-                catagory={item}
-                articleCount={item.articleCount}
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </Content>
-      </Container>
-    );
-  }
+const mapStateToProps = state => {
+	return {
+		currentCountry: state.country
+	};
+};
 
-  componentDidMount() {
-    let url = `${Enviroment.API_URL}/article_catagory`;
+const mapDispatchToProps = dipatch => {
+	return {
+		changeFilterCountry: text => dipatch(changeFilterCountry(text))
+	};
+};
 
-    fetch(url)
-      .then(result => result.json())
-      .then(data => {
-        this.setState({
-          catagories: data
-        });
-      })
-      .catch(error => alert(JSON.stringify(error.message)));
-  }
+class ArticlesScreen extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			catagories: [],
+			country: this.props.currentCountry,
+			filteredDatas: []
+		};
+	}
+	static navigationOptions = ({ navigation }) => {
+		return {
+			headerLeft: <NavigationButton sideBar={navigation} />,
+			headerRight: <CountryFilterDropdown />
+		};
+	};
 
-  _catagorySelected(selectedCatagory) {
-    const catagory = {
-      articleId: selectedCatagory.ID,
-      articleTitle: selectedCatagory.name
-    };
+	render() {
+		return (
+			<Container>
+				<Content>
+					<FlatList
+						data={this.state.filteredDatas}
+						renderItem={({ item }) => (
+							<ArticleList
+								onPress={() => this._catagorySelected(item)}
+								catagory={item}
+								articleCount={item.articleCount}
+							/>
+						)}
+						keyExtractor={(item, index) => index.toString()}
+					/>
+				</Content>
+			</Container>
+		);
+	}
 
-    if (selectedCatagory.totalArticles == 1) {
-      this.props.navigation.navigate("Article", catagory);
-    } else {
-      this.props.navigation.navigate("ArticleIndex", selectedCatagory);
-    }
-  }
+	componentDidMount() {
+		let url = `${Enviroment.API_URL}/article_catagory`;
+
+		fetch(url)
+			.then(result => result.json())
+			.then(data => {
+				this.setState({
+					catagories: data
+				});
+			})
+			.catch(error => alert(JSON.stringify(error.message)));
+	}
+	componentDidUpdate() {
+		this.state.filteredDatas = this.state.catagories.filter(
+			s => s.country.toUpperCase() == this.props.currentCountry.toUpperCase()
+		);
+	}
+
+	_catagorySelected(selectedCatagory) {
+		const catagory = {
+			articleId: selectedCatagory.ID,
+			articleTitle: selectedCatagory.name
+		};
+
+		if (selectedCatagory.totalArticles == 1) {
+			this.props.navigation.navigate("Article", catagory);
+		} else {
+			this.props.navigation.navigate("ArticleIndex", selectedCatagory);
+		}
+	}
 }
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ArticlesScreen);

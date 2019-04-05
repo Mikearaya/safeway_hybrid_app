@@ -16,23 +16,26 @@ class Article_catagory_model extends MY_Model
     public function get_list()
     {
 
-            $result_set = $this->db->get('article');
+        $result_set = $this->db->get('article');
 
-        $this->db->select("article.CATAGORY_ID,article_catagory.name, ANY_VALUE(article.ID) as ID, count(article.CATAGORY_ID) as totalArticles");
+
+
+        $this->db->select("article.CATAGORY_ID,article_catagory.name, ANY_VALUE(article.ID) as ID, count(article.CATAGORY_ID) as totalArticles, ANY_VALUE(article_catagory.country) as country");
         $this->db->from('article');
-        $this->db->join('article_catagory', 'article_catagory.ID = article.CATAGORY_ID', "left");
-            $this->db->group_by('article.CATAGORY_ID');
+        $result = $this->db->where('article.CATAGORY_ID !=', NULL);
+        $this->db->join('article_catagory', 'article_catagory.ID = article.CATAGORY_ID');
+        $this->db->group_by('article.CATAGORY_ID');
 
         $result_set = $this->db->get();
-         return $result_set->result_array();
-        }
-
-
-        public function get_catagories_list() {
-
-            $result_set = $this->db->get('article_catagory');
-
-            return $result_set->result_array();
-        }
+        return $result_set->result_array();
     }
- 
+
+
+    public function get_catagories_list()
+    {
+
+        $result_set = $this->db->get('article_catagory');
+
+        return $result_set->result_array();
+    }
+}
