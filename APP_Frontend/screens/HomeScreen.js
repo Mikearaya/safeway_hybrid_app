@@ -5,6 +5,14 @@ import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import NewsCard from "../components/NewsCard";
 import config from "react-global-configuration";
+import { AsyncStorage } from "react-native";
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: "#fff"
+	}
+});
+
 var Enviroment = require("../global.js");
 
 export default class HomeScreen extends React.Component {
@@ -45,15 +53,22 @@ export default class HomeScreen extends React.Component {
 						<NewsCard newsItems={post} navigation={this.props.navigation} />
 					);
 				});
-				this.setState({ posts: posts });
+				setStoreItem("posts", data);
+				this.setState("posts", data);
+				const post = getStoreItem("posts");
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: "#fff"
-	}
-});
+setStoreItem = async (item, value) => {
+	this.setState("posts", value);
+	alert(JSON.stringify(value));
+	await AsyncStorage.setItem(item, JSON.stringify(value));
+};
+
+getStoreItem = async item => {
+	const store = await AsyncStorage.getItem(item);
+
+	return JSON.parse(store);
+};

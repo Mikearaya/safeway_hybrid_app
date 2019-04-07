@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Apr 7, 2019 10:03 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Apr 7, 2019 10:03 AM
+ * @Description: Modify Here, Please
+ */
 import React, { Component } from "react";
 import { Card, CardItem, Left, Body, Text } from "native-base";
 import { StyleSheet, Image } from "react-native";

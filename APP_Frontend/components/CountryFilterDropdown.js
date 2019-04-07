@@ -1,7 +1,18 @@
+/*
+ * @CreateTime: Apr 7, 2019 10:00 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Apr 7, 2019 10:00 AM
+ * @Description: Modify Here, Please
+ */
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dropdown } from "react-native-material-dropdown";
 import { changeFilterCountry } from "../redux/app-redux";
+import { StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({});
 
 const data = [
 	{
@@ -20,6 +31,7 @@ const data = [
 		value: "Lebanon"
 	}
 ];
+
 class CountryFilterDropdown extends Component {
 	constructor(props) {
 		super(props);

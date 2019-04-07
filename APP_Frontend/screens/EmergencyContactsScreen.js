@@ -6,6 +6,17 @@ import ListViewComponent from "../components/ListViewComponent";
 import NavigationButton from "../components/NavigationButton";
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { connect } from "react-redux";
+import { StyleSheet } from "react-native";
+
+const styles = StyleSheet.create({
+	navigationButton: {
+		flex: 1,
+		justifyContent: "flex-start"
+	},
+	filterComponent: {
+		flex: 1
+	}
+});
 var Enviroment = require("../global.js");
 
 class EmergencyContactsScreen extends Component {
@@ -22,19 +33,10 @@ class EmergencyContactsScreen extends Component {
 			headerLeft: (
 				<NavigationButton
 					sideBar={navigation}
-					style={{
-						flex: 1,
-						justifyContent: "flex-start"
-					}}
+					style={styles.navigationButton}
 				/>
 			),
-			headerRight: (
-				<CountryFilterDropdown
-					style={{
-						flex: 1
-					}}
-				/>
-			)
+			headerRight: <CountryFilterDropdown style={styles.filterComponent} />
 		};
 	};
 

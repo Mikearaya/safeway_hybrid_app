@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Apr 7, 2019 10:07 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Apr 7, 2019 10:07 AM
+ * @Description: Modify Here, Please
+ */
 import React from "react";
 import { Container, Content } from "native-base";
 import NavigationButton from "../components/NavigationButton";
@@ -6,9 +14,14 @@ import { FlatList, View, Text } from "react-native";
 import ArticleList from "../components/ArticleListComponent";
 var Enviroment = require("../global.js");
 import { connect } from "react-redux";
+import { StyleSheet } from "react-native";
 
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { changeFilterCountry } from "../redux/app-redux";
+
+const styles = StyleSheet.create({
+	container: { flex: 1, backgroundColor: "#f2f2f2" }
+});
 
 const mapStateToProps = state => {
 	return {
@@ -40,7 +53,7 @@ class ArticlesScreen extends React.Component {
 
 	render() {
 		return (
-			<Container>
+			<Container style={styles.container}>
 				<Content>
 					<FlatList
 						data={this.state.filteredDatas}

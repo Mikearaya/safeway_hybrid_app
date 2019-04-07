@@ -25,7 +25,7 @@ import ArticleIndexScreen from '../screens/ArticleIndexScreen';
 export const defaultColors = {
   defaultNavigationOptions: {
     headerStyle: {
-      backgroundColor: '#279b23',
+      backgroundColor: '#127ba4',
     },
     headerTintColor: '#fff',
     headerTitleStyle: {
