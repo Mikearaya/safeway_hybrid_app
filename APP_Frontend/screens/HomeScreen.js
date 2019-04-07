@@ -54,7 +54,7 @@ export default class HomeScreen extends React.Component {
 					);
 				});
 				setStoreItem("posts", data);
-				this.setState("posts", data);
+
 				const post = getStoreItem("posts");
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

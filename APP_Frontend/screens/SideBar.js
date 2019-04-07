@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1
 	},
 	image: {
-		height: height / 3 - 40,
+		margin: 5,
+		height: height / 3,
 		width: width - width / 3
 	},
 	imageBox: {
