@@ -26,7 +26,12 @@ export class ComplainsViewComponent implements OnInit {
       header: 'Passport no.',
       type: 'string'
     },
-    { key: 'complain', header: 'Complain', type: 'string' }
+    {
+      key: 'complain_type',
+      header: 'Reason',
+      type: 'string'
+    },
+    { key: 'date_added', header: 'Added', type: 'date' }
   ];
   constructor(private complainApi: ComplainApiService) {}
 

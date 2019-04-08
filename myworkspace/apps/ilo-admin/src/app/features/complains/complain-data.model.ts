@@ -45,6 +45,7 @@ export interface ComplainViewModel {
   passport_id?: string;
   complain: string;
   COMPLAIN_TYPE: number;
+  complain_type: string;
   date_added: Date;
   date_updated: Date;
 }
