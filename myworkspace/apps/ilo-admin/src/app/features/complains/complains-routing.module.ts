@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Mar 15, 2019 11:50 PM
+ * @Last Modified Time: Apr 8, 2019 1:24 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'type', component: ComplainTypeViewComponent },
   { path: 'type/new', component: ComplainTypeFormComponent },
   { path: 'type/:complainTypeId/update', component: ComplainTypeFormComponent },
-  { path: ':complainId', component: ComplainDetailViewComponent }
+  { path: ':complainId/update', component: ComplainDetailViewComponent }
 ];
 
 @NgModule({

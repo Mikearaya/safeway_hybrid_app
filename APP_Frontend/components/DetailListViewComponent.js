@@ -26,16 +26,16 @@ import {
 import localeStore from "../locale/localization";
 
 styles = StyleSheet.create({
-	listHeader: {
-		backgroundColor: "#f7f7f7",
-		flexDirection: "column",
-		justifyContent: "center",
-		alignItems: "center"
-	},
-	list: {
+	header: {
 		flex: 1,
-		backgroundColor: "black",
-		height: "auto"
+		padding: 10,
+		width: "100%",
+		marginBottom: 5,
+		borderWidth: 2,
+		borderTopWidth: 0,
+		borderRightWidth: 0,
+		borderLeftWidth: 0,
+		borderBottomColor: "#cecece"
 	},
 	catagoryFont: {
 		color: "lightgrey"
@@ -59,47 +59,36 @@ styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginRight: 10,
 		marginTop: 3
-	}
+	},
+	cardItem: {
+		backgroundColor: "#f7f7f7",
+		margin: 10,
+		borderRadius: 20,
+		flex: 1,
+		padding: 0
+	},
+	iconFields: { flexDirection: "row" }
 });
+
 export default class DetailListViewComponent extends Component {
 	render() {
 		return (
 			<Container>
 				<Content>
-					<CardItem
-						style={{
-							backgroundColor: "#f7f7f7",
-							margin: 10,
-							borderRadius: 20,
-							padding: 0
-						}}>
+					<CardItem style={styles.cardItem}>
 						<Body>
-							<View
-								style={{
-									flex: 1,
-									padding: 10,
-									flexDirection: "row",
-									width: "100%",
-									marginBottom: 5,
-									borderWidth: 2,
-
-									borderTopWidth: 0,
-									borderRightWidth: 0,
-									borderLeftWidth: 0,
-
-									borderBottomColor: "#cecece"
-								}}>
+							<View style={styles.header}>
 								<Text style={styles.mainHeader}>{this.props.item.name}</Text>
 							</View>
-							<View style={{ flexDirection: "row" }}>
+							<View style={styles.iconFields}>
 								<Icon style={styles.mainText} name="call" />
 								<Text>{this.props.item.phone_number}</Text>
 							</View>
-							<View style={{ flexDirection: "row" }}>
+							<View style={styles.iconFields}>
 								<Icon style={styles.mainText} name="mail" />
 								<Text>{this.props.item.phone_number}</Text>
 							</View>
-							<View style={{ flexDirection: "row" }}>
+							<View style={styles.iconFields}>
 								<View>
 									<Icon style={styles.mainText} name="compass" />
 								</View>

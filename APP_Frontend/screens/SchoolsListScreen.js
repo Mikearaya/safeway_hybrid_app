@@ -8,14 +8,41 @@
  */
 import React, { Component } from "react";
 import { FlatList } from "react-native";
-import { Container, Content } from "native-base";
+import { Container, Content, View, Icon, Input } from "native-base";
 import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import ListViewComponent from "../components/ListViewComponent";
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { changeFilterCountry } from "../redux/app-redux";
 import { connect } from "react-redux";
+import { StyleSheet } from "react-native";
+
 var Enviroment = require("../global.js");
+
+const styles = StyleSheet.create({
+	searchSection: {
+		backgroundColor: "#46b5be"
+	},
+	searchIcon: {
+		padding: 10,
+		color: "white"
+	},
+	input: {
+		flex: 1,
+		paddingTop: 10,
+		paddingRight: 10,
+		paddingBottom: 10,
+		paddingLeft: 0,
+		color: "white"
+	},
+	searchBox: {
+		backgroundColor: "#3fa4ac",
+		margin: 5,
+		flex: 1,
+		flexDirection: "row",
+		borderRadius: 20
+	}
+});
 
 class SchoolsListScreen extends Component {
 	constructor(props) {
@@ -35,6 +62,23 @@ class SchoolsListScreen extends Component {
 		return (
 			<Container>
 				<Content>
+					<View style={styles.searchSection}>
+						<View style={styles.searchBox}>
+							<Icon
+								style={styles.searchIcon}
+								name="ios-search"
+								size={20}
+								color="#000"
+							/>
+							<Input
+								style={styles.input}
+								placeholderTextColor="white"
+								value={this.state.title}
+								onChangeText={comments => this.setState({ comments })}
+								placeholder="Search"
+							/>
+						</View>
+					</View>
 					<FlatList
 						data={this.state.schools}
 						renderItem={({ item }) => (

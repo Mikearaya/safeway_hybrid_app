@@ -8,7 +8,7 @@ class Complains extends API
     {
         $this->model = 'complains_model';
         $this->post_validator = 'add_complain';
-        $this->put_validator = '';
+        $this->put_validator = 'update_complain';
         parent::__construct($config);
     }
 }

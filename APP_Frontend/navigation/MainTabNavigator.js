@@ -21,6 +21,8 @@ import SchoolDetailScreen from '../screens/SchoolDetailScreen';
 import HospitalsListScreen from '../screens/HospitalsListScreen';
 import HospitalDetailScreen from '../screens/HospitalDetailScreen';
 import ArticleIndexScreen from '../screens/ArticleIndexScreen';
+import ComplainFormScreen from '../screens/ComplainFormScreen';
+
 
 export const defaultColors = {
   defaultNavigationOptions: {
@@ -65,6 +67,7 @@ const SettingsStack = createStackNavigator({
     EmergencyContactDetail: EmergencyContactDetailScreen,
     Article: ArticleScreen,
     'ArticleIndex': ArticleIndexScreen,
+    'complain': ComplainFormScreen
   },
   defaultColors
 

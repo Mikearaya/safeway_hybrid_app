@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FlatList } from "react-native";
-import { Container, Content } from "native-base";
+import { Container, Content, View, Icon, Input } from "native-base";
 import localeStore from "../locale/localization";
 import ListViewComponent from "../components/ListViewComponent";
 import NavigationButton from "../components/NavigationButton";
@@ -15,6 +15,28 @@ const styles = StyleSheet.create({
 	},
 	filterComponent: {
 		flex: 1
+	},
+	searchSection: {
+		backgroundColor: "#46b5be"
+	},
+	searchIcon: {
+		padding: 10,
+		color: "white"
+	},
+	input: {
+		flex: 1,
+		paddingTop: 10,
+		paddingRight: 10,
+		paddingBottom: 10,
+		paddingLeft: 0,
+		color: "white"
+	},
+	searchBox: {
+		backgroundColor: "#3fa4ac",
+		margin: 5,
+		flex: 1,
+		flexDirection: "row",
+		borderRadius: 20
 	}
 });
 var Enviroment = require("../global.js");
@@ -44,6 +66,23 @@ class EmergencyContactsScreen extends Component {
 		return (
 			<Container>
 				<Content>
+					<View style={styles.searchSection}>
+						<View style={styles.searchBox}>
+							<Icon
+								style={styles.searchIcon}
+								name="ios-search"
+								size={20}
+								color="#000"
+							/>
+							<Input
+								style={styles.input}
+								placeholderTextColor="white"
+								value={this.state.title}
+								onChangeText={comments => this.setState({ comments })}
+								placeholder="Search"
+							/>
+						</View>
+					</View>
 					<FlatList
 						data={this.state.filteredDatas}
 						renderItem={({ item }) => (

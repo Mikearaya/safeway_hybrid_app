@@ -133,6 +133,13 @@ class SideBar extends Component {
 							<CardItem
 								style={styles.menuItem}
 								button
+								onPress={this.navigateToScreen("complain")}>
+								<Icon name="contacts" style={styles.menuIcons} />
+								<Text style={styles.menuText}>Complain Managment</Text>
+							</CardItem>
+							<CardItem
+								style={styles.menuItem}
+								button
 								onPress={this.navigateToScreen("Auth")}>
 								<Icon name="information-circle" style={styles.menuIcons} />
 								<Text style={styles.menuText}>

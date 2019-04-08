@@ -13,7 +13,8 @@ class API extends REST_Controller
     protected $post_validator;
     protected $put_validator;
 
-    function __construct($config = 'rest') {
+    function __construct($config = 'rest')
+    {
         parent::__construct($config);
         $this->load->model($this->model);
         $this->load->library('form_validation');
@@ -24,34 +25,27 @@ class API extends REST_Controller
     {
         $models = $this->model;
 
-        if($id === NULL) {
+        if ($id === NULL) {
             $result = $this->$models->get_list();
         } else {
             $result = $this->$models->get_by_id($id);
         }
-        
+
         $this->response($result, API::HTTP_OK);
-}
+    }
 
     public function index_POST()
     {
-        
 
- /*        if($this ->form_validation->run($this->post_validator) === false) {
-            $this->response($this->validation_errors(), API::HTTP_UNPROCESSABLE_ENTITY);
-        } else { */
+        $models = $this->model;
+        $result = $this->$models->add($this->request->body);
 
-            $models = $this->model;
-            $result = $this->$models->add( $this->request->body);
-
-            if($result !== null) {
-                $this->response($result, API::HTTP_CREATED);
-            } else {
-                $this->response(null, API::HTTP_UNPROCESSABLE_ENTITY);
-            }
-     /*    } */
-        
-     }
+        if ($result !== null) {
+            $this->response($result, API::HTTP_CREATED);
+        } else {
+            $this->response(null, API::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
 
 
     public function update_POST($id)
@@ -59,11 +53,9 @@ class API extends REST_Controller
         $models = $this->model;
 
 
-            $result = $this->$models->update($id, $this->request->body);
-      
-            $this->response(null, API::HTTP_NO_CONTENT);    
+        $result = $this->$models->update($id, $this->request->body);
 
-
+        $this->response(null, API::HTTP_NO_CONTENT);
     }
 
 
@@ -71,16 +63,12 @@ class API extends REST_Controller
     {
 
         $models = $this->model;
-        $result = $this->$models->delete( $this->request->body);
-        
-        if($result) {
+        $result = $this->$models->delete($this->request->body);
+
+        if ($result) {
             $this->response($result, API::HTTP_NO_CONTENT);
         } else {
             $this->response(false, API::HTTP_BAD_REQUEST);
-	    }
-
-	}
-    
-    
+        }
+    }
 }
- 

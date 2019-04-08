@@ -1,260 +1,248 @@
-<?php 
+<?php
 
 
 class MY_Model extends CI_Model
 {
 
-    protected $table_name;
-    protected $child_tables =  array() ;
-    protected $primary_key;
-    protected $media_location =  array('temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp',
-  'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/permanent',
-    'url' => 'http://192.168.1.4/ilo_app/backend/application/controllers/uploads/media/permanent' ) ;
+  protected $table_name;
+  protected $child_tables =  array();
+  protected $primary_key;
+  protected $media_location =  array(
+    'temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp',
+    'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/permanent',
+    'url' => 'http://192.168.1.4/ilo_app/backend/application/controllers/uploads/media/permanent'
+  );
 
 
-    function __construct()
-    {
-      
-        $this->load->database();
+  function __construct()
+  {
+
+    $this->load->database();
     $this->load->helper('file');
+  }
+
+
+  function get_by_id($id)
+  {
+
+    $this->db->where($this->primary_key, $id);
+
+    $result_set = $this->db->get($this->table_name);
+    $result[$this->table_name] = $result_set->row_array();
+    foreach ($this->child_tables as $table => $primary_key) {
+      $this->db->where($primary_key, $id);
+      $result_set = $this->db->get($table);
+      $result[$table] = $result_set->result_array();
     }
 
+    $directory = [];
 
-    function get_by_id($id) {
-      
-            $this->db->where($this->primary_key, $id);
-            
-            $result_set = $this->db->get($this->table_name);
-            $result[$this->table_name] = $result_set->row_array();
-            foreach ($this->child_tables as $table => $primary_key) {
-                $this->db->where($primary_key, $id);
-                $result_set = $this->db->get($table);
-                $result[$table] = $result_set->result_array();
-            }
-        
-            $directory = [];
-
-            if( is_dir($this->media_location['permanent'] .'/'.$this->table_name.'/'.$id."/english")) {
-              $directory = $this->getDirectoryContent($this->media_location['permanent'] .'/'.$this->table_name.'/'.$id."/english");
-            }
+    if (is_dir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $id . "/english")) {
+      $directory = $this->getDirectoryContent($this->media_location['permanent'] . '/' . $this->table_name . '/' . $id . "/english");
+    }
     $result['videos'] = [];
     $result['audios'] = [];
     $result['image'] = [];
     foreach ($directory as $info) {
-      
- 
-      if(!$info ->isDot() && !$info->isDir()) {
-        
+
+
+      if (!$info->isDot() && !$info->isDir()) {
+
         $file = $this->extract_file_info($info);
-    
+
         $mime = get_mime_by_extension($info->getFilename());
-        if(strstr($mime, "video/")){
+        if (strstr($mime, "video/")) {
           $result['videos'][] = $file;
-        }else if(strstr($mime, "image/")){
+        } else if (strstr($mime, "image/")) {
           $result['image'][] = $file;
-            $result['image'] = $this->media_location['url'].'/'.$this->table_name.'/'.$id."/english/".$info->getFilename();
-      } else if( strstr($mime, "audio/")){
+          $result['image'] = $this->media_location['url'] . '/' . $this->table_name . '/' . $id . "/english/" . $info->getFilename();
+        } else if (strstr($mime, "audio/")) {
           $result['audios'][] = $file;
         }
-
-
-    
-        }
-
-
+      }
     }
 
-            return $result;
-    
+    return $result;
+  }
+
+  function get_list()
+  {
+    $result = $this->db->get($this->table_name);
+    $result = $result->result_array();
+
+    for ($i = 0; $i < count($result); $i++) {
+
+      if (is_dir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $result[$i]['ID'] . "/english")) {
+
+        $x = $this->getDirectoryContent($this->media_location['permanent'] . '/' . $this->table_name . '/' . $result[$i]['ID'] . "/english");
+
+        foreach ($x as $info) {
+          if (!$info->isDot() && !$info->isDir()) {
+            $result[$i]['medias'] = $this->media_location['url'] . '/' . $this->table_name . '/' . $result[$i]['ID'] . "/english/" . $info->getFilename();
           }
-
-    function get_list()
-    {
-        $result = $this->db->get($this->table_name);
-        $result = $result->result_array();
-        
-        for($i = 0; $i < count($result); $i++) {
-
-        if(is_dir( $this->media_location['permanent'].'/'.$this->table_name .'/'.$result[$i]['ID']."/english") ) {
-    
-          $x = $this->getDirectoryContent($this->media_location['permanent'] .'/'.$this->table_name.'/'.$result[$i]['ID']."/english");           
-
-        foreach ($x as $info) {    
-          if(!$info ->isDot() && !$info->isDir()) {
-              $result[$i]['medias'] = $this->media_location['url'].'/'.$this->table_name.'/'.$result[$i]['ID']."/english/".$info->getFilename();
-          } 
         }
-        }
-
       }
-
-
-    
-        return $result;
     }
 
-  private function extract_file_info($file) {
 
-        $filename = $file->getRealPath();
-      return array('name' =>  pathinfo($filename)['filename'],
-                    'type' => '.'. pathinfo($filename)['extension'],
-                    'size' => $file->getSize(),
-                    'path' => $file->getRealPath()
-                  );
-}
-    function add($data)
-    {
-      if($data[$this->table_name]) {
-        $this->db->insert($this->table_name, $data[$this->table_name]);
-      }
+
+    return $result;
+  }
+
+  private function extract_file_info($file)
+  {
+
+    $filename = $file->getRealPath();
+    return array(
+      'name' =>  pathinfo($filename)['filename'],
+      'type' => '.' . pathinfo($filename)['extension'],
+      'size' => $file->getSize(),
+      'path' => $file->getRealPath()
+    );
+  }
+  function add($data)
+  {
+    if ($data[$this->table_name]) {
+      $this->db->insert($this->table_name, $data[$this->table_name]);
+    }
 
     $new_id = $this->db->insert_id();
-      if( count($this->child_tables) > 0) {
-        foreach ($this->child_tables as $key => $value) {
-          
-          if($data[$key]) {
-            for($i = 0; $i < count( $data[$key]); $i++ ) {
-              $data[$key][$i][$value] = $new_id;
-            }
+    if (count($this->child_tables) > 0) {
+      foreach ($this->child_tables as $key => $value) {
 
-          $this->db->insert_batch( $key, $data[$key]);
+        if ($data[$key]) {
+          for ($i = 0; $i < count($data[$key]); $i++) {
+            $data[$key][$i][$value] = $new_id;
           }
+
+          $this->db->insert_batch($key, $data[$key]);
         }
+      }
     }
 
-
-        if ($new_id != NULL) {
+    if ($new_id != NULL &&  isset($data['token'])) {
 
       $oldmask = umask(0);
-      if (!is_dir($this->media_location['permanent'].'/'.$this->table_name.'/'. $new_id)) {
-        var_dump('in');
-        mkdir($this->media_location['permanent']. '/'. $this->table_name . '/' . $new_id, 0777, true);
-        $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $new_id);
+      if (!is_dir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $new_id)) {
+        mkdir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $new_id, 0777, true);
+        $this->copyTree($this->media_location['temp'] . '/' . $data['token'] . '/', $this->media_location['permanent'] . '/' . $this->table_name . '/' .  $new_id);
       }
 
       $oldmask = umask($oldmask);
-            return $new_id;
-
-        } else {
-            return false;
-        }
+      return $new_id;
+    } else {
+      return $new_id;
     }
+  }
 
 
-    function update($id, $data) {
-      $this->db->where($this->primary_key, $id);
-      $this->db->update($this->table_name, $data[$this->table_name]);
-      
+  function update($id, $data)
+  {
+    $this->db->where($this->primary_key, $id);
+    $this->db->update($this->table_name, $data[$this->table_name]);
 
-      if(count($this->child_tables) > 0) {
-      
-        foreach ($this->child_tables as $key => $value) {
-          $updated = [];
-          $inserted = [];
 
-          $deleted = [];
+    if (count($this->child_tables) > 0) {
 
-          foreach ( $data['deleted_ids'][$key] as $key2 => $value2) {
-              $deleted[] = $value2;		
-          }
+      foreach ($this->child_tables as $key => $value) {
+        $updated = [];
+        $inserted = [];
 
-          if($deleted) {
-              $this->db->where_in('ID', $deleted);       
-              $this->db->delete($key);
-          }
-        
-          if( $data[$key]) {
-            
-            for( $i = 0; $i < count($data[$key]); $i++) {
-              $data[$key][$i][$value] = $data[$this->table_name][$this->primary_key];
-              if(isset( $data[$key][$i][$this->primary_key])) {
-                $updated[] = $data[$key][$i];
-              } else {
-              $inserted[] = $data[$key][$i];        
-              };
-            
-            }
-            
-            if($updated) {              
-              $this->db->update_batch($key, $updated, $this->primary_key);                      
-            }  
-            
-            if($inserted)  {
-              $this->db->insert_batch($key, $inserted);            
-            }
+        $deleted = [];
 
-          }
-        
+        foreach ($data['deleted_ids'][$key] as $key2 => $value2) {
+          $deleted[] = $value2;
         }
 
+        if ($deleted) {
+          $this->db->where_in('ID', $deleted);
+          $this->db->delete($key);
         }
 
+        if ($data[$key]) {
 
-      $oldmask = umask(0);
-      if (!is_dir($this->media_location['permanent'].'/'.$this->table_name.'/'. $id)) {
-        mkdir($this->media_location['permanent']. '/'. $this->table_name . '/' . $id, 0777, true);
-        $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $id);
-      } else {
-         $this->copyTree( $this->media_location['temp'] .'/'. $data['token'] .'/', $this->media_location['permanent'] .'/'.$this->table_name.'/'.  $id);
+          for ($i = 0; $i < count($data[$key]); $i++) {
+            $data[$key][$i][$value] = $data[$this->table_name][$this->primary_key];
+            if (isset($data[$key][$i][$this->primary_key])) {
+              $updated[] = $data[$key][$i];
+            } else {
+              $inserted[] = $data[$key][$i];
+            };
+          }
+
+          if ($updated) {
+            $this->db->update_batch($key, $updated, $this->primary_key);
+          }
+
+          if ($inserted) {
+            $this->db->insert_batch($key, $inserted);
+          }
+        }
       }
-
-         $oldmask = umask($oldmask);
     }
 
 
+    $oldmask = umask(0);
+    if (!is_dir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $id)) {
+      mkdir($this->media_location['permanent'] . '/' . $this->table_name . '/' . $id, 0777, true);
+      $this->copyTree($this->media_location['temp'] . '/' . $data['token'] . '/', $this->media_location['permanent'] . '/' . $this->table_name . '/' .  $id);
+    } else {
+      $this->copyTree($this->media_location['temp'] . '/' . $data['token'] . '/', $this->media_location['permanent'] . '/' . $this->table_name . '/' .  $id);
+    }
 
-  public function delete($id) {
+    $oldmask = umask($oldmask);
+  }
+
+
+
+  public function delete($id)
+  {
 
     var_dump($id);
     $deletedIds = [];
     try {
-      
-      foreach($id  as $key => $value) {
-        $deletedIds[] = current($value);
-    
 
+      foreach ($id  as $key => $value) {
+        $deletedIds[] = current($value);
       }
       $this->db->where_in($this->primary_key, $deletedIds);
       $this->db->delete($this->table_name);
       return ($this->db->affected_rows() > 0) ? true : false;
     } catch (Exception $e) {
       return false;
-		}
+    }
   }
-  private function copyTree($source,$destination) {
+  private function copyTree($source, $destination)
+  {
 
-    $source = rtrim($source, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-    $destination = rtrim($destination, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-    
+    $source = rtrim($source, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+    $destination = rtrim($destination, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
-    if(!is_dir($source) && !is_readable($source)) {
+
+    if (!is_dir($source) && !is_readable($source)) {
+      return false;
+    }
+
+    if (!is_dir($destination)) {
+      if (!mkdir($destination, 0777, true)) {
         return false;
+      }
     }
-    
-    if(!is_dir($destination)) {
-        if(!mkdir($destination, 0777, true)) {
-            return false;
-        }
-    }
-    
+
     $dirIteratorObject = $this->getDirectoryContent($source);
-    
-     foreach ($dirIteratorObject as $info ) {
-  
-        if ($info->isFile ()) {
-            copy($info->getFileInfo(), $destination.$info->getFilename());
-        } elseif(!$info->isDot() && $info->isDir()) {
-          $this->copyTree($info->getRealPath(), $destination.$info);
-        }
 
+    foreach ($dirIteratorObject as $info) {
+
+      if ($info->isFile()) {
+        copy($info->getFileInfo(), $destination . $info->getFilename());
+      } elseif (!$info->isDot() && $info->isDir()) {
+        $this->copyTree($info->getRealPath(), $destination . $info);
+      }
     }
-}
+  }
 
-  protected function getDirectoryContent($directory) {
+  protected function getDirectoryContent($directory)
+  {
     return new DirectoryIterator($directory);
   }
-
-
-
 }
- 

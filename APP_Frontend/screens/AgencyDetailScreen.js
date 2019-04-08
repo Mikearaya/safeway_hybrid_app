@@ -11,6 +11,7 @@ import { Container } from "native-base";
 import localeStore from "../locale/localization";
 import DetailListViewComponent from "../components/DetailListViewComponent";
 var Enviroment = require("../global.js");
+import { Rating, AirbnbRating } from "react-native-ratings";
 
 const detailInformation = {
 	name: "Ethiopian Embassy",
@@ -34,7 +35,16 @@ export default class AgencyDetailScreen extends Component {
 	render() {
 		return (
 			<Container>
-				<DetailListViewComponent item={this.state.agencyDetail} />
+				<DetailListViewComponent
+					style={{ flex: 1 }}
+					item={this.state.agencyDetail}
+				/>
+				<AirbnbRating
+					style={{ flex: 1 }}
+					count={5}
+					defaultRating={3}
+					size={20}
+				/>
 			</Container>
 		);
 	}

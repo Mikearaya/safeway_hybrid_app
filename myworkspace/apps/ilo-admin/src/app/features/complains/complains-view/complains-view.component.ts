@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ComplainApiService } from '../complain-api.service';
+import { CustomGridColumns } from '@bionic/shared-component';
 
 @Component({
   selector: 'bionic-complains-view',
@@ -7,7 +9,28 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class ComplainsViewComponent implements OnInit {
-  constructor() {}
+  public data: any[];
+  columnsBluePrint: CustomGridColumns[] = [
+    {
+      key: 'ID',
+      header: 'ID',
+      type: 'number'
+    },
+    {
+      key: 'barcode',
+      header: 'Barcode no.',
+      type: 'string'
+    },
+    {
+      key: 'passport_id',
+      header: 'Passport no.',
+      type: 'string'
+    },
+    { key: 'complain', header: 'Complain', type: 'string' }
+  ];
+  constructor(private complainApi: ComplainApiService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.complainApi.getAllComplains().subscribe(data => (this.data = data));
+  }
 }
