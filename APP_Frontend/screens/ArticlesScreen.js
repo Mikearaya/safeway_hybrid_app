@@ -78,11 +78,13 @@ class ArticlesScreen extends React.Component {
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					catagories: data
+					catagories: data,
+					filteredDatas: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
+
 	componentDidUpdate() {
 		this.state.filteredDatas = this.state.catagories.filter(
 			s => s.country.toUpperCase() == this.props.currentCountry.toUpperCase()

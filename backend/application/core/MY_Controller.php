@@ -23,12 +23,15 @@ class API extends REST_Controller
 
     public function index_GET($id = NULL)
     {
+
+        $language = $this->input->get('language', TRUE);
+
         $models = $this->model;
 
         if ($id === NULL) {
-            $result = $this->$models->get_list();
+            $result = $this->$models->get_list($language);
         } else {
-            $result = $this->$models->get_by_id($id);
+            $result = $this->$models->get_by_id($id, $language);
         }
 
         $this->response($result, API::HTTP_OK);

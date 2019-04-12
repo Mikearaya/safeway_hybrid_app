@@ -61,7 +61,8 @@ class AgenciesListScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			agencies: []
+			agencies: [],
+			filteredAgencies: []
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -117,11 +118,24 @@ class AgenciesListScreen extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ agencies: data });
+				this.setState({ agencies: data,
+					filteredAgencies: data });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 }
+
+filterData(filter = "") {
+	const x = this.state.agencies.filter(s =>
+		s.name
+			.toString()
+			.toLowerCase()
+			.includes(filter.toLowerCase())
+	);
+
+	this.setState({ filteredAgencies: x });
+}
+
 
 const mapStateToProps = state => {
 	return state;

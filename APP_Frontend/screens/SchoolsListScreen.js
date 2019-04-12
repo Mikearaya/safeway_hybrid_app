@@ -48,7 +48,8 @@ class SchoolsListScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			schools: []
+			schools: [],
+			filteredSchools: []
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -74,13 +75,13 @@ class SchoolsListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={comments => this.setState({ comments })}
+								onChangeText={search => this.filterData(search)}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.schools}
+						data={this.state.filteredSchools}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -98,13 +99,25 @@ class SchoolsListScreen extends Component {
 		);
 	}
 
+	filterData(filter = "") {
+		const x = this.state.schools.filter(s =>
+			s.name
+				.toString()
+				.toLowerCase()
+				.includes(filter.toLowerCase())
+		);
+
+		this.setState({ filteredSchools: x });
+	}
+
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/schools`;
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					schools: data
+					schools: data,
+					filteredSchools: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

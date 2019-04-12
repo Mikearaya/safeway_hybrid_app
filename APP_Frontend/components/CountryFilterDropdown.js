@@ -1,4 +1,4 @@
-/*
+/*changeFilterCountry
  * @CreateTime: Apr 7, 2019 10:00 AM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
@@ -9,7 +9,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Dropdown } from "react-native-material-dropdown";
-import { changeFilterCountry } from "../redux/app-redux";
+import {} from "../redux/app-redux";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({});
@@ -43,8 +43,7 @@ class CountryFilterDropdown extends Component {
 	render() {
 		return (
 			<Dropdown
-				baseColor="black"
-				textColor="white"
+				label="Select Country"
 				data={data}
 				containerStyle={{ width: 200 }}
 				value={this.props.currentCountry}

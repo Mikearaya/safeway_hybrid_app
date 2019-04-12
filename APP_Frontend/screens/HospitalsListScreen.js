@@ -12,8 +12,9 @@ import { Container, Content, Textarea, View, Input, Icon } from "native-base";
 import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import ListViewComponent from "../components/ListViewComponent";
-import CountryFilterDropdown from "../components/CountryFilterDropdown";
-import { changeFilterCountry } from "../redux/app-redux";
+import RegionFilterDropdown from "../components/RegionFilterDropdown";
+import { changeFilterCountry, changeFilterRegion } from "../redux/app-redux";
+import { connect } from "react-redux";
 var Enviroment = require("../global.js");
 
 const styles = StyleSheet.create({
@@ -43,19 +44,25 @@ const styles = StyleSheet.create({
 	container: { flex: 1 }
 });
 
-export default class HospitalsListScreen extends Component {
+class HospitalsListScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			hospitals: []
+			hospitals: [],
+			region: this.props.region,
+			filteredHospitals: [],
+			searchText: ""
 		};
+		this.props.hospitalsData;
 	}
 	static navigationOptions = ({ navigation }) => {
 		return {
-			headerRight: <CountryFilterDropdown />,
+			headerRight: <RegionFilterDropdown />,
 			headerLeft: <NavigationButton sideBar={navigation} />
 		};
 	};
+
+	hospitals = [];
 
 	render() {
 		return (
@@ -73,13 +80,13 @@ export default class HospitalsListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={comments => this.setState({ comments })}
+								onChangeText={search => this.filterData(search)}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.hospitals}
+						data={this.state.filteredHospitals}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -97,6 +104,17 @@ export default class HospitalsListScreen extends Component {
 		);
 	}
 
+	filterData(filter = "") {
+		const x = this.state.hospitals.filter(s =>
+			s.name
+				.toString()
+				.toLowerCase()
+				.includes(filter.toLowerCase())
+		);
+
+		this.setState({ filteredHospitals: x });
+	}
+
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/hospitals`;
 
@@ -104,10 +122,23 @@ export default class HospitalsListScreen extends Component {
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					hospitals: data
+					hospitals: data,
+					filterData: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
+	}
+
+	componentDidUpdate() {
+		this.state.filteredHospitals = this.state.hospitals.filter(
+			s =>
+				s.region.toString() == this.props.region.toString() ||
+				s.region.toString() == this.props.region.toString()
+		);
+
+		const ggg = this.state.hospitals.filter(
+			s => s.region.toString() == this.props.region.toString()
+		);
 	}
 }
 
@@ -117,6 +148,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		changeFilterCountry: text => dispatch(changeFilterCountry(text))
+		changeFilterRegion: text => {
+			dispatch(changeFilterRegion(text));
+		}
 	};
 };
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(HospitalsListScreen);

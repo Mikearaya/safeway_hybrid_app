@@ -11,4 +11,8 @@ class Complains extends API
         $this->put_validator = 'update_complain';
         parent::__construct($config);
     }
+
+
+    public function get_by_id($id)
+    { }
 }

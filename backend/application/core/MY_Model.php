@@ -22,18 +22,34 @@ class MY_Model extends CI_Model
   }
 
 
-  function get_by_id($id)
+  function get_by_id($id, $language)
   {
 
     $this->db->where($this->primary_key, $id);
+    $result;
 
-    $result_set = $this->db->get($this->table_name);
-    $result[$this->table_name] = $result_set->row_array();
-    foreach ($this->child_tables as $table => $primary_key) {
-      $this->db->where($primary_key, $id);
-      $result_set = $this->db->get($table);
+    if (is_null($language)) {
+      $result_set = $this->db->get($this->table_name);
+      $result[$this->table_name] = $result_set->row_array();
+
+      foreach ($this->child_tables as $table => $primary_key) {
+        $this->db->where($primary_key, $id);
+        $result_set = $this->db->get($table);
+      }
+      $result[$table] = $result_set->result_array();
+    } else {
+      $result_set = $this->db->get($this->table_name);
+      $result[$this->table_name] = $result_set->row_array();
+
+      foreach ($this->child_tables as $table => $primary_key) {
+        $this->db->where($primary_key, $id);
+        $result_set = $this->db->get($table);
+      }
       $result[$table] = $result_set->result_array();
     }
+
+
+
 
     $directory = [];
 

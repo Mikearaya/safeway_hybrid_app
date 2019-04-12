@@ -6,6 +6,7 @@ import NavigationButton from "../components/NavigationButton";
 import NewsCard from "../components/NewsCard";
 import config from "react-global-configuration";
 import { AsyncStorage } from "react-native";
+
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
@@ -53,22 +54,8 @@ export default class HomeScreen extends React.Component {
 						<NewsCard newsItems={post} navigation={this.props.navigation} />
 					);
 				});
-				setStoreItem("posts", data);
-
-				const post = getStoreItem("posts");
+				this.setState({ posts: posts });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 }
-
-setStoreItem = async (item, value) => {
-	this.setState("posts", value);
-	alert(JSON.stringify(value));
-	await AsyncStorage.setItem(item, JSON.stringify(value));
-};
-
-getStoreItem = async item => {
-	const store = await AsyncStorage.getItem(item);
-
-	return JSON.parse(store);
-};
