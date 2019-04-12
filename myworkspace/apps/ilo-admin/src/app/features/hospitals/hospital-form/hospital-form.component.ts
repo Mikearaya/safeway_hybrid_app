@@ -1,4 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, AfterViewInit, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ViewChild,
+  AfterViewInit,
+  AfterViewChecked
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +18,10 @@ import { Hospital, HospitalLocaleModel } from '../hospital-data.model';
 import { HospitalsService } from '../hospitals.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
-import { UploaderComponent, ActionCompleteEventArgs } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  ActionCompleteEventArgs
+} from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-hospital-form',
@@ -20,8 +30,6 @@ import { UploaderComponent, ActionCompleteEventArgs } from '@syncfusion/ej2-angu
   encapsulation: ViewEncapsulation.None
 })
 export class HospitalFormComponent implements OnInit, AfterViewChecked {
-
-
   public headerText: Object = [
     { text: 'Enlish Language (default)' },
     { text: 'Other Languages' }
@@ -34,6 +42,7 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
   private hospitalId: number;
   public languages: any[];
   public deletedIds: number[] = [];
+  public regionsList: any[] = [];
 
   isUpdate: boolean;
   formId: string;
@@ -64,7 +73,6 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-
     this.hospitalId = +this.activatedRoute.snapshot.paramMap.get('hospitalId');
 
     if (this.hospitalId) {
@@ -81,16 +89,15 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
     }
 
     this.systemConfig
+      .getRegionsList()
+      .subscribe((data: any) => (this.regionsList = data));
+    this.systemConfig
       .getLanguagesList()
       .subscribe((lang: any) => (this.languages = lang));
   }
 
-
-  ngAfterViewChecked(): void {
-
-  }
+  ngAfterViewChecked(): void {}
   createForm() {
-
     this.hospitalsForm = this.forumBuilder.group({
       phoneNumber: ['', Validators.required],
       address: ['', Validators.required],
@@ -101,7 +108,6 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
   }
 
   generateLocaleForm(): FormGroup {
-
     return this.forumBuilder.group({
       address: ['', Validators.required],
       locale: ['', Validators.required],
@@ -125,7 +131,7 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  onSele
+  onSele;
 
   initializeForm(hospital: Hospital) {
     this.hospitalsForm = this.forumBuilder.group({
@@ -181,10 +187,9 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
   }
 
   imageUploaded(event: ActionCompleteEventArgs) {
-    const upload  = event.fileData.filter((res) => res.statusCode ===  "2" )
+    const upload = event.fileData.filter(res => res.statusCode === '2');
 
-    if(upload === null) {
-
+    if (upload === null) {
       return;
     }
   }

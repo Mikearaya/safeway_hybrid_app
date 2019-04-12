@@ -18,7 +18,9 @@ export class ArticlesApiService {
   }
 
   getArticleCatagories(): Observable<ArticleCatagoryViewModel[]> {
-    return this.httpClient.get<ArticleCatagoryViewModel[]>(`article_catagory`);
+    return this.httpClient.get<ArticleCatagoryViewModel[]>(
+      `article_catagory/catagories`
+    );
   }
 
   getArticleCatagoryById(id: number): Observable<ArticleCatagory> {

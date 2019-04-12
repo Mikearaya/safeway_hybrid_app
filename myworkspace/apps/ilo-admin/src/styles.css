@@ -1,5 +1,4 @@
 @import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
 @import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 @import '../../../node_modules/@syncfusion/ej2-base/styles/material.css';
 @import '../../../node_modules/@syncfusion/ej2-angular-buttons/styles/material.css';
@@ -23,7 +22,7 @@ body {
   outline: 0;
 }
 
-.ng-invalid ~ ::before {
+.ng-invalid~ ::before {
   color: red;
 }
 
@@ -47,4 +46,10 @@ body {
   border-color: green;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgb(96, 206, 96);
+}
+
+
+
+div.container.card.shadow-lg.pl-5.pr-5.md-3 {
+  padding-bottom: 1em !important;
 }

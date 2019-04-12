@@ -18,7 +18,10 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { LessonTypeService } from '../lesson-type.service';
 import { LessonTypeViewModel } from '../lesson-type.model';
-import { UploaderComponent, RemovingEventArgs } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  RemovingEventArgs
+} from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'bionic-school-form',
@@ -44,6 +47,7 @@ export class SchoolFormComponent implements OnInit {
   public isUpdate: Boolean;
   public deletedLocaleIds: number[] = [];
   public deletedLessonIds: number[] = [];
+  public regionsList: any[] = [];
 
   formId: string;
   public preLoadFiles: Object[] = [
@@ -90,6 +94,10 @@ export class SchoolFormComponent implements OnInit {
     this.systemConf
       .getLanguagesList()
       .subscribe((data: any) => (this.languages = data));
+
+    this.systemConf
+      .getRegionsList()
+      .subscribe((data: any) => (this.regionsList = data));
   }
 
   private createForm(): void {
@@ -197,10 +205,8 @@ export class SchoolFormComponent implements OnInit {
     });
   }
 
-
-  removeFile(data:any) {
+  removeFile(data: any) {
     console.log(data);
-
   }
   onSubmit(): void {
     this.defaultUpload.upload(this.defaultUpload.getFilesData());

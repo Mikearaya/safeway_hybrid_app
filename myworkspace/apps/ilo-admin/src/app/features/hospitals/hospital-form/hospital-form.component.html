@@ -44,11 +44,8 @@
               <div class="col-12 col-sm-6 form-group">
                 <label for="region">Region</label>
                 <select class="form-control" formControlName="region" id="region">
-                  <option>Addis Ababa</option>
-                  <option>Dire dawa</option>
-                  <option>Hawassa</option>
-                  <option>Bishoftu</option>
-                  <option>Nazret</option>
+                  <option *ngFor="let region of regionsList; let i=index; let last=last" [value]='region.ID'>
+                    {{region.name}}</option>
                 </select>
                 <div class="text-danger" *ngIf="region.errors">
                   <div *ngIf="region.errors['required']">
@@ -59,9 +56,8 @@
             </div>
             <div class="row">
               <div class="col-12  form-group ">
-                  <ejs-uploader #defaultupload [autoUpload]='false'
-                [allowedExtensions]="'image/*'"  name='fileupload' [files]='preLoadFiles'
-                  [multiple]='false' [asyncSettings]='path'></ejs-uploader>
+                <ejs-uploader #defaultupload [autoUpload]='false' [allowedExtensions]="'image/*'" name='fileupload'
+                  [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'></ejs-uploader>
 
               </div>
             </div>

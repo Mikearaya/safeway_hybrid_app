@@ -31,6 +31,8 @@ export class EmergencyContactFormComponent implements OnInit {
   @ViewChild('defaultupload')
   public defaultUpload: UploaderComponent;
 
+public regionsList: any[] = [];
+
 
   public preLoadFiles: Object[] = [
     {
@@ -83,6 +85,11 @@ export class EmergencyContactFormComponent implements OnInit {
     this.systemConfig
       .getLanguagesList()
       .subscribe((data: any) => (this.languages = data));
+
+
+      this.systemConfig.getRegionsList().subscribe(
+        (data: any) => this.regionsList = data
+      )
   }
 
   createForm() {
