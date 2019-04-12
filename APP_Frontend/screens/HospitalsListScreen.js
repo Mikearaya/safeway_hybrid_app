@@ -123,23 +123,13 @@ class HospitalsListScreen extends Component {
 			.then(data => {
 				this.setState({
 					hospitals: data,
-					filterData: data
+					filteredHospitals: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 
-	componentDidUpdate() {
-		this.state.filteredHospitals = this.state.hospitals.filter(
-			s =>
-				s.region.toString() == this.props.region.toString() ||
-				s.region.toString() == this.props.region.toString()
-		);
-
-		const ggg = this.state.hospitals.filter(
-			s => s.region.toString() == this.props.region.toString()
-		);
-	}
+	componentDidUpdate() {}
 }
 
 const mapStateToProps = state => {

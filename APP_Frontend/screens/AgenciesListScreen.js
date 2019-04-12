@@ -88,13 +88,13 @@ class AgenciesListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={comments => this.setState({ comments })}
+								onChangeText={search => this.filterData(search)}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.agencies}
+						data={this.state.filteredAgencies}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -118,24 +118,22 @@ class AgenciesListScreen extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ agencies: data,
-					filteredAgencies: data });
+				this.setState({ agencies: data, filterData: data });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
+
+	filterData(filter = "") {
+		const x = this.state.agencies.filter(s =>
+			s.name
+				.toString()
+				.toLowerCase()
+				.includes(filter.toLowerCase())
+		);
+
+		this.setState({ filteredAgencies: x });
+	}
 }
-
-filterData(filter = "") {
-	const x = this.state.agencies.filter(s =>
-		s.name
-			.toString()
-			.toLowerCase()
-			.includes(filter.toLowerCase())
-	);
-
-	this.setState({ filteredAgencies: x });
-}
-
 
 const mapStateToProps = state => {
 	return state;
