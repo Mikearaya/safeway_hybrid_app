@@ -8,15 +8,15 @@ class MY_Model extends CI_Model
   protected $child_tables =  array();
   protected $primary_key;
   protected $media_location =  array(
-    'temp' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp',
-    'permanent' => '/var/www/html/ilo_app/backend/application/controllers/uploads/media/permanent',
-    'url' => 'http://192.168.1.4/ilo_app/backend/application/controllers/uploads/media/permanent'
+    'temp' => 'uploads/media/temp',
+    'permanent' => 'uploads/media/permanent',
+    'url' => ''
   );
 
 
   function __construct()
   {
-
+    $this->media_location['']=base_url('uploads/media/permanent');
     $this->load->database();
     $this->load->helper('file');
   }

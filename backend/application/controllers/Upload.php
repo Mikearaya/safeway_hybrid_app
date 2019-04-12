@@ -2,7 +2,6 @@
 
 class Upload extends API
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -12,10 +11,15 @@ class Upload extends API
 
     public function media_POST($language = 'english', $formId)
     {
-        $uploadlocation = '/var/www/html/ilo_app/backend/application/controllers/uploads/media/temp/' . $formId . '/' . $language;
+        $folder_location="uploads/media/";
+        $uploadlocation =  $folder_locaiton . 'temp/' . $formId . '/' . $language;
         $config['upload_path'] = $uploadlocation;
         $config['allowed_types'] = 'gif|jpg|png|mp3|mp4|flv|wmv|avi';
         $config['max_size']  = 20000000;
+
+        if (!is_dir($folder_location)) {
+            mkdir($folder_location, 0777, true);
+        }
 
         if (!is_dir($uploadlocation)) {
             mkdir($uploadlocation, 0777, true);
@@ -39,16 +43,15 @@ class Upload extends API
 
     public function media_delete_POST($type, $formId)
     {
-
-        $fileLocation = '/var/www/html/ilo_app/backend/application/controllers/uploads/media/permanent/' . $type . '/' . $formId . '/';
+        $fileLocation = 'uploads/media/permanent/' . $type . '/' . $formId . '/';
 
         $this->delete_file($fileLocation, $_REQUEST['fileupload']);
     }
 
 
 
-    private function delete_file($directory, $file_name){
-
+    private function delete_file($directory, $file_name)
+    {
         $directory = rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
 
@@ -60,9 +63,7 @@ class Upload extends API
         $dirIteratorObject =  new DirectoryIterator($directory);
 
         foreach ($dirIteratorObject as $info) {
-
             if ($info->isFile()) {
-
                 if ($info->getFileName() == $file_name) {
                     var_dump('are equal');
                     var_dump($info->getFilename());
@@ -75,4 +76,3 @@ class Upload extends API
         }
     }
 }
- 
