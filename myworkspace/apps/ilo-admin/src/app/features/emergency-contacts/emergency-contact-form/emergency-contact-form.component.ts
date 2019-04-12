@@ -14,7 +14,10 @@ import {
   EmergencyContactLocaleModel
 } from '../emergency-contact-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ActionCompleteEventArgs, ClearingEventArgs } from '@syncfusion/ej2-inputs';
+import {
+  ActionCompleteEventArgs,
+  ClearingEventArgs
+} from '@syncfusion/ej2-inputs';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
@@ -31,8 +34,7 @@ export class EmergencyContactFormComponent implements OnInit {
   @ViewChild('defaultupload')
   public defaultUpload: UploaderComponent;
 
-public regionsList: any[] = [];
-
+  public regionsList: any[] = [];
 
   public preLoadFiles: Object[] = [
     {
@@ -47,7 +49,7 @@ public regionsList: any[] = [];
   public deletedIds: number[] = [];
   isUpdate: boolean;
   formId: any;
-  path: { saveUrl: string; removeUrl: string; };
+  path: { saveUrl: string; removeUrl: string };
   constructor(
     private forumBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -59,13 +61,11 @@ public regionsList: any[] = [];
     this.path = {
       saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
         this.formId
-        }`,
+      }`,
       removeUrl:
         'http://localhost/ilo_app/backend/index.php/upload/media_delete/emergency_contact'
     };
   }
-
-
 
   ngOnInit() {
     this.emergencyContactId = +this.activatedRoute.snapshot.paramMap.get(
@@ -86,10 +86,9 @@ public regionsList: any[] = [];
       .getLanguagesList()
       .subscribe((data: any) => (this.languages = data));
 
-
-      this.systemConfig.getRegionsList().subscribe(
-        (data: any) => this.regionsList = data
-      )
+    this.systemConfig
+      .getRegionsList()
+      .subscribe((data: any) => (this.regionsList = data));
   }
 
   createForm() {
@@ -117,14 +116,12 @@ public regionsList: any[] = [];
       locale: [locale.locale, Validators.required],
       name: [locale.name, Validators.required]
     });
-
   }
 
   imageUploaded(event: ActionCompleteEventArgs) {
-    const upload = event.fileData.filter((res) => res.statusCode === "2")
+    const upload = event.fileData.filter(res => res.statusCode === '2');
 
     if (upload === null) {
-
       return;
     }
   }
@@ -190,12 +187,10 @@ public regionsList: any[] = [];
     this.emergencyContactLocales.controls.push(this.generateLocaleForm());
   }
   onSubmit() {
-
     this.defaultUpload.upload(this.defaultUpload.getFilesData());
 
-    setInterval(() => console.log('uploading'), 1000)
+    setInterval(() => console.log('uploading'), 1000);
     const emergencyContactData = this.prepareFormData();
-
 
     if (emergencyContactData) {
       if (this.isUpdate) {
@@ -219,10 +214,10 @@ public regionsList: any[] = [];
       }
     }
   }
- removing(data: ClearingEventArgs) {
-  console.log(data);
-  this.defaultUpload.refresh();
- }
+  removing(data: ClearingEventArgs) {
+    console.log(data);
+    this.defaultUpload.refresh();
+  }
   private prepareFormData(): EmergencyContact | null {
     const emergencyContact = new EmergencyContact();
     if (this.emergencyContactsForm.valid) {
