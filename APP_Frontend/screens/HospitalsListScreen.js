@@ -13,7 +13,7 @@ import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import ListViewComponent from "../components/ListViewComponent";
 import RegionFilterDropdown from "../components/RegionFilterDropdown";
-import { changeFilterCountry, changeFilterRegion } from "../redux/app-redux";
+import { changeFilterRegion } from "../redux/app-redux";
 import { connect } from "react-redux";
 var Enviroment = require("../global.js");
 
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
 class HospitalsListScreen extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			hospitals: [],
 			region: this.props.region,
@@ -61,8 +62,6 @@ class HospitalsListScreen extends Component {
 			headerLeft: <NavigationButton sideBar={navigation} />
 		};
 	};
-
-	hospitals = [];
 
 	render() {
 		return (
@@ -79,7 +78,7 @@ class HospitalsListScreen extends Component {
 							<Input
 								style={styles.input}
 								placeholderTextColor="white"
-								value={this.state.title}
+								value={this.state.searchText}
 								onChangeText={search => this.filterData(search)}
 								placeholder="Search"
 							/>
@@ -105,14 +104,15 @@ class HospitalsListScreen extends Component {
 	}
 
 	filterData(filter = "") {
-		const x = this.state.hospitals.filter(s =>
+		let x = this.state.hospitals.filter(s =>
 			s.name
 				.toString()
 				.toLowerCase()
 				.includes(filter.toLowerCase())
 		);
 
-		this.setState({ filteredHospitals: x });
+		x = x.filter(t => t.region.toString() === this.props.region.toString());
+		this.setState({ filteredHospitals: x, searchText: filter });
 	}
 
 	componentDidMount() {

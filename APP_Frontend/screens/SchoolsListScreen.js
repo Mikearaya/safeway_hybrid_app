@@ -100,13 +100,14 @@ class SchoolsListScreen extends Component {
 	}
 
 	filterData(filter = "") {
-		const x = this.state.schools.filter(s =>
+		let x = this.state.schools.filter(s =>
 			s.name
 				.toString()
 				.toLowerCase()
 				.includes(filter.toLowerCase())
 		);
 
+		x = x.filter(t => t.region.toString() === this.props.region.toString());
 		this.setState({ filteredSchools: x });
 	}
 

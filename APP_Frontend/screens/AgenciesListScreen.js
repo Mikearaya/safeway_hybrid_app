@@ -124,13 +124,13 @@ class AgenciesListScreen extends Component {
 	}
 
 	filterData(filter = "") {
-		const x = this.state.agencies.filter(s =>
+		let x = this.state.agencies.filter(s =>
 			s.name
 				.toString()
 				.toLowerCase()
 				.includes(filter.toLowerCase())
 		);
-
+		x = x.filter(t => t.region.toString() === this.props.region.toString());
 		this.setState({ filteredAgencies: x });
 	}
 }

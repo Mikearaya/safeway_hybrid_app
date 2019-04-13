@@ -39,14 +39,12 @@ class RegionFilterDropdown extends Component {
 	}
 
 	onChangeRegionFilter = () => {
-		this.props.changeFilterRegion(this.state.region);
+		let x = this.state.regions.filter(d => d.name == this.state.region);
+		this.props.changeFilterRegion(x[0].ID);
 	};
 }
 
 const mapStateToProps = state => {
-	//alert(JSON.stringify(`map dispatch ${state.region}`));
-
-	alert(JSON.stringify(state));
 	return { currentRegion: state.region };
 };
 
