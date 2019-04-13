@@ -19,6 +19,8 @@ class System_Model extends MY_Model
         try {
             $this->add_system_languages();
             $this->add_system_regions();
+            $this->add_system_user();
+
 
             return true;
         } catch (Exception $e) {
@@ -45,8 +47,6 @@ class System_Model extends MY_Model
     public function add_system_regions()
     {
 
-
-
         $region = array(
             array("name" => "Addis Ababa"),
             array("name" => "Afar Region"),
@@ -65,5 +65,20 @@ class System_Model extends MY_Model
         $this->db->empty_table('region');
 
         $this->db->insert_batch('region', $region);
+    }
+
+
+    public function add_system_user()
+    {
+
+        $user = array(
+            "fullname" => "Administrator",
+            "username" => "admin",
+            "password" => "admin"
+
+        );
+
+        $this->db->empty_table('user');
+        $this->db->insert('user', $user);
     }
 }
