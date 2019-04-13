@@ -13,7 +13,7 @@ var _Enviroment = {
 
 
 function getEnviroment() {
-    return _Enviroment['development'];
+    return _Enviroment['production'];
 
 }
 

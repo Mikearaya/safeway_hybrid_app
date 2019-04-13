@@ -12,7 +12,7 @@ class Upload extends API
     public function media_POST($language = 'english', $formId)
     {
         $folder_location="uploads/media/";
-        $uploadlocation =  $folder_locaiton . 'temp/' . $formId . '/' . $language;
+        $uploadlocation =  $folder_location . 'temp/' . $formId . '/' . $language;
         $config['upload_path'] = $uploadlocation;
         $config['allowed_types'] = 'gif|jpg|png|mp3|mp4|flv|wmv|avi';
         $config['max_size']  = 20000000;
