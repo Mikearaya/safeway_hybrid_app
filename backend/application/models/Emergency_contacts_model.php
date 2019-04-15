@@ -1,5 +1,4 @@
-
-<?php 
+<?php
 
 class Emergency_contacts_Model extends MY_Model
 {

@@ -50,7 +50,7 @@ export class NewsViewComponent implements OnInit {
 
   deleteNews(data: any): void {
     this.newsApi
-      .deleteNews(data.ID)
+      .deleteNews([data.ID])
       .subscribe(
         () => alert('News deleted successfully'),
         (error: HttpErrorResponse) =>

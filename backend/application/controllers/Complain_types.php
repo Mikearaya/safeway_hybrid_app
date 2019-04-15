@@ -1,4 +1,3 @@
-
 <?php
 
 class Complain_Types extends API
@@ -12,4 +11,3 @@ class Complain_Types extends API
         parent::__construct($config);
     }
 }
-?> 

@@ -1,8 +1,2 @@
-<bionic-data-grid-view
-  [data]="data"
-  [columnsList]="columnList"
-  [showUpdate]="true"
-  [idKey]="'ID'"
-  [showDelete]="true"
-  [showColumnChooser]="true"
-></bionic-data-grid-view>
+<bionic-data-grid-view [data]="data" [columnsList]="columnList" [showUpdate]="true" [idKey]="'ID'" [showDelete]="true"
+  [showColumnChooser]="true" (deleteRecord)="deleteEmergencyContact($event)"></bionic-data-grid-view>

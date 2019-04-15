@@ -116,7 +116,7 @@ export class SchoolFormComponent implements OnInit {
   private initializeForm(data: School): void {
     this.schoolForm = this.formBuilder.group({
       name: [data.school.name, Validators.required],
-      lessons: [data.school_lessons.map(l => l.LESSON_ID), Validators.required],
+      lessons: ['', Validators.required],
       region: [data.school.region, Validators.required],
       address: [data.school.address],
       fax: [data.school.fax],

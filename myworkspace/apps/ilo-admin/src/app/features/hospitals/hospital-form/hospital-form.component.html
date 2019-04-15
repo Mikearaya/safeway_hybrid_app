@@ -74,7 +74,7 @@
                 " [formGroup]="locale">
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-3 form-group">
-                    <label for="locale">locale</label>
+                    <label for="locale">Language</label>
                     <select class="form-control" formControlName="locale" id="locale">
                       <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
                     </select>

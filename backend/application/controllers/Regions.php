@@ -9,4 +9,5 @@ class Regions extends API
         $this->model = 'region_model';
         parent::__construct($config);
     }
+
 }

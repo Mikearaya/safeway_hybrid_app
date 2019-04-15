@@ -47,9 +47,6 @@ export class EmergencyContactApiService {
   ): Observable<void> {
     const idArr: any[] = [];
     emergencyContactsId.forEach(id => idArr.push({ id: `${id}` }));
-    return this.httpClient.post<void>(
-      `${this.controller}/${emergencyContactsId}`,
-      idArr
-    );
+    return this.httpClient.post<void>(`${this.controller}/delete`, idArr);
   }
 }

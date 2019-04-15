@@ -13,5 +13,3 @@ class Lesson_type_Model extends MY_Model
         
     }
 }
- 
-?>

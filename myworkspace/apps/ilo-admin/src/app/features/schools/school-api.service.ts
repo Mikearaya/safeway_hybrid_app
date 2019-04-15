@@ -35,7 +35,7 @@ export class SchoolApiService {
 
   deleteSchool(typeId: number[]): Observable<void> {
     const idArr: any[] = [];
-    idArr.forEach(id => idArr.push({ id: `${id}` }));
+    typeId.forEach(id => idArr.push({ id: `${id}` }));
     return this.httpClient.post<void>(`${this.controller}/delete/`, idArr);
   }
 }

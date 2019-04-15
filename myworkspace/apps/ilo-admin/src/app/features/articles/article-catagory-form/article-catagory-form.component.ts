@@ -127,7 +127,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
       id: [Guid.newGuid(), Validators.required],
       name: ['', Validators.required],
       country: ['', Validators.required],
-      catagoryLocales: this.formBuilder.array([this.generateLocaleForm()])
+      catagoryLocales: this.formBuilder.array([])
     });
   }
 
@@ -202,6 +202,7 @@ export class ArticleCatagoryFormComponent implements OnInit {
         (data: any) => {
           this.catagoryId = data;
           this.isUpdate = true;
+          alert('Article catagory added successfuly');
         },
         (error: HttpErrorResponse) => alert(error.message)
       );

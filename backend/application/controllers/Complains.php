@@ -1,4 +1,3 @@
-
 <?php
 
 class Complains extends API

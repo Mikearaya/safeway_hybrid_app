@@ -8,4 +8,3 @@ class News extends API {
         parent::__construct($config);
     }
 }
-?>

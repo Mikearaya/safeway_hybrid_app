@@ -1,4 +1,3 @@
-
 <?php
 
 class Complains_model extends MY_Model

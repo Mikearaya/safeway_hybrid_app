@@ -10,5 +10,3 @@ class Forum_Comments extends API {
         parent::__construct($config);
     }
 }
-
-?>

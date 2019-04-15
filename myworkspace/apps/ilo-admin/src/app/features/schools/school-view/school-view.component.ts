@@ -81,7 +81,7 @@ export class SchoolViewComponent implements OnInit {
 
   deleteSchool(data: any): void {
     this.schoolApi
-      .deleteSchool(data.ID)
+      .deleteSchool([data.ID])
       .subscribe(
         () => alert('School deleted successfully'),
         (error: HttpErrorResponse) => alert(error.message)

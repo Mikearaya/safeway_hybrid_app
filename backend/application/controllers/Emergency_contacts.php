@@ -1,4 +1,3 @@
-
 <?php
 
 class Emergency_contacts extends API

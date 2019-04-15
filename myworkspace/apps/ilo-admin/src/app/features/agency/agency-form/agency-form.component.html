@@ -32,11 +32,9 @@
               <div class="col-12 col-sm-6 form-group">
                 <label for="region">Region</label>
                 <select class="form-control" formControlName="region" id="region">
-                  <option [value]="1">Addis Ababa</option>
-                  <option [value]="2">Dire dawa</option>
-                  <option [value]="3">Hawassa</option>
-                  <option [value]="4">Bishoftu</option>
-                  <option [value]="5">Nazret</option>
+                  <option *ngFor="let region of regionsList; let i=index; let last=last;" [value]="region.ID">
+                    {{region.name}}</option>
+
                 </select>
                 <div class="text-danger" *ngIf="region.errors">
                   <div *ngIf="region.errors['required']">

@@ -14,9 +14,12 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class RmHeaderInterceptorService implements HttpInterceptor {
+  constructor(private location: ActivatedRoute) {}
+
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -24,6 +27,7 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
     // get the requested url eg:// /api/something
     const requestUrl = request.url;
     // modify request content-type header to application/json
+    console.log();
 
     // check the request method used
     if (request.method === 'GET') {
@@ -41,7 +45,6 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
         url: `http://localhost/ilo_app/backend/index.php/${requestUrl}`,
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8'
-          //'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
         }
       });
       return next.handle(modifiedRequest);

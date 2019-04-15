@@ -10,9 +10,9 @@ class Forum_comments_Model extends MY_Model
     }
 
 
-    public function get_by_id($id) {
+    public function get_by_id($id)
+    {
         $result_set = $this->db->get_where('forum_comments', array('FORUM_ID' => $id));
         return $result_set->result_array();
     }
 }
- 

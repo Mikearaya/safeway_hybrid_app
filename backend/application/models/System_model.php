@@ -1,7 +1,5 @@
 <?php
 
-
-
 class System_Model extends MY_Model
 {
 

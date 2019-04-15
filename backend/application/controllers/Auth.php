@@ -36,8 +36,8 @@ class Auth extends API
                 $this->set_response($decodedToken, API::HTTP_OK);
                 return;
             }
+        } else {
+            $this->set_response("Unauthorised", API::HTTP_UNAUTHORIZED);
         }
-        $this->set_response("Unauthorised", API::HTTP_UNAUTHORIZED);
     }
 }
-

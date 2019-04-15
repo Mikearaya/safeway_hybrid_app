@@ -7,14 +7,8 @@
             <div class="row">
               <div class="col-12  form-group ">
                 <label for="topic">Forum topic</label>
-                <input
-                  type="text"
-                  formControlName="topic"
-                  class="form-control"
-                  id="topic"
-                  aria-describedby="Forum topic"
-                  placeholder="Forum topic"
-                />
+                <input type="text" formControlName="topic" class="form-control" id="topic"
+                  aria-describedby="Forum topic" placeholder="Forum topic" />
                 <div class="text-danger" *ngIf="topic.errors">
                   <div *ngIf="topic.errors['required']">
                     Forum topic is required
@@ -27,44 +21,27 @@
         <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="forumLocale">
-              <div
-                *ngFor="
+              <div *ngFor="
                   let locale of forumLocales.controls;
                   let i = index;
                   let last = last
-                "
-                [formGroup]="locale"
-              >
+                " [formGroup]="locale">
                 <div class="row">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
-                    <select
-                      class="form-control"
-                      formControlName="locale"
-                      id="locale"
-                    >
-                      <option
-                        *ngFor="let lang of languages; let i = index"
-                        [value]="lang.name"
-                        >{{ lang.name }}</option
-                      >
+                    <select class="form-control" formControlName="locale" id="locale">
+                      <option *ngFor="let lang of languages; let i = index" [value]="lang.name">{{ lang.name }}</option>
                     </select>
                     <div class="text-danger" *ngIf="locale.errors">
                       <div *ngIf="locale.errors['required']">
-                        Hospital region is required
+                        Language is required
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
-                    <label for="hospital">Emergency contact</label>
-                    <input
-                      type="text"
-                      formControlName="name"
-                      class="form-control"
-                      id="hospital"
-                      aria-describedby="Emergency contact"
-                      placeholder="Emergency contact"
-                    />
+                    <label for="hospital">Forum title</label>
+                    <input type="text" formControlName="name" class="form-control" id="hospital"
+                      aria-describedby="Forum title" placeholder="Forum title" />
                     <div class="text-danger" *ngIf="locale.get('name').errors">
                       <div *ngIf="locale.get('name').errors['required']">
                         Forum name is required
@@ -72,21 +49,12 @@
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button
-                      type="button"
-                      (click)="addLocale()"
-                      *ngIf="last"
-                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
-                      [disabled]="locale.invalid"
-                      class="btn  btn-sm  btn-primary"
-                    >
+                    <button type="button" (click)="addLocale()" *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'" [disabled]="locale.invalid"
+                      class="btn  btn-sm  btn-primary">
                       <i class="fa fa-plus"></i>
                     </button>
-                    <button
-                      type="button"
-                      class="btn btn-sm rounded  btn-danger"
-                      (click)="deleteLocale(i)"
-                    >
+                    <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
                       <i class="fa fa-trash "></i>
                     </button>
                   </div>
@@ -94,12 +62,7 @@
               </div>
             </div>
             <div class="text-right">
-              <button
-                type="button"
-                (click)="addLocale()"
-                class="btn  btn-success"
-                *ngIf="forumLocales.length == 0"
-              >
+              <button type="button" (click)="addLocale()" class="btn  btn-success" *ngIf="forumLocales.length == 0">
                 <i class="fa fa-plus "></i>Add Language
               </button>
             </div>
@@ -107,12 +70,8 @@
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button
-      type="submit"
-      [disabled]="forumForm.invalid"
-      [ngClass]="forumForm.invalid ? 'btn-danger' : 'btn-success'"
-      class="btn"
-    >
+    <button type="submit" [disabled]="forumForm.invalid" [ngClass]="forumForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn">
       Submit
     </button>
   </form>

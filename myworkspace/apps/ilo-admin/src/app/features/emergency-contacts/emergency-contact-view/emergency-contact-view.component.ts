@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EmergencyContactApiService } from '../emergency-contact-api.service';
 import { CustomGridColumns } from '@bionic/shared-component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bionic-emergency-contact-view',
@@ -66,5 +67,14 @@ export class EmergencyContactViewComponent implements OnInit {
     this.emergencyContactsApi
       .getEmergencyContactssList()
       .subscribe((data: any) => (this.data = data));
+  }
+
+  deleteEmergencyContact(data: any): void {
+    this.emergencyContactsApi
+      .deleteEmergencyContactsAddress([data.ID])
+      .subscribe(
+        () => alert('Emergency contact deleted successfuly'),
+        (error: HttpErrorResponse) => alert(error.message)
+      );
   }
 }

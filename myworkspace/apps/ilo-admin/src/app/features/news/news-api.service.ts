@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 export class NewsApiService {
   private httpBody: URLSearchParams;
   private controller = 'articles';
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.httpBody = new URLSearchParams();
+  }
 
   getNewsById(id: number): Observable<News> {
     return this.httpClient.get<News>(`${this.controller}/${id}`);
@@ -29,10 +31,9 @@ export class NewsApiService {
   }
 
   deleteNews(ids: number[]): Observable<void> {
-    ids.forEach(id => this.httpBody.append('id[]', `${id}`));
-    return this.httpClient.post<void>(
-      `${this.controller}/delete`,
-      this.httpBody.toString()
-    );
+    const idArr: any[] = [];
+    ids.forEach(id => idArr.push({ id: `${id}` }));
+
+    return this.httpClient.post<void>(`${this.controller}/delete`, idArr);
   }
 }

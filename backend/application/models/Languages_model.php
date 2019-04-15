@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -13,4 +12,3 @@ class Languages_Model extends MY_Model
         $this->primary_key = 'ID';
     }
 }
-?> 

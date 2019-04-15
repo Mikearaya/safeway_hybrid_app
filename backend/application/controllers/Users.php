@@ -1,6 +1,6 @@
 <?php
 
-class  Users extends API 
+class  Users extends API
 {
 
     function __construct($config = 'rest')
@@ -9,7 +9,4 @@ class  Users extends API
         $this->model = 'users_model';
         parent::__construct($config);
     }
-
-    
 }
- 

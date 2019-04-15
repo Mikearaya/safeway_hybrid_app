@@ -1,9 +1,3 @@
-<bionic-data-grid-view
-  [data]="data"
-  [columnsList]="columnsList"
-  [idKey]="'ID'"
-  [showDelete]="true"
-  [showUpdate]="true"
-  [showColumnChooser]="true"
-  [enableSearching]="true"
-></bionic-data-grid-view>
+<bionic-data-grid-view [data]="data" [columnsList]="columnsList" [idKey]="'ID'" [showDelete]="true" [showUpdate]="true"
+  [showColumnChooser]="true" [enableSearching]="true" (deleteRecord)="deleteMedicalCenter($event)">
+</bionic-data-grid-view>

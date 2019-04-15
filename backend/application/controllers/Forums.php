@@ -1,5 +1,4 @@
-
-<?php 
+<?php
 
 class Forums extends API
 {

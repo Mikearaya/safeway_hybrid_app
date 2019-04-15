@@ -33,6 +33,7 @@ export class AgencyFormComponent implements OnInit {
   public isUpdate: Boolean;
   private agencyId: number;
   public languages: any;
+  public regionsList: any[];
   formId: any;
   path: { saveUrl: string; removeUrl: string };
   public preLoadFiles: Object[] = [
@@ -67,6 +68,10 @@ export class AgencyFormComponent implements OnInit {
     this.systemConf
       .getLanguagesList()
       .subscribe((data: any) => (this.languages = data));
+
+    this.systemConf
+      .getRegionsList()
+      .subscribe((data: any) => (this.regionsList = data));
 
     if (this.agencyId) {
       this.isUpdate = true;

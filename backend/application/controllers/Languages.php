@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -13,4 +12,3 @@ class Languages extends API
         parent::__construct($config);
     }
 }
-?> 

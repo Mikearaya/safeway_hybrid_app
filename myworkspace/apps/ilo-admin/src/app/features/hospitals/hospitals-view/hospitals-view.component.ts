@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CustomGridColumns } from '@bionic/shared-component';
 import { HospitalsService } from '../hospitals.service';
 import { HospitalViewModel } from '../hospital-data.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'bionic-hospitals-view',
@@ -62,5 +63,14 @@ export class HospitalsViewComponent implements OnInit {
     this.hospitalApi
       .getHospitalsList()
       .subscribe((data: HospitalViewModel[]) => (this.data = data));
+  }
+
+  deleteMedicalCenter(data: any): void {
+    this.hospitalApi
+      .deleteHospitalAddress([data.ID])
+      .subscribe(
+        () => alert('Medical center deleted successfuly'),
+        (error: HttpErrorResponse) => alert(error.message)
+      );
   }
 }

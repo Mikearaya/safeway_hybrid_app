@@ -13,7 +13,7 @@
                       let cat of articleCatagories;
                       let i = index;
                       let last = last
-                    " [value]="cat.CATAGORY_ID">
+                    " [value]="cat.ID">
                     {{ cat.name }}</option>
                 </select>
                 <div class="text-danger" *ngIf="catagory.errors">
@@ -42,8 +42,9 @@
             </div>
             <div class="row">
               <div class="col-12  form-group ">
-                <ejs-uploader #defaultupload [autoUpload]='false'   (actionComplete)='actionComplete($event)' [allowedExtensions]="'image/* video/*'" name='fileupload'
-                  [files]='preLoadFiles' [multiple]='true' [asyncSettings]='path'>
+                <ejs-uploader #defaultupload [autoUpload]='false' (actionComplete)='actionComplete($event)'
+                  [allowedExtensions]="'image/* video/*'" name='fileupload' [files]='preLoadFiles' [multiple]='true'
+                  [asyncSettings]='path'>
                 </ejs-uploader>
 
               </div>
