@@ -1,6 +1,7 @@
 
 node_modules/
 backend/application/controllers/uploads/*
+*/uploads/*
 
 .vscode/
 

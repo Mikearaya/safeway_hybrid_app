@@ -16,9 +16,10 @@ class MY_Model extends CI_Model
 
   function __construct()
   {
-    $this->media_location['']=base_url('uploads/media/permanent');
+    $this->media_location[''] = base_url('uploads/media/permanent');
     $this->load->database();
     $this->load->helper('file');
+    $this->load->helper('url');
   }
 
 
@@ -66,12 +67,12 @@ class MY_Model extends CI_Model
 
         $file = $this->extract_file_info($info);
 
+
         $mime = get_mime_by_extension($info->getFilename());
         if (strstr($mime, "video/")) {
           $result['videos'][] = $file;
         } else if (strstr($mime, "image/")) {
           $result['image'][] = $file;
-          $result['image'] = $this->media_location['url'] . '/' . $this->table_name . '/' . $id . "/english/" . $info->getFilename();
         } else if (strstr($mime, "audio/")) {
           $result['audios'][] = $file;
         }
@@ -108,12 +109,16 @@ class MY_Model extends CI_Model
   private function extract_file_info($file)
   {
 
+
+
     $filename = $file->getRealPath();
+
+
     return array(
       'name' =>  pathinfo($filename)['filename'],
       'type' => '.' . pathinfo($filename)['extension'],
       'size' => $file->getSize(),
-      'path' => $file->getRealPath()
+      'path' => base_url() . $file->getPathname()
     );
   }
   function add($data)
@@ -154,6 +159,8 @@ class MY_Model extends CI_Model
 
   function update($id, $data)
   {
+
+
     $this->db->where($this->primary_key, $id);
     $this->db->update($this->table_name, $data[$this->table_name]);
 

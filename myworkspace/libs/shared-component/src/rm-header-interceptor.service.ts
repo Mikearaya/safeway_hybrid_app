@@ -7,6 +7,7 @@
  * @Description: Http Intercepter to modify passing http request
  */
 import { Injectable } from '@angular/core';
+
 import {
   HttpRequest,
   HttpInterceptor,
@@ -27,7 +28,6 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
     // get the requested url eg:// /api/something
     const requestUrl = request.url;
     // modify request content-type header to application/json
-    console.log();
 
     // check the request method used
     if (request.method === 'GET') {
@@ -40,7 +40,6 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
       });
       return next.handle(modifiedRequest);
     } else if (request.method === 'POST') {
-      console.log(requestUrl);
       const modifiedRequest = request.clone({
         url: `http://localhost/ilo_app/backend/index.php/${requestUrl}`,
         setHeaders: {

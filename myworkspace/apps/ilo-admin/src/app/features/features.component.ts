@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthorizationService } from '../authorization.service';
 import { ItemModel } from '@syncfusion/ej2-splitbuttons';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SystemApiService } from '../system-api.service';
+import {  Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'bionic-features',
@@ -64,7 +64,9 @@ export class FeaturesComponent implements OnInit {
   ];
 
   dashboard: DashboardStatModel;
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(`enviroment ${environment.apiUrl}`);
+  }
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {
       case 'ARTICLE':
