@@ -25,7 +25,7 @@ class Complains_model extends MY_Model
 
 
 
-    public function get_by_id($id)
+    public function get_by_id($id, $language)
     {
 
 

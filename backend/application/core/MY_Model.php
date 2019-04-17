@@ -84,6 +84,9 @@ class MY_Model extends CI_Model
 
   function get_list()
   {
+
+
+
     $result = $this->db->get($this->table_name);
     $result = $result->result_array();
 
@@ -95,7 +98,7 @@ class MY_Model extends CI_Model
 
         foreach ($x as $info) {
           if (!$info->isDot() && !$info->isDir()) {
-            $result[$i]['medias'] = $this->media_location['url'] . '/' . $this->table_name . '/' . $result[$i]['ID'] . "/english/" . $info->getFilename();
+            $result[$i]['medias'] = base_url() . $info->getPathname();
           }
         }
       }
@@ -121,6 +124,10 @@ class MY_Model extends CI_Model
       'path' => base_url() . $file->getPathname()
     );
   }
+
+
+
+
   function add($data)
   {
     if ($data[$this->table_name]) {
@@ -221,7 +228,7 @@ class MY_Model extends CI_Model
   public function delete($id)
   {
 
-    var_dump($id);
+
     $deletedIds = [];
     try {
 
