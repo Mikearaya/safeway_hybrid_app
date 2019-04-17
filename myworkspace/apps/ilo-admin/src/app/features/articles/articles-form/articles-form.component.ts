@@ -16,8 +16,8 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
-import { ConditionalExpr, IfStmt } from '@angular/compiler';
-import { forEach } from '@angular/router/src/utils/collection';
+
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'bionic-articles-form',
@@ -60,11 +60,8 @@ export class ArticlesFormComponent implements OnInit {
     this.createForm();
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/article'
+      saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`,
+      removeUrl: `${environment.apiUrl}/upload/media_delete/article`
     };
   }
 

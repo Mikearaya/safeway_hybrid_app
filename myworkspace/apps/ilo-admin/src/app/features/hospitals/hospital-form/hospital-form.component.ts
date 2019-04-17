@@ -23,6 +23,7 @@ import {
   ActionCompleteEventArgs
 } from '@syncfusion/ej2-angular-inputs';
 
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'bionic-hospital-form',
   templateUrl: './hospital-form.component.html',
@@ -64,11 +65,8 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
 
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/hospital'
+      saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`,
+      removeUrl: `${environment.apiUrl}/upload/media_delete/hospital`
     };
   }
 

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost/ilo_app/backend/index.php'
+  apiUrl: 'http://ilo.appdiv.com/backend/index.php'
 };
 
 /*

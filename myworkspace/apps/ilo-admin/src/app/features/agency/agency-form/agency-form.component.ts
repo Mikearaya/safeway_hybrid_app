@@ -12,6 +12,7 @@ import {
 import { Agency, AgencyLocaleModel } from '../agency-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'bionic-agency-form',

@@ -22,6 +22,7 @@ import {
   UploaderComponent,
   RemovingEventArgs
 } from '@syncfusion/ej2-angular-inputs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'bionic-school-form',
@@ -70,11 +71,11 @@ export class SchoolFormComponent implements OnInit {
 
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+      saveUrl: `${environment.apiUrl}/upload/media/english/${
         this.formId
       }`,
       removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/school'
+        `${environment.apiUrl}/upload/media_delete/school`
     };
   }
 

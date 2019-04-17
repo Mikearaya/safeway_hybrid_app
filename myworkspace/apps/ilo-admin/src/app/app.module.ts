@@ -9,6 +9,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { AutGuardService } from './aut-guard.service';
 import { AuthorizationService } from './authorization.service';
 import { SystemApiService } from './system-api.service';
+import { EnvServiceProvider } from './env.service.provider';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,12 @@ import { SystemApiService } from './system-api.service';
     AuthorizationModule,
     AuthenticationModule
   ],
-  providers: [AutGuardService, AuthorizationService, SystemApiService],
+  providers: [
+    AutGuardService,
+    AuthorizationService,
+    SystemApiService,
+    EnvServiceProvider
+  ],
 
   bootstrap: [AppComponent]
 })

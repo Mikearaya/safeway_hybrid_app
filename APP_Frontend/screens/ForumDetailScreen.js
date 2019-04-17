@@ -20,6 +20,7 @@ import {
 } from "react-native";
 import localeStore from "../locale/localization";
 import { Form, Textarea, Button, Icon, ListItem, Body } from "native-base";
+import Toast from "react-native-root-toast";
 var Enviroment = require("../global.js");
 
 const { State: TextInputState } = TextInput;
@@ -52,7 +53,8 @@ export default class ForumDetailScreen extends Component {
 			comments_list: [],
 			shift: new Animated.Value(0),
 			title: "",
-			refresh: false
+			refresh: false,
+			forumId: ""
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -78,16 +80,36 @@ export default class ForumDetailScreen extends Component {
 	}
 
 	addMessage() {
-		forumnDiscussionsList.conversations.push({
+		this.state.comments_list.push({
 			message: this.state.title,
 			datePosted: new Date().toString(),
-			key: (forumnDiscussionsList.conversations.length + 1).toString()
+			key: (this.state.comments_list.length + 1).toString()
 		});
 		this.setState({ title: "" });
-		Keyboard.dismiss();
+
 		this.setState({
 			refresh: !this.state.refresh
 		});
+		Keyboard.dismiss();
+		fetch(`${Enviroment.API_URL}/forum_comments`, {
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json"
+			},
+			method: "POST",
+			body: JSON.stringify({
+				forum_comments: {
+					FORUM_ID: this.state.forumId,
+					comment: this.state.title
+				}
+			})
+		})
+			.then(response => response.json())
+			.then(responseJson => {
+				Toast.show("Complain added successfully", toast);
+				this.setState({ title: "", refresh: !this.state.refresh });
+			})
+			.catch(function(error) {});
 	}
 
 	render() {
@@ -113,7 +135,7 @@ export default class ForumDetailScreen extends Component {
 							<Textarea
 								value={this.state.title}
 								style={styles.textInput}
-								onChangeText={comments => this.setState({ comments })}
+								onChangeText={title => this.setState({ title })}
 								placeholder="Enter your comment"
 							/>
 						</View>
@@ -134,13 +156,15 @@ export default class ForumDetailScreen extends Component {
 
 	componentDidMount() {
 		const { state } = this.props.navigation;
+
 		let url = `${Enviroment.API_URL}/forum_comments/${state.params.id}`;
 
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					comments_list: data
+					comments_list: data,
+					forumId: state.params.id
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

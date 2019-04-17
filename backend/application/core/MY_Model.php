@@ -130,6 +130,7 @@ class MY_Model extends CI_Model
 
   function add($data)
   {
+
     if ($data[$this->table_name]) {
       $this->db->insert($this->table_name, $data[$this->table_name]);
     }

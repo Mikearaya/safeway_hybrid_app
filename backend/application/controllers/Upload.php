@@ -11,7 +11,7 @@ class Upload extends API
 
     public function media_POST($language = 'english', $formId)
     {
-        $folder_location="uploads/media/";
+        $folder_location = "uploads/media/";
         $uploadlocation =  $folder_location . 'temp/' . $formId . '/' . $language;
         $config['upload_path'] = $uploadlocation;
         $config['allowed_types'] = 'gif|jpg|png|mp3|mp4|flv|wmv|avi';
@@ -27,7 +27,7 @@ class Upload extends API
 
 
         $this->load->library('upload', $config);
-        var_dump($uploadlocation);
+
 
         if (!$this->upload->do_upload('fileupload')) {
             $error = array('error' => $this->upload->display_errors());

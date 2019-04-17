@@ -20,7 +20,8 @@
             "tsConfig": "apps/ilo-admin/tsconfig.app.json",
             "assets": [
               "apps/ilo-admin/src/favicon.ico",
-              "apps/ilo-admin/src/assets"
+              "apps/ilo-admin/src/assets",
+              "apps/ilo-admin/src/env.js"
             ],
             "styles": ["apps/ilo-admin/src/styles.css"],
             "scripts": [],
@@ -28,12 +29,10 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/ilo-admin/src/environments/environment.ts",
-                  "with": "apps/ilo-admin/src/environments/environment.prod.ts"
-                }
-              ],
+              "fileReplacements": [{
+                "replace": "apps/ilo-admin/src/environments/environment.ts",
+                "with": "apps/ilo-admin/src/environments/environment.prod.ts"
+              }],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -43,13 +42,11 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
+              "budgets": [{
+                "type": "initial",
+                "maximumWarning": "2mb",
+                "maximumError": "5mb"
+              }]
             }
           }
         },

@@ -19,6 +19,8 @@ import {
   ClearingEventArgs
 } from '@syncfusion/ej2-inputs';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { EnvService } from '../../../env.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'bionic-emergency-contact-form',
@@ -54,17 +56,12 @@ export class EmergencyContactFormComponent implements OnInit {
     private forumBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private emergencyContactsApi: EmergencyContactApiService,
-    private systemConfig: SystemApiService
+    private systemConfig: SystemApiService,
+    private env: EnvService
   ) {
     this.createForm();
     this.formId = Guid.newGuid();
-    this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/emergency_contact'
-    };
+    this.path = { saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`, removeUrl: `${environment.apiUrl}/upload/media_delete/emergency_contact` };
   }
 
   ngOnInit() {

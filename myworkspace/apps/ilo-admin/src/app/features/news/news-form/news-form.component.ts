@@ -12,6 +12,7 @@ import { SystemApiService, Guid } from '../../../system-api.service';
 import { News, NewsLocaleModel } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'bionic-news-form',
@@ -45,11 +46,11 @@ export class NewsFormComponent implements OnInit {
     this.createForm();
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
+      saveUrl: `${environment.apiUrl}/upload/media/english/${
         this.formId
       }`,
       removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/news'
+        `${environment.apiUrl}/upload/media_delete/news`
     };
   }
 
