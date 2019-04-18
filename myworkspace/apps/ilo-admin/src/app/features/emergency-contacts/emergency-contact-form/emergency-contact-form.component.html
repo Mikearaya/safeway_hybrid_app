@@ -7,8 +7,14 @@
             <div class="row">
               <div class="col-12 col-sm-6 form-group ">
                 <label for="emergencyContactName">Emergency contact</label>
-                <input type="text" formControlName="name" class="form-control" id="emergencyContactName"
-                  aria-describedby="Emergency contact name" placeholder="Emergency contact" />
+                <input
+                  type="text"
+                  formControlName="name"
+                  class="form-control"
+                  id="emergencyContactName"
+                  aria-describedby="Emergency contact name"
+                  placeholder="Emergency contact"
+                />
                 <div class="text-danger" *ngIf="emergencyContactName.errors">
                   <div *ngIf="emergencyContactName.errors['required']">
                     Emergency contact Name is required
@@ -17,8 +23,13 @@
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="phoneNumber">Phone Number</label>
-                <input type="number" class="form-control" formControlName="phoneNumber" id="phoneNumber"
-                  placeholder="Phone number" />
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="phoneNumber"
+                  id="phoneNumber"
+                  placeholder="Phone number"
+                />
                 <div class="text-danger" *ngIf="phoneNumber.errors">
                   <div *ngIf="phoneNumber.errors['required']">
                     Phone number is required
@@ -29,8 +40,15 @@
             <div class="row">
               <div class="col-12 col-sm-6 form-group">
                 <label for="address">Address</label>
-                <input type="text" formControlName="address" formControlName="address" class="form-control" id="address"
-                  aria-describedby="Address" placeholder="Address" />
+                <input
+                  type="text"
+                  formControlName="address"
+                  formControlName="address"
+                  class="form-control"
+                  id="address"
+                  aria-describedby="Address"
+                  placeholder="Address"
+                />
                 <div class="text-danger" *ngIf="address.errors">
                   <div *ngIf="address.errors['required']">
                     Hospital address is required
@@ -39,9 +57,20 @@
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="region">Region</label>
-                <select class="form-control" formControlName="region" id="region">
-                  <option *ngFor="let region of regionsList; let i=index; let last=last;" [value]="region.ID">
-                    {{region.name}}
+                <select
+                  class="form-control"
+                  formControlName="region"
+                  id="region"
+                >
+                  <option
+                    *ngFor="
+                      let region of regionsList;
+                      let i = index;
+                      let last = last
+                    "
+                    [value]="region.ID"
+                  >
+                    {{ region.name }}
                   </option>
                 </select>
                 <div class="text-danger" *ngIf="region.errors">
@@ -53,10 +82,17 @@
             </div>
             <div class="row">
               <div class="col-12  form-group ">
-                <ejs-uploader #defaultupload [autoUpload]='false' (clearing)='removing($event)'
-                  (actionComplete)='imageUploaded($event)' [allowedExtensions]="'image/*'" name='fileupload'
-                  [files]='preLoadFiles' [multiple]='false' [asyncSettings]='path'></ejs-uploader>
-
+                <ejs-uploader
+                  #defaultupload
+                  [autoUpload]="false"
+                  (removing)="removing($event)"
+                  (actionComplete)="imageUploaded($event)"
+                  [allowedExtensions]="'image/*'"
+                  name="fileupload"
+                  [files]="preLoadFiles"
+                  [multiple]="false"
+                  [asyncSettings]="path"
+                ></ejs-uploader>
               </div>
             </div>
           </ng-template>
@@ -64,18 +100,32 @@
         <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="emergencyContactLocale">
-              <div *ngFor="
+              <div
+                *ngFor="
                   let locale of emergencyContactLocales.controls;
                   let i = index;
                   let last = last
-                " [formGroup]="locale">
+                "
+                [formGroup]="locale"
+              >
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-3 form-group">
                     <label for="locale">locale</label>
-                    <select class="form-control" formControlName="locale" id="locale">
-                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
+                    <select
+                      class="form-control"
+                      formControlName="locale"
+                      id="locale"
+                    >
+                      <option
+                        *ngFor="let lang of languages; let i = index"
+                        [value]="lang.ID"
+                        >{{ lang.name }}</option
+                      >
                     </select>
-                    <div class="text-danger" *ngIf="locale.get('locale').errors">
+                    <div
+                      class="text-danger"
+                      *ngIf="locale.get('locale').errors"
+                    >
                       <div *ngIf="locale.get('locale').errors['required']">
                         language is required
                       </div>
@@ -83,8 +133,14 @@
                   </div>
                   <div class="col-12 col-sm-4 form-group ">
                     <label for="hospital">Emergency contact</label>
-                    <input type="text" formControlName="name" class="form-control" id="hospital"
-                      aria-describedby="Emergency contact" placeholder="Emergency contact" />
+                    <input
+                      type="text"
+                      formControlName="name"
+                      class="form-control"
+                      id="hospital"
+                      aria-describedby="Emergency contact"
+                      placeholder="Emergency contact"
+                    />
                     <div class="text-danger" *ngIf="locale.get('name').errors">
                       <div *ngIf="locale.get('name').errors['required']">
                         emergency contact Name is required
@@ -93,22 +149,43 @@
                   </div>
                   <div class="col-12 col-sm-4 form-group">
                     <label for="region">Address</label>
-                    <input type="text" formControlName="address" formControlName="address" class="form-control"
-                      id="address" aria-describedby="Address" placeholder="Address" />
-                    <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
-                    <div class="text-danger" *ngIf="locale.get('address').errors">
+                    <input
+                      type="text"
+                      formControlName="address"
+                      formControlName="address"
+                      class="form-control"
+                      id="address"
+                      aria-describedby="Address"
+                      placeholder="Address"
+                    />
+                    <small id="address" class="form-text text-muted"
+                      >Address of the Emergency contact.</small
+                    >
+                    <div
+                      class="text-danger"
+                      *ngIf="locale.get('address').errors"
+                    >
                       <div *ngIf="locale.get('address').errors['required']">
                         Emergency contact address is required
                       </div>
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button type="button" (click)="addLocale()" *ngIf="last"
-                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'" [disabled]="locale.invalid"
-                      class="btn  btn-sm  btn-primary">
+                    <button
+                      type="button"
+                      (click)="addLocale()"
+                      *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
+                      [disabled]="locale.invalid"
+                      class="btn  btn-sm  btn-primary"
+                    >
                       <i class="fa fa-plus"></i>
                     </button>
-                    <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
+                    <button
+                      type="button"
+                      class="btn btn-sm rounded  btn-danger"
+                      (click)="deleteLocale(i)"
+                    >
                       <i class="fa fa-trash "></i>
                     </button>
                   </div>
@@ -116,8 +193,12 @@
               </div>
             </div>
             <div class="text-right">
-              <button type="button" (click)="addLocale()" class="btn  btn-success"
-                *ngIf="emergencyContactLocales.length == 0">
+              <button
+                type="button"
+                (click)="addLocale()"
+                class="btn  btn-success"
+                *ngIf="emergencyContactLocales.length == 0"
+              >
                 <i class="fa fa-plus "></i>Add Language
               </button>
             </div>
@@ -125,7 +206,11 @@
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button type="submit" [ngClass]="emergencyContactsForm.invalid ? 'btn-danger' : 'btn-success'" class="btn">
+    <button
+      type="submit"
+      [ngClass]="emergencyContactsForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn"
+    >
       Submit
     </button>
   </form>

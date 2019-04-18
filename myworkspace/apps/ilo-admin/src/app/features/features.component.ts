@@ -65,7 +65,7 @@ export class FeaturesComponent implements OnInit {
 
   dashboard: DashboardStatModel;
   ngOnInit() {
-    console.log(`enviroment ${environment.apiUrl}`);
+
   }
   articleClick($event) {
     switch ($event.item.properties.id.trim().toUpperCase()) {

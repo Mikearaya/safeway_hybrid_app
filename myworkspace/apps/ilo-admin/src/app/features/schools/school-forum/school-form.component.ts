@@ -71,11 +71,8 @@ export class SchoolFormComponent implements OnInit {
 
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `${environment.apiUrl}/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        `${environment.apiUrl}/upload/media_delete/school`
+      saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`,
+      removeUrl: `${environment.apiUrl}/upload/media_delete/school`
     };
   }
 
@@ -210,7 +207,7 @@ export class SchoolFormComponent implements OnInit {
     console.log(data);
   }
   onSubmit(): void {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+    
 
     const formData = this.prepareFormData();
     if (formData) {
@@ -224,6 +221,14 @@ export class SchoolFormComponent implements OnInit {
       } else {
         this.schoolApi.createSchool(formData).subscribe(
           (data: any) => {
+
+       this.defaultUpload.asyncSettings = {
+                saveUrl: `${environment.apiUrl}/upload/media/english/${data}/school`,
+                removeUrl: `${
+                  environment.apiUrl
+                }/upload/media_delete/school/${data}`
+              };
+              this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.isUpdate = true;
             this.schoolId = data;
             alert('School created successfuly');

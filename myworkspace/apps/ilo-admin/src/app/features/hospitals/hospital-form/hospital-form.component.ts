@@ -65,8 +65,8 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
 
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`,
-      removeUrl: `${environment.apiUrl}/upload/media_delete/hospital`
+      saveUrl: ``,
+      removeUrl: ``
     };
   }
 
@@ -192,7 +192,7 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
     }
   }
   onSubmit() {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
+    
     const hospitalData = this.prepareFormData();
     if (hospitalData) {
       if (this.isUpdate) {
@@ -206,6 +206,15 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
         this.hospitalApi
           .addHospitalAddress(hospitalData)
           .subscribe((data: any) => {
+
+         this.defaultUpload.asyncSettings = {
+                saveUrl: `${environment.apiUrl}/upload/media/english/${data}/hospital`,
+                removeUrl: `${
+                  environment.apiUrl
+                }/upload/media_delete/hospital/${data}`
+              };
+
+              this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.hospitalId = data;
             this.isUpdate = true;
             alert('Medical center added successfuly');

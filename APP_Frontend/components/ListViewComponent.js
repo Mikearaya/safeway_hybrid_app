@@ -18,6 +18,7 @@ import {
 } from "native-base";
 
 import { StyleSheet } from "react-native";
+var Enviroment = require("../global.js");
 
 const styles = StyleSheet.create({
 	listBox: {
@@ -39,6 +40,9 @@ export default class ListViewComponent extends Component {
 		super(props);
 	}
 	render() {
+		const image = this.props.images
+			? `${Enviroment.RESOURCE_URL}/${this.props.images}`
+			: "../assets/images/app_icon.png";
 		return (
 			<ListItem
 				style={styles.listBox}
@@ -51,7 +55,7 @@ export default class ListViewComponent extends Component {
 				<Left>
 					<Thumbnail
 						source={{
-							uri: this.props.images
+							uri: image
 						}}
 					/>
 				</Left>

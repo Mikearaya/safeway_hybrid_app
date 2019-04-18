@@ -118,7 +118,7 @@ class AgenciesListScreen extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ agencies: data, filterData: data });
+				this.setState({ agencies: data, filteredAgencies: data });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}

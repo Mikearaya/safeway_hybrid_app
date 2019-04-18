@@ -109,7 +109,8 @@ class EmergencyContactsScreen extends Component {
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					emergencyContacts: data
+					emergencyContacts: data,
+					filteredDatas: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

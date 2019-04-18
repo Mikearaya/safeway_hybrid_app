@@ -121,6 +121,7 @@ class HospitalsListScreen extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
+				alert(JSON.stringify(data));
 				this.setState({
 					hospitals: data,
 					filteredHospitals: data

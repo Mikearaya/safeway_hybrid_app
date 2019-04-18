@@ -72,7 +72,7 @@ class System_Model extends MY_Model
         $user = array(
             "fullname" => "Administrator",
             "username" => "admin",
-            "password" => "admin"
+            "password" => "admin123"
 
         );
 

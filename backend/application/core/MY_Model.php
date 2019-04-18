@@ -98,7 +98,7 @@ class MY_Model extends CI_Model
 
         foreach ($x as $info) {
           if (!$info->isDot() && !$info->isDir()) {
-            $result[$i]['medias'] = base_url() . $info->getPathname();
+            $result[$i]['medias'] = $info->getPathname();
           }
         }
       }
@@ -148,7 +148,7 @@ class MY_Model extends CI_Model
         }
       }
     }
-
+    /* 
     if ($new_id != NULL &&  isset($data['token'])) {
 
       $oldmask = umask(0);
@@ -161,7 +161,9 @@ class MY_Model extends CI_Model
       return $new_id;
     } else {
       return $new_id;
-    }
+    } */
+
+    return $new_id;
   }
 
 

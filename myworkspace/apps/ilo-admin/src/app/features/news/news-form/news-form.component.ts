@@ -35,7 +35,7 @@ export class NewsFormComponent implements OnInit {
   public deletedIds: number[] = [];
   formId: any;
   path: { saveUrl: string; removeUrl: string };
-  preLoadFiles: string[];
+  preLoadFiles: string[] = ull;
 
   constructor(
     private newsApi: NewsApiService,
@@ -46,11 +46,8 @@ export class NewsFormComponent implements OnInit {
     this.createForm();
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `${environment.apiUrl}/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        `${environment.apiUrl}/upload/media_delete/news`
+      saveUrl: ``,
+      removeUrl: ``
     };
   }
 
@@ -131,10 +128,13 @@ export class NewsFormComponent implements OnInit {
       newsLocales: this.formBuilder.array([])
     });
 
+    if (news.image) {
+      this.preLoadFiles = news.image;
+    }
+
     news.article_locale.map(element =>
       this.newsLocales.push(this.initializeLocaleForm(element))
     );
-
   }
 
   private generateLocaleForm(): FormGroup {
@@ -154,7 +154,7 @@ export class NewsFormComponent implements OnInit {
     });
   }
 
-  private submitForm(): void {
+  onSubmit(): void {
     const formData = this.prepareFormData();
 
     if (formData) {
@@ -169,6 +169,16 @@ export class NewsFormComponent implements OnInit {
       } else {
         this.newsApi.createNews(formData).subscribe(
           (data: any) => {
+            this.defaultUpload.asyncSettings = {
+              saveUrl: `${
+                environment.apiUrl
+              }/upload/media/english/${data}/article`,
+              removeUrl: `${
+                environment.apiUrl
+              }/upload/media_delete/article/${data}`
+            };
+
+            this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.isUpdate = true;
             this.newsId = data;
             alert('New created successfully');
@@ -179,10 +189,6 @@ export class NewsFormComponent implements OnInit {
         );
       }
     }
-  }
-  onSubmit(): void {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
-    this.submitForm();
   }
 
   private prepareFormData(): News | null {

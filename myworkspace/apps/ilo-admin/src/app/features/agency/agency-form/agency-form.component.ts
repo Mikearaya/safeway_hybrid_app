@@ -55,11 +55,8 @@ export class AgencyFormComponent implements OnInit {
 
     this.formId = Guid.newGuid();
     this.path = {
-      saveUrl: `http://localhost/ilo_app/backend/index.php/upload/media/english/${
-        this.formId
-      }`,
-      removeUrl:
-        'http://localhost/ilo_app/backend/index.php/upload/media_delete/agency'
+      saveUrl: ``,
+      removeUrl: ``
     };
   }
 
@@ -159,8 +156,6 @@ export class AgencyFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
-
     const formData = this.prepareFormData();
 
     if (formData) {
@@ -174,6 +169,16 @@ export class AgencyFormComponent implements OnInit {
       } else {
         this.agencyApi.createAgency(formData).subscribe(
           (data: any) => {
+            this.defaultUpload.asyncSettings = {
+              saveUrl: `${
+                environment.apiUrl
+              }/upload/media/english/${data}/agency`,
+              removeUrl: `${
+                environment.apiUrl
+              }/upload/media_delete/agency/${data}`
+            };
+
+            this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.agencyId = data;
             this.isUpdate = true;
             alert('Agency created successfully');

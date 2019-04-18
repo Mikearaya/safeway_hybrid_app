@@ -61,7 +61,10 @@ export class EmergencyContactFormComponent implements OnInit {
   ) {
     this.createForm();
     this.formId = Guid.newGuid();
-    this.path = { saveUrl: `${environment.apiUrl}/upload/media/english/${this.formId}`, removeUrl: `${environment.apiUrl}/upload/media_delete/emergency_contact` };
+    this.path = {
+      saveUrl: ``,
+      removeUrl: ``
+    };
   }
 
   ngOnInit() {
@@ -184,9 +187,7 @@ export class EmergencyContactFormComponent implements OnInit {
     this.emergencyContactLocales.controls.push(this.generateLocaleForm());
   }
   onSubmit() {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
-
-    setInterval(() => console.log('uploading'), 1000);
+  
     const emergencyContactData = this.prepareFormData();
 
     if (emergencyContactData) {
@@ -202,6 +203,14 @@ export class EmergencyContactFormComponent implements OnInit {
           .addeEmrgencyContactsAddress(emergencyContactData)
           .subscribe(
             (data: any) => {
+              this.defaultUpload.asyncSettings = {
+                saveUrl: `${environment.apiUrl}/upload/media/english/${data}/emergency_contact`,
+                removeUrl: `${
+                  environment.apiUrl
+                }/upload/media_delete/emergency_contact/${data}`
+              };
+              
+              this.defaultUpload.upload(this.defaultUpload.getFilesData());
               this.isUpdate = true;
               this.emergencyContactId = data;
               alert('Emergency contact created successfuly');
@@ -211,10 +220,7 @@ export class EmergencyContactFormComponent implements OnInit {
       }
     }
   }
-  removing(data: ClearingEventArgs) {
-    console.log(data);
-    this.defaultUpload.refresh();
-  }
+  removing(data: ClearingEventArgs) {}
   private prepareFormData(): EmergencyContact | null {
     const emergencyContact = new EmergencyContact();
     if (this.emergencyContactsForm.valid) {

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ec8194bf-78c4-43a0-b0af-ff6c4a962f8a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.expo/packager-info.json" beforeDir="false" afterPath="$PROJECT_DIR$/.expo/packager-info.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/ListViewComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/ListViewComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global.js" beforeDir="false" afterPath="$PROJECT_DIR$/global.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/EmergencyContactsScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/EmergencyContactsScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/HospitalsListScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/screens/HospitalsListScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/application/controllers/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/application/controllers/Upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/application/core/MY_Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/application/core/MY_Model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/application/models/System_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/application/models/System_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/agency/agency-form/agency-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/agency/agency-form/agency-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/emergency-contacts/emergency-contact-form/emergency-contact-form.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/emergency-contacts/emergency-contact-form/emergency-contact-form.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/emergency-contacts/emergency-contact-form/emergency-contact-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/emergency-contacts/emergency-contact-form/emergency-contact-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/features.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/features.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/hospitals/hospital-form/hospital-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/hospitals/hospital-form/hospital-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/news/news-form/news-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/news/news-form/news-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/schools/school-forum/school-form.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/app/features/schools/school-forum/school-form.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../myworkspace/apps/ilo-admin/src/environments/environment.ts" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="296" />
+    <option name="y" value="1107" />
+    <option name="width" value="1346" />
+    <option name="height" value="728" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="APP_Frontend" type="1abcf292:AndroidViewProjectNode" />
+              <item name="files" type="e9137016:NonAndroidModuleNode" />
+            </path>
+            <path>
+              <item name="APP_Frontend" type="1abcf292:AndroidViewProjectNode" />
+              <item name="main" type="e9137016:NonAndroidModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ec8194bf-78c4-43a0-b0af-ff6c4a962f8a" name="Default Changelist" comment="" />
+      <created>1555591906579</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1555591906579</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="296" y="1107" width="1346" height="728" extended-state="0" />
+    <layout>
+      <window_info id="Capture Tool" />
+      <window_info active="true" content_ui="combo" id="Project" visible="true" />
+      <window_info id="Structure" side_tool="true" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Build Variants" side_tool="true" />
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="Resources Explorer" />
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Logcat" />
+      <window_info anchor="bottom" id="TODO" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Android Profiler" show_stripe_button="false" />
+      <window_info anchor="right" id="Device File Explorer" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Assistant" visible="true" />
+      <window_info anchor="right" id="Palette&#9;" />
+    </layout>
+  </component>
+</project>
