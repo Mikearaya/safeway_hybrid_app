@@ -10,6 +10,8 @@ import React, { Component } from "react";
 import { Card, CardItem, Left, Body, Text } from "native-base";
 import { StyleSheet, Image } from "react-native";
 
+var Enviroment = require("./../global");
+
 const style = StyleSheet.create({
 	container: {
 		flex: 1
@@ -44,7 +46,7 @@ export default class NewsCard extends Component {
 							resizeMode="stretch"
 							source={{
 								uri: this.props.newsItems.medias
-									? this.props.newsItems.medias
+									? `${Enviroment.RESOURCE_URL}/${this.props.newsItems.medias}`
 									: "./../assets/images/notfound.png"
 							}}
 							style={style.newsImage}

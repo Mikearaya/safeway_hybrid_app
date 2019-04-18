@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SystemApiService, Guid } from '../../../system-api.service';
 import { News, NewsLocaleModel } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import { UploaderComponent, FilesPropModel } from '@syncfusion/ej2-angular-inputs';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -35,7 +35,7 @@ export class NewsFormComponent implements OnInit {
   public deletedIds: number[] = [];
   formId: any;
   path: { saveUrl: string; removeUrl: string };
-  preLoadFiles: string[] = ull;
+  preLoadFiles: string[] = [];
 
   constructor(
     private newsApi: NewsApiService,
@@ -129,7 +129,7 @@ export class NewsFormComponent implements OnInit {
     });
 
     if (news.image) {
-      this.preLoadFiles = news.image;
+      this.defaultUpload.files = news.image as FilesPropModel[];
     }
 
     news.article_locale.map(element =>

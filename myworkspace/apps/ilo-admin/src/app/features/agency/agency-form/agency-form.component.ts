@@ -11,7 +11,10 @@ import {
 } from '@angular/forms';
 import { Agency, AgencyLocaleModel } from '../agency-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  FilesPropModel
+} from '@syncfusion/ej2-angular-inputs';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -37,13 +40,7 @@ export class AgencyFormComponent implements OnInit {
   public regionsList: any[];
   formId: any;
   path: { saveUrl: string; removeUrl: string };
-  public preLoadFiles: Object[] = [
-    {
-      name: null,
-      size: null,
-      type: null
-    }
-  ];
+  public preLoadFiles: FilesPropModel[];
 
   constructor(
     private agencyApi: AgencyApiService,
@@ -107,8 +104,8 @@ export class AgencyFormComponent implements OnInit {
       this.agencyLocales.controls.push(this.initializeLocaleForm(local))
     );
     this.defaultUpload.clearAll();
-    if (agency.image.length) {
-      this.preLoadFiles = agency.image;
+    if (agency.image) {
+      this.defaultUpload.files = agency.image as FilesPropModel[];
     }
   }
 
