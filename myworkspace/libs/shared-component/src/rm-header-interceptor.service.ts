@@ -32,7 +32,7 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
     // check the request method used
     if (request.method === 'GET') {
       const modifiedRequest = request.clone({
-        url: `http://ilo.appdiv.com/backend/index.php/${requestUrl}`,
+        url: `http://localhost/ilo_app/backend/index.php/${requestUrl}`,
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json'
@@ -41,7 +41,7 @@ export class RmHeaderInterceptorService implements HttpInterceptor {
       return next.handle(modifiedRequest);
     } else if (request.method === 'POST') {
       const modifiedRequest = request.clone({
-        url: `http://ilo.appdiv.com/backend/index.php/${requestUrl}`,
+        url: `http://localhost/ilo_app/backend/index.php/${requestUrl}`,
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8'
         }

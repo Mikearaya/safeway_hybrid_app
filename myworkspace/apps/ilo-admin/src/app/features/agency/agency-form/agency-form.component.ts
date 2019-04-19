@@ -103,9 +103,9 @@ export class AgencyFormComponent implements OnInit {
     agency.agency_locale.map(local =>
       this.agencyLocales.controls.push(this.initializeLocaleForm(local))
     );
-    this.defaultUpload.clearAll();
+
     if (agency.image) {
-      this.defaultUpload.files = agency.image as FilesPropModel[];
+      this.defaultUpload.files = agency.imageProperties as FilesPropModel[];
     }
   }
 

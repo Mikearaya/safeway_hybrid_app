@@ -23,13 +23,16 @@ export class ArticleDeletables {
   article_locale: number[] = [];
 }
 export class Article {
-  image: string[] = [];
-  audios: any[] = [];
-  videos: any[] = [];
+  image: string;
+  audios: any;
+  videos: any;
+  imageProperties: any;
+  audiosProperties: any;
+  videosProperties: any;
   token: string;
   article: ArticleModel;
-  article_locale: ArticleLocaleModel[] = [];
-  deleted_ids: ArticleDeletables = new ArticleDeletables();
+  article_locale: ArticleLocaleModel[];
+  deleted_ids: ArticleDeletables;
 }
 
 export interface ArticleCatagoryModel {

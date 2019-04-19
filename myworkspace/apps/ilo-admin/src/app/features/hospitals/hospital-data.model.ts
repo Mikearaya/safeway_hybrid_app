@@ -33,6 +33,6 @@ export class Hospital {
   hospital: HospitalModel;
   hospital_locale: HospitalLocaleModel[] = [];
   deleted_ids: HospitalDeletables = new HospitalDeletables();
-  image: Object[] = [];
+  image: string;
+  imageProperties: any[];
 }
-

@@ -6,7 +6,7 @@ import thunkMiddleware from "redux-thunk";
 
 const initialState = {
 	country: "Ethiopia",
-	region: 1
+	region: "All"
 };
 
 const reducer = (state = initialState, action) => {

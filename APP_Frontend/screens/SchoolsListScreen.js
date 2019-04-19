@@ -16,6 +16,7 @@ import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { changeFilterCountry } from "../redux/app-redux";
 import { connect } from "react-redux";
 import { StyleSheet } from "react-native";
+import RegionFilterDropdown from "../components/RegionFilterDropdown";
 
 var Enviroment = require("../global.js");
 
@@ -54,7 +55,7 @@ class SchoolsListScreen extends Component {
 	}
 	static navigationOptions = ({ navigation }) => {
 		return {
-			headerRight: <CountryFilterDropdown />,
+			headerRight: <RegionFilterDropdown />,
 			headerLeft: <NavigationButton sideBar={navigation} />
 		};
 	};

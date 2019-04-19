@@ -12,6 +12,9 @@ import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
 import { Container, Content } from "native-base";
 
 const imageLocation = "./../assets/images/image-not-found.jpg";
+var Enviroment = require("../global.js");
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	mainContainer: {
@@ -20,10 +23,8 @@ const styles = StyleSheet.create({
 	paragraphContainer: {
 		padding: 23
 	},
-	image: { height: 200, width: width }
+	image: { display: "flex", height: height / 3, width: width }
 });
-
-const { width } = Dimensions.get("window");
 
 export default class NewsDetail extends Component {
 	constructor(props) {
@@ -40,19 +41,17 @@ export default class NewsDetail extends Component {
 	render() {
 		return (
 			<Container style={styles.mainContainer}>
-				<Content>
-					<Image
-						source={{
-							uri: this.state.image
-								? this.state.image
-								: "http://192.168.1.4/ilo_app/backend/application/uploads/media/permanent/article/46/english/Screenshot_from_2019-03-34_27-59-17,png"
-						}}
-						style={styles.image}
-					/>
-					<View style={styles.paragraphContainer}>
-						<Text> {this.state.content} </Text>
-					</View>
-				</Content>
+				<Image
+					source={{
+						uri: this.state.image
+							? `${Enviroment.RESOURCE_URL}/${this.state.image}`
+							: "http://192.168.1.4/ilo_app/backend/application/uploads/media/permanent/article/46/english/Screenshot_from_2019-03-34_27-59-17,png"
+					}}
+					style={styles.image}
+				/>
+				<View style={styles.paragraphContainer}>
+					<Text> {this.state.content} </Text>
+				</View>
 			</Container>
 		);
 	}

@@ -29,7 +29,8 @@ export class Deletables {
 }
 
 export class EmergencyContact {
-  image: any[] = [];
+  image: string;
+  imageProperties: any[] = [];
   emergency_contact: EmergencyContactModel;
   emergency_contact_locale: EmergencyContactLocaleModel[] = [];
   deleted_ids: Deletables = new Deletables();

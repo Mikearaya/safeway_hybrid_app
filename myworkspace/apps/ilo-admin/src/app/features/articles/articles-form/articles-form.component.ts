@@ -15,7 +15,10 @@ import {
 } from '../articles-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
-import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  FilesPropModel
+} from '@syncfusion/ej2-angular-inputs';
 
 import { environment } from '../../../../environments/environment';
 
@@ -35,13 +38,8 @@ export class ArticlesFormComponent implements OnInit {
   @ViewChild('defaultupload')
   public defaultUpload: UploaderComponent;
 
-  public preLoadFiles: Object[] = [
-    {
-      name: null,
-      size: null,
-      type: null
-    }
-  ];
+  public preLoadFiles: FilesPropModel[];
+
   private articleId: number;
   public isUpdate: Boolean;
   public articleForm: FormGroup;
@@ -109,9 +107,6 @@ export class ArticlesFormComponent implements OnInit {
     });
   }
 
-  actionComplete(event: any) {
-    this.submitForm();
-  }
   initializeForm(article: Article): void {
     this.articleForm = this.formBuilder.group({
       id: [article.article.ID, Validators.required],
@@ -125,21 +120,20 @@ export class ArticlesFormComponent implements OnInit {
       this.articleLocales.controls.push(this.initiLocaleForm(element));
     });
 
-    this.defaultUpload.clearAll();
     this.preLoadFiles = [];
-    if (article.image.length) {
-      article.image.forEach(element => {
-        this.preLoadFiles.push(element);
-      });
+
+    alert(JSON.stringify(article.imageProperties));
+    if (article.imageProperties) {
+      this.defaultUpload.files = article.imageProperties as FilesPropModel[];
     }
 
-    if (article.audios.length) {
+    if (article.audios) {
       article.audios.forEach(element => {
         this.preLoadFiles.push(element);
       });
     }
 
-    if (article.videos.length) {
+    if (article.videos) {
       article.videos.forEach(element => {
         this.preLoadFiles.push(element);
       });
@@ -162,18 +156,21 @@ export class ArticlesFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.defaultUpload.upload(this.defaultUpload.getFilesData());
-  }
-
-  submitForm(): void {
     const formData = this.prepareFormData();
 
     if (formData) {
       if (!this.isUpdate) {
         this.articleApi.createArticle(formData).subscribe(
           (data: any) => {
+            this.defaultUpload.asyncSettings = {
+              saveUrl: `${
+                environment.apiUrl
+              }/upload/media/english/${data}/article`,
+              removeUrl: `${environment.apiUrl}/upload/media_delete/article`
+            };
             this.articleApi = data;
             this.isUpdate = true;
+            this.defaultUpload.upload(this.defaultUpload.getFilesData());
             alert('Article created successfully');
           },
           (error: HttpErrorResponse) => alert(error.message)
@@ -188,6 +185,7 @@ export class ArticlesFormComponent implements OnInit {
       }
     }
   }
+
   prepareFormData(): Article | null {
     const article = new Article();
 

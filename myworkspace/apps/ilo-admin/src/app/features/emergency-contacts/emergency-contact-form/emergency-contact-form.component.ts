@@ -16,7 +16,8 @@ import {
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   ActionCompleteEventArgs,
-  ClearingEventArgs
+  ClearingEventArgs,
+  FilesPropModel
 } from '@syncfusion/ej2-inputs';
 import { UploaderComponent } from '@syncfusion/ej2-angular-inputs';
 import { EnvService } from '../../../env.service';
@@ -154,9 +155,9 @@ export class EmergencyContactFormComponent implements OnInit {
       region: [emergencyContact.emergency_contact.region, Validators.required],
       emergencyContactLocale: this.forumBuilder.array([])
     });
-    this.defaultUpload.clearAll();
+
     if (emergencyContact.image.length) {
-      this.preLoadFiles = emergencyContact.image;
+      this.defaultUpload.files = emergencyContact.imageProperties as FilesPropModel[];
     }
 
     emergencyContact.emergency_contact_locale.map(element =>

@@ -36,8 +36,8 @@ class MY_Model extends CI_Model
       foreach ($this->child_tables as $table => $primary_key) {
         $this->db->where($primary_key, $id);
         $result_set = $this->db->get($table);
+        $result[$table] = $result_set->result_array();
       }
-      $result[$table] = $result_set->result_array();
     } else {
       $result_set = $this->db->get($this->table_name);
       $result[$this->table_name] = $result_set->row_array();
@@ -45,8 +45,8 @@ class MY_Model extends CI_Model
       foreach ($this->child_tables as $table => $primary_key) {
         $this->db->where($primary_key, $id);
         $result_set = $this->db->get($table);
+        $result[$table] = $result_set->result_array();
       }
-      $result[$table] = $result_set->result_array();
     }
 
 
@@ -65,16 +65,20 @@ class MY_Model extends CI_Model
 
       if (!$info->isDot() && !$info->isDir()) {
 
-        $file = $this->extract_file_info($info);
+        $file = $info->getPathname();
+        $fileProperty = $this->extract_file_info($info);
 
 
         $mime = get_mime_by_extension($info->getFilename());
         if (strstr($mime, "video/")) {
-          $result['videos'][] = $file;
+          $result['videos'] = $file;
+          $result['videoProperties'][] = $fileProperty;
         } else if (strstr($mime, "image/")) {
-          $result['image'][] = $file;
+          $result['image'] = $file;
+          $result['imageProperties'][] = $fileProperty;
         } else if (strstr($mime, "audio/")) {
-          $result['audios'][] = $file;
+          $result['audios'] = $file;
+          $result['audioProperties'][] = $fileProperty;
         }
       }
     }

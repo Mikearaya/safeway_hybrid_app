@@ -7,14 +7,22 @@
             <div class="row">
               <div class="col-12 col-sm-6 form-group ">
                 <label for="emergencyContactName">Article Catagory</label>
-                <select id="ddlelement" formControlName="catagory" class="form-control"
-                  placeholder="Select article catagory">
-                  <option *ngFor="
+                <select
+                  id="ddlelement"
+                  formControlName="catagory"
+                  class="form-control"
+                  placeholder="Select article catagory"
+                >
+                  <option
+                    *ngFor="
                       let cat of articleCatagories;
                       let i = index;
                       let last = last
-                    " [value]="cat.ID">
-                    {{ cat.name }}</option>
+                    "
+                    [value]="cat.ID"
+                  >
+                    {{ cat.name }}</option
+                  >
                 </select>
                 <div class="text-danger" *ngIf="catagory.errors">
                   <div *ngIf="catagory.errors['required']">
@@ -24,9 +32,16 @@
               </div>
               <div class="col-12 col-sm-6 form-group">
                 <label for="title">Article header</label>
-                <input type="text" class="form-control" formControlName="title" id="title"
-                  placeholder="Article header" />
-                <small id="address" class="form-text text-muted">Header used as article title</small>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="title"
+                  id="title"
+                  placeholder="Article header"
+                />
+                <small id="address" class="form-text text-muted"
+                  >Header used as article title</small
+                >
                 <div class="text-danger" *ngIf="articleTitle.errors">
                   <div *ngIf="articleTitle.errors['required']">
                     Phone number is required
@@ -37,16 +52,23 @@
             <div class="row">
               <div class="col-12 form-group">
                 <label for="articleContent">Article content</label>
-                <textarea formControlName="content" rows="10" class="form-control"></textarea>
+                <textarea
+                  formControlName="content"
+                  rows="10"
+                  class="form-control"
+                ></textarea>
               </div>
             </div>
             <div class="row">
               <div class="col-12  form-group ">
-                <ejs-uploader #defaultupload [autoUpload]='false' (actionComplete)='actionComplete($event)'
-                  [allowedExtensions]="'image/* video/*'" name='fileupload' [files]='preLoadFiles' [multiple]='true'
-                  [asyncSettings]='path'>
+                <ejs-uploader
+                  #defaultupload
+                  [autoUpload]="false"
+                  [allowedExtensions]="'image/* video/*'"
+                  name="fileupload"
+                  [multiple]="true"
+                >
                 </ejs-uploader>
-
               </div>
             </div>
           </ng-template>
@@ -54,19 +76,33 @@
         <e-tabitem [header]="headerText[1]">
           <ng-template #content>
             <div formArrayName="articleLocales">
-              <div *ngFor="
+              <div
+                *ngFor="
                   let locale of articleLocales.controls;
                   let i = index;
                   let last = last
-                " [formGroup]="locale">
+                "
+                [formGroup]="locale"
+              >
                 <div class="row" style="position:relative;">
                   <div class="col-12 col-sm-4 form-group">
                     <label for="locale">Language</label>
-                    <select class="form-control" formControlName="locale" id="locale">
-                      <option *ngFor="let lang of languages; let i = index" [value]="lang.ID">{{ lang.name }}</option>
+                    <select
+                      class="form-control"
+                      formControlName="locale"
+                      id="locale"
+                    >
+                      <option
+                        *ngFor="let lang of languages; let i = index"
+                        [value]="lang.ID"
+                        >{{ lang.name }}</option
+                      >
                     </select>
 
-                    <div class="text-danger" *ngIf="locale.get('locale').errors">
+                    <div
+                      class="text-danger"
+                      *ngIf="locale.get('locale').errors"
+                    >
                       <div *ngIf="locale.get('locale').errors['required']">
                         Hospital region is required
                       </div>
@@ -74,8 +110,14 @@
                   </div>
                   <div class="col-12 col-sm-7 form-group ">
                     <label for="title">Article header</label>
-                    <input type="text" formControlName="title" class="form-control" id="hospital"
-                      aria-describedby="Article header" placeholder="Article header" />
+                    <input
+                      type="text"
+                      formControlName="title"
+                      class="form-control"
+                      id="hospital"
+                      aria-describedby="Article header"
+                      placeholder="Article header"
+                    />
                     <div class="text-danger" *ngIf="locale.get('title').errors">
                       <div *ngIf="locale.get('title').errors['required']">
                         Article header is required
@@ -83,12 +125,21 @@
                     </div>
                   </div>
                   <div class="col-12 col-sm-1">
-                    <button type="button" class="btn btn-sm btn-primary" *ngIf="last"
-                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'" [disabled]="locale.invalid"
-                      (click)="addLocale()">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-primary"
+                      *ngIf="last"
+                      [ngClass]="locale.invalid ? 'btn-warning' : 'btn-primary'"
+                      [disabled]="locale.invalid"
+                      (click)="addLocale()"
+                    >
                       <i class="fa fa-plus"></i>
                     </button>
-                    <button type="button" class="btn btn-sm rounded  btn-danger" (click)="deleteLocale(i)">
+                    <button
+                      type="button"
+                      class="btn btn-sm rounded  btn-danger"
+                      (click)="deleteLocale(i)"
+                    >
                       <i class="fa fa-trash"></i>
                     </button>
                   </div>
@@ -96,17 +147,33 @@
                 <div class="row">
                   <div class="col-12 col-sm-12 form-group">
                     <label for="articleContent">Article content</label>
-                    <textarea formControlName="content" rows="10" class="form-control"></textarea>
-                    <small id="address" class="form-text text-muted">Address of the Emergency contact.</small>
-                    <div class="text-danger" *ngIf="locale.get('content').errors">
-                      <div *ngIf="locale.get('content').errors['required']"></div>
+                    <textarea
+                      formControlName="content"
+                      rows="10"
+                      class="form-control"
+                    ></textarea>
+                    <small id="address" class="form-text text-muted"
+                      >Address of the Emergency contact.</small
+                    >
+                    <div
+                      class="text-danger"
+                      *ngIf="locale.get('content').errors"
+                    >
+                      <div
+                        *ngIf="locale.get('content').errors['required']"
+                      ></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-right">
-              <button type="button" (click)="addLocale()" class="btn  btn-success" *ngIf="articleLocales.length == 0">
+              <button
+                type="button"
+                (click)="addLocale()"
+                class="btn  btn-success"
+                *ngIf="articleLocales.length == 0"
+              >
                 <i class="fa fa-plus "></i>Add Language
               </button>
             </div>
@@ -114,8 +181,12 @@
         </e-tabitem>
       </e-tabitems>
     </ejs-tab>
-    <button type="submit" [disabled]="articleForm.invalid"
-      [ngClass]="articleForm.invalid ? 'btn-danger' : 'btn-success'" class="btn">
+    <button
+      type="submit"
+      [disabled]="articleForm.invalid"
+      [ngClass]="articleForm.invalid ? 'btn-danger' : 'btn-success'"
+      class="btn"
+    >
       Submit
     </button>
   </form>

@@ -20,7 +20,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { SystemApiService, Guid } from '../../../system-api.service';
 import {
   UploaderComponent,
-  ActionCompleteEventArgs
+  ActionCompleteEventArgs,
+  FilesPropModel
 } from '@syncfusion/ej2-angular-inputs';
 
 import { environment } from '../../../../environments/environment';
@@ -139,9 +140,9 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
       region: [hospital.hospital.region, Validators.required],
       hospitalLocale: this.forumBuilder.array([])
     });
-    this.defaultUpload.clearAll();
+  
     if (hospital.image.length) {
-      this.preLoadFiles = hospital.image;
+      this.defaultUpload.files = hospital.imageProperties as FilesPropModel[];
     }
 
     hospital.hospital_locale.map(locale =>
