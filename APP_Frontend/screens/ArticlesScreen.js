@@ -35,7 +35,7 @@ const mapDispatchToProps = dipatch => {
 	};
 };
 
-class ArticlesScreen extends React.Component {
+export default class ArticlesScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -77,18 +77,13 @@ class ArticlesScreen extends React.Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
+				alert(JSON.stringify(data));
 				this.setState({
 					catagories: data,
 					filteredDatas: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
-	}
-
-	componentDidUpdate() {
-		this.state.filteredDatas = this.state.catagories.filter(
-			s => s.country.toUpperCase() == this.props.currentCountry.toUpperCase()
-		);
 	}
 
 	_catagorySelected(selectedCatagory) {
@@ -104,8 +99,3 @@ class ArticlesScreen extends React.Component {
 		}
 	}
 }
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(ArticlesScreen);

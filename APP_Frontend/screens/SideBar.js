@@ -49,7 +49,11 @@ const styles = StyleSheet.create({
 	container: {
 		backgroundColor: "#127ba4"
 	},
-	sidebarContent: { paddingTop: 2 }
+	sidebarContent: {
+		paddingTop: 2,
+		backgroundColor: "white",
+		height: height - height / 3
+	}
 });
 class SideBar extends Component {
 	navigateToScreen = route => () => {
@@ -68,7 +72,7 @@ class SideBar extends Component {
 						style={styles.image}
 					/>
 				</View>
-				<ScrollView>
+				<ScrollView style={{ height: 100 }}>
 					<View>
 						<Content style={styles.sidebarContent}>
 							<CardItem
