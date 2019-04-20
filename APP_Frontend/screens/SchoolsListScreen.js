@@ -50,7 +50,7 @@ class SchoolsListScreen extends Component {
 		super(props);
 		this.state = {
 			schools: [],
-			filteredSchools: []
+			searchText: ""
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -76,13 +76,13 @@ class SchoolsListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={search => this.filterData(search)}
+								onChangeText={searchText => this.setState({ searchText })}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.filteredSchools}
+						data={this.getData()}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -100,29 +100,31 @@ class SchoolsListScreen extends Component {
 		);
 	}
 
-	filterData(filter = "") {
-		let x = this.state.schools.filter(s =>
-			s.name
-				.toString()
-				.toLowerCase()
-				.includes(filter.toLowerCase())
-		);
-
-		x = x.filter(t => t.region.toString() === this.props.region.toString());
-		this.setState({ filteredSchools: x });
-	}
-
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/schools`;
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					schools: data,
-					filteredSchools: data
+					schools: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
+	}
+
+	getData() {
+		let x = this.state.schools.filter(s =>
+			s.name
+				.toString()
+				.toLowerCase()
+				.includes(this.state.searchText.toLowerCase())
+		);
+
+		if (this.props.region.toUpperCase() !== "ALL") {
+			x = x.filter(t => t.region.toString() === this.props.region.toString());
+		}
+
+		return x;
 	}
 }
 
