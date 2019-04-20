@@ -51,7 +51,11 @@ export default class HomeScreen extends React.Component {
 			.then(data => {
 				let posts = data.map((post, index) => {
 					return (
-						<NewsCard newsItems={post} navigation={this.props.navigation} />
+						<NewsCard
+							newsItems={post}
+							style={{ width: "100%" }}
+							navigation={this.props.navigation}
+						/>
 					);
 				});
 				this.setState({ posts: posts });

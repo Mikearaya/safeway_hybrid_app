@@ -72,11 +72,9 @@ class ArticlesScreen extends React.Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/article_catagory`;
-		alert(JSON.stringify(url));
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				alert(JSON.stringify(data));
 				this.setState({
 					catagories: data,
 					filteredDatas: data

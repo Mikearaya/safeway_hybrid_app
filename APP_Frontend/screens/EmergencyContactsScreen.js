@@ -46,8 +46,8 @@ class EmergencyContactsScreen extends Component {
 		super(props);
 		this.state = {
 			emergencyContacts: [],
-			currentCountry: this.props.country,
-			filteredDatas: []
+			filteredDatas: [],
+			searchText: ""
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -57,8 +57,8 @@ class EmergencyContactsScreen extends Component {
 					sideBar={navigation}
 					style={styles.navigationButton}
 				/>
-			),
-			headerRight: <CountryFilterDropdown style={styles.filterComponent} />
+			)
+			/* headerRight: <CountryFilterDropdown style={styles.filterComponent} /> */
 		};
 	};
 
@@ -78,13 +78,13 @@ class EmergencyContactsScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={comments => this.setState({ comments })}
+								onChangeText={searchText => this.setState({ searchText })}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.filteredDatas}
+						data={this.getData()}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -109,17 +109,26 @@ class EmergencyContactsScreen extends Component {
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					emergencyContacts: data,
-					filteredDatas: data
+					emergencyContacts: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 
-	componentDidUpdate() {
-		this.state.filteredDatas = this.state.emergencyContacts.filter(
-			s => s.region == this.props.currentCountry
+	getData() {
+		let x = this.state.emergencyContacts.filter(
+			s =>
+				s.name
+					.toString()
+					.toLowerCase()
+					.includes(this.state.searchText.toLowerCase()) ||
+				s.address
+					.toString()
+					.toLowerCase()
+					.includes(this.state.searchText.toLowerCase())
 		);
+
+		return x;
 	}
 }
 

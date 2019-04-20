@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
 	imageBox: {
 		paddingTop: 5,
 		paddingBottom: 5,
-
 		backgroundColor: "#127ba4"
 	},
 	container: {
@@ -79,21 +78,25 @@ class SideBar extends Component {
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("Forum")}>
-								<Icon name="chatbubbles" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.commentDots}
+								</FontAwesome>
 								<Text style={styles.menuText}>{localeStore.SideBar.Forum}</Text>
 							</CardItem>
 							<CardItem
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("Articles")}>
-								<Icon name="information-circle" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.infoCircle}
+								</FontAwesome>
 								<Text style={styles.menuText}>{localeStore.SideBar.Help}</Text>
 							</CardItem>
 							<CardItem
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("AgenciesList")}>
-								<Icon name="information-circle" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>{Icons.link}</FontAwesome>
 								<Text style={styles.menuText}>
 									{localeStore.SideBar.Agencies}
 								</Text>
@@ -102,7 +105,9 @@ class SideBar extends Component {
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("HospitalsList")}>
-								<Icon name="information-circle" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.stethoscope}
+								</FontAwesome>
 								<Text style={styles.menuText}>
 									{localeStore.SideBar.Hospitals}
 								</Text>
@@ -111,7 +116,9 @@ class SideBar extends Component {
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("SchoolsList")}>
-								<Icon name="information-circle" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.graduationCap}
+								</FontAwesome>
 								<Text style={styles.menuText}>
 									{localeStore.SideBar.Schools}
 								</Text>
@@ -129,20 +136,21 @@ class SideBar extends Component {
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("complain")}>
-								<Icon name="contacts" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.bullhorn}
+								</FontAwesome>
 								<Text style={styles.menuText}>Complain Managment</Text>
 							</CardItem>
 							<CardItem
 								style={styles.menuItem}
 								button
 								onPress={this.navigateToScreen("Auth")}>
-								<Icon name="information-circle" style={styles.menuIcons} />
+								<FontAwesome style={styles.menuIcons}>
+									{Icons.language}
+								</FontAwesome>
 								<Text style={styles.menuText}>
 									{localeStore.SideBar.Language}
 								</Text>
-								<Right>
-									<Icon name="arrow-forward" />
-								</Right>
 							</CardItem>
 						</Content>
 					</View>

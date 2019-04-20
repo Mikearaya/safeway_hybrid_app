@@ -27,11 +27,18 @@ const styles = StyleSheet.create({
 		marginLeft: 0,
 		paddingLeft: 3,
 		borderLeftWidth: 8,
-		borderColor: "#127ba4"
+		borderColor: "#127ba4",
+		paddingBottom: 10
 	},
 	subTitle: {
 		borderWidth: 0,
 		textDecorationLine: "none"
+	},
+	body: {
+		borderBottomWidth: 0
+	},
+	right: {
+		borderBottomWidth: 0
 	}
 });
 
@@ -42,7 +49,7 @@ export default class ListViewComponent extends Component {
 	render() {
 		const image = this.props.images
 			? `${Enviroment.RESOURCE_URL}/${this.props.images}`
-			: "../assets/images/app_icon.png";
+			: "../assets/images/hospital_icon.png";
 		return (
 			<ListItem
 				style={styles.listBox}
@@ -54,18 +61,20 @@ export default class ListViewComponent extends Component {
 				avatar>
 				<Left>
 					<Thumbnail
-						source={{
-							uri: image
-						}}
+						source={
+							this.props.images
+								? { uri: image }
+								: require("../assets/images/thumbnail_placeholder.png")
+						}
 					/>
 				</Left>
-				<Body>
+				<Body style={{ borderBottomWidth: 0 }}>
 					<Text>{this.props.name}</Text>
 					<Text note style={styles.subTitle}>
 						{this.props.address}
 					</Text>
 				</Body>
-				<Right>
+				<Right style={styles.right}>
 					<Icon name="arrow-forward" />
 				</Right>
 			</ListItem>

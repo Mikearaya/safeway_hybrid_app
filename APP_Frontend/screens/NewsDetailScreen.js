@@ -9,7 +9,7 @@
 var Enviroment = require("../global.js");
 import React, { Component } from "react";
 import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
-import { Container, Content } from "native-base";
+import { Container } from "native-base";
 
 const imageLocation = "./../assets/images/image-not-found.jpg";
 var Enviroment = require("../global.js");
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 	paragraphContainer: {
 		padding: 23
 	},
-	image: { display: "flex", width: width, padding: 3 }
+	image: { display: "flex", width: width, height: height / 3, padding: 3 }
 });
 
 export default class NewsDetail extends Component {

@@ -27,7 +27,9 @@ export default class App extends React.Component {
 			Roboto_medium: require("./node_modules/native-base/Fonts/Roboto_medium.ttf"),
 			fa_solid_900: require("./node_modules/native-base/Fonts/FontAwesome5_Solid.ttf")
 		});
-		this.setState({ isReady: true });
+		this.setState({
+			isReady: true
+		});
 	}
 
 	_checkLocale = async () => {
@@ -60,8 +62,8 @@ export default class App extends React.Component {
 	_loadResourcesAsync = async () => {
 		return Promise.all([
 			Asset.loadAsync([
-				require("./assets/images/robot-dev.png"),
-				require("./assets/images/robot-prod.png")
+				require("./assets/images/icon.png"),
+				require("./assets/images/icon.png")
 			]),
 			Font.loadAsync({
 				...Icon.Ionicons.font,
@@ -75,7 +77,9 @@ export default class App extends React.Component {
 	};
 
 	_handleFinishLoading = () => {
-		this.setState({ isLoadingComplete: true });
+		this.setState({
+			isLoadingComplete: true
+		});
 	};
 }
 
