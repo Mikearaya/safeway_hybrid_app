@@ -18,7 +18,7 @@ class Article_catagory_model extends MY_Model
 
 
 
-        $this->db->select("article.CATAGORY_ID,article_catagory.name, ANY_VALUE(article.ID) as ID, count(article.CATAGORY_ID) as totalArticles, ANY_VALUE(article_catagory.country) as country");
+        $this->db->select("article.CATAGORY_ID,article_catagory.name, count(article.CATAGORY_ID) as totalArticles, country");
         $this->db->from('article');
         $result = $this->db->where('article.CATAGORY_ID !=', null);
         $this->db->join('article_catagory', 'article_catagory.ID = article.CATAGORY_ID');
