@@ -104,18 +104,6 @@ class HospitalsListScreen extends Component {
 		);
 	}
 
-	filterData() {
-		let x = this.state.hospitals.filter(s =>
-			s.name
-				.toString()
-				.toLowerCase()
-				.includes(filter.toLowerCase())
-		);
-
-		x = x.filter(t => t.region.toString() === this.props.region.toString());
-		this.setState({ filteredHospitals: x, searchText: filter });
-	}
-
 	getData() {
 		let x = this.state.hospitals.filter(s =>
 			s.name
@@ -138,8 +126,7 @@ class HospitalsListScreen extends Component {
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					hospitals: data,
-					filteredHospitals: data
+					hospitals: data
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

@@ -62,12 +62,13 @@ class AgenciesListScreen extends Component {
 		super(props);
 		this.state = {
 			agencies: [],
-			filteredAgencies: []
+			filteredAgencies: [],
+			searchText: ""
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
 		return {
-			headerRight: <CountryFilterDropdown />,
+			/* 	headerRight: <CountryFilterDropdown />, */
 			headerLeft: <NavigationButton sideBar={navigation} />
 		};
 	};
@@ -88,13 +89,13 @@ class AgenciesListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.title}
-								onChangeText={search => this.filterData(search)}
+								onChangeText={searchText => this.setState({ searchText })}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.filteredAgencies}
+						data={this.getData()}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -118,20 +119,29 @@ class AgenciesListScreen extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ agencies: data, filteredAgencies: data });
+				this.setState({ agencies: data });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 
-	filterData(filter = "") {
-		let x = this.state.agencies.filter(s =>
-			s.name
-				.toString()
-				.toLowerCase()
-				.includes(filter.toLowerCase())
+	getData() {
+		let x = this.state.agencies.filter(
+			s =>
+				s.name
+					.toString()
+					.toLowerCase()
+					.includes(this.state.searchText.toLowerCase()) ||
+				s.address
+					.toString()
+					.toLowerCase()
+					.includes(this.state.searchText.toLowerCase())
 		);
-		x = x.filter(t => t.region.toString() === this.props.region.toString());
-		this.setState({ filteredAgencies: x });
+
+		/* 		if (this.props.country.toUpperCase() !== "ALL") {
+			x = x.filter(t => t.region.toString() === this.props.country.toString());
+		} */
+
+		return x;
 	}
 }
 
