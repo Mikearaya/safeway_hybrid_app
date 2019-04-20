@@ -19,12 +19,7 @@ var setStoreItem = async (item, value) => {
         storedObj = value;
     }
 
-    AsyncStorage.setItem(item, JSON.stringify(storedObj)).then(() => {
-            alert('stored')
-        })
-        .catch(() => {
-            alert('There was an error saving the product');
-        })
+
     return storedObj;
 }
 
@@ -35,4 +30,3 @@ var getStoreItem = async (item) => {
 
 
 module.exports = setStoreItem();
-module.exports = getStoreItem();

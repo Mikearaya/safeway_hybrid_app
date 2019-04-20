@@ -188,7 +188,6 @@ export class EmergencyContactFormComponent implements OnInit {
     this.emergencyContactLocales.controls.push(this.generateLocaleForm());
   }
   onSubmit() {
-  
     const emergencyContactData = this.prepareFormData();
 
     if (emergencyContactData) {
@@ -205,12 +204,14 @@ export class EmergencyContactFormComponent implements OnInit {
           .subscribe(
             (data: any) => {
               this.defaultUpload.asyncSettings = {
-                saveUrl: `${environment.apiUrl}/upload/media/english/${data}/emergency_contact`,
+                saveUrl: `${
+                  environment.apiUrl
+                }/upload/media/english/${data}/emergency_contact`,
                 removeUrl: `${
                   environment.apiUrl
                 }/upload/media_delete/emergency_contact/${data}`
               };
-              
+
               this.defaultUpload.upload(this.defaultUpload.getFilesData());
               this.isUpdate = true;
               this.emergencyContactId = data;

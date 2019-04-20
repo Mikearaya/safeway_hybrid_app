@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { StyleSheet } from "react-native";
 const Enviroment = require("../global.js");
+import localeStore from "../locale/localization";
 import {
 	Text,
 	Container,
@@ -23,6 +24,8 @@ const styles = StyleSheet.create({
 		top: 0,
 		width: "100%"
 	},
+	content: { paddingLeft: 5, paddingRight: 5 },
+	form: { paddingLeft: 5, paddingRight: 5 },
 	searchSection: {
 		backgroundColor: "#46b5be"
 	},
@@ -43,6 +46,15 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 		borderRadius: 20
+	},
+	textArea: {
+		marginTop: 5,
+		borderTopWidth: 0,
+		borderLeftWidth: 0,
+		borderRightWidth: 0
+	},
+	submitButton: {
+		marginTop: 5
 	}
 });
 
@@ -61,11 +73,16 @@ let toast = Toast.show("", {
 });
 
 export default class ComplainFormScreen extends Component {
+	static navigationOptions = ({ navigation }) => {
+		return {
+			title: localeStore.ComplainForm.title
+		};
+	};
+
 	constructor(props) {
 		super(props);
 		this.state = {
 			complain: "",
-			complainType: "",
 			passport: "",
 			barcode: "",
 			selectedComplainType: "",
@@ -74,16 +91,11 @@ export default class ComplainFormScreen extends Component {
 		};
 	}
 
-	onValueChange(value: string) {
-		this.setState({
-			selected: value
-		});
-	}
 	render() {
 		return (
-			<Container>
-				<Content>
-					<Form>
+			<Container style={styles.container}>
+				<Content style={styles.content}>
+					<Form style={styles.form}>
 						<Dropdown
 							label="Select reason"
 							data={this.state.complain_types}
@@ -93,7 +105,6 @@ export default class ComplainFormScreen extends Component {
 								this.setState({ selectedComplainType: data[index].ID });
 							}}
 						/>
-
 						<Item stackedLabel>
 							<Label>Passport Number</Label>
 							<Input
@@ -101,7 +112,7 @@ export default class ComplainFormScreen extends Component {
 								onChangeText={passport => this.setState({ passport })}
 							/>
 						</Item>
-						<Item stackedLabel last>
+						<Item stackedLabel>
 							<Label>Barcode Number</Label>
 							<Input
 								value={this.state.barcode}
@@ -110,6 +121,7 @@ export default class ComplainFormScreen extends Component {
 						</Item>
 
 						<Textarea
+							style={styles.textArea}
 							value={this.state.complain}
 							onChangeText={complain => this.setState({ complain })}
 							rowSpan={5}
@@ -118,6 +130,7 @@ export default class ComplainFormScreen extends Component {
 						/>
 
 						<Button
+							style={styles.submitButton}
 							onPress={() => this.formSubmited()}
 							disabled={this.state.submited}
 							block

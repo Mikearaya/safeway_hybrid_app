@@ -52,7 +52,8 @@ class HospitalsListScreen extends Component {
 			hospitals: [],
 			region: this.props.region,
 			filteredHospitals: [],
-			searchText: ""
+			searchText: "",
+			getData: ""
 		};
 		this.props.hospitalsData;
 	}
@@ -79,13 +80,13 @@ class HospitalsListScreen extends Component {
 								style={styles.input}
 								placeholderTextColor="white"
 								value={this.state.searchText}
-								onChangeText={search => this.filterData(search)}
+								onChangeText={searchText => this.setState({ searchText })}
 								placeholder="Search"
 							/>
 						</View>
 					</View>
 					<FlatList
-						data={this.state.filteredHospitals}
+						data={this.getData()}
 						renderItem={({ item }) => (
 							<ListViewComponent
 								id={item.ID}
@@ -103,7 +104,7 @@ class HospitalsListScreen extends Component {
 		);
 	}
 
-	filterData(filter = "") {
+	filterData() {
 		let x = this.state.hospitals.filter(s =>
 			s.name
 				.toString()
@@ -115,13 +116,27 @@ class HospitalsListScreen extends Component {
 		this.setState({ filteredHospitals: x, searchText: filter });
 	}
 
+	getData() {
+		let x = this.state.hospitals.filter(s =>
+			s.name
+				.toString()
+				.toLowerCase()
+				.includes(this.state.searchText.toLowerCase())
+		);
+
+		if (this.props.region !== "ALL") {
+			x = x.filter(t => t.region.toString() === this.props.region.toString());
+		}
+
+		return x;
+	}
+
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/hospitals`;
 
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				alert(JSON.stringify(data));
 				this.setState({
 					hospitals: data,
 					filteredHospitals: data
@@ -129,8 +144,6 @@ class HospitalsListScreen extends Component {
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
-
-	componentDidUpdate() {}
 }
 
 const mapStateToProps = state => {

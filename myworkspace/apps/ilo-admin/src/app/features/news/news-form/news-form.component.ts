@@ -11,7 +11,10 @@ import { ActivatedRoute } from '@angular/router';
 import { SystemApiService, Guid } from '../../../system-api.service';
 import { News, NewsLocaleModel } from '../news-data.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { UploaderComponent, FilesPropModel } from '@syncfusion/ej2-angular-inputs';
+import {
+  UploaderComponent,
+  FilesPropModel
+} from '@syncfusion/ej2-angular-inputs';
 import { environment } from '../../../../environments/environment';
 
 @Component({

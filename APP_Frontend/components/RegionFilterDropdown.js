@@ -4,6 +4,9 @@ import { Dropdown } from "react-native-material-dropdown";
 import { connect } from "react-redux";
 import { changeFilterRegion } from "./../redux/app-redux";
 
+Array.prototype.insert = function(index, item) {
+	this.splice(index, 0, item);
+};
 class RegionFilterDropdown extends Component {
 	constructor(props) {
 		super(props);
@@ -33,6 +36,7 @@ class RegionFilterDropdown extends Component {
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
+				data.splice(0, 0, { ID: "ALL", name: "ALL" });
 				this.setState({ regions: data });
 			})
 			.catch(error => alert(JSON.stringify(error)));

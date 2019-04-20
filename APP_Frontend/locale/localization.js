@@ -44,6 +44,9 @@ const localizationString = {
     HospitalDetail: {
       title: 'Hospital address'
     },
+    ComplainForm: {
+      title: 'Complain Form'
+    },
     Language: 'lugga',
     Select_language: 'Lugaa filadhu',
     SideBar: {
@@ -133,6 +136,9 @@ const localizationString = {
     },
     HospitalDetail: {
       title: 'Hospital address'
+    },
+    ComplainForm: {
+      title: 'Complain Form'
     },
     Language: 'ቋንቋ',
     Select_language: 'ቋንቋ ይምረጡ',
@@ -238,6 +244,9 @@ const localizationString = {
     PolicyIndex: {
       title: 'Index'
     },
+    ComplainForm: {
+      title: 'Complain Form'
+    },
     HelpScreen: {
       title: 'Helpful information',
       immigration_policy: 'Immigration policy',
@@ -312,6 +321,9 @@ const localizationString = {
     HospitalDetail: {
       title: 'Hospital address'
     },
+    ComplainForm: {
+      title: 'Complain Form'
+    },
     Language: 'ቋንቋ',
     Select_language: 'ቋንቋ ምረጹ',
     SideBar: {
@@ -382,6 +394,9 @@ const localizationString = {
     },
     ForumDetail: {
       title: 'المنتدى'
+    },
+    ComplainForm: {
+      title: 'Complain Form'
     },
     AgenciesList: {
       title: 'Immigration agencies'

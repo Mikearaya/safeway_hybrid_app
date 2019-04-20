@@ -10,7 +10,7 @@ import React from "react";
 import { Container, Content } from "native-base";
 import NavigationButton from "../components/NavigationButton";
 import localeStore from "../locale/localization";
-import { FlatList, View, Text } from "react-native";
+import { FlatList } from "react-native";
 import ArticleList from "../components/ArticleListComponent";
 var Enviroment = require("../global.js");
 import { connect } from "react-redux";
@@ -34,8 +34,7 @@ const mapDispatchToProps = dipatch => {
 		changeFilterCountry: text => dipatch(changeFilterCountry(text))
 	};
 };
-
-export default class ArticlesScreen extends React.Component {
+class ArticlesScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -73,7 +72,7 @@ export default class ArticlesScreen extends React.Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/article_catagory`;
-
+		alert(JSON.stringify(url));
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
@@ -99,3 +98,8 @@ export default class ArticlesScreen extends React.Component {
 		}
 	}
 }
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(ArticlesScreen);

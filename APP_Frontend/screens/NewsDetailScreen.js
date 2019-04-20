@@ -18,12 +18,13 @@ const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
 	mainContainer: {
-		flex: 1
+		flex: 1,
+		marginTop: 10
 	},
 	paragraphContainer: {
 		padding: 23
 	},
-	image: { display: "flex", height: height / 3, width: width }
+	image: { display: "flex", width: width, padding: 3 }
 });
 
 export default class NewsDetail extends Component {
@@ -49,6 +50,7 @@ export default class NewsDetail extends Component {
 					}}
 					style={styles.image}
 				/>
+
 				<View style={styles.paragraphContainer}>
 					<Text> {this.state.content} </Text>
 				</View>

@@ -140,7 +140,7 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
       region: [hospital.hospital.region, Validators.required],
       hospitalLocale: this.forumBuilder.array([])
     });
-  
+
     if (hospital.image.length) {
       this.defaultUpload.files = hospital.imageProperties as FilesPropModel[];
     }
@@ -193,7 +193,6 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
     }
   }
   onSubmit() {
-    
     const hospitalData = this.prepareFormData();
     if (hospitalData) {
       if (this.isUpdate) {
@@ -207,15 +206,16 @@ export class HospitalFormComponent implements OnInit, AfterViewChecked {
         this.hospitalApi
           .addHospitalAddress(hospitalData)
           .subscribe((data: any) => {
+            this.defaultUpload.asyncSettings = {
+              saveUrl: `${
+                environment.apiUrl
+              }/upload/media/english/${data}/hospital`,
+              removeUrl: `${
+                environment.apiUrl
+              }/upload/media_delete/hospital/${data}`
+            };
 
-         this.defaultUpload.asyncSettings = {
-                saveUrl: `${environment.apiUrl}/upload/media/english/${data}/hospital`,
-                removeUrl: `${
-                  environment.apiUrl
-                }/upload/media_delete/hospital/${data}`
-              };
-
-              this.defaultUpload.upload(this.defaultUpload.getFilesData());
+            this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.hospitalId = data;
             this.isUpdate = true;
             alert('Medical center added successfuly');

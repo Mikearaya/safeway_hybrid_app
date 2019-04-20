@@ -168,9 +168,10 @@ export class ArticlesFormComponent implements OnInit {
               }/upload/media/english/${data}/article`,
               removeUrl: `${environment.apiUrl}/upload/media_delete/article`
             };
+            this.defaultUpload.upload(this.defaultUpload.getFilesData());
             this.articleApi = data;
             this.isUpdate = true;
-            this.defaultUpload.upload(this.defaultUpload.getFilesData());
+
             alert('Article created successfully');
           },
           (error: HttpErrorResponse) => alert(error.message)

@@ -3,16 +3,7 @@ import React, { Component } from "react";
 import { NavigationActions } from "react-navigation";
 import { ScrollView, Text, View, Image, StyleSheet } from "react-native";
 import localeStore from "../locale/localization";
-import {
-	Card,
-	CardItem,
-	Icon,
-	Right,
-	Button,
-	StyleProvider,
-	Content,
-	Container
-} from "native-base";
+import { CardItem, Icon, Right, Content, Container } from "native-base";
 import FontAwesome, { Icons } from "react-native-fontawesome";
 import { Dimensions } from "react-native";
 
@@ -37,22 +28,22 @@ const styles = StyleSheet.create({
 		borderBottomWidth: 1
 	},
 	image: {
-		margin: 5,
-		height: height / 3,
-		width: width - width / 3
-	},
-	imageBox: {
 		height: height / 3,
 		width: width - width / 3,
+		padding: 5
+	},
+	imageBox: {
+		paddingTop: 5,
+		paddingBottom: 5,
+
 		backgroundColor: "#127ba4"
 	},
 	container: {
-		backgroundColor: "#127ba4"
+		backgroundColor: "white"
 	},
 	sidebarContent: {
 		paddingTop: 2,
-		backgroundColor: "white",
-		height: height - height / 3
+		backgroundColor: "#127ba4"
 	}
 });
 class SideBar extends Component {
