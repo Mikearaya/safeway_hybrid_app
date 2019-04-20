@@ -16,7 +16,8 @@ import {
 	Animated,
 	Dimensions,
 	Keyboard,
-	UIManager
+	UIManager,
+	ActivityIndicator
 } from "react-native";
 import localeStore from "../locale/localization";
 import { Form, Textarea, Button, Icon, ListItem, Body } from "native-base";
@@ -54,7 +55,8 @@ export default class ForumDetailScreen extends Component {
 			shift: new Animated.Value(0),
 			title: "",
 			refresh: false,
-			forumId: ""
+			forumId: "",
+			isLoading: false
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -150,6 +152,11 @@ export default class ForumDetailScreen extends Component {
 						</View>
 					</Form>
 				</View>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</Animated.View>
 		);
 	}
@@ -158,13 +165,15 @@ export default class ForumDetailScreen extends Component {
 		const { state } = this.props.navigation;
 
 		let url = `${Enviroment.API_URL}/forum_comments/${state.params.id}`;
+		this.setState({ isLoading: true });
 
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
 					comments_list: data,
-					forumId: state.params.id
+					forumId: state.params.id,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

@@ -68,7 +68,7 @@ class SideBar extends Component {
 							<CardItem
 								style={styles.menuItem}
 								button
-								onPress={this.navigateToScreen("News")}>
+								onPress={this.navigateToScreen("Home")}>
 								<FontAwesome style={styles.menuIcons}>
 									{Icons.newspaper}
 								</FontAwesome>

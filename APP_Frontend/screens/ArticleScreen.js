@@ -7,7 +7,14 @@
  * @Description: Modify Here, Please
  */
 import React, { Component } from "react";
-import { Text, Image, StyleSheet, View, Dimensions } from "react-native";
+import {
+	Text,
+	Image,
+	StyleSheet,
+	View,
+	Dimensions,
+	ActivityIndicator
+} from "react-native";
 import { Container, Content } from "native-base";
 
 import AudioPlayer from "../components/AudioPlayer";
@@ -41,7 +48,8 @@ export default class ArticleScreen extends Component {
 		super(params);
 		this.state = {
 			article: {
-				article: { content: "" }
+				article: { content: "" },
+				isLoading: true
 			}
 		};
 	}
@@ -59,6 +67,11 @@ export default class ArticleScreen extends Component {
 					{this._renderVideo(this.state.article.videos)}
 				</Content>
 				<Text> {this.state.article.article.content} </Text>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</Container>
 		);
 	}
@@ -91,12 +104,13 @@ export default class ArticleScreen extends Component {
 		const { state } = this.props.navigation;
 
 		let url = `${Enviroment.API_URL}/articles/${state.params.articleId}`;
-
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					article: data
+					article: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

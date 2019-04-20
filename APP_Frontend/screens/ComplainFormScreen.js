@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 const Enviroment = require("../global.js");
 import localeStore from "../locale/localization";
 import {
@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import Toast from "react-native-root-toast";
 import { Dropdown } from "react-native-material-dropdown";
+import NavigationButton from "../components/NavigationButton";
 
 const styles = StyleSheet.create({
 	container: {
@@ -75,6 +76,12 @@ let toast = Toast.show("", {
 export default class ComplainFormScreen extends Component {
 	static navigationOptions = ({ navigation }) => {
 		return {
+			headerLeft: (
+				<NavigationButton
+					sideBar={navigation}
+					style={styles.navigationButton}
+				/>
+			),
 			title: localeStore.ComplainForm.title
 		};
 	};
@@ -87,7 +94,8 @@ export default class ComplainFormScreen extends Component {
 			barcode: "",
 			selectedComplainType: "",
 			submited: false,
-			complain_types: []
+			complain_types: [],
+			isLoading: true
 		};
 	}
 
@@ -138,6 +146,11 @@ export default class ComplainFormScreen extends Component {
 							<Text>Submit</Text>
 						</Button>
 					</Form>
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -145,19 +158,20 @@ export default class ComplainFormScreen extends Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/complain_types`;
-
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ complain_types: data });
+				this.setState({ complain_types: data, isLoading: false });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}
 
 	formSubmited() {
 		const url = `${Enviroment.API_URL}/complains`;
-
+		this.setState({ isLoading: true });
 		if (!this.state.submited) {
+			this.setState({ isLoading: true });
 			fetch(url, {
 				headers: {
 					Accept: "application/json",
@@ -175,13 +189,15 @@ export default class ComplainFormScreen extends Component {
 			})
 				.then(response => response.json())
 				.then(responseJson => {
+					this.setState({ isLoading: false });
 					Toast.show("Complain added successfully", toast);
 					this.setState({
 						passport: "",
 						selectedComplainType: "",
 						complain: "",
 						barcode: "",
-						COMPLAIN_TYPE: ""
+						COMPLAIN_TYPE: "",
+						isLoading: false
 					});
 				})
 				.catch(function(error) {

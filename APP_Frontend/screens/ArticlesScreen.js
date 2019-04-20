@@ -14,7 +14,7 @@ import { FlatList } from "react-native";
 import ArticleList from "../components/ArticleListComponent";
 var Enviroment = require("../global.js");
 import { connect } from "react-redux";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { changeFilterCountry } from "../redux/app-redux";
@@ -40,7 +40,8 @@ class ArticlesScreen extends React.Component {
 		this.state = {
 			catagories: [],
 			country: this.props.currentCountry,
-			filteredDatas: []
+			filteredDatas: [],
+			isLoading: false
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -65,6 +66,11 @@ class ArticlesScreen extends React.Component {
 						)}
 						keyExtractor={(item, index) => index.toString()}
 					/>
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -72,12 +78,14 @@ class ArticlesScreen extends React.Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/article_catagory`;
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
 					catagories: data,
-					filteredDatas: data
+					filteredDatas: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

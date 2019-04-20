@@ -8,7 +8,7 @@
  */
 import React, { Component } from "react";
 import { Text, View, CardItem, Icon, Right } from "native-base";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import localeStore from "../locale/localization";
 var Enviroment = require("../global.js");
 
@@ -71,6 +71,11 @@ export default class ArticleIndexScreen extends Component {
 						</CardItem>
 					)}
 				/>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</View>
 		);
 	}
@@ -82,11 +87,14 @@ export default class ArticleIndexScreen extends Component {
 			state.params.CATAGORY_ID
 		}`;
 
+		this.setState({ isLoading: true });
+
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					tableOfContent: data
+					tableOfContent: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

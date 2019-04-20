@@ -13,9 +13,10 @@ import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import ListViewComponent from "../components/ListViewComponent";
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
+
 import { connect } from "react-redux";
 import { changeFilterCountry } from "../redux/app-redux";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 
 const styles = StyleSheet.create({
 	container: {
@@ -63,7 +64,8 @@ class AgenciesListScreen extends Component {
 		this.state = {
 			agencies: [],
 			filteredAgencies: [],
-			searchText: ""
+			searchText: "",
+			isLoading: true
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -108,6 +110,12 @@ class AgenciesListScreen extends Component {
 						)}
 						keyExtractor={(item, index) => index.toString()}
 					/>
+
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -116,10 +124,11 @@ class AgenciesListScreen extends Component {
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/agencies`;
 
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
-				this.setState({ agencies: data });
+				this.setState({ agencies: data, isLoading: false });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}

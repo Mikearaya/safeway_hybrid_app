@@ -15,7 +15,7 @@ import ListViewComponent from "../components/ListViewComponent";
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { changeFilterCountry } from "../redux/app-redux";
 import { connect } from "react-redux";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 import RegionFilterDropdown from "../components/RegionFilterDropdown";
 
 var Enviroment = require("../global.js");
@@ -50,7 +50,8 @@ class SchoolsListScreen extends Component {
 		super(props);
 		this.state = {
 			schools: [],
-			searchText: ""
+			searchText: "",
+			isLoading: true
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -95,6 +96,11 @@ class SchoolsListScreen extends Component {
 						)}
 						keyExtractor={(item, index) => index.toString()}
 					/>
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -102,11 +108,14 @@ class SchoolsListScreen extends Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/schools`;
+		this.setState({ isLoading: true });
+
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					schools: data
+					schools: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

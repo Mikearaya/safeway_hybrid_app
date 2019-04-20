@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList, Text } from "react-native";
+import { StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import { Container } from "native-base";
 import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
@@ -39,12 +39,19 @@ export default class HomeScreen extends React.Component {
 					data={this.state.posts}
 					renderItem={({ item }) => item}
 				/>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</Container>
 		);
 	}
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/news`;
+
+		this.setState({ isLoading: true });
 
 		fetch(url)
 			.then(result => result.json())
@@ -58,7 +65,7 @@ export default class HomeScreen extends React.Component {
 						/>
 					);
 				});
-				this.setState({ posts: posts });
+				this.setState({ posts: posts, isLoading: false });
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
 	}

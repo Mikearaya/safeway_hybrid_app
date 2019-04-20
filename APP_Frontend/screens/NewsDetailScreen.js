@@ -8,7 +8,14 @@
  */
 var Enviroment = require("../global.js");
 import React, { Component } from "react";
-import { Text, View, Image, StyleSheet, Dimensions } from "react-native";
+import {
+	Text,
+	View,
+	Image,
+	StyleSheet,
+	Dimensions,
+	ActivityIndicator
+} from "react-native";
 import { Container } from "native-base";
 
 const imageLocation = "./../assets/images/image-not-found.jpg";
@@ -34,7 +41,8 @@ export default class NewsDetail extends Component {
 			newsDetail: {},
 			header: "",
 			image: "",
-			content: ""
+			content: "",
+			isLoading: true
 		};
 	}
 	static navigationOptions = ({ navigation }) => {};
@@ -54,6 +62,11 @@ export default class NewsDetail extends Component {
 				<View style={styles.paragraphContainer}>
 					<Text> {this.state.content} </Text>
 				</View>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</Container>
 		);
 	}
@@ -62,12 +75,15 @@ export default class NewsDetail extends Component {
 		const { state } = this.props.navigation;
 		let url = `${Enviroment.API_URL}/news/${state.params.id}`;
 
+		this.setState({ isLoading: true });
+
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
 					content: data.article.content,
-					image: data.image
+					image: data.image,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

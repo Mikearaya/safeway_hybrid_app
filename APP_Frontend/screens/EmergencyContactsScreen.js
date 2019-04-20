@@ -6,7 +6,7 @@ import ListViewComponent from "../components/ListViewComponent";
 import NavigationButton from "../components/NavigationButton";
 import CountryFilterDropdown from "../components/CountryFilterDropdown";
 import { connect } from "react-redux";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ActivityIndicator } from "react-native";
 
 const styles = StyleSheet.create({
 	navigationButton: {
@@ -47,7 +47,8 @@ class EmergencyContactsScreen extends Component {
 		this.state = {
 			emergencyContacts: [],
 			filteredDatas: [],
-			searchText: ""
+			searchText: "",
+			isLoading: true
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -64,7 +65,7 @@ class EmergencyContactsScreen extends Component {
 
 	render() {
 		return (
-			<Container>
+			<Container style={{ justifyContent: "center" }}>
 				<Content>
 					<View style={styles.searchSection}>
 						<View style={styles.searchBox}>
@@ -83,6 +84,7 @@ class EmergencyContactsScreen extends Component {
 							/>
 						</View>
 					</View>
+
 					<FlatList
 						data={this.getData()}
 						renderItem={({ item }) => (
@@ -97,6 +99,11 @@ class EmergencyContactsScreen extends Component {
 						)}
 						keyExtractor={(item, index) => index.toString()}
 					/>
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -104,12 +111,13 @@ class EmergencyContactsScreen extends Component {
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/emergency_contacts`;
-
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					emergencyContacts: data
+					emergencyContacts: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

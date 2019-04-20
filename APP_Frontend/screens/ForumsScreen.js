@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import { Container } from "native-base";
 import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
 import ForumCard from "../components/ForumCard";
+
 var Enviroment = require("../global.js");
 
 const styles = StyleSheet.create({
@@ -26,7 +27,8 @@ export default class ForumsScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			forums: []
+			forums: [],
+			isLoading: true
 		};
 	}
 	static navigationOptions = ({ navigation }) => {
@@ -46,18 +48,24 @@ export default class ForumsScreen extends Component {
 					)}
 					keyExtractor={(item, index) => index.toString()}
 				/>
+				<ActivityIndicator
+					animating={this.state.isLoading}
+					size="large"
+					color="#0000ff"
+				/>
 			</Container>
 		);
 	}
 
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/forums`;
-
+		this.setState({ isLoading: true });
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					forums: data
+					forums: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));

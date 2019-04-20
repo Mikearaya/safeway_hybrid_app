@@ -7,7 +7,7 @@
  * @Description: Modify Here, Please
  */
 import React, { Component } from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import { Container, Content, Textarea, View, Input, Icon } from "native-base";
 import localeStore from "../locale/localization";
 import NavigationButton from "../components/NavigationButton";
@@ -53,7 +53,8 @@ class HospitalsListScreen extends Component {
 			region: this.props.region,
 			filteredHospitals: [],
 			searchText: "",
-			getData: ""
+			getData: "",
+			isLoading: true
 		};
 		this.props.hospitalsData;
 	}
@@ -99,6 +100,11 @@ class HospitalsListScreen extends Component {
 						)}
 						keyExtractor={(item, index) => index.toString()}
 					/>
+					<ActivityIndicator
+						animating={this.state.isLoading}
+						size="large"
+						color="#0000ff"
+					/>
 				</Content>
 			</Container>
 		);
@@ -122,11 +128,14 @@ class HospitalsListScreen extends Component {
 	componentDidMount() {
 		let url = `${Enviroment.API_URL}/hospitals`;
 
+		this.setState({ isLoading: true });
+
 		fetch(url)
 			.then(result => result.json())
 			.then(data => {
 				this.setState({
-					hospitals: data
+					hospitals: data,
+					isLoading: false
 				});
 			})
 			.catch(error => alert(JSON.stringify(error.message)));
