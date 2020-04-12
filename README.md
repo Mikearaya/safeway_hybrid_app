@@ -1,7 +1,7 @@
 # ILO Hybrid Mobile Application
 
 ![screenshot](./screenshot-1.jpg)
-![screenshot](./screenshot-1.jpg)
+![screenshot](./screenshot-2.jpg)
 
 ## Built With
 
