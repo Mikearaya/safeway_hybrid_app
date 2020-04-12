@@ -18,12 +18,10 @@ To get a local copy up and running follow these simple example steps.
   
 ### Install
 
-for development make sure you run the following command before you start working on the project
-`npm install`
-this will install all the packages used for development purpose, mainly `stylint`, `preetier`, `html-validator`, `husky`, &`lint-staged` that will be used for development purpose.
+Inside `APP_Frontend` folder run `npm install` from the terminaal to install all the project dependencies
 
 ### Usage
- enter the directory where you cloned or downloaded the project and open index.html file using your favorite browser
+ enter `APP_fronted` folder after installing all the dependencies and run `npm start` to serve the application on `http://localhost:3000`
  
 ## Authors
 
