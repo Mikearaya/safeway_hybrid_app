@@ -1,5 +1,12 @@
 # ILO Hybrid Mobile Application
 
+Informative mobile application that could run on both Android and IOS. the app consumes it data from the API end point.the app provided functionalities
+- Display Hospital addreses based on the current country
+- Display Agencies addreses based on the current country
+- Display Police addreses/phonenumber based on the current country
+- Public forum
+- Helpful articles
+
 ![screenshot](./screenshot-1.jpg)
 ![screenshot](./screenshot-2.jpg)
 
