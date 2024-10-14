@@ -50,7 +50,7 @@
     "@syncfusion/ej2-buttons": "^16.4.55",
     "@syncfusion/ej2-layouts": "^16.4.55",
     "@syncfusion/ej2-ng-dropdowns": "^16.2.50",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.0.0",
     "core-js": "^2.5.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.0",
